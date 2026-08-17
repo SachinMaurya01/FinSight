@@ -1,0 +1,1604 @@
+{
+  "source_file": "aapl-10K2.html",
+  "chunks": [
+    {
+      "content": "Item 1A. Risk Factors\n\nThe Company’s business, reputation, results of operations, financial condition and stock price can be affected by a number of factors, whether currently known or unknown, including those described below. When any one or more of these risks materialize from time to time, the Company’s business, reputation, results of operations, financial condition and stock price can be materially and adversely affected.\n\nBecause of the following factors, as well as other factors affecting the Company’s results of operations and financial condition, past financial performance should not be considered to be a reliable indicator of future performance, and investors should not use historical trends to anticipate results or trends in future periods. This discussion of risk factors contains forward-looking statements.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 0,
+        "char_offset": 0
+      }
+    },
+    {
+      "content": "This section should be read in conjunction with Part II, Item 7, “Management’s Discussion and Analysis of Financial Condition and Results of Operations” and the consolidated financial statements and accompanying notes in Part II, Item 8, “Financial Statements and Supplementary Data” of this Form 10-K.\n\nMacroeconomic and Industry Risks\n\nThe Company’s operations and performance depend significantly on global and regional economic conditions and adverse economic conditions can materially adversely affect the Company’s business, results of operations and financial condition.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 1,
+        "char_offset": 680
+      }
+    },
+    {
+      "content": "The Company has international operations with sales outside the U.S. representing a majority of the Company’s total net sales. In addition, the Company’s global supply chain is large and complex and a majority of the Company’s supplier facilities, including manufacturing and assembly sites, are located outside the U.S. As a result, the Company’s operations and performance depend significantly on global and regional economic conditions.\n\nAdverse macroeconomic conditions, including slow growth or recession, high unemployment, inflation, tighter credit, higher interest rates, and currency fluctuations, can adversely impact consumer confidence and spending and materially adversely affect demand for the Company’s products and services. In addition, consumer confidence and spending can be materially adversely affected in response to changes in fiscal and monetary policy, financial market volatility, declines in income or asset values, and other economic factors.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 2,
+        "char_offset": 1107
+      }
+    },
+    {
+      "content": "In addition to an adverse impact on demand for the Company’s products and services, uncertainty about, or a decline in, global or regional economic conditions can have a significant impact on the Company’s suppliers, contract manufacturers, logistics providers, distributors, cellular network carriers and other channel partners, and developers. Potential outcomes include financial instability; inability to obtain credit to finance business operations; and insolvency.\n\nAdverse economic conditions can also lead to increased credit and collectibility risk on the Company’s trade receivables; the failure of derivative counterparties and other financial institutions; limitations on the Company’s ability to issue new debt; reduced liquidity; and declines in the fair values of the Company’s financial instruments. These and other impacts can materially adversely affect the Company’s business, results of operations, financial condition and stock price.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 3,
+        "char_offset": 1927
+      }
+    },
+    {
+      "content": "The Company’s business can be impacted by political events, trade and other international disputes, war, terrorism, natural disasters, public health issues, industrial accidents and other business interruptions.\n\nPolitical events, trade and other international disputes, war, terrorism, natural disasters, public health issues, industrial accidents and other business interruptions can harm or disrupt international commerce and the global economy, and could have a material adverse effect on the Company and its customers, suppliers, contract manufacturers, logistics providers, distributors, cellular network carriers and other channel partners.\n\nApple Inc. | 2023 Form 10-K | 5",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 4,
+        "char_offset": 2732
+      }
+    },
+    {
+      "content": "The Company has a large, global business with sales outside the U.S. representing a majority of the Company’s total net sales, and the Company believes that it generally benefits from growth in international trade. Substantially all of the Company’s manufacturing is performed in whole or in part by outsourcing partners located primarily in China mainland, India, Japan, South Korea, Taiwan and Vietnam. Restrictions on international trade, such as tariffs and other controls on imports or exports of goods, technology or data, can materially adversely affect the Company’s operations and supply chain and limit the Company’s ability to offer and distribute its products and services to customers. The impact can be particularly significant if these restrictive measures apply to countries and regions where the Company derives a significant portion of its revenues and/or has significant supply chain operations",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 5,
+        "char_offset": 3262
+      }
+    },
+    {
+      "content": ". Restrictive measures can require the Company to take various actions, including changing suppliers, restructuring business relationships, and ceasing to offer third-party applications on its platforms. Changing the Company’s operations in accordance with new or changed restrictions on international trade can be expensive, time-consuming and disruptive to the Company’s operations. Such restrictions can be announced with little or no advance notice and the Company may not be able to effectively mitigate all adverse impacts from such measures. For example, tensions between governments, including the U.S. and China, have in the past led to tariffs and other restrictions being imposed on the Company’s business. If disputes and conflicts further escalate in the future, actions by governments in response could be significantly more severe and restrictive and could materially adversely affect the Company’s business",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 6,
+        "char_offset": 4025
+      }
+    },
+    {
+      "content": ". Political uncertainty surrounding trade and other international disputes could also have a negative effect on consumer confidence and spending, which could adversely affect the Company’s business.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 7,
+        "char_offset": 4797
+      }
+    },
+    {
+      "content": "Many of the Company’s operations and facilities, as well as critical business operations of the Company’s suppliers and contract manufacturers, are in locations that are prone to earthquakes and other natural disasters. In addition, such operations and facilities are subject to the risk of interruption by fire, power shortages, nuclear power plant accidents and other industrial accidents, terrorist attacks and other hostile acts, ransomware and other cybersecurity attacks, labor disputes, public health issues, including pandemics such as the COVID-19 pandemic, and other events beyond the Company’s control. Global climate change is resulting in certain types of natural disasters, such as droughts, floods, hurricanes and wildfires, occurring more frequently or with more intense effects",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 8,
+        "char_offset": 4845
+      }
+    },
+    {
+      "content": ". Such events can make it difficult or impossible for the Company to manufacture and deliver products to its customers, create delays and inefficiencies in the Company’s supply and manufacturing chain, and result in slowdowns and outages to the Company’s service offerings, and negatively impact consumer spending and demand in affected areas. Following an interruption to its business, the Company can require substantial recovery time, experience significant expenditures to resume operations, and lose significant sales. Because the Company relies on single or limited sources for the supply and manufacture of many critical components, a business interruption affecting such sources would exacerbate any negative consequences to the Company.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 9,
+        "char_offset": 5489
+      }
+    },
+    {
+      "content": "The Company’s operations are also subject to the risks of industrial accidents at its suppliers and contract manufacturers. While the Company’s suppliers are required to maintain safe working environments and operations, an industrial accident could occur and could result in serious injuries or loss of life, disruption to the Company’s business, and harm to the Company’s reputation",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 10,
+        "char_offset": 6084
+      }
+    },
+    {
+      "content": ". Major public health issues, including pandemics such as the COVID-19 pandemic, have adversely affected, and could in the future materially adversely affect, the Company due to their impact on the global economy and demand for consumer products; the imposition of protective public safety measures, such as stringent employee travel restrictions and limitations on freight services and the movement of products between regions; and disruptions in the Company’s operations, supply chain and sales and distribution channels, resulting in interruptions to the supply of current products and offering of existing services, and delays in production ramps of new products and development of new services.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 11,
+        "char_offset": 6318
+      }
+    },
+    {
+      "content": "While the Company maintains insurance coverage for certain types of losses, such insurance coverage may be insufficient to cover all losses that may arise.\n\nGlobal markets for the Company’s products and services are highly competitive and subject to rapid technological change, and the Company may be unable to compete effectively in these markets.\n\nThe Company’s products and services are offered in highly competitive global markets characterized by aggressive price competition and resulting downward pressure on gross margins, frequent introduction of new products and services, short product life cycles, evolving industry standards, continual improvement in product price and performance characteristics, rapid adoption of technological advancements by competitors, and price sensitivity on the part of consumers and businesses.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 12,
+        "char_offset": 6867
+      }
+    },
+    {
+      "content": "The Company’s ability to compete successfully depends heavily on ensuring the continuing and timely introduction of innovative new products, services and technologies to the marketplace. The Company designs and develops nearly the entire solution for its products, including the hardware, operating system, numerous software applications and related services. As a result, the Company must make significant investments in R&D. There can be no assurance these investments will achieve expected returns, and the Company may not be able to develop and market new products and services successfully.\n\nApple Inc. | 2023 Form 10-K | 6",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 13,
+        "char_offset": 7551
+      }
+    },
+    {
+      "content": "Apple Inc. | 2023 Form 10-K | 6\n\nThe Company currently holds a significant number of patents, trademarks and copyrights and has registered, and applied to register, additional patents, trademarks and copyrights. In contrast, many of the Company’s competitors seek to compete primarily through aggressive pricing and very low cost structures, and by imitating the Company’s products and infringing on its intellectual property. Effective intellectual property protection is not consistently available in every country in which the Company operates. If the Company is unable to continue to develop and sell innovative new products with attractive margins or if competitors infringe on the Company’s intellectual property, the Company’s ability to maintain a competitive advantage could be materially adversely affected.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 14,
+        "char_offset": 8029
+      }
+    },
+    {
+      "content": "The Company has a minority market share in the global smartphone, personal computer and tablet markets. The Company faces substantial competition in these markets from companies that have significant technical, marketing, distribution and other resources, as well as established hardware, software and digital content supplier relationships. In addition, some of the Company’s competitors have broader product lines, lower-priced products and a larger installed base of active devices. Competition has been particularly intense as competitors have aggressively cut prices and lowered product margins. Certain competitors have the resources, experience or cost structures to provide products at little or no profit or even at a loss. Some of the markets in which the Company competes have from time to time experienced little to no growth or contracted overall.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 15,
+        "char_offset": 8696
+      }
+    },
+    {
+      "content": "Additionally, the Company faces significant competition as competitors imitate the Company’s product features and applications within their products or collaborate to offer solutions that are more competitive than those they currently offer. The Company also expects competition to intensify as competitors imitate the Company’s approach to providing components seamlessly within their offerings or work collaboratively to offer integrated solutions.\n\nThe Company’s services also face substantial competition, including from companies that have significant resources and experience and have established service offerings with large customer bases. The Company competes with business models that provide content to users for free. The Company also competes with illegitimate means to obtain third-party digital content and applications.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 16,
+        "char_offset": 9406
+      }
+    },
+    {
+      "content": "The Company’s business, results of operations and financial condition depend substantially on the Company’s ability to continually improve its products and services to maintain their functional and design advantages. There can be no assurance the Company will be able to continue to provide products and services that compete effectively.\n\nBusiness Risks\n\nTo remain competitive and stimulate customer demand, the Company must successfully manage frequent introductions and transitions of products and services.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 17,
+        "char_offset": 10091
+      }
+    },
+    {
+      "content": "Due to the highly volatile and competitive nature of the markets and industries in which the Company competes, the Company must continually introduce new products, services and technologies, enhance existing products and services, effectively stimulate customer demand for new and upgraded products and services, and successfully manage the transition to these new and upgraded products and services",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 18,
+        "char_offset": 10451
+      }
+    },
+    {
+      "content": ". The success of new product and service introductions depends on a number of factors, including timely and successful development, market acceptance, the Company’s ability to manage the risks associated with new technologies and production ramp-up issues, the availability of application software for the Company’s products, the effective management of purchase commitments and inventory levels in line with anticipated product demand, the availability of products in appropriate quantities and at expected costs to meet anticipated demand, and the risk that new products and services may have quality or other defects or deficiencies. There can be no assurance the Company will successfully manage future introductions and transitions of products and services.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 19,
+        "char_offset": 10700
+      }
+    },
+    {
+      "content": "The Company depends on component and product manufacturing and logistical services provided by outsourcing partners, many of which are located outside of the U.S.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 20,
+        "char_offset": 11312
+      }
+    },
+    {
+      "content": "Substantially all of the Company’s manufacturing is performed in whole or in part by outsourcing partners located primarily in China mainland, India, Japan, South Korea, Taiwan and Vietnam, and a significant concentration of this manufacturing is currently performed by a small number of outsourcing partners, often in single locations. Changes or additions to the Company’s supply chain require considerable time and resources and involve significant risks and uncertainties. The Company has also outsourced much of its transportation and logistics management. While these arrangements can lower operating costs, they also reduce the Company’s direct control over production and distribution. Such diminished control has from time to time and may in the future have an adverse effect on the quality or quantity of products manufactured or services provided, or adversely affect the Company’s flexibility to respond to changing conditions",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 21,
+        "char_offset": 11324
+      }
+    },
+    {
+      "content": ". Although arrangements with these partners may contain provisions for product defect expense reimbursement, the Company generally remains responsible to the consumer for warranty and out-of-warranty service in the event of product defects and experiences unanticipated product defect liabilities from time to time. While the Company relies on its partners to adhere to its supplier code of conduct, violations of the supplier code of conduct occur from time to time and can materially adversely affect the Company’s business, reputation, results of operations and financial condition.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 22,
+        "char_offset": 12112
+      }
+    },
+    {
+      "content": "Apple Inc. | 2023 Form 10-K | 7\n\nThe Company relies on single-source outsourcing partners in the U.S., Asia and Europe to supply and manufacture many components, and on outsourcing partners primarily located in Asia, for final assembly of substantially all of the Company’s hardware products. Any failure of these partners to perform can have a negative impact on the Company’s cost or supply of components or finished goods. In addition, manufacturing or logistics in these locations or transit to final destinations can be disrupted for a variety of reasons, including natural and man-made disasters, information technology system failures, commercial disputes, armed conflict, economic, business, labor, environmental, public health or political issues, or international trade disputes.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 23,
+        "char_offset": 12547
+      }
+    },
+    {
+      "content": "The Company has invested in manufacturing process equipment, much of which is held at certain of its outsourcing partners, and has made prepayments to certain of its suppliers associated with long-term supply agreements. While these arrangements help ensure the supply of components and finished goods, if these outsourcing partners or suppliers experience severe financial problems or other disruptions in their business, such continued supply can be reduced or terminated, and the recoverability of manufacturing process equipment or prepayments can be negatively impacted.\n\nFuture operating results depend upon the Company’s ability to obtain components in sufficient quantities on commercially reasonable terms.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 24,
+        "char_offset": 13186
+      }
+    },
+    {
+      "content": "Because the Company currently obtains certain components from single or limited sources, the Company is subject to significant supply and pricing risks. Many components, including those that are available from multiple sources, are at times subject to industry-wide shortages and significant commodity pricing fluctuations that can materially adversely affect the Company’s business, results of operations and financial condition. For example, the global semiconductor industry has in the past experienced high demand and shortages of supply, which adversely affected the Company’s ability to obtain sufficient quantities of components and products on commercially reasonable terms or at all. Such disruptions could occur in the future. While the Company has entered into agreements for the supply of many components, there can be no assurance the Company will be able to extend or renew these agreements on similar terms, or at all",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 25,
+        "char_offset": 13751
+      }
+    },
+    {
+      "content": ". Component suppliers may suffer from poor financial conditions, which can lead to business failure for the supplier or consolidation within a particular industry, further limiting the Company’s ability to obtain sufficient quantities of components on commercially reasonable terms or at all. The effects of global or regional economic conditions on the Company’s suppliers, described in “ The Company’s operations and performance depend significantly on global and regional economic conditions and adverse economic conditions can materially adversely affect the Company’s business, results of operations and financial condition, ” above, can also affect the Company’s ability to obtain components . Therefore, the Company remains subject to significant risks of supply shortages and price increases that can materially adversely affect its business, results of operations and financial condition.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 26,
+        "char_offset": 14533
+      }
+    },
+    {
+      "content": "The Company’s new products often utilize custom components available from only one source. When a component or product uses new technologies, initial capacity constraints may exist until the suppliers’ yields have matured or their manufacturing capacities have increased. The continued availability of these components at acceptable prices, or at all, can be affected for any number of reasons, including if suppliers decide to concentrate on the production of common components instead of components customized to meet the Company’s requirements. When the Company’s supply of components for a new or existing product has been delayed or constrained, or when an outsourcing partner has delayed shipments of completed products to the Company, the Company’s business, results of operations and financial condition have been adversely affected and future delays or constraints could materially adversely affect the Company’s business, results of operations and financial condition",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 27,
+        "char_offset": 15280
+      }
+    },
+    {
+      "content": ". The Company’s business and financial performance could also be materially adversely affected depending on the time required to obtain sufficient quantities from the source, or to identify and obtain sufficient quantities from an alternative source.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 28,
+        "char_offset": 16107
+      }
+    },
+    {
+      "content": "The Company’s products and services may be affected from time to time by design and manufacturing defects that could materially adversely affect the Company’s business and result in harm to the Company’s reputation.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 29,
+        "char_offset": 16207
+      }
+    },
+    {
+      "content": "The Company offers complex hardware and software products and services that can be affected by design and manufacturing defects. Sophisticated operating system software and applications, such as those offered by the Company, often have issues that can unexpectedly interfere with the intended operation of hardware or software products and services. Defects can also exist in components and products the Company purchases from third parties. Component defects could make the Company’s products unsafe and create a risk of environmental or property damage and personal injury. These risks may increase as the Company’s products are introduced into specialized applications, including health. In addition, the Company’s service offerings can have quality issues and from time to time experience outages, service slowdowns or errors. As a result, from time to time the Company’s services have not performed as anticipated and may not meet customer expectations",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 30,
+        "char_offset": 16272
+      }
+    },
+    {
+      "content": ". As a result, from time to time the Company’s services have not performed as anticipated and may not meet customer expectations. There can be no assurance the Company will be able to detect and fix all issues and defects in the hardware, software and services it offers. Failure to do so can result in widespread technical and performance issues affecting the Company’s products and services. In addition, the Company can be exposed to product liability claims, recalls, product replacements or modifications, write-offs of inventory, property, plant and equipment or intangible assets, and significant warranty and other expenses, including litigation costs and regulatory fines. Quality problems can also adversely affect the experience for users of the Company’s products and services, and result in harm to the Company’s reputation, loss of competitive advantage, poor market acceptance, reduced demand for products and services, delay in new product and service introductions and lost sales.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 31,
+        "char_offset": 17079
+      }
+    },
+    {
+      "content": "Apple Inc. | 2023 Form 10-K | 8\n\nThe Company is exposed to the risk of write-downs on the value of its inventory and other assets, in addition to purchase commitment cancellation risk.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 32,
+        "char_offset": 17926
+      }
+    },
+    {
+      "content": "The Company records a write-down for product and component inventories that have become obsolete or exceed anticipated demand, or for which cost exceeds net realizable value. The Company also accrues necessary cancellation fee reserves for orders of excess products and components. The Company reviews long-lived assets, including capital assets held at its suppliers’ facilities and inventory prepayments, for impairment whenever events or circumstances indicate the assets may not be recoverable. If the Company determines that an impairment has occurred, it records a write-down equal to the amount by which the carrying value of the asset exceeds its fair value",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 33,
+        "char_offset": 17960
+      }
+    },
+    {
+      "content": ". Although the Company believes its inventory, capital assets, inventory prepayments and other assets and purchase commitments are currently recoverable, there can be no assurance the Company will not incur write-downs, fees, impairments and other charges given the rapid and unpredictable pace of product obsolescence in the industries in which the Company competes.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 34,
+        "char_offset": 18475
+      }
+    },
+    {
+      "content": "The Company orders components for its products and builds inventory in advance of product announcements and shipments. Manufacturing purchase obligations cover the Company’s forecasted component and manufacturing requirements, typically for periods up to 150 days. Because the Company’s markets are volatile, competitive and subject to rapid technology and price changes, there is a risk the Company will forecast incorrectly and order or produce excess or insufficient amounts of components or products, or not fully utilize firm purchase commitments.\n\nThe Company relies on access to third-party intellectual property, which may not be available to the Company on commercially reasonable terms or at all.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 35,
+        "char_offset": 18692
+      }
+    },
+    {
+      "content": "The Company’s products and services are designed to include intellectual property owned by third parties, which requires licenses from those third parties. In addition, because of technological changes in the industries in which the Company currently competes or in the future may compete, current extensive patent coverage and the rapid rate of issuance of new patents, the Company’s products and services can unknowingly infringe existing patents or intellectual property rights of others. From time to time, the Company has been notified that it may be infringing certain patents or other intellectual property rights of third parties. Based on experience and industry practice, the Company believes licenses to such third-party intellectual property can generally be obtained on commercially reasonable terms. However, there can be no assurance the necessary licenses can be obtained on commercially reasonable terms or at all",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 36,
+        "char_offset": 19248
+      }
+    },
+    {
+      "content": ". However, there can be no assurance the necessary licenses can be obtained on commercially reasonable terms or at all. Failure to obtain the right to use third-party intellectual property, or to use such intellectual property on commercially reasonable terms, can preclude the Company from selling certain products or services, or otherwise have a material adverse impact on the Company’s business, results of operations and financial condition.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 37,
+        "char_offset": 20028
+      }
+    },
+    {
+      "content": "The Company’s future performance depends in part on support from third-party software developers.\n\nThe Company believes decisions by customers to purchase its hardware products depend in part on the availability of third-party software applications and services. There can be no assurance third-party developers will continue to develop and maintain software applications and services for the Company’s products. If third-party software applications and services cease to be developed and maintained for the Company’s products, customers may choose not to buy the Company’s products.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 38,
+        "char_offset": 20324
+      }
+    },
+    {
+      "content": "The Company believes the availability of third-party software applications and services for its products depends in part on the developers’ perception and analysis of the relative benefits of developing, maintaining and upgrading such software and services for the Company’s products compared to competitors’ platforms, such as Android for smartphones and tablets, Windows for personal computers and tablets, and PlayStation, Nintendo and Xbox for gaming platforms. This analysis may be based on factors such as the market position of the Company and its products, the anticipated revenue that may be generated, expected future growth of product sales, and the costs of developing such applications and services.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 39,
+        "char_offset": 20757
+      }
+    },
+    {
+      "content": "The Company’s minority market share in the global smartphone, personal computer and tablet markets can make developers less inclined to develop or upgrade software for the Company’s products and more inclined to devote their resources to developing and upgrading software for competitors’ products with larger market share. When developers focus their efforts on these competing platforms, the availability and quality of applications for the Company’s devices can suffer.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 40,
+        "char_offset": 21319
+      }
+    },
+    {
+      "content": "The Company relies on the continued availability and development of compelling and innovative software applications for its products. The Company’s products and operating systems are subject to rapid technological change, and when third-party developers are unable to or choose not to keep up with this pace of change, their applications can fail to take advantage of these changes to deliver improved customer experiences, can operate incorrectly, and can result in dissatisfied customers and lower customer demand for the Company’s products.\n\nApple Inc. | 2023 Form 10-K | 9",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 41,
+        "char_offset": 21641
+      }
+    },
+    {
+      "content": "The Company distributes third-party applications for its products through the App Store. For the vast majority of applications, developers keep all of the revenue they generate on the App Store. The Company retains a commission from sales of applications and sales of digital services or goods initiated within an application. From time to time, the Company has made changes to its App Store, including actions taken in response to competition, market conditions and legal and regulatory requirements. The Company expects to make further business changes in the future, including as a result of legislative initiatives impacting the App Store, such as the European Union (“EU”) Digital Markets Act, which the Company is required to comply with by March 2024. The Company is also subject to litigation and investigations relating to the App Store, which have resulted in changes to the Company’s business practices, and may in the future result in further changes",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 42,
+        "char_offset": 22067
+      }
+    },
+    {
+      "content": ". Changes have included how developers communicate with consumers outside the App Store regarding alternative purchasing mechanisms. Future changes could also affect what the Company charges developers for access to its platforms, how it manages distribution of apps outside of the App Store, and how and to what extent it allows developers to communicate with consumers inside the App Store regarding alternative purchasing mechanisms. This could reduce the volume of sales, and the commission that the Company earns on those sales, would decrease. If the rate of the commission that the Company retains on such sales is reduced, or if it is otherwise narrowed in scope or eliminated, the Company’s business, results of operations and financial condition could be materially adversely affected.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 43,
+        "char_offset": 22879
+      }
+    },
+    {
+      "content": "Failure to obtain or create digital content that appeals to the Company’s customers, or to make such content available on commercially reasonable terms, could have a material adverse impact on the Company’s business, results of operations and financial condition.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 44,
+        "char_offset": 23524
+      }
+    },
+    {
+      "content": "The Company contracts with numerous third parties to offer their digital content to customers. This includes the right to sell, or offer subscriptions to, third-party content, as well as the right to incorporate specific content into the Company’s own services. The licensing or other distribution arrangements for this content can be for relatively short time periods and do not guarantee the continuation or renewal of these arrangements on commercially reasonable terms, or at all. Some third-party content providers and distributors currently or in the future may offer competing products and services, and can take actions to make it difficult or impossible for the Company to license or otherwise distribute their content. Other content owners, providers or distributors may seek to limit the Company’s access to, or increase the cost of, such content. The Company may be unable to continue to offer a wide variety of content at commercially reasonable prices with acceptable usage rules.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 45,
+        "char_offset": 23637
+      }
+    },
+    {
+      "content": "The Company also produces its own digital content, which can be costly to produce due to intense and increasing competition for talent, content and subscribers, and may fail to appeal to the Company’s customers.\n\nSome third-party digital content providers require the Company to provide digital rights management and other security solutions. If requirements change, the Company may have to develop or license new technology to provide these solutions. There can be no assurance the Company will be able to develop or license such solutions at a reasonable cost and in a timely manner.\n\nThe Company’s success depends largely on the talents and efforts of its team members, the continued service and availability of highly skilled employees, including key personnel, and the Company’s ability to nurture its distinctive and inclusive culture.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 46,
+        "char_offset": 24481
+      }
+    },
+    {
+      "content": "Much of the Company’s future success depends on the talents and efforts of its team members and the continued availability and service of key personnel, including its Chief Executive Officer, executive team and other highly skilled employees. Experienced personnel in the technology industry are in high demand and competition for their talents is intense, especially in Silicon Valley, where most of the Company’s key personnel are located. In addition to intense competition for talent, workforce dynamics are constantly evolving. If the Company does not manage changing workforce dynamics effectively, it could materially adversely affect the Company’s culture, reputation and operational flexibility.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 47,
+        "char_offset": 25172
+      }
+    },
+    {
+      "content": "The Company believes that its distinctive and inclusive culture is a significant driver of its success. If the Company is unable to nurture its culture, it could materially adversely affect the Company’s ability to recruit and retain the highly skilled employees who are critical to its success, and could otherwise materially adversely affect the Company’s business, reputation, results of operations and financial condition.\n\nThe Company depends on the performance of carriers, wholesalers, retailers and other resellers.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 48,
+        "char_offset": 25726
+      }
+    },
+    {
+      "content": "The Company depends on the performance of carriers, wholesalers, retailers and other resellers.\n\nThe Company distributes its products and certain of its services through cellular network carriers, wholesalers, retailers and resellers, many of which distribute products and services from competitors. The Company also sells its products and services and resells third-party products in most of its major markets directly to consumers, small and mid-sized businesses, and education, enterprise and government customers through its retail and online stores and its direct sales force.\n\nSome carriers providing cellular network service for the Company’s products offer financing, installment payment plans or subsidies for users’ purchases of the device. There can be no assurance such offers will be continued at all or in the same amounts.\n\nApple Inc. | 2023 Form 10-K | 10",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 49,
+        "char_offset": 26099
+      }
+    },
+    {
+      "content": "Apple Inc. | 2023 Form 10-K | 10\n\nThe Company has invested and will continue to invest in programs to enhance reseller sales, including staffing selected resellers’ stores with Company employees and contractors, and improving product placement displays. These programs can require a substantial investment while not assuring return or incremental sales. The financial condition of these resellers could weaken, these resellers could stop distributing the Company’s products, or uncertainty regarding demand for some or all of the Company’s products could cause resellers to reduce their ordering and marketing of the Company’s products.\n\nThe Company’s business and reputation are impacted by information technology system failures and network disruptions.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 50,
+        "char_offset": 26820
+      }
+    },
+    {
+      "content": "The Company and its global supply chain are dependent on complex information technology systems and are exposed to information technology system failures or network disruptions caused by natural disasters, accidents, power disruptions, telecommunications failures, acts of terrorism or war, computer viruses, physical or electronic break-ins, ransomware or other cybersecurity incidents, or other events or disruptions. System upgrades, redundancy and other continuity measures may be ineffective or inadequate, and the Company’s or its vendors’ business continuity and disaster recovery planning may not be sufficient for all eventualities. Such failures or disruptions can adversely impact the Company’s business by, among other things, preventing access to the Company’s online services, interfering with customer transactions or impeding the manufacturing and shipping of the Company’s products",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 51,
+        "char_offset": 27425
+      }
+    },
+    {
+      "content": ". These events could materially adversely affect the Company’s business, reputation, results of operations and financial condition.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 52,
+        "char_offset": 28173
+      }
+    },
+    {
+      "content": "Losses or unauthorized access to or releases of confidential information, including personal information, could subject the Company to significant reputational, financial, legal and operational consequences.\n\nThe Company’s business requires it to use and store confidential information, including personal information, with respect to the Company’s customers and employees. The Company devotes significant resources to network and data security, including through the use of encryption and other security measures intended to protect its systems and data. But these measures cannot provide absolute security, and losses or unauthorized access to or releases of confidential information occur and could materially adversely affect the Company’s business, reputation, results of operations and financial condition.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 53,
+        "char_offset": 28173
+      }
+    },
+    {
+      "content": "The Company’s business also requires it to share confidential information with suppliers and other third parties. The Company relies on global suppliers that are also exposed to ransomware and other malicious attacks that can disrupt business operations. Although the Company takes steps to secure confidential information that is provided to or accessible by third parties working on the Company’s behalf, such measures are not always effective and losses or unauthorized access to, or releases of, confidential information occur. Such incidents and other malicious attacks could materially adversely affect the Company’s business, reputation, results of operations and financial condition.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 54,
+        "char_offset": 28835
+      }
+    },
+    {
+      "content": "The Company experiences malicious attacks and other attempts to gain unauthorized access to its systems on a regular basis. These attacks seek to compromise the confidentiality, integrity or availability of confidential information or disrupt normal business operations, and can, among other things, impair the Company’s ability to attract and retain customers for its products and services, impact the Company’s stock price, materially damage commercial relationships, and expose the Company to litigation or government investigations, which could result in penalties, fines or judgments against the Company. Globally, attacks are expected to continue accelerating in both frequency and sophistication with increasing use by actors of tools and techniques that are designed to circumvent controls, avoid detection, and remove or obfuscate forensic evidence, all of which hinders the Company’s ability to identify, investigate and recover from incidents",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 55,
+        "char_offset": 29376
+      }
+    },
+    {
+      "content": ". In addition, attacks against the Company and its customers can escalate during periods of severe diplomatic or armed conflict.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 56,
+        "char_offset": 30179
+      }
+    },
+    {
+      "content": "Although malicious attacks perpetrated to gain access to confidential information, including personal information, affect many companies across various industries, the Company is at a relatively greater risk of being targeted because of its high profile and the value of the confidential information it creates, owns, manages, stores and processes.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 57,
+        "char_offset": 30179
+      }
+    },
+    {
+      "content": "The Company has implemented systems and processes intended to secure its information technology systems and prevent unauthorized access to or loss of sensitive data, and mitigate the impact of unauthorized access, including through the use of encryption and authentication technologies. As with all companies, these security measures may not be sufficient for all eventualities and may be vulnerable to hacking, ransomware attacks, employee error, malfeasance, system error, faulty password management or other irregularities. For example, third parties can fraudulently induce the Company’s or its vendors’ employees or customers into disclosing usernames, passwords or other sensitive information, which can, in turn, be used for unauthorized access to the Company’s or its vendors’ systems and services",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 58,
+        "char_offset": 30377
+      }
+    },
+    {
+      "content": ". To help protect customers and the Company, the Company deploys and makes available technologies like multifactor authentication, monitors its services and systems for unusual activity and may freeze accounts under suspicious circumstances, which, among other things, can result in the delay or loss of customer orders or impede customer access to the Company’s products and services.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 59,
+        "char_offset": 31032
+      }
+    },
+    {
+      "content": "While the Company maintains insurance coverage that is intended to address certain aspects of data security risks, such insurance coverage may be insufficient to cover all losses or all types of claims that may arise.\n\nApple Inc. | 2023 Form 10-K | 11\n\nInvestment in new business strategies and acquisitions could disrupt the Company’s ongoing business, present risks not originally contemplated and materially adversely affect the Company’s business, reputation, results of operations and financial condition.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 60,
+        "char_offset": 31267
+      }
+    },
+    {
+      "content": "The Company has invested, and in the future may invest, in new business strategies or acquisitions. Such endeavors may involve significant risks and uncertainties, including distraction of management from current operations, greater-than-expected liabilities and expenses, economic, political, legal and regulatory challenges associated with operating in new businesses, regions or countries, inadequate return on capital, potential impairment of tangible and intangible assets, and significant write-offs. Investment and acquisition transactions are exposed to additional risks, including failing to obtain required regulatory approvals on a timely basis or at all, or the imposition of onerous conditions that could delay or prevent the Company from completing a transaction or otherwise limit the Company’s ability to fully realize the anticipated benefits of a transaction. These new ventures are inherently risky and may not be successful",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 61,
+        "char_offset": 31627
+      }
+    },
+    {
+      "content": ". These new ventures are inherently risky and may not be successful. The failure of any significant investment could materially adversely affect the Company’s business, reputation, results of operations and financial condition.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 62,
+        "char_offset": 32420
+      }
+    },
+    {
+      "content": "The Company’s retail stores are subject to numerous risks and uncertainties.\n\nThe Company’s retail operations are subject to many factors that pose risks and uncertainties and could adversely impact the Company’s business, results of operations and financial condition, including macroeconomic factors that could have an adverse effect on general retail activity. Other factors include the Company’s ability to: manage costs associated with retail store construction and operation; manage relationships with existing retail partners; manage costs associated with fluctuations in the value of retail inventory; and obtain and renew leases in quality retail locations at a reasonable cost.\n\nLegal and Regulatory Compliance Risks\n\nThe Company’s business, results of operations and financial condition could be adversely impacted by unfavorable results of legal proceedings or government investigations.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 63,
+        "char_offset": 32497
+      }
+    },
+    {
+      "content": "The Company is subject to various claims, legal proceedings and government investigations that have arisen in the ordinary course of business and have not yet been fully resolved, and new matters may arise in the future. In addition, agreements entered into by the Company sometimes include indemnification provisions which can subject the Company to costs and damages in the event of a claim against an indemnified third party. The number of claims, legal proceedings and government investigations involving the Company, and the alleged magnitude of such claims, proceedings and government investigations, has generally increased over time and may continue to increase.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 64,
+        "char_offset": 33246
+      }
+    },
+    {
+      "content": "The Company has faced and continues to face a significant number of patent claims relating to its cellular-enabled products, and new claims may arise in the future, including as a result of new legal or regulatory frameworks. For example, technology and other patent-holding companies frequently assert their patents and seek royalties and often enter into litigation based on allegations of patent infringement or other violations of intellectual property rights. The Company is vigorously defending infringement actions in courts in several U.S. jurisdictions, as well as internationally in various countries. The plaintiffs in these actions frequently seek injunctions and substantial damages.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 65,
+        "char_offset": 33766
+      }
+    },
+    {
+      "content": "Regardless of the merit of particular claims, defending against litigation or responding to government investigations can be expensive, time-consuming and disruptive to the Company’s operations. In recognition of these considerations, the Company may enter into agreements or other arrangements to settle litigation and resolve such challenges. There can be no assurance such agreements can be obtained on acceptable terms or that litigation will not occur. These agreements can also significantly increase the Company’s cost of sales and operating expenses and require the Company to change its business practices and limit the Company’s ability to offer certain products and services.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 66,
+        "char_offset": 34312
+      }
+    },
+    {
+      "content": "Except as described in Part I, Item 3 of this Form 10-K under the heading “Legal Proceedings” and in Part II, Item 8 of this Form 10-K in the Notes to Consolidated Financial Statements in Note 12, “Commitments, Contingencies and Supply Concentrations” under the heading “Contingencies,” in the opinion of management, there was not at least a reasonable possibility the Company may have incurred a material loss, or a material loss greater than a recorded accrual, concerning loss contingencies for asserted legal and other claims.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 67,
+        "char_offset": 34848
+      }
+    },
+    {
+      "content": "The outcome of litigation or government investigations is inherently uncertain. If one or more legal matters were resolved against the Company or an indemnified third party in a reporting period for amounts above management’s expectations, the Company’s results of operations and financial condition for that reporting period could be materially adversely affected. Further, such an outcome can result in significant compensatory, punitive or trebled monetary damages, disgorgement of revenue or profits, remedial corporate measures or injunctive relief against the Company, and has from time to time required, and can in the future require, the Company to change its business practices and limit the Company’s ability to offer certain products and services, all of which could materially adversely affect the Company’s business, reputation, results of operations and financial condition.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 68,
+        "char_offset": 35228
+      }
+    },
+    {
+      "content": "While the Company maintains insurance coverage for certain types of claims, such insurance coverage may be insufficient to cover all losses or all types of claims that may arise.\n\nApple Inc. | 2023 Form 10-K | 12\n\nThe Company is subject to complex and changing laws and regulations worldwide, which exposes the Company to potential liabilities, increased costs and other adverse effects on the Company’s business.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 69,
+        "char_offset": 35966
+      }
+    },
+    {
+      "content": "The Company’s global operations are subject to complex and changing laws and regulations on subjects, including antitrust; privacy, data security and data localization; consumer protection; advertising, sales, billing and e-commerce; financial services and technology; product liability; intellectual property ownership and infringement; digital platforms; machine learning and artificial intelligence; internet, telecommunications and mobile communications; media, television, film and digital content; availability of third-party software applications and services; labor and employment; anticorruption; import, export and trade; foreign exchange controls and cash repatriation restrictions; anti–money laundering; foreign ownership and investment; tax; and environmental, health and safety, including electronic waste, recycling, product design and climate change.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 70,
+        "char_offset": 36229
+      }
+    },
+    {
+      "content": "Compliance with these laws and regulations is onerous and expensive. New and changing laws and regulations can adversely affect the Company’s business by increasing the Company’s costs, limiting the Company’s ability to offer a product, service or feature to customers, imposing changes to the design of the Company’s products and services, impacting customer demand for the Company’s products and services, and requiring changes to the Company’s supply chain and its business. New and changing laws and regulations can also create uncertainty about how such laws and regulations will be interpreted and applied. These risks and costs may increase as the Company’s products and services are introduced into specialized applications, including health and financial services",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 71,
+        "char_offset": 36946
+      }
+    },
+    {
+      "content": ". The Company has implemented policies and procedures designed to ensure compliance with applicable laws and regulations, but there can be no assurance the Company’s employees, contractors or agents will not violate such laws and regulations or the Company’s policies and procedures. If the Company is found to have violated laws and regulations, it could materially adversely affect the Company’s business, reputation, results of operations and financial condition. Regulatory changes and other actions that materially adversely affect the Company’s business may be announced with little or no advance notice and the Company may not be able to effectively mitigate all adverse impacts from such measures. For example, the Company is subject to changing regulations relating to the export and import of its products",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 72,
+        "char_offset": 37568
+      }
+    },
+    {
+      "content": ". For example, the Company is subject to changing regulations relating to the export and import of its products. Although the Company has programs, policies and procedures in place that are designed to satisfy regulatory requirements, there can be no assurance that such policies and procedures will be effective in preventing a violation or a claim of a violation. As a result, the Company’s products could be banned, delayed or prohibited from importation, which could materially adversely affect the Company’s business, reputation, results of operations and financial condition.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 73,
+        "char_offset": 38233
+      }
+    },
+    {
+      "content": "Expectations relating to environmental, social and governance considerations and related reporting obligations expose the Company to potential liabilities, increased costs, reputational harm, and other adverse effects on the Company’s business.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 74,
+        "char_offset": 38664
+      }
+    },
+    {
+      "content": "Many governments, regulators, investors, employees, customers and other stakeholders are increasingly focused on environmental, social and governance considerations relating to businesses, including climate change and greenhouse gas emissions, human and civil rights, and diversity, equity and inclusion. In addition, the Company makes statements about its goals and initiatives through its various non-financial reports, information provided on its website, press statements and other communications. Responding to these environmental, social and governance considerations and implementation of these goals and initiatives involves risks and uncertainties, requires investments, and depends in part on third-party performance or data that is outside the Company’s control. The Company cannot guarantee that it will achieve its announced environmental, social and governance goals and initiatives. In addition, some stakeholders may disagree with the Company’s goals and initiatives",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 75,
+        "char_offset": 38758
+      }
+    },
+    {
+      "content": ". In addition, some stakeholders may disagree with the Company’s goals and initiatives. Any failure, or perceived failure, by the Company to achieve its goals, further its initiatives, adhere to its public statements, comply with federal, state or international environmental, social and governance laws and regulations, or meet evolving and varied stakeholder expectations and standards could result in legal and regulatory proceedings against the Company and materially adversely affect the Company’s business, reputation, results of operations, financial condition and stock price.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 76,
+        "char_offset": 39590
+      }
+    },
+    {
+      "content": "The technology industry, including, in some instances, the Company, is subject to intense media, political and regulatory scrutiny, which exposes the Company to increasing regulation, government investigations, legal actions and penalties.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 77,
+        "char_offset": 40024
+      }
+    },
+    {
+      "content": "From time to time, the Company has made changes to its App Store, including actions taken in response to litigation, competition, market conditions and legal and regulatory requirements. The Company expects to make further business changes in the future, including as a result of legislative initiatives impacting the App Store, such as the EU Digital Markets Act, which the Company is required to comply with by March 2024, or similar laws in other jurisdictions. Changes have included how developers communicate with consumers outside the App Store regarding alternative purchasing mechanisms. Future changes could also affect what the Company charges developers for access to its platforms, how it manages distribution of apps outside of the App Store, and how and to what extent it allows developers to communicate with consumers inside the App Store regarding alternative purchasing mechanisms.\n\nApple Inc. | 2023 Form 10-K | 13",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 78,
+        "char_offset": 40113
+      }
+    },
+    {
+      "content": "Apple Inc. | 2023 Form 10-K | 13\n\nThe Company is also currently subject to antitrust investigations in various jurisdictions around the world, which can result in legal proceedings and claims against the Company that could, individually or in the aggregate, have a materially adverse impact on the Company’s business, results of operations and financial condition. For example, the Company is the subject of investigations in Europe and other jurisdictions relating to App Store terms and conditions. If such investigations result in adverse findings against the Company, the Company could be exposed to significant fines and may be required to make changes to its App Store business, all of which could materially adversely affect the Company’s business, results of operations and financial condition. The Company is also subject to litigation relating to the App Store, which has resulted in changes to the Company’s business practices, and may in the future result in further changes.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 79,
+        "char_offset": 40896
+      }
+    },
+    {
+      "content": "Further, the Company has commercial relationships with other companies in the technology industry that are or may become subject to investigations and litigation that, if resolved against those other companies, could materially adversely affect the Company’s commercial relationships with those business partners and materially adversely affect the Company’s business, results of operations and financial condition. For example, the Company earns revenue from licensing arrangements with other companies to offer their search services on the Company’s platforms and applications, and certain of these arrangements are currently subject to government investigations and legal proceedings.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 80,
+        "char_offset": 41733
+      }
+    },
+    {
+      "content": "There can be no assurance the Company’s business will not be materially adversely affected, individually or in the aggregate, by the outcomes of such investigations, litigation or changes to laws and regulations in the future. Changes to the Company’s business practices to comply with new laws and regulations or in connection with other legal proceedings could negatively impact the reputation of the Company’s products for privacy and security and otherwise adversely affect the experience for users of the Company’s products and services, and result in harm to the Company’s reputation, loss of competitive advantage, poor market acceptance, reduced demand for products and services, and lost sales.\n\nThe Company’s business is subject to a variety of U.S. and international laws, rules, policies and other obligations regarding data protection.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 81,
+        "char_offset": 42270
+      }
+    },
+    {
+      "content": "The Company is subject to an increasing number of federal, state and international laws relating to the collection, use, retention, security and transfer of various types of personal information. In many cases, these laws apply not only to third-party transactions, but also restrict transfers of personal information among the Company and its international subsidiaries. Several jurisdictions have passed laws in this area, and additional jurisdictions are considering imposing additional restrictions or have laws that are pending. These laws continue to develop and may be inconsistent from jurisdiction to jurisdiction. Complying with emerging and changing requirements causes the Company to incur substantial costs and has required and may in the future require the Company to change its business practices. Noncompliance could result in significant penalties or legal liability.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 82,
+        "char_offset": 42968
+      }
+    },
+    {
+      "content": "The Company makes statements about its use and disclosure of personal information through its privacy policy, information provided on its website, press statements and other privacy notices provided to customers. Any failure by the Company to comply with these public statements or with other federal, state or international privacy or data protection laws and regulations could result in inquiries or proceedings against the Company by governmental entities or others. In addition to reputational impacts, penalties could include ongoing audit requirements and significant legal liability.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 83,
+        "char_offset": 43702
+      }
+    },
+    {
+      "content": "In addition to the risks generally relating to the collection, use, retention, security and transfer of personal information, the Company is also subject to specific obligations relating to information considered sensitive under applicable laws, such as health data, financial data and biometric data. Health data and financial data are subject to additional privacy, security and breach notification requirements, and the Company is subject to audit by governmental authorities regarding the Company’s compliance with these obligations. If the Company fails to adequately comply with these rules and requirements, or if health data or financial data is handled in a manner not permitted by law or under the Company’s agreements with healthcare or financial institutions, the Company can be subject to litigation or government investigations, and can be liable for associated investigatory expenses, and can also incur significant fees or fines.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 84,
+        "char_offset": 44142
+      }
+    },
+    {
+      "content": "Payment card data is also subject to additional requirements. Under payment card rules and obligations, if cardholder information is potentially compromised, the Company can be liable for associated investigatory expenses and can also incur significant fees or fines if the Company fails to follow payment card industry data security standards. The Company could also experience a significant increase in payment card transaction costs or lose the ability to process payment cards if it fails to follow payment card industry data security standards, which could materially adversely affect the Company’s business, reputation, results of operations and financial condition.\n\nApple Inc. | 2023 Form 10-K | 14\n\nFinancial Risks\n\nThe Company expects its quarterly net sales and results of operations to fluctuate.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 85,
+        "char_offset": 44937
+      }
+    },
+    {
+      "content": "The Company’s profit margins vary across its products, services, geographic segments and distribution channels. For example, the gross margins on the Company’s products and services vary significantly and can change over time",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 86,
+        "char_offset": 45595
+      }
+    },
+    {
+      "content": ". The Company’s gross margins are subject to volatility and downward pressure due to a variety of factors, including: continued industry-wide global product pricing pressures and product pricing actions that the Company may take in response to such pressures; increased competition; the Company’s ability to effectively stimulate demand for certain of its products and services; compressed product life cycles; supply shortages; potential increases in the cost of components, outside manufacturing services, and developing, acquiring and delivering content for the Company’s services; the Company’s ability to manage product quality and warranty costs effectively; shifts in the mix of products and services, or in the geographic, currency or channel mix, including to the extent that regulatory changes require the Company to modify its product and service offerings; fluctuations in foreign exchange rates; inflation and other macroeconomic pressures; and the introduction of new products or",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 87,
+        "char_offset": 45670
+      }
+    },
+    {
+      "content": "and service offerings; fluctuations in foreign exchange rates; inflation and other macroeconomic pressures; and the introduction of new products or services, including new products or services with higher cost structures",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 88,
+        "char_offset": 46513
+      }
+    },
+    {
+      "content": ". These and other factors could have a materially adverse impact on the Company’s results of operations and financial condition.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 89,
+        "char_offset": 46583
+      }
+    },
+    {
+      "content": "The Company has historically experienced higher net sales in its first quarter compared to other quarters in its fiscal year due in part to seasonal holiday demand. Additionally, new product and service introductions can significantly impact net sales, cost of sales and operating expenses. Further, the Company generates a significant portion of its net sales from a single product and a decline in demand for that product could significantly impact quarterly net sales. The Company could also be subject to unexpected developments, such as lower-than-anticipated demand for the Company’s products or services, issues with new product or service introductions, information technology system failures or network disruptions, or failure of one of the Company’s logistics, components supply, or manufacturing partners.\n\nThe Company’s financial performance is subject to risks associated with changes in the value of the U.S. dollar relative to local currencies.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 90,
+        "char_offset": 46583
+      }
+    },
+    {
+      "content": "The Company’s financial performance is subject to risks associated with changes in the value of the U.S. dollar relative to local currencies.\n\nThe Company’s primary exposure to movements in foreign exchange rates relates to non–U.S. dollar–denominated sales, cost of sales and operating expenses worldwide. Gross margins on the Company’s products in foreign countries and on products that include components obtained from foreign suppliers have in the past been adversely affected and could in the future be materially adversely affected by foreign exchange rate fluctuations.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 91,
+        "char_offset": 47392
+      }
+    },
+    {
+      "content": "The weakening of foreign currencies relative to the U.S. dollar adversely affects the U.S. dollar value of the Company’s foreign currency–denominated sales and earnings, and generally leads the Company to raise international pricing, potentially reducing demand for the Company’s products. In some circumstances, for competitive or other reasons, the Company may decide not to raise international pricing to offset the U.S. dollar’s strengthening, which would adversely affect the U.S. dollar value of the gross margins the Company earns on foreign currency–denominated sales.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 92,
+        "char_offset": 47818
+      }
+    },
+    {
+      "content": "Conversely, a strengthening of foreign currencies relative to the U.S. dollar, while generally beneficial to the Company’s foreign currency–denominated sales and earnings, could cause the Company to reduce international pricing or incur losses on its foreign currency derivative instruments, thereby limiting the benefit. Additionally, strengthening of foreign currencies may increase the Company’s cost of product components denominated in those currencies, thus adversely affecting gross margins.\n\nThe Company uses derivative instruments, such as foreign currency forward and option contracts, to hedge certain exposures to fluctuations in foreign exchange rates. The use of such hedging activities may not be effective to offset any, or more than a portion, of the adverse financial effects of unfavorable movements in foreign exchange rates over the limited time the hedges are in place.\n\nThe Company is exposed to credit risk and fluctuations in the values of its investment portfolio.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 93,
+        "char_offset": 48244
+      }
+    },
+    {
+      "content": "The Company is exposed to credit risk and fluctuations in the values of its investment portfolio.\n\nThe Company’s investments can be negatively affected by changes in liquidity, credit deterioration, financial results, market and economic conditions, political risk, sovereign risk, interest rate fluctuations or other factors. As a result, the value and liquidity of the Company’s cash, cash equivalents and marketable securities may fluctuate substantially. Therefore, although the Company has not realized any significant losses on its cash, cash equivalents and marketable securities, future fluctuations in their value could result in significant losses and could have a material adverse impact on the Company’s results of operations and financial condition.\n\nApple Inc. | 2023 Form 10-K | 15",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 94,
+        "char_offset": 49084
+      }
+    },
+    {
+      "content": "Apple Inc. | 2023 Form 10-K | 15\n\nThe Company is exposed to credit risk on its trade accounts receivable, vendor non-trade receivables and prepayments related to long-term supply agreements, and this risk is heightened during periods when economic conditions worsen.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 95,
+        "char_offset": 49730
+      }
+    },
+    {
+      "content": "The Company distributes its products and certain of its services through third-party cellular network carriers, wholesalers, retailers and resellers. The Company also sells its products and services directly to small and mid-sized businesses and education, enterprise and government customers. A substantial majority of the Company’s outstanding trade receivables are not covered by collateral, third-party bank support or financing arrangements, or credit insurance, and a significant portion of the Company’s trade receivables can be concentrated within cellular network carriers or other resellers. The Company’s exposure to credit and collectibility risk on its trade receivables is higher in certain international markets and its ability to mitigate such risks may be limited. The Company also has unsecured vendor non-trade receivables resulting from purchases of components by outsourcing partners and other vendors that manufacture subassemblies or assemble final products for the Company",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 96,
+        "char_offset": 49846
+      }
+    },
+    {
+      "content": ". In addition, the Company has made prepayments associated with long-term supply agreements to secure supply of inventory components. As of September 30, 2023, the Company’s vendor non-trade receivables and prepayments related to long-term supply agreements were concentrated among a few individual vendors located primarily in Asia. While the Company has procedures to monitor and limit exposure to credit risk on its trade and vendor non-trade receivables, as well as long-term prepayments, there can be no assurance such procedures will effectively limit its credit risk and avoid losses.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 97,
+        "char_offset": 50692
+      }
+    },
+    {
+      "content": "The Company is subject to changes in tax rates, the adoption of new U.S. or international tax legislation and exposure to additional tax liabilities.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 98,
+        "char_offset": 51133
+      }
+    },
+    {
+      "content": "The Company is subject to taxes in the U.S. and numerous foreign jurisdictions, including Ireland and Singapore, where a number of the Company’s subsidiaries are organized. Due to economic and political conditions, tax laws and tax rates for income taxes and other non-income taxes in various jurisdictions may be subject to significant change. For example, the Organisation for Economic Co-operation and Development continues to advance proposals for modernizing international tax rules, including the introduction of global minimum tax standards. The Company’s effective tax rates are affected by changes in the mix of earnings in countries with differing statutory tax rates, changes in the valuation of deferred tax assets and liabilities, the introduction of new taxes, and changes in tax laws or their interpretation. The application of tax laws may be uncertain, require significant judgment and be subject to differing interpretations.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 99,
+        "char_offset": 51133
+      }
+    },
+    {
+      "content": "The Company is also subject to the examination of its tax returns and other tax matters by the U.S. Internal Revenue Service and other tax authorities and governmental bodies. The Company regularly assesses the likelihood of an adverse outcome resulting from these examinations to determine the adequacy of its provision for taxes. There can be no assurance as to the outcome of these examinations. If the Company’s effective tax rates were to increase, or if the ultimate determination of the Company’s taxes owed is for an amount in excess of amounts previously accrued, the Company’s business, results of operations and financial condition could be materially adversely affected.\n\nGeneral Risks\n\nThe price of the Company’s stock is subject to volatility.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 100,
+        "char_offset": 51926
+      }
+    },
+    {
+      "content": "The Company’s stock has experienced substantial price volatility in the past and may continue to do so in the future. Additionally, the Company, the technology industry and the stock market as a whole have, from time to time, experienced extreme stock price and volume fluctuations that have affected stock prices in ways that may have been unrelated to these companies’ operating performance. Price volatility may cause the average price at which the Company repurchases its stock in a given period to exceed the stock’s price at a given point in time. The Company believes the price of its stock should reflect expectations of future growth and profitability. The Company also believes the price of its stock should reflect expectations that its cash dividend will continue at current levels or grow, and that its current share repurchase program will be fully consummated",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 101,
+        "char_offset": 52533
+      }
+    },
+    {
+      "content": ". Future dividends are subject to declaration by the Company’s Board of Directors, and the Company’s share repurchase program does not obligate it to acquire any specific number of shares. If the Company fails to meet expectations related to future growth, profitability, dividends, share repurchases or other market expectations, the price of the Company’s stock may decline significantly, which could have a material adverse impact on investor confidence and employee retention.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 1A Risk Factors",
+        "chunk_index": 102,
+        "char_offset": 53257
+      }
+    },
+    {
+      "content": "Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations\n\nThe following discussion should be read in conjunction with the consolidated financial statements and accompanying notes included in Part II, Item 8 of this Form 10-K. This Item generally discusses 2023 and 2022 items and year-to-year comparisons between 2023 and 2022. Discussions of 2021 items and year-to-year comparisons between 2022 and 2021 are not included, and can be found in “Management’s Discussion and Analysis of Financial Condition and Results of Operations” in Part II, Item 7 of the Company’s Annual Report on Form 10-K for the fiscal year ended September 24, 2022.\n\nFiscal Period",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 103,
+        "char_offset": 0
+      }
+    },
+    {
+      "content": "Fiscal Period\n\nThe Company’s fiscal year is the 52- or 53-week period that ends on the last Saturday of September. An additional week is included in the first fiscal quarter every five or six years to realign the Company’s fiscal quarters with calendar quarters, which occurred in the first quarter of 2023. The Company’s fiscal year 2023 spanned 53 weeks, whereas fiscal years 2022 and 2021 spanned 52 weeks each.\n\nFiscal Year Highlights\n\nThe Company’s total net sales were $383.3 billion and net income was $97.0 billion during 2023.\n\nThe Company’s total net sales decreased 3% or $11.0 billion during 2023 compared to 2022. The weakness in foreign currencies relative to the U.S. dollar accounted for more than the entire year-over-year decrease in total net sales, which consisted primarily of lower net sales of Mac and iPhone, partially offset by higher net sales of Services.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 104,
+        "char_offset": 541
+      }
+    },
+    {
+      "content": "The Company announces new product, service and software offerings at various times during the year. Significant announcements during fiscal year 2023 included the following:\n\nFirst Quarter 2023:\n\n• iPad and iPad Pro;\n\n• Next-generation Apple TV 4K; and\n\n• MLS Season Pass, a Major League Soccer subscription streaming service.\n\nSecond Quarter 2023:\n\n• MacBook Pro 14”, MacBook Pro 16” and Mac mini; and\n\n• Second-generation HomePod.\n\nThird Quarter 2023:\n\n• MacBook Air 15”, Mac Studio and Mac Pro;\n\n• Apple Vision Pro™, the Company’s first spatial computer featuring its new visionOS™, expected to be available in early calendar year 2024; and\n\n• iOS 17, macOS Sonoma, iPadOS 17, tvOS 17 and watchOS 10, updates to the Company’s operating systems.\n\nFourth Quarter 2023:\n\n• iPhone 15, iPhone 15 Plus, iPhone 15 Pro and iPhone 15 Pro Max; and\n\n• Apple Watch Series 9 and Apple Watch Ultra 2.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 105,
+        "char_offset": 1273
+      }
+    },
+    {
+      "content": "Fourth Quarter 2023:\n\n• iPhone 15, iPhone 15 Plus, iPhone 15 Pro and iPhone 15 Pro Max; and\n\n• Apple Watch Series 9 and Apple Watch Ultra 2.\n\nIn May 2023, the Company announced a new share repurchase program of up to $90 billion and raised its quarterly dividend from $0.23 to $0.24 per share beginning in May 2023. During 2023, the Company repurchased $76.6 billion of its common stock and paid dividends and dividend equivalents of $15.0 billion.\n\nMacroeconomic Conditions\n\nMacroeconomic conditions, including inflation, changes in interest rates, and currency fluctuations, have directly and indirectly impacted, and could in the future materially impact, the Company’s results of operations and financial condition.\n\nApple Inc. | 2023 Form 10-K | 20\n\nSegment Operating Performance\n\nThe following table shows net sales by reportable segment for 2023, 2022 and 2021 (dollars in millions):\n\n2023 Change 2022 Change 2021\n\nNet sales by reportable segment:",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 106,
+        "char_offset": 2012
+      }
+    },
+    {
+      "content": "2023 Change 2022 Change 2021\n\nNet sales by reportable segment:\n\nAmericas $ 162,560 (4) % $ 169,658 11 % $ 153,306\n\nEurope 94,294 (1) % 95,118 7 % 89,307\n\nGreater China 72,559 (2) % 74,200 9 % 68,366\n\nJapan 24,257 (7) % 25,977 (9) % 28,482\n\nRest of Asia Pacific 29,615 1 % 29,375 11 % 26,356\n\nTotal net sales $ 383,285 (3) % $ 394,328 8 % $ 365,817\n\nAmericas\n\nAmericas net sales decreased 4% or $7.1 billion during 2023 compared to 2022 due to lower net sales of iPhone and Mac, partially offset by higher net sales of Services.\n\nEurope\n\nEurope net sales decreased 1% or $824 million during 2023 compared to 2022. The weakness in foreign currencies relative to the U.S. dollar accounted for more than the entire year-over-year decrease in Europe net sales, which consisted primarily of lower net sales of Mac and Wearables, Home and Accessories, partially offset by higher net sales of iPhone and Services.\n\nGreater China",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 107,
+        "char_offset": 2816
+      }
+    },
+    {
+      "content": "Greater China\n\nGreater China net sales decreased 2% or $1.6 billion during 2023 compared to 2022. The weakness in the renminbi relative to the U.S. dollar accounted for more than the entire year-over-year decrease in Greater China net sales, which consisted primarily of lower net sales of Mac and iPhone.\n\nJapan\n\nJapan net sales decreased 7% or $1.7 billion during 2023 compared to 2022. The weakness in the yen relative to the U.S. dollar accounted for more than the entire year-over-year decrease in Japan net sales, which consisted primarily of lower net sales of iPhone, Wearables, Home and Accessories and Mac.\n\nRest of Asia Pacific",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 108,
+        "char_offset": 3586
+      }
+    },
+    {
+      "content": "Rest of Asia Pacific\n\nRest of Asia Pacific net sales increased 1% or $240 million during 2023 compared to 2022. The weakness in foreign currencies relative to the U.S. dollar had a significantly unfavorable year-over-year impact on Rest of Asia Pacific net sales. The net sales increase consisted of higher net sales of iPhone and Services, partially offset by lower net sales of Mac and iPad.\n\nApple Inc. | 2023 Form 10-K | 21\n\nProducts and Services Performance\n\nThe following table shows net sales by category for 2023, 2022 and 2021 (dollars in millions):\n\n2023 Change 2022 Change 2021\n\nNet sales by category:\n\niPhone (1)\n\n$ 200,583 (2) % $ 205,489 7 % $ 191,973\n\nMac (1)\n\n29,357 (27) % 40,177 14 % 35,190\n\niPad (1)\n\n28,300 (3) % 29,292 (8) % 31,862\n\nWearables, Home and Accessories (1)\n\n39,845 (3) % 41,241 7 % 38,367\n\nServices (2)\n\n85,200 9 % 78,129 14 % 68,425\n\nTotal net sales $ 383,285 (3) % $ 394,328 8 % $ 365,817",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 109,
+        "char_offset": 4074
+      }
+    },
+    {
+      "content": "39,845 (3) % 41,241 7 % 38,367\n\nServices (2)\n\n85,200 9 % 78,129 14 % 68,425\n\nTotal net sales $ 383,285 (3) % $ 394,328 8 % $ 365,817\n\n(1) Products net sales include amortization of the deferred value of unspecified software upgrade rights, which are bundled in the sales price of the respective product.\n\n(2) Services net sales include amortization of the deferred value of services bundled in the sales price of certain products.\n\niPhone\n\niPhone net sales decreased 2% or $4.9 billion during 2023 compared to 2022 due to lower net sales of non-Pro iPhone models, partially offset by higher net sales of Pro iPhone models.\n\nMac\n\nMac net sales decreased 27% or $10.8 billion during 2023 compared to 2022 due primarily to lower net sales of laptops.\n\niPad\n\niPad net sales decreased 3% or $1.0 billion during 2023 compared to 2022 due primarily to lower net sales of iPad mini and iPad Air, partially offset by the combined net sales of iPad 9th and 10th generation.\n\nWearables, Home and Accessories",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 110,
+        "char_offset": 4847
+      }
+    },
+    {
+      "content": "Wearables, Home and Accessories\n\nWearables, Home and Accessories net sales decreased 3% or $1.4 billion during 2023 compared to 2022 due primarily to lower net sales of Wearables and Accessories.\n\nServices\n\nServices net sales increased 9% or $7.1 billion during 2023 compared to 2022 due to higher net sales across all lines of business.\n\nApple Inc. | 2023 Form 10-K | 22\n\nGross Margin\n\nProducts and Services gross margin and gross margin percentage for 2023, 2022 and 2021 were as follows (dollars in millions):\n\n2023 2022 2021\n\nGross margin:\n\nProducts $ 108,803 $ 114,728 $ 105,126\n\nServices 60,345 56,054 47,710\n\nTotal gross margin $ 169,148 $ 170,782 $ 152,836\n\nGross margin percentage:\n\nProducts 36.5 % 36.3 % 35.3 %\n\nServices 70.8 % 71.7 % 69.7 %\n\nTotal gross margin percentage 44.1 % 43.3 % 41.8 %\n\nProducts Gross Margin",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 111,
+        "char_offset": 5693
+      }
+    },
+    {
+      "content": "Products 36.5 % 36.3 % 35.3 %\n\nServices 70.8 % 71.7 % 69.7 %\n\nTotal gross margin percentage 44.1 % 43.3 % 41.8 %\n\nProducts Gross Margin\n\nProducts gross margin decreased during 2023 compared to 2022 due to the weakness in foreign currencies relative to the U.S. dollar and lower Products volume, partially offset by cost savings and a different Products mix.\n\nProducts gross margin percentage increased during 2023 compared to 2022 due to cost savings and a different Products mix, partially offset by the weakness in foreign currencies relative to the U.S. dollar and decreased leverage.\n\nServices Gross Margin\n\nServices gross margin increased during 2023 compared to 2022 due primarily to higher Services net sales, partially offset by the weakness in foreign currencies relative to the U.S. dollar and higher Services costs.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 112,
+        "char_offset": 6370
+      }
+    },
+    {
+      "content": "Services gross margin percentage decreased during 2023 compared to 2022 due to higher Services costs and the weakness in foreign currencies relative to the U.S. dollar, partially offset by a different Services mix.\n\nThe Company’s future gross margins can be impacted by a variety of factors, as discussed in Part I, Item 1A of this Form 10-K under the heading “Risk Factors.” As a result, the Company believes, in general, gross margins will be subject to volatility and downward pressure.\n\nOperating Expenses\n\nOperating expenses for 2023, 2022 and 2021 were as follows (dollars in millions):\n\n2023 Change 2022 Change 2021\n\nResearch and development $ 29,915 14 % $ 26,251 20 % $ 21,914\n\nPercentage of total net sales 8 % 7 % 6 %\n\nSelling, general and administrative $ 24,932 (1) % $ 25,094 14 % $ 21,973\n\nPercentage of total net sales 7 % 6 % 6 %\n\nTotal operating expenses $ 54,847 7 % $ 51,345 17 % $ 43,887\n\nPercentage of total net sales 14 % 13 % 12 %\n\nResearch and Development",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 113,
+        "char_offset": 7046
+      }
+    },
+    {
+      "content": "Total operating expenses $ 54,847 7 % $ 51,345 17 % $ 43,887\n\nPercentage of total net sales 14 % 13 % 12 %\n\nResearch and Development\n\nThe year-over-year growth in R&D expense in 2023 was driven primarily by increases in headcount-related expenses.\n\nSelling, General and Administrative\n\nSelling, general and administrative expense was relatively flat in 2023 compared to 2022.\n\nApple Inc. | 2023 Form 10-K | 23\n\nProvision for Income Taxes\n\nProvision for income taxes, effective tax rate and statutory federal income tax rate for 2023, 2022 and 2021 were as follows (dollars in millions):\n\n2023 2022 2021\n\nProvision for income taxes $ 16,741 $ 19,300 $ 14,527\n\nEffective tax rate 14.7 % 16.2 % 13.3 %\n\nStatutory federal income tax rate 21 % 21 % 21 %",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 114,
+        "char_offset": 7876
+      }
+    },
+    {
+      "content": "Provision for income taxes $ 16,741 $ 19,300 $ 14,527\n\nEffective tax rate 14.7 % 16.2 % 13.3 %\n\nStatutory federal income tax rate 21 % 21 % 21 %\n\nThe Company’s effective tax rate for 2023 and 2022 was lower than the statutory federal income tax rate due primarily to a lower effective tax rate on foreign earnings, the impact of the U.S. federal R&D credit, and tax benefits from share-based compensation, partially offset by state income taxes.\n\nThe Company’s effective tax rate for 2023 was lower compared to 2022 due primarily to a lower effective tax rate on foreign earnings and the impact of U.S. foreign tax credit regulations issued by the U.S. Department of the Treasury in 2022, partially offset by lower tax benefits from share-based compensation.\n\nLiquidity and Capital Resources",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 115,
+        "char_offset": 8474
+      }
+    },
+    {
+      "content": "Liquidity and Capital Resources\n\nThe Company believes its balances of cash, cash equivalents and unrestricted marketable securities, which totaled $148.3 billion as of September 30, 2023, along with cash generated by ongoing operations and continued access to debt markets, will be sufficient to satisfy its cash requirements and capital return program over the next 12 months and beyond.\n\nThe Company’s material cash requirements include the following contractual obligations:\n\nDebt\n\nAs of September 30, 2023, the Company had outstanding fixed-rate notes with varying maturities for an aggregate principal amount of $106.6 billion (collectively the “Notes”), with $9.9 billion payable within 12 months. Future interest payments associated with the Notes total $41.1 billion, with $2.9 billion payable within 12 months.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 116,
+        "char_offset": 9115
+      }
+    },
+    {
+      "content": "The Company also issues unsecured short-term promissory notes pursuant to a commercial paper program. As of September 30, 2023, the Company had $6.0 billion of commercial paper outstanding, all of which was payable within 12 months.\n\nLeases\n\nThe Company has lease arrangements for certain equipment and facilities, including corporate, data center, manufacturing and retail space. As of September 30, 2023, the Company had fixed lease payment obligations of $15.8 billion, with $2.0 billion payable within 12 months.\n\nManufacturing Purchase Obligations",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 117,
+        "char_offset": 9784
+      }
+    },
+    {
+      "content": "Manufacturing Purchase Obligations\n\nThe Company utilizes several outsourcing partners to manufacture subassemblies for the Company’s products and to perform final assembly and testing of finished products. The Company also obtains individual components for its products from a wide variety of individual suppliers. As of September 30, 2023, the Company had manufacturing purchase obligations of $53.1 billion, with $52.9 billion payable within 12 months. The Company’s manufacturing purchase obligations are primarily noncancelable.\n\nOther Purchase Obligations\n\nThe Company’s other purchase obligations primarily consist of noncancelable obligations to acquire capital assets, including assets related to product manufacturing, and noncancelable obligations related to supplier arrangements, licensed intellectual property and content, and distribution rights. As of September 30, 2023, the Company had other purchase obligations of $21.9 billion, with $5.6 billion payable within 12 months.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 118,
+        "char_offset": 10186
+      }
+    },
+    {
+      "content": "Deemed Repatriation Tax Payable\n\nAs of September 30, 2023, the balance of the deemed repatriation tax payable imposed by the U.S. Tax Cuts and Jobs Act of 2017 (the “Act”) was $22.0 billion, with $6.5 billion expected to be paid within 12 months.\n\nApple Inc. | 2023 Form 10-K | 24\n\nCapital Return Program\n\nIn addition to its contractual cash requirements, the Company has an authorized share repurchase program. The program does not obligate the Company to acquire a minimum amount of shares. As of September 30, 2023, the Company’s quarterly cash dividend was $0.24 per share. The Company intends to increase its dividend on an annual basis, subject to declaration by the Board of Directors.\n\nCritical Accounting Estimates",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 119,
+        "char_offset": 11027
+      }
+    },
+    {
+      "content": "Critical Accounting Estimates\n\nThe preparation of financial statements and related disclosures in conformity with U.S. generally accepted accounting principles (“GAAP”) and the Company’s discussion and analysis of its financial condition and operating results require the Company’s management to make judgments, assumptions and estimates that affect the amounts reported. Note 1, “Summary of Significant Accounting Policies” of the Notes to Consolidated Financial Statements in Part II, Item 8 of this Form 10-K describes the significant accounting policies and methods used in the preparation of the Company’s consolidated financial statements. Management bases its estimates on historical experience and on various other assumptions it believes to be reasonable under the circumstances, the results of which form the basis for making judgments about the carrying values of assets and liabilities.\n\nUncertain Tax Positions",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 120,
+        "char_offset": 11600
+      }
+    },
+    {
+      "content": "Uncertain Tax Positions\n\nThe Company is subject to income taxes in the U.S. and numerous foreign jurisdictions. The evaluation of the Company’s uncertain tax positions involves significant judgment in the interpretation and application of GAAP and complex domestic and international tax laws, including the Act and matters related to the allocation of international taxation rights between countries. Although management believes the Company’s reserves are reasonable, no assurance can be given that the final outcome of these uncertainties will not be different from that which is reflected in the Company’s reserves. Reserves are adjusted considering changing facts and circumstances, such as the closing of a tax examination. Resolution of these uncertainties in a manner inconsistent with management’s expectations could have a material impact on the Company’s financial condition and operating results.\n\nLegal and Other Contingencies",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 121,
+        "char_offset": 12373
+      }
+    },
+    {
+      "content": "Legal and Other Contingencies\n\nThe Company is subject to various legal proceedings and claims that arise in the ordinary course of business, the outcomes of which are inherently uncertain. The Company records a liability when it is probable that a loss has been incurred and the amount is reasonably estimable, the determination of which requires significant judgment. Resolution of legal matters in a manner inconsistent with management’s expectations could have a material impact on the Company’s financial condition and operating results.\n\nApple Inc. | 2023 Form 10-K | 25",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 7 MD&A",
+        "chunk_index": 122,
+        "char_offset": 13161
+      }
+    }
+  ]
+}

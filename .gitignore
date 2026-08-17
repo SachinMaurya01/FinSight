@@ -8,8 +8,9 @@ wheels/
 
 # Virtual environments
 .venv
+.DS_Store
 
 # environment
 .env
-FinSight.prd
+FinSight-prd.md
 AGENTS.md
