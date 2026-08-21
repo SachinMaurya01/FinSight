@@ -57,7 +57,7 @@ _INSERT_CHUNK_SQL = text("""
 """)
 
 _SIMILARITY_SQL = text("""
-    SELECT content, ticker, filing_type, fiscal_period, section, source_doc,
+    SELECT content, ticker, filing_type, fiscal_period, section, source_doc, chunk_index,
            1 - (embedding <=> CAST(:query AS vector)) AS score
     FROM chunks
     ORDER BY embedding <=> CAST(:query AS vector)

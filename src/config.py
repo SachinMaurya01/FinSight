@@ -44,7 +44,7 @@ class BaseConfigSettings(BaseSettings):
 
 
 class ModelTierConfig(BaseModel):
-    """Configuration for a single model-routing tier (PRD §3.3)."""
+    """Configuration for a single model-routing tier"""
 
     model_name: str = Field(...)
     provider: ProviderName = "openai"
@@ -55,13 +55,15 @@ class ModelTierConfig(BaseModel):
 class ModelRouting(BaseModel):
     """Complexity tier -> model mapping (PRD §3.3).
 
-    Defaults to Groq's qwen/qwen3.6-27b for all tiers (single-model setup).
-    Override per tier via MODEL_ROUTING_<TIER>_MODEL_NAME / _PROVIDER env vars.
+    Defaults map to real Groq-served model IDs (verified against the Groq model
+    list): cheap -> gpt-oss-20b, medium -> qwen/qwen3.6-27b, expensive ->
+    gpt-oss-120b. Override per tier via MODEL_ROUTING_<TIER>_MODEL_NAME /
+    _PROVIDER env vars.
     """
 
-    cheap: ModelTierConfig = ModelTierConfig(model_name="qwen/qwen3.6-27b", provider="groq")
+    cheap: ModelTierConfig = ModelTierConfig(model_name="openai/gpt-oss-20b", provider="groq")
     medium: ModelTierConfig = ModelTierConfig(model_name="qwen/qwen3.6-27b", provider="groq")
-    expensive: ModelTierConfig = ModelTierConfig(model_name="qwen/qwen3.6-27b", provider="groq")
+    expensive: ModelTierConfig = ModelTierConfig(model_name="openai/gpt-oss-120b", provider="groq")
 
 
 class Settings(BaseConfigSettings):
@@ -95,9 +97,11 @@ class Settings(BaseConfigSettings):
     fallback_chain: list[ProviderName] = ["openai", "groq", "gemini", "vllm"]
 
     # ---- Embeddings (PRD §4.4 / Phase 3) --------------------------------------
-    embedding_provider: EmbeddingProvider = "openai"
-    embedding_model: str = "text-embedding-3-small"
-    embedding_dimensions: int = Field(default=1536, gt=0)
+    # Default is the local sentence-transformers embedder (no API key). Swap to
+    # EMBEDDING_PROVIDER=openai only if you have an OPENAI_API_KEY.
+    embedding_provider: EmbeddingProvider = "sentence_transformers"
+    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    embedding_dimensions: int = Field(default=384, gt=0)
     embedding_batch_size: int = Field(default=64, gt=0)
 
     # ---- Reranker (PRD §4.4 FR-11 / Phase 7) ----------------------------------
