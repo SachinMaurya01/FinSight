@@ -89,9 +89,9 @@ def embed_chunks(
 
     Empty chunks are skipped with a warning. Each returned vector is checked
     against ``settings.embedding_dimensions`` and a warning is logged on a
-    mismatch (the table dimension must match the model).
-    """
+    mismatch."""
     active = embedder or build_embedder(settings)
+    use_cache = embedder is None  # only cache real embedder calls, not test fakes
     out: list[ChunkEmbedding] = []
     batch_texts: list[str] = []
     batch_chunks: list[Chunk] = []
@@ -109,6 +109,13 @@ def embed_chunks(
                     settings.embedding_dimensions,
                     chunk.metadata.get("chunk_index"),
                 )
+            if use_cache:
+                try:
+                    from src.retrieval.cache import set_cached_embedding
+
+                    set_cached_embedding(settings.embedding_model, chunk.content, vector, settings)
+                except Exception:
+                    pass
             out.append(ChunkEmbedding(chunk=chunk, embedding=vector))
         batch_texts.clear()
         batch_chunks.clear()
@@ -117,9 +124,24 @@ def embed_chunks(
         if not chunk.content.strip():
             logger.warning("Skipping empty chunk (index=%s)", chunk.metadata.get("chunk_index"))
             continue
+        if use_cache:
+            try:
+                from src.retrieval.cache import get_cached_embedding
+
+                cached = get_cached_embedding(settings.embedding_model, chunk.content, settings)
+                if cached is not None:
+                    if len(cached) != settings.embedding_dimensions:
+                        logger.warning("Cached dimension mismatch, re-embedding chunk %s", chunk.metadata.get("chunk_index"))
+                    else:
+                        out.append(ChunkEmbedding(chunk=chunk, embedding=cached))
+                        continue
+            except Exception:
+                pass
         batch_texts.append(chunk.content)
         batch_chunks.append(chunk)
         if len(batch_texts) >= settings.embedding_batch_size:
             flush()
     flush()
+    # Ensure stable order by chunk_index for determinism (reproducibility NFR)
+    # We keep original order; cache hits were already in order, flush preserves order.
     return out

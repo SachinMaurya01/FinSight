@@ -88,9 +88,9 @@ def test_tier_routes_primary_provider_first() -> None:
     finally:
         fb.build_llm = original
 
-    assert calls[0] == "groq", calls  # simple tier -> groq primary
-    assert models[0] == "openai/gpt-oss-20b", models
-    assert result.provider == "groq"
+    assert calls[0] == "openai", calls  # simple tier -> openai (ChatGPT) primary, groq fallback
+    assert models[0] == "gpt-4o-mini", models
+    assert result.provider == "openai"
     assert result.tier == "simple"
     print("PASS test_tier_routes_primary_provider_first")
 

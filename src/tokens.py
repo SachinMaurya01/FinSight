@@ -1,8 +1,4 @@
-"""Token-counting utilities shared by compression (Phase 8) and the LLM layer.
-
-Uses ``tiktoken`` (cl100k_base) as a close approximation of chat-model token
-usage for context budgeting and logging.
-"""
+"""Token-counting utilities shared by compression."""
 
 from __future__ import annotations
 

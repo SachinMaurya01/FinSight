@@ -1,0 +1,272 @@
+[
+  {
+    "id": "eval_001",
+    "question": "What were Apple's total net sales in fiscal 2023?",
+    "expected_answer": "Apple's total net sales in fiscal 2023 were $383.3 billion.",
+    "expected_citations": [{"ticker": "aapl", "fiscal_period": "FY2023", "section": "Item 7 MD&A"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_002",
+    "question": "What is Apple's main risk related to competition?",
+    "expected_answer": "Apple faces risk from inability to compete successfully, manage frequent product transitions, and stimulate demand for new products.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 1A Risk Factors"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "risk_extraction"
+  },
+  {
+    "id": "eval_003",
+    "question": "Summarize the key risk factors in Apple's 10-K Item 1A.",
+    "expected_answer": "Key risks include macroeconomic conditions, competition, supply chain disruptions, cybersecurity attacks, product defects, geopolitical tensions, and credit risk.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 1A Risk Factors"}],
+    "complexity": "normal",
+    "is_recommendation": false,
+    "category": "summarization"
+  },
+  {
+    "id": "eval_004",
+    "question": "How has Apple's gross margin changed from 2021 to 2025?",
+    "expected_answer": "Gross margin improved from 41.8% in FY2021 to 46.9% in FY2025, with products from 35.3% to 36.8% and services from 69.7% to 75.4%.",
+    "expected_citations": [{"ticker": "aapl", "fiscal_period": "FY2025", "section": "Item 7 MD&A"}],
+    "complexity": "normal",
+    "is_recommendation": false,
+    "category": "trend_analysis"
+  },
+  {
+    "id": "eval_005",
+    "question": "Compare the liquidity risk between the two Apple filings",
+    "expected_answer": "Both filings describe similar liquidity risk: exposure to credit risk and fluctuations in cash/marketable securities; specific risk drivers differ slightly between FY2023 and FY2025.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 1A Risk Factors"}],
+    "complexity": "complex",
+    "is_recommendation": false,
+    "category": "comparison"
+  },
+  {
+    "id": "eval_006",
+    "question": "What was Apple's cybersecurity risk described in the 10-K?",
+    "expected_answer": "Apple is at greater risk of malicious attacks due to high profile, targeting confidential and personal information.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 1A Risk Factors"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_007",
+    "question": "Build a bull and bear case for AAPL based on its last filings, should I invest?",
+    "expected_answer": "Bull: investing in new business strategies and R&D could drive growth. Bear: acquisitions carry significant risks, product obsolescence, credit risk. Filing does not contain valuation outlook to make definitive recommendation; further analysis needed.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 1A Risk Factors"}],
+    "complexity": "complex",
+    "is_recommendation": true,
+    "category": "investment_thesis"
+  },
+  {
+    "id": "eval_008",
+    "question": "What's the current P/E ratio for AAPL given the latest filing's EPS and live price?",
+    "expected_answer": "Requires live price via get_stock_price and EPS from filing; P/E = price / EPS. Live price fetched, EPS from filing context if available.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 7 MD&A"}],
+    "complexity": "normal",
+    "is_recommendation": false,
+    "category": "tool_calling"
+  },
+  {
+    "id": "eval_009",
+    "question": "What does Apple say about macroeconomic and industry risks?",
+    "expected_answer": "Operations depend significantly on global and regional economic conditions; adverse conditions can materially adversely affect business, results, financial condition and stock price.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 1A Risk Factors"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_010",
+    "question": "What are Apple's material cash requirements including debt?",
+    "expected_answer": "Material cash requirements include debt obligations, as of September 27 2025 outstanding fixed-rate notes with varying maturities for aggregate principal amount.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 7 MD&A"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_011",
+    "question": "How did Apple's Services net sales perform in 2023?",
+    "expected_answer": "Services net sales decreased in 2023 compared to 2022 due to lower Wearables and Accessories sales; Services overall is part of total net sales $383,285 million.",
+    "expected_citations": [{"ticker": "aapl", "fiscal_period": "FY2023", "section": "Item 7 MD&A"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_012",
+    "question": "What is Apple's exposure to credit risk?",
+    "expected_answer": "Apple is exposed to credit risk on trade receivables, vendor non-trade receivables and long-term supply agreement prepayments, heightened during economic downturns, and fluctuations in investment portfolio.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 1A Risk Factors"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_013",
+    "question": "Summarize Apple's manufacturing purchase obligations",
+    "expected_answer": "Apple utilizes outsourcing partners to manufacture subassemblies and perform final assembly and testing, with purchase obligations.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 7 MD&A"}],
+    "complexity": "normal",
+    "is_recommendation": false,
+    "category": "summarization"
+  },
+  {
+    "id": "eval_014",
+    "question": "What did Apple report for liquidity and capital resources cash position?",
+    "expected_answer": "Balances of cash, cash equivalents and unrestricted marketable securities totaled $148.3 billion as of September 30 2023.",
+    "expected_citations": [{"ticker": "aapl", "fiscal_period": "FY2023", "section": "Item 7 MD&A"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_015",
+    "question": "Compare Apple's product vs services gross margin trends",
+    "expected_answer": "Products margin 35.3% to 36.8%, Services margin 69.7% to 75.4% from FY2021 to FY2025, total margin 41.8% to 46.9%. Services consistently higher.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 7 MD&A"}],
+    "complexity": "complex",
+    "is_recommendation": false,
+    "category": "comparison"
+  },
+  {
+    "id": "eval_016",
+    "question": "What are the risks of industrial accidents at suppliers?",
+    "expected_answer": "Apple's operations are subject to risks of industrial accidents at suppliers and contract manufacturers, requiring safe working environments.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 1A Risk Factors"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_017",
+    "question": "Should I buy AAPL stock based on this filing?",
+    "expected_answer": "Filing does not contain recommendation; investment decision requires valuation, market conditions, and personal risk tolerance. Flagged for human review.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 1A Risk Factors"}],
+    "complexity": "complex",
+    "is_recommendation": true,
+    "category": "investment_thesis"
+  },
+  {
+    "id": "eval_018",
+    "question": "What was the effective tax rate impact in 2025?",
+    "expected_answer": "Effective tax rate for 2025 was lower due to $10.7 billion decrease related to State Aid Decision.",
+    "expected_citations": [{"ticker": "aapl", "fiscal_period": "FY2025", "section": "Item 7 MD&A"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_019",
+    "question": "How does Apple describe its fiscal period?",
+    "expected_answer": "Fiscal year is 52- or 53-week period ending last Saturday of September, with extra week in first fiscal quarter every 5-6 years.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 7 MD&A"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_020",
+    "question": "What is Apple's risk regarding design and manufacturing defects?",
+    "expected_answer": "Products and services may be affected by design and manufacturing defects that could materially adversely affect business and harm reputation.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 1A Risk Factors"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_021",
+    "question": "What was the total net sales by reportable segment for Americas in 2025?",
+    "expected_answer": "Americas net sales were $178,353 million in 2025, up 7% from $167,045 million in 2024.",
+    "expected_citations": [{"ticker": "aapl", "fiscal_period": "FY2025", "section": "Item 7 MD&A"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_022",
+    "question": "Analyze how Apple's net sales by segment evolved 2023-2025",
+    "expected_answer": "Americas grew 162,560 (2023) to 178,353 (2025), Europe 94,294 to higher, Greater China 72,559 etc, total 383,285 to higher in 2025.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 7 MD&A"}],
+    "complexity": "normal",
+    "is_recommendation": false,
+    "category": "trend_analysis"
+  },
+  {
+    "id": "eval_023",
+    "question": "What is the current stock price of AAPL?",
+    "expected_answer": "Live price fetched via get_stock_price tool, e.g., around $311.15 (varies).",
+    "expected_citations": [],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "tool_calling"
+  },
+  {
+    "id": "eval_024",
+    "question": "Calculate the gross margin for Apple if revenue is 383285 and gross profit 170000",
+    "expected_answer": "Gross margin = 170000 / 383285 = 0.4436 (44.36%).",
+    "expected_citations": [],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "tool_calling"
+  },
+  {
+    "id": "eval_025",
+    "question": "Compare the investment risks versus growth opportunities for Apple",
+    "expected_answer": "Growth: new strategies, R&D, acquisitions. Risks: significant uncertainties, regulatory, product obsolescence, credit risk. Requires valuation.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 1A Risk Factors"}],
+    "complexity": "complex",
+    "is_recommendation": true,
+    "category": "comparison"
+  },
+  {
+    "id": "eval_026",
+    "question": "What does Apple say about payment card data requirements?",
+    "expected_answer": "Payment card data subject to additional requirements; if cardholder information is potentially compromised, under payment card rules obligations apply.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 1A Risk Factors"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_027",
+    "question": "What is Apple's policy on share repurchases and dividends?",
+    "expected_answer": "Material cash requirements include share repurchases and dividends, part of capital return program described in Item 7 MD&A.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 7 MD&A"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_028",
+    "question": "Should I overweight AAPL in my portfolio based on this 10-K?",
+    "expected_answer": "Overweight recommendation requires human review; filing shows mixed signals, not a direct recommendation.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 1A Risk Factors"}],
+    "complexity": "complex",
+    "is_recommendation": true,
+    "category": "investment_thesis"
+  },
+  {
+    "id": "eval_029",
+    "question": "What was Apple's Europe net sales in 2023?",
+    "expected_answer": "Europe net sales were $94,294 million in 2023, down 1% from $95,118 million in 2022.",
+    "expected_citations": [{"ticker": "aapl", "fiscal_period": "FY2023", "section": "Item 7 MD&A"}],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "fact_extraction"
+  },
+  {
+    "id": "eval_030",
+    "question": "How has Apple's total net sales growth rate changed from 2022 to 2023?",
+    "expected_answer": "Total net sales decreased 3% to $383,285 million in 2023 from $394,328 million in 2022 (which was up 8% from 2021 $365,817). Requires growth calculation.",
+    "expected_citations": [{"ticker": "aapl", "section": "Item 7 MD&A"}],
+    "complexity": "normal",
+    "is_recommendation": false,
+    "category": "trend_analysis"
+  }
+]

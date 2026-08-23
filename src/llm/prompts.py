@@ -1,9 +1,4 @@
-"""Prompts for Phase 4's single LLM call (PRD Phase 4).
-
-Deliberately unsophisticated: the model is told to answer using only the
-provided context. Prompt engineering comes later (routing, compression,
-verification phases).
-"""
+"""Prompts for."""
 
 from __future__ import annotations
 

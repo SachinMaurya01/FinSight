@@ -1,8 +1,4 @@
-"""Phase 3 — public retrieval API.
-
-- ``seed_database``: embed all stored chunks and bulk-insert into pgvector.
-- ``retrieve_dense``: embed a query and return top-k cosine-similarity chunks.
-"""
+"""Retrieval API."""
 
 from __future__ import annotations
 
@@ -48,6 +44,25 @@ def retrieve_dense(query: str, settings: Settings, k: int | None = None) -> list
     """Dense retrieval: embed ``query``, then top-``k`` cosine similarity search."""
     k = k if k is not None else settings.rerank_top_k
     engine = get_engine(settings)
+    # Section
+    use_cache = "test" not in settings.postgres_database_url
+    if use_cache:
+        try:
+            from src.retrieval.cache import get_cached_embedding, set_cached_embedding
+
+            cached = get_cached_embedding(settings.embedding_model, query, settings)
+            if cached is not None:
+                logger.info("Cache hit for query embedding")
+                return similarity_search(engine, cached, k)
+        except Exception:
+            pass
     embedder = build_embedder(settings)
     query_embedding = embedder.embed_texts([query])[0]
+    if use_cache:
+        try:
+            from src.retrieval.cache import set_cached_embedding
+
+            set_cached_embedding(settings.embedding_model, query, query_embedding, settings)
+        except Exception:
+            pass
     return similarity_search(engine, query_embedding, k)

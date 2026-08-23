@@ -1,9 +1,4 @@
-"""Phase 9 — query-complexity router (rule-based classifier).
-
-PRD §3.3 / §3.2 node 2 / Phase 9: classify each query as ``simple``, ``normal``,
-or ``complex`` so ``route_model`` can pick the matching tier. Starts rule-based
-(keyword heuristics); an LLM-as-classifier upgrade is noted in PRD §9.
-"""
+"""Query complexity classifier."""
 
 from __future__ import annotations
 

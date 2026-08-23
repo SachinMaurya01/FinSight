@@ -1,13 +1,4 @@
-"""Phase 1 — Minimal ingestion: extract plain text from SEC EDGAR 10-K HTML.
-
-Per the PRD Phase 1 scope, this parser pulls the text of the **Item 1A (Risk
-Factors)** and **Item 7 (MD&A)** sections out of a raw 10-K HTML file and
-returns a structured ``ParsedDocument``. Table-aware parsing (FR-2) is
-deliberately deferred to Phase 11.
-
-Source filings are treated as read-only (AGENTS.md §5.1): this module never
-modifies the input HTML; parsed output is written separately by the caller.
-"""
+"""SEC filing parser."""
 
 from __future__ import annotations
 
@@ -98,7 +89,7 @@ def _clean_text(fragment: str) -> str:
     Block-level elements (``div``/``p``/``li``/headers/``br``) become ``\\n\\n``
     paragraph separators; inline elements (``font``/``span``) are flattened with
     single spaces. Paragraph breaks give the chunker sane boundaries to split on
-    (FR-4) instead of mid-sentence.
+    instead of mid-sentence.
     """
     soup = BeautifulSoup(fragment, "html.parser")
     tokens: list[str | None] = []
@@ -193,7 +184,7 @@ def _filing_type_from_name(name: str) -> str | None:
 
 
 def _extract_fiscal_period(html: str) -> str | None:
-    """Best-effort fiscal period (e.g. ``FY2025``) for a filing (FR-6).
+    """Best-effort fiscal period (e.g. ``FY2025``) for a filing.
 
     Prefers the XBRL cover-page ``DocumentFiscalYearFocus`` tag; falls back to
     the cover-page phrase "for the fiscal year ended <Month> <Day>, <Year>".

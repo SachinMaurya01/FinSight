@@ -1,9 +1,4 @@
-"""Phase 6 — hybrid retrieval: weighted reciprocal-rank fusion of dense + BM25.
-
-PRD §4.4 FR-10: fuse dense and BM25 results via a hybrid scoring strategy
-(reciprocal rank fusion) with configurable weighting. Weights live in settings
-(``dense_weight`` / ``lexical_weight``, RRF smoothing ``rrf_k``).
-"""
+"""Hybrid fusion (dense + BM25)."""
 
 from __future__ import annotations
 

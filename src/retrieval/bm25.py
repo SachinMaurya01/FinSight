@@ -1,11 +1,4 @@
-"""Phase 6 — BM25 lexical retrieval over the chunk store.
-
-Builds an in-memory ``rank_bm25`` index from the same ``data/chunks/*_chunks.json``
-files used to seed pgvector, so dense and lexical search share identical chunk
-identity (``source_doc`` + ``chunk_index``) for hybrid fusion.
-
-The index is cached per chunk directory across calls within a process.
-"""
+"""BM25 lexical retrieval."""
 
 from __future__ import annotations
 

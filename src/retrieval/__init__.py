@@ -1,7 +1,4 @@
-"""FinSight retrieval package.
-
-Phase 3 scope (PRD): dense embeddings + pgvector storage + similarity search.
-"""
+"""FinSight retrieval package."""
 
 from src.retrieval.bm25 import BM25Index, build_bm25_index
 from src.retrieval.compress import compress_chunks, split_sentences

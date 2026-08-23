@@ -1,4 +1,4 @@
-"""CLI for Phase 3/6 — seed pgvector, run dense and hybrid retrieval.
+"""CLI for pgvector seed and retrieval.
 
 Usage:
     python -m src.retrieval seed

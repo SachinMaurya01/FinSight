@@ -1,4 +1,4 @@
-"""CLI for Phase 4 — end-to-end answer (retrieve dense chunks -> single LLM call).
+"""CLI for end-to-end answer (retrieve -> LLM).
 
 Usage:
     python -m src.llm answer "what are the main risks" --k 5

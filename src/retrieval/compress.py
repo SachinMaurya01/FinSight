@@ -1,10 +1,4 @@
-"""Phase 8 — context compression: trim reranked chunks to query-relevant spans.
-
-PRD §4.5 FR-12 / Phase 8: keep only the sentences in each chunk that are
-relevant to the query, and enforce ``settings.context_token_budget`` before the
-context reaches the LLM node. Relevance uses the configured embedder's
-cosine similarity (no extra LLM call).
-"""
+"""Context compression."""
 
 from __future__ import annotations
 

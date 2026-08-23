@@ -1,10 +1,4 @@
-"""Phase 4-10 — LLM call layer: build the answer prompt, route, and answer.
-
-``answer_query`` turns retrieved chunks + query into an answer. Since Phase 9
-it routes the call to the query's complexity tier, and since Phase 10 it walks
-the provider fallback chain (``call_with_fallback``) instead of a single
-hardcoded provider.
-"""
+"""Prompt building and answer generation."""
 
 from __future__ import annotations
 
@@ -48,9 +42,7 @@ def answer_query(
 ) -> str:
     """Answer ``query`` grounded in ``chunks`` via the routed fallback chain.
 
-    ``tier`` selects the model tier (Phase 9). ``llm`` may be injected for
-    tests; when provided it bypasses the fallback chain (Phase 4 behavior).
-    """
+    ``tier`` selects the model tier."""
     prompt = build_answer_prompt(query, chunks)
     logger.info("Calling LLM (query=%r, context_chunks=%d, tier=%s)", query, len(chunks), tier)
     if llm is not None:

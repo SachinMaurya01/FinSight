@@ -1,0 +1,190 @@
+{
+  "total_examples": 3,
+  "successful": 3,
+  "elapsed_seconds": 89.52,
+  "avg_metrics": {
+    "context_precision": 0.9167,
+    "context_recall": 1.0,
+    "faithfulness": 1.0,
+    "answer_relevance": 0.9107
+  },
+  "avg_judge": 1.0,
+  "judge_scores": [
+    1.0,
+    1.0,
+    1.0
+  ],
+  "results": [
+    {
+      "id": "eval_001",
+      "question": "What were Apple's total net sales in fiscal 2023?",
+      "expected_answer": "Apple's total net sales in fiscal 2023 were $383.3 billion.",
+      "answer": "Apple\u2019s total net sales in fiscal 2023 were $383.3\u202fbillion\u30101\u3011.",
+      "complexity": "simple",
+      "is_recommendation": false,
+      "verification": {
+        "passed": true,
+        "total_claims": 1,
+        "verified_claims": [
+          {
+            "claim": "Apple\u2019s total net sales in fiscal 2023 were $383.3\u202fbillion.",
+            "chunk_index": 0,
+            "reason": "keyword overlap 0.88 in chunk 0"
+          }
+        ],
+        "failed_claims": [],
+        "reasons": [
+          "OK: Apple\u2019s total net sales in fiscal 2023 were $383.3\u202fbillion. -> keyword overlap 0.88 in chunk 0"
+        ]
+      },
+      "tier": "simple",
+      "provider": "groq",
+      "metrics": {
+        "context_precision": 0.75,
+        "context_recall": 1.0,
+        "faithfulness": 1.0,
+        "answer_relevance": 0.9491
+      },
+      "judge": {
+        "score": 1.0,
+        "reasoning": "The answer correctly states Apple's total net sales for fiscal 2023 as $383.3 billion, which exactly matches the expected answer and is directly supported by the provided context."
+      }
+    },
+    {
+      "id": "eval_002",
+      "question": "What is Apple's main risk related to competition?",
+      "expected_answer": "Apple faces risk from inability to compete successfully, manage frequent product transitions, and stimulate demand for new products.",
+      "answer": "Based on the provided context, Apple's main risks related to competition include:\n\n* **Need for continuous innovation and product transitions:** Apple must successfully manage frequent introductions and transitions of products and services to remain competitive and stimulate customer demand [1].\n* **Aggressive competitor pricing and cost structures:** Competitors often compete through aggressive pricing, very low cost structures, and the ability to offer products and services at little or no profit or even at a loss, which intensifies price competition and lowers product margins [4] [8].\n* **Product imitation and intellectual property infringement:** Competitors may imitate Apple's products and infringe on its intellectual property, which could materially adversely affect Apple's ability to maintain a competitive advantage [4].\n* **Market share and market growth limitations:** Apple holds a minority market share in the global smartphone, personal computer, tablet, and wearables markets, and some of these markets periodically experience little to no growth or contract overall [8].\n* **Overall business impact:** If Apple is unable to continue developing and selling innovative new products with attractive margins, or if it fails to compete successfully, its business, reputation, results of operations, financial condition, and stock price could be materially adversely affected [1] [4].",
+      "complexity": "simple",
+      "is_recommendation": false,
+      "verification": {
+        "passed": true,
+        "total_claims": 5,
+        "verified_claims": [
+          {
+            "claim": "Based on the provided context, Apple's main risks related to competition include:\n\n* **Need for continuous innovation and product transitions:** Apple must successfully manage frequent introductions and transitions of products and services to remain competitive and stimulate customer demand .",
+            "chunk_index": 0,
+            "reason": "keyword overlap 0.58 in chunk 0"
+          },
+          {
+            "claim": "* **Aggressive competitor pricing and cost structures:** Competitors often compete through aggressive pricing, very low cost structures, and the ability to offer products and services at little or no profit or even at a loss, which intensifies price competition and lowers product margins  .",
+            "chunk_index": 7,
+            "reason": "keyword overlap 0.50 in chunk 7"
+          },
+          {
+            "claim": "* **Product imitation and intellectual property infringement:** Competitors may imitate Apple's products and infringe on its intellectual property, which could materially adversely affect Apple's ability to maintain a competitive advantage .",
+            "chunk_index": 3,
+            "reason": "keyword overlap 0.67 in chunk 3"
+          },
+          {
+            "claim": "* **Market share and market growth limitations:** Apple holds a minority market share in the global smartphone, personal computer, tablet, and wearables markets, and some of these markets periodically experience little to no growth or contract overall .",
+            "chunk_index": 7,
+            "reason": "keyword overlap 0.71 in chunk 7"
+          },
+          {
+            "claim": "* **Overall business impact:** If Apple is unable to continue developing and selling innovative new products with attractive margins, or if it fails to compete successfully, its business, reputation, results of operations, financial condition, and stock price could be materially adversely affected  .",
+            "chunk_index": 0,
+            "reason": "keyword overlap 0.61 in chunk 0"
+          }
+        ],
+        "failed_claims": [],
+        "reasons": [
+          "OK: Based on the provided context, Apple's main risks related to -> keyword overlap 0.58 in chunk 0",
+          "OK: * **Aggressive competitor pricing and cost structures:** Com -> keyword overlap 0.50 in chunk 7",
+          "OK: * **Product imitation and intellectual property infringement -> keyword overlap 0.67 in chunk 3",
+          "OK: * **Market share and market growth limitations:** Apple hold -> keyword overlap 0.71 in chunk 7",
+          "OK: * **Overall business impact:** If Apple is unable to continu -> keyword overlap 0.61 in chunk 0"
+        ]
+      },
+      "tier": "normal",
+      "provider": "groq",
+      "metrics": {
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "faithfulness": 1.0,
+        "answer_relevance": 0.913
+      },
+      "judge": {
+        "score": 1.0,
+        "reasoning": "heuristic: 1/1 expected numbers in answer, 1/1 in context"
+      }
+    },
+    {
+      "id": "eval_003",
+      "question": "Summarize the key risk factors in Apple's 10-K Item 1A.",
+      "expected_answer": "Key risks include macroeconomic conditions, competition, supply chain disruptions, cybersecurity attacks, product defects, geopolitical tensions, and credit risk.",
+      "answer": "Based on the provided excerpts from Apple's 10-K Item 1A, the key risk factors can be summarized as follows:\n\n* **Competitive & Product Transition Risks**: Inability to compete successfully or manage frequent product and service introductions/transitions could materially harm the company's business, reputation, operations, and stock price [3].\n* **Geopolitical & Supply Chain Disruptions**: Political events, trade disputes, geopolitical tensions, conflicts, terrorism, natural disasters, and public health issues can materially disrupt the company and its customers, employees, suppliers, and logistics partners [6].\n* **Macroeconomic & Financial Risks**: Declining global or regional economic conditions can cause supplier instability, insolvency, increased credit/collectibility risk on trade receivables, reduced liquidity, and declines in the fair value of financial instruments [7]. Credit risk on trade receivables, vendor non-trade receivables, and supply agreement prepayments is also heightened during economic downturns [1].\n* **Investment Portfolio Risks**: Fluctuations in market/economic conditions, interest rates, liquidity, and credit deterioration could negatively impact the company's investment portfolio, potentially resulting in significant losses to cash, cash equivalents, and marketable securities [4].\n* **Asset & Commitment Risks**: The company faces risks of write-downs on inventory and other assets, as well as purchase commitment cancellation risks [2].\n* **Strategic & Quality Risks**: Investments in new business strategies and acquisitions may disrupt ongoing operations and introduce unanticipated risks [5]. Additionally, design and manufacturing defects in products and services could materially harm the business and damage the company's reputation [8].",
+      "complexity": "normal",
+      "is_recommendation": false,
+      "verification": {
+        "passed": true,
+        "total_claims": 8,
+        "verified_claims": [
+          {
+            "claim": "Based on the provided excerpts from Apple's 10-K Item 1A, the key risk factors can be summarized as follows:\n\n* **Competitive & Product Transition Risks**: Inability to compete successfully or manage frequent product and service introductions/transitions could materially harm the company's business, reputation, operations, and stock price .",
+            "chunk_index": 2,
+            "reason": "keyword overlap 0.53 in chunk 2"
+          },
+          {
+            "claim": "* **Geopolitical & Supply Chain Disruptions**: Political events, trade disputes, geopolitical tensions, conflicts, terrorism, natural disasters, and public health issues can materially disrupt the company and its customers, employees, suppliers, and logistics partners .",
+            "chunk_index": 5,
+            "reason": "keyword overlap 0.77 in chunk 5"
+          },
+          {
+            "claim": "* **Macroeconomic & Financial Risks**: Declining global or regional economic conditions can cause supplier instability, insolvency, increased credit/collectibility risk on trade receivables, reduced liquidity, and declines in the fair value of financial instruments .",
+            "chunk_index": 6,
+            "reason": "keyword overlap 0.76 in chunk 6"
+          },
+          {
+            "claim": "Credit risk on trade receivables, vendor non-trade receivables, and supply agreement prepayments is also heightened during economic downturns .",
+            "chunk_index": 0,
+            "reason": "keyword overlap 0.79 in chunk 0"
+          },
+          {
+            "claim": "* **Investment Portfolio Risks**: Fluctuations in market/economic conditions, interest rates, liquidity, and credit deterioration could negatively impact the company's investment portfolio, potentially resulting in significant losses to cash, cash equivalents, and marketable securities .",
+            "chunk_index": 3,
+            "reason": "keyword overlap 0.83 in chunk 3"
+          },
+          {
+            "claim": "* **Asset & Commitment Risks**: The company faces risks of write-downs on inventory and other assets, as well as purchase commitment cancellation risks .",
+            "chunk_index": 1,
+            "reason": "keyword overlap 0.69 in chunk 1"
+          },
+          {
+            "claim": "* **Strategic & Quality Risks**: Investments in new business strategies and acquisitions may disrupt ongoing operations and introduce unanticipated risks .",
+            "chunk_index": 4,
+            "reason": "keyword overlap 0.57 in chunk 4"
+          },
+          {
+            "claim": "Additionally, design and manufacturing defects in products and services could materially harm the business and damage the company's reputation .",
+            "chunk_index": 7,
+            "reason": "keyword overlap 0.85 in chunk 7"
+          }
+        ],
+        "failed_claims": [],
+        "reasons": [
+          "OK: Based on the provided excerpts from Apple's 10-K Item 1A, th -> keyword overlap 0.53 in chunk 2",
+          "OK: * **Geopolitical & Supply Chain Disruptions**: Political eve -> keyword overlap 0.77 in chunk 5",
+          "OK: * **Macroeconomic & Financial Risks**: Declining global or r -> keyword overlap 0.76 in chunk 6",
+          "OK: Credit risk on trade receivables, vendor non-trade receivabl -> keyword overlap 0.79 in chunk 0",
+          "OK: * **Investment Portfolio Risks**: Fluctuations in market/eco -> keyword overlap 0.83 in chunk 3",
+          "OK: * **Asset & Commitment Risks**: The company faces risks of w -> keyword overlap 0.69 in chunk 1",
+          "OK: * **Strategic & Quality Risks**: Investments in new business -> keyword overlap 0.57 in chunk 4",
+          "OK: Additionally, design and manufacturing defects in products a -> keyword overlap 0.85 in chunk 7"
+        ]
+      },
+      "tier": "normal",
+      "provider": "groq",
+      "metrics": {
+        "context_precision": 1.0,
+        "context_recall": 1.0,
+        "faithfulness": 1.0,
+        "answer_relevance": 0.8701
+      },
+      "judge": {
+        "score": 1.0,
+        "reasoning": "heuristic: 1/1 expected numbers in answer, 1/1 in context"
+      }
+    }
+  ]
+}

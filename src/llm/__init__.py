@@ -1,8 +1,4 @@
-"""Phase 4-10 — LLM layer: single call (4), LangGraph wiring (5), routing (9),
-fallback chain (10).
-
-Phase 4: one hardcoded LLM call that takes retrieved chunks + query -> answer.
-"""
+"""Module."""
 
 from src.llm.answer import answer_query, build_answer_prompt, format_context
 from src.llm.client import (

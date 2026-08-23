@@ -2,7 +2,7 @@
 Splits each parsed section into chunks using LangChain's
 
 Chunks are stored as plain Python dicts (``{"content": ..., "metadata": {...}}``)
-— no database yet (PRD Phase 2).
+— no database yet.
 """
 
 from __future__ import annotations

@@ -1,12 +1,4 @@
-"""Phase 10 — provider fallback chain for every LLM call.
-
-PRD §3.4 FR-14..15: each ``call_llm`` invocation walks
-``settings.fallback_chain`` (OpenAI -> Groq -> Gemini -> local vLLM), skipping
-providers without credentials and logging the failure reason for each hop that
-errors (timeout, rate limit, auth, malformed/empty response). If every provider
-fails, ``DegradedResponseError`` is raised so callers return a clear
-degraded-mode message instead of crashing (NFR: Reliability).
-"""
+"""Provider fallback chain."""
 
 from __future__ import annotations
 
@@ -58,11 +50,7 @@ class LLMResult:
 def _provider_exception(name: str, exc: BaseException) -> bool:
     """Whether ``exc`` is a provider failure worth falling back on.
 
-    Providers raise heterogeneous error classes (openai, groq, google SDKs all
-    differ), so the known transient/auth classes are matched explicitly and any
-    other provider ``Exception`` also hops — a fallback chain that crashes on an
-    unrecognized error type is useless (PRD §3.4 failure conditions).
-    """
+    Providers raise heterogeneous error classes."""
     known = (
         OpenAIRateLimitError,
         OpenAITimeoutError,
@@ -101,10 +89,7 @@ def call_with_fallback(
 ) -> LLMResult:
     """Invoke ``prompt`` across the fallback chain; returns the first success.
 
-    When ``tier`` is set (Phase 9 routing), that tier's provider/model is tried
-    first; on failure the call falls back through ``settings.fallback_chain``
-    with the providers' default models (Phase 10).
-    """
+    When ``tier`` is set."""
     tier_cfg = settings.tier_model(tier) if tier else None
     ordered = list(settings.fallback_chain)
     if tier_cfg is not None and tier_cfg.provider in ordered:

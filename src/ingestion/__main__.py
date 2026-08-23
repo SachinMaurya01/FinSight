@@ -55,7 +55,7 @@ def main() -> int:
     parser.add_argument("source_dir", nargs="?", default=str(settings.data_dir), type=Path)
     parser.add_argument("output_dir", nargs="?", default=str(settings.parsed_docs_dir), type=Path)
     parser.add_argument("--preview", type=int, default=0,
-                        help="print the first N chunks of each document (Phase 2 done-when)")
+                        help="print the first N chunks of each document")
     args = parser.parse_args()
 
     html_files = sorted(args.source_dir.glob("*.html"))

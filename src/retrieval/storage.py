@@ -1,13 +1,4 @@
-"""Phase 3 — pgvector storage: schema, bulk insert, and similarity search.
-
-Schema (PRD Phase 3): ``chunks(id, content, embedding vector(N), ticker,
-filing_type, fiscal_period, section, source_doc, chunk_index, char_offset,
-metadata jsonb)`` with an HNSW cosine index for approximate nearest-neighbor
-search.
-
-Connection uses ``settings.postgres_database_url`` (Postgres + pgvector must be
-running locally).
-"""
+"""Vector storage."""
 
 from __future__ import annotations
 

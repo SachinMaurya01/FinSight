@@ -1,9 +1,4 @@
-"""Phase 7 — cross-encoder reranking of fused hybrid candidates.
-
-PRD §4.4 FR-11 / Phase 7: rerank the top ~20 hybrid results down to the final
-top-5..8 before passing to the LLM. Uses a Hugging Face cross-encoder
-(``settings.reranker_model``, default ``cross-encoder/ms-marco-MiniLM-L-6-v2``).
-"""
+"""Cross-encoder reranking."""
 
 from __future__ import annotations
 

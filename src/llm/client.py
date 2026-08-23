@@ -1,10 +1,4 @@
-"""LLM client builders for all providers in the fallback chain (Phase 10).
-
-Supports OpenAI, Groq, Gemini, and a local vLLM (OpenAI-compatible) endpoint
-per PRD §3.4. Credentials are always env-injected; a missing credential raises
-``ProviderUnavailableError`` so the fallback chain can skip to the next
-provider without attempting a doomed call.
-"""
+"""LLM client builders for all providers in the fallback chain."""
 
 from __future__ import annotations
 
@@ -81,11 +75,7 @@ def build_llm(
 
 
 def build_tier_llm(settings: Settings, tier: str) -> BaseChatModel:
-    """Build the chat model for a complexity tier (Phase 9 routing).
-
-    Resolves ``settings.tier_model(tier)`` and builds the model for that tier's
-    provider with that tier's model name. ``tier`` must be ``simple|normal|complex``.
-    """
+    """Build the chat model for a complexity tier."""
     tier_cfg = settings.tier_model(tier)
     logger.info("Routing tier=%s -> provider=%s model=%s", tier, tier_cfg.provider, tier_cfg.model_name)
     return build_llm(settings, tier_cfg.provider, model_name=tier_cfg.model_name)
