@@ -2,6 +2,14 @@
 
 RAG assistant for SEC 10-K/10-Q filings. Answers are grounded in retrieved passages, with citations, tool-augmented live data, and human-in-the-loop for investment advice.
 
+## FinSight currently focuses on:
+
+- Item 1   Business-
+- Item 1A  Risk Factors
+- Item 7   Management's Discussion and Analysis
+- Item 8   Financial Statements
+- Item 7A  Market Risk
+
 ## Workflow
 
 ```mermaid
@@ -122,6 +130,51 @@ Dataset `data/eval/eval_dataset.json` (30 Q/A, 3 tiers, 4 recommendations). Metr
 `src/retrieval/cache.py` caches query/chunk embeddings by `model::text` hash in Redis (TTL 1h) with in-memory fallback. Repeated queries hit cache → faster.
 
 Checkpointer: `src/graph/checkpoint.py` tries `RedisSaver` when `checkpointer_type=redis` and Redis reachable, else `MemorySaver` (logs fallback). Enables HITL state to survive restarts when Redis is available.
+
+## Future Scope
+
+To extend functionality and make FinSight more robust, production-ready, and finance-grade:
+
+### 1. Data & Ingestion Expansion
+- **Automated EDGAR ingestion:** Scheduled crawler with proper `User-Agent`, throttling, and incremental sync for 10-K / 10-Q / 8-K / Proxy (DEF 14A) instead of manual HTML drops.
+- **XBRL-first + table-aware parsing:** Parse XBRL for financial tables (Income Statement, Balance Sheet) preserving rows/columns; HTML fallback with `lxml`/`html5lib` for narrative sections.
+- **Broader corpus:** Earnings call transcripts, investor presentations (PDF), press releases, and international filings (IFRS). Keep source documents read-only; write derived chunks/embeddings to separate storage.
+- **Smarter chunking:** Structure-aware chunking — never split tables mid-row or sentences mid-clause; overlap tuning per section (e.g., Item 1A vs Item 8).
+
+### 2. Retrieval & Reasoning
+- **Metadata-filtered retrieval:** Pre-filter by `ticker`, `filing_type`, `fiscal_period`, `section` before dense/BM25 search.
+- **Advanced retrieval:** Query rewriting / HyDE, multi-hop retrieval for cross-filing comparison, and parent-document retrieval to keep citations + full context.
+- **Improved rerank & compress:** Benchmark additional cross-encoders, LLM-based compression with token-budget enforcement via `tiktoken`.
+- **Graph refinements:** Explicit LangGraph nodes for `retrieve_dense` / `retrieve_bm25` / `fuse_hybrid` / `rerank` as separate steps (per PRD §3.2) with bounded retry on `verify_citations` failure.
+
+### 3. Live Data & Tooling
+- **More finance tools:** SEC EDGAR API lookup, historical price windows, DCF / ratio suite (ROE, debt-to-equity, FCF), and XBRL numeric extraction with Pydantic-validated schemas.
+- **Streaming market data:** Optional WebSocket price feed for intra-day queries without blocking the RAG path.
+
+### 4. Trust, Safety & Compliance
+- **Stronger verification:** NLI-based claim-to-chunk entailment (beyond substring checks) + numeric claim normalization ($M vs $B) — failed verification surfaces as flagged/degraded response.
+- **HITL hardening:** Stricter `is_recommendation` classifier, audit log for approvals/rejections, LangGraph `interrupt` with Redis checkpoint surviving restarts.
+- **Guardrails:** Investment-advice disclaimer, hallucination rate SLOs, and refusal path for unverifiable queries.
+
+### 5. Evaluation & Quality
+- **Larger eval set:** Grow from 30 to 100+ Q/A with peer-comparison and temporal queries; freeze versioned eval snapshots.
+- **Full RAGAS + custom judge:** Faithfulness, context precision/recall, answer relevance plus numeric-citation judge with LLM + deterministic fallback.
+- **Regression harness:** `python -m src.eval` in CI to block pipeline changes that drop scores; track cost/latency per query tier.
+
+### 6. Robustness & Performance
+- **Caching & resilience:** Redis cache for embeddings + prompts (TTL 1h) with in-memory fallback; circuit breakers around LLM providers; complete `OpenAI → Groq → Gemini → local vLLM` fallback with logged reasons.
+- **Latency & cost tracking:** Per-query token accounting, routing accuracy metrics (≥90% simple→cheap), and budget alerts.
+- **Error handling:** No bare `except:`; specific handling for timeout/429/auth; no silent swallow of verification errors.
+
+### 7. Observability & MLOps 
+- **LGTM stack:** Loki + Grafana + Tempo + Mimir/Prometheus for traces/metrics/logs per provider/tier.
+- **Model/prompt versioning & cost dashboards.**
+- **Automated eval on every retrieval/LLM change.**
+
+### 8. Deployment & UX
+- **API + UI:** FastAPI service + Streamlit/Next.js chat UI with inline citation highlighting, source preview, and exportable research briefs.
+- **Deployment:** Dockerized Postgres+pgvector & Redis via `docker-compose.yml`; AWS infra-as-code (deferred until Phase 2).
+- **Multi-turn memory:** Conversational follow-ups with query context carry-over.
 
 ## Project Structure
 
