@@ -1,4 +1,26 @@
-"""Hybrid fusion (dense + BM25)."""
+"""Hybrid fusion (dense + BM25).
+
+Why hybrid search?
+------------------
+Semantic (dense) retrieval finds chunks by meaning, so synonyms and
+paraphrases match even with no shared keywords. But it can miss exact terms:
+- tickers (e.g. "NVDA"), cusips, NaN-like codes, precise figures and
+  rare/out-of-vocabulary jargon that embeddings rarely capture well.
+- short queries where semantic similarity is noisy.
+
+BM25 (lexical) retrieval is the opposite: it matches exact token overlap and
+handles rare identifiers perfectly, but fails on paraphrases.
+
+Combining both with Reciprocal Rank Fusion (RRF) covers both regimes:
+- chunks that rank high lexically (exact hit on a ticker/figure) still rank
+  well even if their semantic score is low;
+- chunks that only match semantically (paraphrased concept) are not drowned
+  out because lexical-only docs don't get a free ride on the dense list.
+
+Net effect: higher recall (both signals surface) and higher precision
+(consensus between the two lists ranks higher via additive RRF scores),
+which is the core of the hybrid retrieval stage.
+"""
 
 from __future__ import annotations
 

@@ -9,6 +9,10 @@ from tiktoken import Encoding
 
 @lru_cache(maxsize=1)
 def _encoding() -> Encoding:
+    """
+        other token count methods based on diff models o200k_base, p50k_base, etc
+    """
+    #  inline way to load a module 
     return __import__("tiktoken").get_encoding("cl100k_base")
 
 

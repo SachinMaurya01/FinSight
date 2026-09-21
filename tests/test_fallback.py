@@ -1,4 +1,4 @@
-"""Phase 10 — fallback chain unit tests (fake providers, no network).
+"""Fallback chain unit tests (fake providers, no network).
 
 Run with: python tests/test_fallback.py
 """

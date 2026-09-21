@@ -1,4 +1,4 @@
-"""Phase 5-14 LangGraph wiring unit tests (KISS)."""
+"""LangGraph wiring unit tests (KISS)."""
 
 from __future__ import annotations
 

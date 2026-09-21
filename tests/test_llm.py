@@ -1,4 +1,4 @@
-"""Phase 4 LLM call unit tests.
+"""LLM call unit tests.
 
 ``answer_query`` is tested with a fake LLM (no network / no API key). A live
 smoke test against Groq is a TODO deferred until credentials are confirmed

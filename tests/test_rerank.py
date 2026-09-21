@@ -1,4 +1,4 @@
-"""Phase 7 — reranking unit tests (fake reranker, no model download).
+"""Reranking unit tests (fake reranker, no model download).
 
 Run with: python tests/test_rerank.py
 """

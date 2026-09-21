@@ -1,4 +1,4 @@
-"""Phase 3 search API unit tests.
+"""Search API unit tests.
 
 ``seed_database`` and ``retrieve_dense`` orchestration is tested with
 monkeypatched fake components (no network / no DB). A live DB integration test

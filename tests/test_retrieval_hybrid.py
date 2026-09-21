@@ -1,4 +1,4 @@
-"""Phase 6 — BM25 index + hybrid fusion unit tests (synthetic chunks, no DB).
+"""BM25 index + hybrid fusion unit tests (synthetic chunks, no DB).
 
 Run with: python tests/test_retrieval_hybrid.py
 """

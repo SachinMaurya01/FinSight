@@ -1,4 +1,4 @@
-"""Phase 3 retrieval unit tests.
+"""Retrieval unit tests.
 
 DB-backed functions (``init_schema``, ``insert_chunks``, ``similarity_search``)
 require a running Postgres + pgvector and credentials; a live integration test

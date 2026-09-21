@@ -1,4 +1,4 @@
-"""Phase 9 — query-complexity router unit tests (rule-based, no LLM).
+"""Query-complexity router unit tests (rule-based, no LLM).
 
 Run with: python tests/test_routing.py
 """

@@ -27,7 +27,7 @@ def build_chunk_splitter(settings: Settings) -> RecursiveCharacterTextSplitter:
     )
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=True) # makes it an immutable data holder ( its attributes cannot be changed )
 class Chunk:
     """A single chunk with its metadata."""
 

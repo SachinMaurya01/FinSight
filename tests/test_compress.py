@@ -1,4 +1,4 @@
-"""Phase 8 — context compression unit tests (fake embedder, no network).
+"""Context compression unit tests (fake embedder, no network).
 
 Run with: python tests/test_compress.py
 """

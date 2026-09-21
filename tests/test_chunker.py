@@ -1,4 +1,4 @@
-"""Phase 2 chunker unit tests (synthetic fixtures only — AGENTS.md §5.2).
+"""Chunker unit tests (synthetic fixtures only — AGENTS.md §5.2).
 
 Run with: python tests/test_chunker.py
 """

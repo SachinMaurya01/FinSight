@@ -59,11 +59,11 @@ class ParsedDocument:
     """A parsed filing with its metadata and extracted sections."""
 
     source_file: str
-    ticker: str
-    filing_type: str
-    fiscal_period: str | None = None
+    ticker: str # unique arrangement of characters. e.g. AAPL -> Apple
+    filing_type: str # form name or code of the document that the company submitted. e.g. 10-K (annual), 10-Q (quarterly), 8-K (announce major, unscheduled material events)
+    fiscal_period: str | None = None # specific timeframe of the company's financial calendar e.g. Q1, Q2, Q3, FY
     filename: str | None = None
-    warnings: list[str] = field(default_factory=list)
+    warnings: list[str] = field(default_factory=list) #  prevents one of Python's most notorious bugs: the mutable default argument trap
     sections: list[ParsedSection] = field(default_factory=list)
 
 
