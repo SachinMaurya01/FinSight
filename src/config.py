@@ -54,10 +54,11 @@ class Settings(BaseConfigSettings):
     app_version: str = "0.1.0"
     environment: Environment = "development"
     log_level: LogLevel = "INFO"
-    project_root: Path = PROJECT_ROOT
-    data_dir: Path = PROJECT_ROOT / "data"
-    parsed_docs_dir: Path = PROJECT_ROOT / "data" / "parsed"
-    chunk_store_dir: Path = PROJECT_ROOT / "data" / "chunks"
+    project_root: Path = PROJECT_ROOT  # anchors all relative paths so repo works from any cwd.
+    data_dir: Path = PROJECT_ROOT / "data"  # single root for raw ingested filings and derived artifacts.
+    parsed_docs_dir: Path = PROJECT_ROOT / "data" / "parsed"  # keeps parsed filings separate from read-only sources.
+    chunk_store_dir: Path = PROJECT_ROOT / "data" / "chunks"  # persists chunked docs for reuse without re-parsing.
+
 
     # Default model
     openai_model: str = "gpt-4o-mini"
@@ -69,74 +70,75 @@ class Settings(BaseConfigSettings):
     groq_base_url: str = "https://api.groq.com/openai/v1"
     groq_model: str = "qwen/qwen3.6-27b"
     google_api_key: str | None = None
-    vllm_base_url: str = "http://localhost:8000/v1"
-    vllm_api_key: str | None = None
-    vllm_model: str | None = None
+    vllm_base_url: str = "http://localhost:8000/v1"  # local vLLM endpoint as last-resort offline fallback.
+    vllm_api_key: str | None = None  # optional auth for secured self-hosted vLLM servers.
+    vllm_model: str | None = None  # model name served by local vLLM; None disables vLLM path.
+
 
     # Model routing
-    model_routing: ModelRouting = ModelRouting()
+    model_routing: ModelRouting = ModelRouting()  # maps simple/normal/complex queries to cheap/medium/expensive models.
 
     # Fallback chain
     fallback_chain: list[ProviderName] = ["openai", "groq", "gemini", "vllm"]
 
     # Embeddings
-    embedding_provider: EmbeddingProvider = "sentence_transformers"
-    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
-    embedding_dimensions: int = Field(default=384, gt=0)
-    embedding_batch_size: int = Field(default=64, gt=0)
+    embedding_provider: EmbeddingProvider = "sentence_transformers"  # selects embedding backend (local default avoids API cost).
+    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"  # compact local model balancing quality vs speed.
+    embedding_dimensions: int = Field(default=384, gt=0)  # must match vector DB schema for similarity search.
+    embedding_batch_size: int = Field(default=64, gt=0)  # batches embedding calls to limit memory and API usage.
 
     # Reranker
-    reranker_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
-    reranker_device: str = "cpu"
+    reranker_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"  # cross-encoder re-scores fused hits for better precision.
+    reranker_device: str = "cpu"  # pins reranker to CPU/GPU explicitly for portable deployments.
 
     # Chunking
-    chunk_size: int = Field(default=1000, gt=0)
-    chunk_overlap: int = Field(default=150, ge=0)
+    chunk_size: int = Field(default=1000, gt=0)  # chunk length balances context coverage vs retrieval noise.
+    chunk_overlap: int = Field(default=150, ge=0)  # overlap preserves sentence context across chunk boundaries.
 
     # Hybrid retrieval
-    dense_top_k: int = Field(default=20, gt=0)
-    bm25_top_k: int = Field(default=20, gt=0)
-    fusion_top_k: int = Field(default=20, gt=0)
-    rerank_top_k: int = Field(default=8, gt=0)
-    rrf_k: int = Field(default=60, gt=0)
-    dense_weight: float = Field(default=0.6, ge=0.0, le=1.0)
-    lexical_weight: float = Field(default=0.4, ge=0.0, le=1.0)
+    dense_top_k: int = Field(default=20, gt=0)  # number of vector hits to feed into RRF fusion.
+    bm25_top_k: int = Field(default=20, gt=0)  # number of keyword (BM25) hits to feed into RRF fusion.
+    fusion_top_k: int = Field(default=20, gt=0)  # caps fused candidate set before reranking to bound cost.
+    rerank_top_k: int = Field(default=8, gt=0)  # final evidence set size passed to LLM and citation check.
+    rrf_k: int = Field(default=60, gt=0)  # RRF smoothing constant controlling rank vs score influence.
+    dense_weight: float = Field(default=0.6, ge=0.0, le=1.0)  # weights semantic matches higher than lexical ones.
+    lexical_weight: float = Field(default=0.4, ge=0.0, le=1.0)  # keeps keyword signal so tickers/figures are not missed.
 
     # Context compression
-    context_token_budget: int = Field(default=12000, gt=0)
-    max_compressed_chunks: int = Field(default=8, gt=0)
+    context_token_budget: int = Field(default=12000, gt=0)  # caps prompt tokens to fit model window and control cost.
+    max_compressed_chunks: int = Field(default=8, gt=0)  # limits chunks kept after compression to bound latency.
 
     # Citation verification
-    verification_max_retries: int = Field(default=2, ge=0, le=3)
+    verification_max_retries: int = Field(default=2, ge=0, le=3)  # retries unverified answers before flagging as degraded.
 
     # Human-in-the-loop
-    hitl_enabled: bool = True
-    hitl_interrupt_node: str = "human_review_gate"
+    hitl_enabled: bool = True  # compliance gate blocking investment-like answers without review.
+    hitl_interrupt_node: str = "human_review_gate"  # LangGraph node name where execution pauses for approval.
 
     # Tools
-    enable_tools: bool = True
+    enable_tools: bool = True  # toggles tool calls (retrieval/calculator) for simple or offline runs.
 
     # Redis
-    redis_url: str = "redis://localhost:6379/0"
-    checkpointer_type: CheckpointerType = "in_memory"
+    redis_url: str = "redis://localhost:6379/0"  # connection for LangGraph checkpointing and short-term state.
+    checkpointer_type: CheckpointerType = "in_memory"  # selects persistent Redis vs ephemeral memory checkpointer.
 
     # Storage
-    postgres_database_url: str = "postgresql://rag_user:rag_password@localhost:5432/rag_db"
+    postgres_database_url: str = "postgresql://rag_user:rag_password@localhost:5432/rag_db"  # vector/metadata store connection (pgvector).
 
     # SEC EDGAR
-    sec_edgar_user_agent: str = "FinSightResearch dev@example.com"
-    sec_request_throttle_seconds: float = Field(default=0.5, gt=0)
+    sec_edgar_user_agent: str = "FinSightResearch dev@example.com"  # SEC-required User-Agent with contact email.
+    sec_request_throttle_seconds: float = Field(default=0.5, gt=0)  # throttles EDGAR requests to respect fair-use limits.
 
     # Evaluation
-    eval_dataset_path: Path = PROJECT_ROOT / "data" / "eval" / "eval_dataset.json"
-    ragas_metrics: list[str] = [
+    eval_dataset_path: Path = PROJECT_ROOT / "data" / "eval" / "eval_dataset.json"  # fixed offline eval set for RAGAS regression checks.
+    ragas_metrics: list[str] = [  # quality metrics tracked on every pipeline change.
         "context_precision",
         "context_recall",
         "faithfulness",
         "answer_relevance",
     ]
-    judge_model: str = "qwen/qwen3.6-27b"
-    eval_seed: int = 42
+    judge_model: str = "qwen/qwen3.6-27b"  # LLM judge scoring eval answers consistently across runs.
+    eval_seed: int = 42  # seed for reproducible eval sampling and shuffling.
 
     # Validators
     @field_validator("postgres_database_url")
