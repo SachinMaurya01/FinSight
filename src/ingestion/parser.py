@@ -14,12 +14,17 @@ logger = logging.getLogger(__name__)
 
 # SEC EDGAR separates tokens with &nbsp; entities, e.g. "Item 1A.&nbsp;&nbsp;Risk Factors".
 _SPACING = r"(?:&nbsp;|\s)*"
+# Matches 10-K section headings despite &nbsp;/spacing variations to slice Item 1A and Item 7.
 _SECTION_MARKERS: dict[str, re.Pattern[str]] = {
+    # Matches "Item 1A. Risk Factors" heading to find Risk Factors section start.
     "Item 1A Risk Factors": re.compile(r"Item\s*1A\s*\." + _SPACING + r"Risk Factors", re.IGNORECASE),
+    # Matches "Item 1B. Unresolved ..." heading to find Risk Factors section end.
     "Item 1B Unresolved Staff Comments": re.compile(
         r"Item\s*1B\s*\." + _SPACING + r"Unresolved", re.IGNORECASE
     ),
+    # Matches "Item 7. Management ..." heading to find MD&A section start.
     "Item 7 MD&A": re.compile(r"Item\s*7\s*\." + _SPACING + r"Management", re.IGNORECASE),
+    # Matches "Item 7A." heading to find MD&A section end.
     "Item 7A Market Risk": re.compile(r"Item\s*7A\s*\.", re.IGNORECASE),
 }
 
@@ -29,15 +34,20 @@ _SECTIONS: list[tuple[str, str, str]] = [
     ("Item 7 MD&A", "Item 7 MD&A", "Item 7A Market Risk"),
 ]
 
+# Extracts <type> value (e.g. 10-K) from EDGAR <document> block.
 _DOC_TYPE_RE = re.compile(r"<type>\s*([^<\n]+)", re.IGNORECASE)
+# Extracts <filename> value to derive ticker and source name.
 _DOC_FILENAME_RE = re.compile(r"<filename>\s*([^<\n]+)", re.IGNORECASE)
+# Detects filing type (10-K/10-Q/8-K) inside filenames when no <document> block exists.
 _FILING_TYPE_IN_NAME_RE = re.compile(r"(?:10-[KQ]|10[KQ]|8-[KQ]|8-K)", re.IGNORECASE)
 
 # Fiscal-period markers: XBRL cover-page tags first, then the cover-page phrase
 # "fiscal year ended September 27, 2025" used in the body document.
+# Extracts 4-digit year from XBRL DocumentFiscalYearFocus tag for FY label.
 _DOC_FISCAL_YEAR_FOCUS_RE = re.compile(
     r"DocumentFiscalYearFocus[^>]*>\s*(\d{4})\s*<", re.IGNORECASE
 )
+# Extracts month/day/year from cover phrase "fiscal year ended ..." as FY fallback.
 _COVER_FISCAL_YEAR_END_RE = re.compile(
     r"fiscal year ended" + _SPACING + r"([A-Za-z]+)" + _SPACING + r"\d{1,2}," + _SPACING + r"(\d{4})",
     re.IGNORECASE,

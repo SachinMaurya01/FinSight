@@ -19,6 +19,7 @@ EmbeddingProvider = Literal["openai", "gemini", "sentence_transformers"]
 CheckpointerType = Literal["redis", "in_memory"]
 LogLevel = Literal["DEBUG", "INFO", "WARNING", "ERROR"]
 
+# Validates SEC User-Agent contains a contact email (e.g. name@domain).
 _EMAIL_PATTERN = re.compile(r"\S+@\S+")
 
 
@@ -68,11 +69,11 @@ class Settings(BaseConfigSettings):
     openai_api_key: str | None = None
     groq_api_key: str | None = None
     groq_base_url: str = "https://api.groq.com/openai/v1"
-    groq_model: str = "qwen/qwen3.6-27b"
+    groq_model: str = "qwen/qwen3.5-9b"
     google_api_key: str | None = None
-    vllm_base_url: str = "http://localhost:8000/v1"  # local vLLM endpoint as last-resort offline fallback.
+    vllm_base_url: str = "http://localhost:11434/v1"  # local OpenAI-compatible endpoint
     vllm_api_key: str | None = None  # optional auth for secured self-hosted vLLM servers.
-    vllm_model: str | None = None  # model name served by local vLLM; None disables vLLM path.
+    vllm_model: str | None = "qwen3.5:9b"  # local Ollama model id (from `ollama list`); None disables vLLM path.
 
 
     # Model routing
@@ -137,7 +138,7 @@ class Settings(BaseConfigSettings):
         "faithfulness",
         "answer_relevance",
     ]
-    judge_model: str = "qwen/qwen3.6-27b"  # LLM judge scoring eval answers consistently across runs.
+    judge_model: str = "qwen/qwen3.5-9b"  # LLM judge scoring eval answers consistently across runs.
     eval_seed: int = 42  # seed for reproducible eval sampling and shuffling.
 
     # Validators

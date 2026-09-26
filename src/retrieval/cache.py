@@ -66,14 +66,15 @@ def set_cached_embedding(model: str, text: str, vector: list[float], settings: S
     """Store embedding in cache (Redis if available, else in-memory)."""
     key = _cache_key(model, text)
 
-    # Try Redis
-    client = _get_redis_client(settings)
-    if client is not None:
-        try:
-            client.setex(key, _TTL_SECONDS, json.dumps(vector))
-            return
-        except Exception as exc:
-            logger.warning("Redis set failed: %s", exc)
+    # Try Redis only when explicitly configured; otherwise stay in-memory (no connection attempts).
+    if settings.checkpointer_type == "redis":
+        client = _get_redis_client(settings)
+        if client is not None:
+            try:
+                client.setex(key, _TTL_SECONDS, json.dumps(vector))
+                return
+            except Exception as exc:
+                logger.warning("Redis set failed: %s", exc)
 
     # In-memory fallback
     _MEM_CACHE[key] = vector

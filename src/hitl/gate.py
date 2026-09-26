@@ -26,6 +26,7 @@ _RECOMMENDATION_PATTERNS = (
     r"\bupside\b.*\bdownside\b",
 )
 
+# Matches investment-recommendation phrasing (buy/sell/thesis/price target) to trigger HITL review.
 _RECOMMENDATION_RE = re.compile("|".join(_RECOMMENDATION_PATTERNS), re.IGNORECASE)
 
 

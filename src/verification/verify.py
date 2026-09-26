@@ -11,8 +11,11 @@ from src.config import Settings
 
 logger = logging.getLogger(__name__)
 
+# Splits answer into sentence-level claims on ". "/"! "/"? " boundaries.
 _SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
+# Matches citation markers like [12] or 【12】 to strip before claim splitting.
 _CITATION_RE = re.compile(r"\[\d+\]|【\d+】")
+# Matches financial numbers like $1,234.56 or 15% for grounding checks.
 _NUMERIC_RE = re.compile(r"\$?[\d,]+(?:\.\d+)?%?")
 
 

@@ -10,6 +10,7 @@ from src.config import settings
 
 logger = logging.getLogger(__name__)
 
+# Matches financial numbers like $1,234.56 or 15% to compare answer vs expected/context.
 _NUMERIC_RE = re.compile(r"\$?[\d,]+(?:\.\d+)?%?")
 
 

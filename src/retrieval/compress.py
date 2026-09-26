@@ -13,6 +13,7 @@ from src.tokens import count_tokens
 
 logger = logging.getLogger(__name__)
 
+# Splits chunks into sentences on ". "/"! "/"? " to keep only query-relevant ones.
 _SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
 _KEEP_SIM_RATIO = 0.6
 

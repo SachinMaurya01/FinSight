@@ -14,6 +14,7 @@ from src.retrieval.search import load_chunk_files
 
 logger = logging.getLogger(__name__)
 
+# Tokenizes words plus financial tokens like $383.3 or 15% for BM25 lexical search.
 _TOKEN_RE = re.compile(r"\$?\d+(?:[.,]\d+)*%?|[A-Za-z]+")
 
 
