@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1220" height="820" viewBox="0 0 1220 820" role="img" aria-labelledby="title desc">
+  <title id="title">FinSight architecture</title>
+  <desc id="desc">Offline ingestion of SEC filings into pgvector, and the online LangGraph pipeline with hybrid retrieval, reranking, model fallback, citation verification, and human review.</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b"/>
+    </marker>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <style>
+      .lane-title { font: 700 18px Inter, Helvetica, Arial, sans-serif; fill: #0f172a; }
+      .box-title { font: 700 14px Inter, Helvetica, Arial, sans-serif; fill: #0f172a; }
+      .box-sub { font: 12px Inter, Helvetica, Arial, sans-serif; fill: #475569; }
+      .arrow-label { font: 11px Inter, Helvetica, Arial, sans-serif; fill: #64748b; }
+      .note { font: 12px Inter, Helvetica, Arial, sans-serif; fill: #475569; }
+    </style>
+  </defs>
+
+  <rect width="1220" height="820" fill="#f8fafc"/>
+
+  <text x="48" y="48" class="lane-title">FinSight — retrieval-augmented SEC filing analysis</text>
+  <text x="48" y="70" class="note">Ground every claim in retrieved passages; route by query complexity; fall back across providers; gate recommendation-like output behind human review.</text>
+
+  <!-- Offline lane -->
+  <rect x="36" y="96" width="1148" height="248" rx="18" fill="#ecfdf5" stroke="#a7f3d0"/>
+  <text x="60" y="128" class="lane-title">Offline ingestion</text>
+
+  <g filter="url(#shadow)">
+    <rect x="60" y="156" width="170" height="88" rx="12" fill="#ffffff" stroke="#10b981"/>
+    <text x="76" y="184" class="box-title">SEC 10-K HTML</text>
+    <text x="76" y="206" class="box-sub">data/*.html</text>
+    <text x="76" y="224" class="box-sub">2 sample filings</text>
+
+    <rect x="294" y="156" width="200" height="88" rx="12" fill="#ffffff" stroke="#10b981"/>
+    <text x="310" y="184" class="box-title">Parser</text>
+    <text x="310" y="206" class="box-sub">Item 1A + Item 7</text>
+    <text x="310" y="224" class="box-sub">plain text (tables flattened)</text>
+
+    <rect x="558" y="156" width="180" height="88" rx="12" fill="#ffffff" stroke="#10b981"/>
+    <text x="574" y="184" class="box-title">Chunker</text>
+    <text x="574" y="206" class="box-sub">1000 chars / 150 overlap</text>
+    <text x="574" y="224" class="box-sub">section + period metadata</text>
+
+    <rect x="802" y="156" width="180" height="88" rx="12" fill="#ffffff" stroke="#10b981"/>
+    <text x="818" y="184" class="box-title">Embeddings</text>
+    <text x="818" y="206" class="box-sub">all-MiniLM-L6-v2</text>
+    <text x="818" y="224" class="box-sub">384 dimensions</text>
+
+    <rect x="1046" y="156" width="112" height="88" rx="12" fill="#ffffff" stroke="#10b981"/>
+    <text x="1062" y="184" class="box-title">pgvector</text>
+    <text x="1062" y="206" class="box-sub">chunks +</text>
+    <text x="1062" y="224" class="box-sub">embeddings</text>
+  </g>
+
+  <line x1="230" y1="200" x2="290" y2="200" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="494" y1="200" x2="554" y2="200" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="738" y1="200" x2="798" y2="200" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="982" y1="200" x2="1042" y2="200" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <text x="60" y="292" class="note">Limits: only Items 1A and 7 are parsed; Item 8 financial statements and XBRL tables are out of scope for now.</text>
+  <text x="60" y="314" class="note">Chunks are stored as derived artifacts under data/chunks/; source filings stay read-only.</text>
+
+  <!-- Online lane -->
+  <rect x="36" y="368" width="1148" height="420" rx="18" fill="#eff6ff" stroke="#bfdbfe"/>
+  <text x="60" y="400" class="lane-title">Online query (LangGraph)</text>
+
+  <g filter="url(#shadow)">
+    <rect x="60" y="430" width="128" height="76" rx="12" fill="#ffffff" stroke="#3b82f6"/>
+    <text x="76" y="458" class="box-title">Query</text>
+    <text x="76" y="480" class="box-sub">user question</text>
+
+    <rect x="228" y="430" width="150" height="76" rx="12" fill="#ffffff" stroke="#3b82f6"/>
+    <text x="244" y="452" class="box-title">Classify</text>
+    <text x="244" y="472" class="box-sub">simple / normal</text>
+    <text x="244" y="490" class="box-sub">/ complex tier</text>
+
+    <rect x="418" y="416" width="260" height="104" rx="12" fill="#ffffff" stroke="#3b82f6"/>
+    <text x="434" y="442" class="box-title">Retrieve</text>
+    <text x="434" y="462" class="box-sub">dense top-20 + BM25 top-20</text>
+    <text x="434" y="480" class="box-sub">RRF fusion → cross-encoder</text>
+    <text x="434" y="498" class="box-sub">rerank top-8</text>
+
+    <rect x="718" y="430" width="150" height="76" rx="12" fill="#ffffff" stroke="#3b82f6"/>
+    <text x="734" y="458" class="box-title">Compress</text>
+    <text x="734" y="478" class="box-sub">query-relevant spans</text>
+
+    <rect x="908" y="416" width="250" height="104" rx="12" fill="#ffffff" stroke="#3b82f6"/>
+    <text x="924" y="442" class="box-title">LLM + tools</text>
+    <text x="924" y="462" class="box-sub">tier routing + provider fallback</text>
+    <text x="924" y="480" class="box-sub">OpenAI → Groq → Gemini → vLLM</text>
+    <text x="924" y="498" class="box-sub">live price / ratio tools</text>
+
+    <rect x="908" y="558" width="250" height="80" rx="12" fill="#ffffff" stroke="#3b82f6"/>
+    <text x="924" y="586" class="box-title">Verify citations</text>
+    <text x="924" y="606" class="box-sub">claim-to-chunk grounding</text>
+    <text x="924" y="624" class="box-sub">bounded retry on failure (max 2)</text>
+
+    <rect x="628" y="558" width="230" height="80" rx="12" fill="#ffffff" stroke="#3b82f6"/>
+    <text x="644" y="586" class="box-title">Human review gate</text>
+    <text x="644" y="606" class="box-sub">recommendation-like output</text>
+    <text x="644" y="624" class="box-sub">approve / withhold</text>
+
+    <rect x="396" y="558" width="180" height="80" rx="12" fill="#ffffff" stroke="#3b82f6"/>
+    <text x="412" y="586" class="box-title">Final answer</text>
+    <text x="412" y="606" class="box-sub">answer + inline citations</text>
+    <text x="412" y="624" class="box-sub">+ source list</text>
+  </g>
+
+  <line x1="188" y1="468" x2="224" y2="468" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="378" y1="468" x2="414" y2="468" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="678" y1="468" x2="714" y2="468" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+  <line x1="868" y1="468" x2="904" y2="468" stroke="#64748b" stroke-width="1.6" marker-end="url(#arrow)"/>
+
+  <path d="M 1033 520 L 1033 554" stroke="#64748b" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+  <text x="1042" y="542" class="arrow-label">draft</text>
+
+  <path d="M 908 598 L 862 598" stroke="#64748b" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+  <path d="M 628 598 L 580 598" stroke="#64748b" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+
+  <path d="M 396 598 L 360 598 L 360 520 L 414 520" stroke="#64748b" stroke-width="1.6" fill="none" marker-end="url(#arrow)"/>
+  <text x="304" y="544" class="arrow-label">retry retrieval</text>
+
+  <path d="M 1046 244 L 1046 330 L 548 330 L 548 412" stroke="#64748b" stroke-width="1.6" fill="none" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+  <text x="720" y="322" class="arrow-label">vector + BM25 index</text>
+
+  <text x="60" y="700" class="note">Eval: 30 labeled questions (28 with section-level citation labels). Retrieval ablation is offline; full RAGAS requires provider keys + a working ragas install.</text>
+  <text x="60" y="722" class="note">Known limits: table-heavy Item 8 answers are not covered; P/E depends on live price + EPS extracted from text, so filing EPS may differ from trailing EPS.</text>
+</svg>
