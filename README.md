@@ -1,123 +1,104 @@
-# FinSight — Financial Filings RAG
+# FinSight
 
-RAG assistant for SEC 10-K filings. Answers are grounded in retrieved passages, with inline citations, tool-augmented live data, provider fallback, and a human-in-the-loop gate for investment-advice-like output.
+Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing text, answers with inline citations, falls back across LLM providers, verifies claims before returning them, and gates investment-advice-like output behind human review.
 
-**Links:** [Architecture](docs/architecture.svg) · [CLI demo](docs/demo.svg) · [Results](#results) · [Failure analysis](#failure-analysis) · [Limits / interview notes](#limits--interview-notes)
+
+## Doc Refernce:
+
+- Item 1   Business-
+- Item 1A  Risk Factors
+- Item 7   Management's Discussion and Analysis
+- Item 8   Financial Statements
+- Item 7A  Market Risk
+
+**Reference implementation, not a production deployment.** The pipeline and controls are real; the corpus, evaluation coverage, and operational hardening are not yet production-grade. This README separates what is measured from what is assumed.
+
+**Links:** [Architecture](docs/architecture.svg) · [CLI demo](docs/demo.svg) · [Results](#evaluation-results) · [Failure analysis](#failure-analysis)
 
 **Topics:** `sec-edgar` · `rag` · `langgraph` · `pgvector` · `bm25` · `reranking` · `ragas` · `python`
 
-> **Status:** sample corpus only (2 Apple 10-Ks, 247 chunks). The retrieval ablation below is measured and reproducible. The checked-in end-to-end baseline is a **3-question heuristic smoke run**, not a full RAGAS result. The 30-question RAGAS run is still blocked by the current `ragas`/`langchain-community` import combination; no provider keys were used for the checked-in run. See [Results](#results) and [Failure analysis](#failure-analysis) for exactly what is and is not proven.
+**Contents:** [Scope](#scope) · [Architecture](#architecture) · [Design decisions](#design-decisions) · [Production readiness](#production-readiness) · [Evaluation](#evaluation-results) · [Failure analysis](#failure-analysis) · [Security](#security-and-compliance) · [Operations](#operations) · [Roadmap](#roadmap)
 
-## What it does
+## Executive summary
 
-- Parses SEC 10-K HTML and extracts **Item 1A (Risk Factors)** and **Item 7 (MD&A)**.
-- Chunks with metadata (`ticker`, `filing_type`, `fiscal_period`, `section`, `chunk_index`).
-- Retrieves with **dense (pgvector) + BM25 + weighted RRF**, then **cross-encoder reranking**, then context compression.
-- Routes queries by complexity (`simple` → cheap, `normal` → medium, `complex` → expensive) with an `OpenAI → Groq → Gemini → local vLLM` fallback chain.
-- Supports tools for live price, P/E, gross margin, and growth rate.
-- Verifies every claim against retrieved chunks (bounded retry), then sends recommendation-like output through a human review gate.
-- Ships an offline evaluation harness plus a retrieval ablation that runs without Postgres or API keys.
+- **Problem:** 10-K answers are buried in long, table-heavy filings; generic chat-with-PDF tools lose citation traceability and numeric precision.
+- **Approach:** section-scoped ingestion, hybrid retrieval (dense + BM25 with RRF), cross-encoder reranking, tiered model routing, provider fallback, citation verification, and HITL for recommendation-like output.
+- **Current evidence:** offline retrieval ablation on 28 citation-labeled questions. Hybrid + rerank reaches `MRR@8 = 0.9464` vs `0.8929` for dense-only; context precision is `0.7589` vs `0.7321`.
+- **Current gap:** full 30-question RAGAS is not measured. The checked-in end-to-end baseline is a 3-question heuristic smoke run. RAGAS is wired behind `--metrics ragas` but the current dependency lock cannot import it.
+- **Production status:** local reference stack only. No API, auth, rate limiting, observability, or CI deployment gate yet.
+
+## Scope
+
+| In scope | Out of scope (today) |
+|---|---|
+| 10-K HTML ingestion for Item 1A and Item 7 | Full 10-K coverage, including Item 8 financial statements |
+| Text chunks with ticker/period/section metadata | XBRL-native numeric extraction and table-structure preservation |
+| Dense + BM25 hybrid retrieval + reranking | Peer comparison, 10-Q/8-K/proxies/transcripts |
+| Provider routing and fallback | Production auth, multi-tenant isolation, rate limiting |
+| Citation verification + bounded retry | NLI-grade entailment and numeric normalization |
+| HITL gate for recommendation-like output | Regulatory advice, portfolio execution, or investment recommendations |
+| Offline retrieval ablation + eval harness | Hosted API/UI, SLO dashboards, on-call runbooks |
 
 ## Architecture
 
 ![FinSight architecture](docs/architecture.svg)
 
-**Offline (ingestion):** `data/*.html` → `parse_edgar_file` (Item 1A, Item 7) → `chunk_document` (1000/150, metadata) → `embed_chunks` (sentence-transformers, 384d) → pgvector.
+**Offline:** `data/*.html` → `parse_edgar_file` (Item 1A, Item 7) → `chunk_document` (1000/150, metadata) → `embed_chunks` (sentence-transformers, 384d) → pgvector.
 
-**Online (graph):** `ask()` builds state → classify → retrieve (hybrid + rerank) → compress → LLM (routed + fallback + tools) → verify citations (retry on failure) → human review gate → finalize with sources.
+**Online:** `ask()` → classify complexity → retrieve (dense top-20 + BM25 top-20 → RRF → rerank top-8) → compress → LLM (tier routing + fallback + tools) → verify citations (retry on failure) → human review gate → final answer + sources.
 
-## At a glance
+**Request invariants**
 
-| Item | Value |
-|---|---:|
-| Sample filings | 2 Apple 10-Ks (FY2023, FY2025) |
-| Parsed sections | Item 1A Risk Factors, Item 7 MD&A |
-| Indexed chunks | 247 |
-| Eval questions | 30 (28 with citation labels, 2 pure tool questions) |
-| End-to-end smoke baseline | 3 questions (heuristic metrics) |
-| Default retrieval depth | 8 chunks |
+1. The `src.graph` orchestration path always executes `verify_citations` before `finalize`. The lower-level `src.llm answer` CLI is a debugging path and bypasses verification and HITL.
+2. Recommendation-like output pauses at the HITL gate by default. `--no-hitl` and the non-interactive `ask()` helper auto-approve; both are local/eval escape hatches, not production-safe controls.
+3. All graph LLM calls go through the provider fallback chain; failures are logged with provider and reason.
+4. Retrieved evidence carries `ticker`, `filing_type`, `fiscal_period`, `section`, and `chunk_index` for citation and filtering.
 
-## Quick start
+## Design decisions
 
-Prerequisites: [uv](https://docs.astral.sh/uv/) and Docker (for Postgres + pgvector + Redis).
+| Decision | Why | Tradeoff |
+|---|---|---|
+| Hybrid retrieval with weighted RRF | Dense handles paraphrases; BM25 handles exact figures, tickers, and rare terms | Lexical matches can crowd out relevant narrative chunks (`eval_013`) |
+| Cross-encoder rerank on fused candidates | Improves ordering once candidates are in the pool | Adds latency and cannot recover chunks missing from the candidate set |
+| Complexity-based model routing | Controls cost/latency on simple queries | Routing accuracy is not yet measured against labeled queries |
+| Provider fallback chain | Availability under rate limits/timeouts/auth failures | A fallback provider can change answer style/quality; no cross-provider consistency test |
+| Citation verification before return | Blocks ungrounded claims from reaching users | Current check is keyword overlap, not entailment |
+| HITL gate for recommendation-like output | Compliance-relevant control, not a model feature | Non-interactive `ask()` auto-approves for evaluation; production must not use that path |
+| Redis cache + checkpointer with memory fallback | Lower latency and HITL resume across restarts | Memory fallback silently loses state across process restarts (logged) |
+| Local embeddings by default | Offline reproducibility and no embedding API cost | 384d MiniLM is a quality ceiling; not benchmarked against stronger embedders |
 
-```bash
-cp .env.example .env   # add provider keys for LLM runs; retrieval demo works without them
-make demo
-```
+## Production readiness
 
-`make demo` is the one-command local smoke path. It runs `docker compose up -d`, `uv sync`, parses the sample filings, seeds pgvector, and runs a retrieval query.
+| Area | Status | Notes |
+|---|---|---|
+| Retrieval pipeline | Implemented | Dense, BM25, RRF, rerank, compression |
+| LLM reliability | Implemented | Tier routing + fallback chain + degraded-mode error |
+| Citation verification | Implemented, heuristic | Keyword overlap; NLI/numeric checks are future work |
+| HITL control | Implemented, default-on | CLI gate + Redis checkpointer; `--no-hitl` and `ask()` auto-approval must be guarded in production |
+| Evaluation | Partial | Retrieval measured on 28 questions; end-to-end n=3; RAGAS blocked |
+| API / UI | Not included | CLI only |
+| AuthN / AuthZ | Not included | No tenant model or access control |
+| Rate limiting / quotas | Not included | Required before exposing an API |
+| Observability | Deferred | Phase 2 LGTM stack; currently logs + token counts only |
+| CI regression gate | Not configured | `make test` and `make ablation` exist, but no workflow |
+| Deployment | Local only | `docker-compose.yml` for Postgres/pgvector + Redis |
+| Secrets | Env-only | `.env` is gitignored; `.env.example` uses placeholders |
+| Data retention / deletion | Not implemented | Sample public filings only |
+| Prompt-injection defense | Not implemented | Filing text is untrusted input to the LLM; see [Security](#security-and-compliance) |
 
-If you prefer not to use `make`:
+## Evaluation results
 
-```bash
-docker compose up -d          # Postgres/pgvector + Redis
-uv sync
-uv run python -m src.ingestion
-uv run python -m src.retrieval seed
-uv run python -m src.retrieval hybrid "total net sales 383.3 billion" --k 3
-```
+### Dataset and protocol
 
-Then run the full graph:
+- `data/eval/eval_dataset.json`: 30 questions, 3 complexity tiers, 4 recommendation-framed questions.
+- 28 questions have section-level citation labels; 2 are pure tool questions and are excluded from retrieval scoring.
+- Retrieval ablation is offline and deterministic: local embeddings, local reranker, `k=8`, checked-in chunks.
+- End-to-end baseline is a 3-question run through the full graph using Groq and the heuristic metrics backend.
+- Raw artifacts: [`data/eval/retrieval_ablation.json`](data/eval/retrieval_ablation.json), [`data/eval/baseline.json`](data/eval/baseline.json).
 
-```bash
-uv run python -m src.graph ask "What were Apple's total net sales in fiscal 2023?" --k 5
-uv run python -m src.graph ask "What's the current P/E ratio for AAPL given the latest filing?" --k 5
-uv run python -m src.graph ask "Build a bull and bear case for AAPL, should I invest?" --k 5
-```
+### Retrieval ablation: dense vs hybrid vs hybrid + rerank
 
-Why `uv`, not `pip install -e .`: the repo is uv-managed (`pyproject.toml` + `uv.lock`), and `uv run` keeps the local environment reproducible. Why `docker compose`: it is the supported way to get pgvector and Redis on the expected ports.
-
-## Usage
-
-```bash
-# Retrieval
-uv run python -m src.retrieval search "what are the main risks" --k 5
-uv run python -m src.retrieval hybrid "total net sales 383.3 billion" --k 5
-uv run python -m src.retrieval rerank "liquidity 148.3 billion" --k 5
-
-# Single LLM call
-uv run python -m src.llm answer "what are the main risks" --k 5
-
-# Full pipeline (routing + fallback + tools + verification + HITL)
-uv run python -m src.graph ask "what was Apple's total net sales in fiscal 2023" --k 5
-
-# Offline retrieval ablation (no LLM, no DB)
-uv run python -m src.eval --ablation
-
-# End-to-end eval (requires provider keys + pgvector)
-uv run python -m src.eval --limit 5
-uv run python -m src.eval --metrics ragas --limit 5   # fails loudly if RAGAS is unavailable
-```
-
-Routing: `simple` → cheap, `normal` → medium, `complex` → expensive. Override with `MODEL_ROUTING_<TIER>_MODEL_NAME`.
-
-Fallback: `openai → groq → gemini → vllm`, logged as `Served by provider=... model=... tier=...`.
-
-## Evaluation
-
-The eval set is `data/eval/eval_dataset.json` (30 Q/A, 3 complexity tiers, 4 recommendation-framed questions). There are two evaluation modes:
-
-| Mode | Command | Needs LLM/DB? | What it measures |
-|---|---|---|---|
-| Retrieval ablation | `uv run python -m src.eval --ablation` | No | Recall/precision/MRR of dense vs hybrid vs hybrid+rerank |
-| End-to-end eval | `uv run python -m src.eval --limit 5` | Yes | Answer metrics + numeric judge through the graph |
-
-### Metrics backends
-
-- `--metrics heuristic` (default): deterministic, offline proxies for context precision/recall, faithfulness, and answer relevance. Fast, but **not RAGAS**.
-- `--metrics ragas`: real RAGAS (`faithfulness`, `context_precision`, `context_recall`, `answer_relevancy`). Requires a working `ragas` install plus an LLM judge key. It **fails fast** instead of silently downgrading.
-- `--metrics auto`: tries RAGAS once. If unavailable, records `metrics_backend: heuristic` and `metrics_fallback_reason` in the output JSON. No silent fallback is hidden.
-
-The checked-in `data/eval/baseline.json` was produced with the heuristic backend, so it is labeled as such.
-
-> Known dependency issue: the checked-in lock (`ragas 0.3.1`) imports `PIL` and the removed `langchain_community.chat_models.vertexai` module. `--metrics ragas` therefore exits with an actionable error in this environment. Pin a compatible `ragas`/`langchain-community` pair before claiming RAGAS numbers.
-
-## Results
-
-### 1. Retrieval ablation — dense only vs hybrid vs hybrid + rerank
-
-Measured on the 28 citation-labeled questions, `k=8`, using the checked-in chunks, local `all-MiniLM-L6-v2` embeddings, and `cross-encoder/ms-marco-MiniLM-L-6-v2`. Reproduce with `uv run python -m src.eval --ablation`; raw output is in [`data/eval/retrieval_ablation.json`](data/eval/retrieval_ablation.json).
+Reproduce: `uv run python -m src.eval --ablation`
 
 | Configuration | Context precision | Context recall | MRR | Δ MRR vs dense |
 |---|---:|---:|---:|---:|
@@ -125,63 +106,205 @@ Measured on the 28 citation-labeled questions, `k=8`, using the checked-in chunk
 | Hybrid (dense + BM25, RRF) | 0.7366 | 1.0000 | 0.9196 | +0.0267 |
 | Hybrid + cross-encoder rerank | 0.7589 | 1.0000 | 0.9464 | +0.0535 |
 
-How to read this honestly:
+`MRR` is the mean reciprocal rank of the first relevant chunk. Precision/recall are computed against section-level labels.
 
-- **Reranking helps ranking, not coverage.** MRR rises from `0.8929` to `0.9464`, but precision only rises from `0.7321` to `0.7589`.
-- **Hybrid is mixed.** It recovers exact financial terms (e.g. `eval_010` precision `0.250 → 0.750`), but lexical matches can also flood the candidate set (`eval_013` precision `0.375 → 0.125`).
-- **Recall is saturated at `1.0`** because the citation labels are section-level (`ticker` + `fiscal_period` + `section`). A top-8 list almost always contains the right section. Precision and MRR are the discriminating signals here.
-- **These are retrieval-only numbers.** They do not measure answer correctness, faithfulness, or RAGAS quality.
+Interpretation:
 
-### 2. End-to-end smoke baseline (3 questions, heuristic metrics)
+- Reranking improves **ordering** (`MRR +0.0535`) but not coverage; precision moves only `+0.0268`.
+- Hybrid is not uniformly better. It recovers exact financial terms (`eval_010` precision `0.250 → 0.750`) but can regress on lexical noise (`eval_013` `0.375 → 0.125`).
+- Recall@8 is saturated at `1.0` because labels are section-level. Precision and MRR are the useful signals.
+- These are **retrieval-only** numbers. They are not RAGAS, faithfulness, or answer-correctness scores.
 
-Source: [`data/eval/baseline.json`](data/eval/baseline.json). This is the checked-in run; it is a smoke test, not a quality claim.
+### End-to-end smoke baseline (n=3, heuristic)
 
 | Run | n | Context precision | Context recall | Faithfulness | Answer relevance | Numeric judge |
 |---|---:|---:|---:|---:|---:|---:|
 | Heuristic end-to-end (Groq) | 3 | 0.9167 | 1.0000 | 1.0000 | 0.9107 | 1.0000 |
 
-The three questions were `eval_001` (net sales), `eval_002` (competition risk), and `eval_003` (Item 1A summary). All three passed citation verification. With `n=3`, the perfect faithfulness/judge scores are not evidence of robustness.
+This is a smoke test, not a quality claim. All three examples passed citation verification; with `n=3`, that is not evidence of robustness.
 
-### 3. Reproduce
+### Acceptance criteria
 
-```bash
-# Retrieval-only, no keys, no DB
-uv run python -m src.eval --ablation
+PRD targets are used where defined; retrieval MRR@8 is an engineering gate added for this ablation. “Current” is measured only where evidence exists.
 
-# End-to-end smoke (set GROQ_API_KEY or OPENAI_API_KEY and start pgvector first)
-uv run python -m src.eval --limit 3
+| Gate | Target | Current | Status |
+|---|---:|---:|---|
+| Retrieval MRR@8 | ≥ 0.90 | 0.9464 | Met on 28 questions |
+| Context precision@8 | ≥ 0.80 | 0.7589 | Not met on coarse labels |
+| Context recall@8 | ≥ 0.80 | 1.0000 | Saturated; labels are section-level |
+| RAGAS faithfulness | ≥ 0.85 | Not measured | Blocked by RAGAS import/dependency issue |
+| Citation judge | ≥ 90% grounded | 3/3 examples (14/14 claims) | Not statistically meaningful |
+| Fallback success under provider failure | 100% | Unit-tested | No end-to-end chaos test |
+| Routing accuracy (simple → cheap) | ≥ 90% | Not measured | No labeled routing set |
+| HITL interception | 100% of recommendation-like output | Not measured | 4 recommendation examples exist |
 
-# Full 30-question RAGAS run (after installing a working ragas stack)
-uv run python -m src.eval --metrics ragas
-```
+### Metrics backends
+
+- `--metrics heuristic` (default): deterministic, offline proxies. Fast, but **not RAGAS**.
+- `--metrics ragas`: real RAGAS (`faithfulness`, `context_precision`, `context_recall`, `answer_relevancy`). Requires a working RAGAS install plus an LLM judge key. It fails fast; it does not silently downgrade.
+- `--metrics auto`: tries RAGAS once and records `metrics_backend: heuristic` plus `metrics_fallback_reason` in the output JSON.
+
+> **Known dependency issue:** the checked-in lock (`ragas 0.3.1`) imports `PIL` and the removed `langchain_community.chat_models.vertexai` module. `--metrics ragas` currently exits with an actionable error. Pin a compatible `ragas`/`langchain-community` pair before publishing RAGAS numbers.
 
 ## Failure analysis
 
-### Retrieval failures
+| Symptom | Example | Root cause | Next action |
+|---|---|---|---|
+| Low precision on table-heavy questions | `eval_004`, `eval_010`, `eval_014`, `eval_027` | HTML parser flattens Item 7 tables; chunks contain the right section but not the right passage | XBRL-first + table-aware parsing; passage-level labels |
+| Hybrid regression | `eval_013` precision `0.375 → 0.125` | Lexical matches from table-adjacent text crowd out the narrative passage | Query-aware fusion, lexical score thresholds, or table-aware candidate filters |
+| Rerank helps rank, not recall | `eval_004` MRR `0.50 → 1.00`, precision flat at `0.375` | The relevant chunk was already in the candidate set | Improve candidate recall separately from reranking |
+| Recall appears perfect | All configurations | Citation labels are section-level, so “right section” is easy | Add passage/chunk-level labels and negative examples |
+| P/E answer is fragile | `eval_008` | Live price via yfinance + EPS regex from text; filing EPS ≠ trailing EPS; basic vs diluted | XBRL companyfacts, point-in-time price, explicit EPS definition |
+| Verification can pass weak claims | 3/3 smoke run passed | Keyword overlap, not entailment | NLI claim verification + numeric normalization |
+| RAGAS not available | `--metrics ragas` | Dependency/lock incompatibility | Pin a working RAGAS stack; add integration test |
+| Narrow corpus | 2 Apple 10-Ks | No Item 8, 10-Q/8-K, transcripts, peers, or international filings | Expand corpus before claiming broad financial QA |
 
-1. **Table-heavy questions are the weak spot.** `eval_004` (gross-margin trend), `eval_010` (material cash requirements), `eval_014` (liquidity/cash), and `eval_027` (share repurchases/dividends) all have precision between `0.25` and `0.50` under at least one configuration. The parser extracts plain text from Item 7, so table rows are flattened; many returned chunks are from the right section but not the right passage.
-2. **Hybrid fusion can hurt as well as help.** `eval_013` ("manufacturing purchase obligations") drops from `0.375` dense precision to `0.125` hybrid/rerank precision. The phrase matches many table-adjacent chunks, and candidate fusion lets lexical matches crowd out the relevant narrative passage.
-3. **Reranking fixes order, not recall.** `eval_004` goes from MRR `0.50` (dense) to `1.00` (reranked) while precision stays `0.375`. That is the expected behavior: the right chunk was already in the candidate set, but not near the top.
-4. **Section-level labels are coarse.** Recall@8 is `1.0` everywhere because "right section" is easy. Precision is a conservative proxy: a chunk can be from the right section and still be the wrong passage.
-5. **Two filings only.** There is no peer comparison, no 10-Q/8-K, and no earnings-call transcript. `eval_005` asks to compare "the two Apple filings"; the corpus can support that, but it cannot support peer or multi-period comparisons beyond FY2023/FY2025.
+## Reliability and failure modes
 
-### Answer / tool failures to be ready for
+- **Provider failure:** fallback hops across OpenAI → Groq → Gemini → vLLM. If every provider fails, the pipeline raises `DegradedResponseError` instead of returning an unverified answer.
+- **Verification failure:** bounded retry to retrieval (max 2). After exhaustion, the answer is returned with a visible verification flag, not silently passed. The verifier tolerates zero unmatched financial numeric claims and at most one non-numeric weak claim.
+- **Postgres unavailable:** retrieval cannot proceed; the error is surfaced. There is no local vector-store fallback.
+- **Redis unavailable:** embedding cache and Redis checkpointer fall back to in-memory behavior; HITL state is lost on restart.
+- **Tool failure:** price fetch failure returns a tool error and does not fabricate a price. Missing EPS degrades to price-only with an explanation.
+- **Partial ingestion:** parser warns when a section marker is missing; the document may still be chunked with fewer sections. There is no ingestion-level completeness gate yet.
 
-1. **P/E is fragile by design.** The tool path fetches a live price and extracts EPS from retrieved text with regex. It can pick basic vs diluted EPS, annual vs quarterly EPS, or filing EPS vs trailing EPS. If no EPS is found, it correctly degrades to a live price plus an explanation instead of inventing a ratio. A reviewer should ask why the answer is not using XBRL/companyfacts.
-2. **10-K answers often live in Item 8 financial statements.** The parser does not extract Item 8, and it does not preserve table structure. Questions about segment tables, cash-flow tables, or footnote-level figures can fail even when retrieval returns Item 7.
-3. **Verification is keyword-overlap based.** It is a useful guardrail, but not NLI. A claim with the right entities and the wrong number can pass. The 3-question smoke run passed everything; that is not proof of correctness.
-4. **HITL is a compliance control, not a model guarantee.** The CLI pauses for recommendation-like queries, but the non-interactive `ask()` helper auto-approves so evaluation can run. Production use should not rely on the helper path.
-5. **The RAGAS gap is real.** The adapter is implemented, but the current environment cannot import `ragas` (missing `PIL` and a removed `langchain_community.chat_models.vertexai` module). The checked-in numbers are therefore heuristic/retrieval-only. This is documented rather than hidden.
+## Security and compliance
 
-## Limits / interview notes
+Implemented controls:
 
-- **Corpus:** 2 Apple 10-Ks; Items 1A and 7 only; no 10-Q, 8-K, proxies, transcripts, or peer filings. Not a broad financial QA benchmark.
-- **Parsing:** HTML text extraction, not XBRL-first. Tables are flattened, so table-row/column relationships are lost. This is the main reason Item 8-style questions are out of scope.
-- **P/E:** `get_stock_price` (yfinance) + EPS regex from chunks. Filing EPS and trailing EPS can differ; the tool does not reconcile them. If EPS cannot be extracted, it returns live price only.
-- **Retrieval:** hybrid + rerank is stronger than dense-only on MRR, but not uniformly better on precision. The ablation shows both wins and regressions.
-- **Evaluation:** retrieval ablation is offline and reproducible. End-to-end baseline is 3 questions. Real RAGAS is implemented behind `--metrics ragas` but not yet run in this environment.
-- **Verification:** keyword overlap, not entailment. Treat `verification.passed` as a floor, not a guarantee.
-- **What I would do next:** table-aware/XBRL parsing for Item 8, stronger numeric verification, full 30-question RAGAS run with a frozen judge model, and peer filings for comparison questions.
+- Secrets are injected via environment variables; `.env` is gitignored; no credentials are hardcoded.
+- Source filings are treated as read-only; derived chunks and embeddings live under `data/`.
+- SEC User-Agent and throttle settings exist in config; automated EDGAR crawling is not implemented.
+- HITL is default-on for recommendation-like output. `--no-hitl` and `ask()` auto-approval are explicit local/eval escape hatches and must not be exposed in production.
+- Pydantic validates config and tool outputs; citations use a typed `VerificationResult` dataclass.
+
+Explicit gaps:
+
+- **Prompt injection:** filing text is untrusted input. There is no instruction/data separation hardening, content sanitization, or tool-use allowlist beyond the current tool set.
+- **Auth and tenancy:** no authentication, authorization, or tenant isolation.
+- **Rate limiting and quotas:** no per-user or per-key limits.
+- **Audit trail:** HITL decisions are not persisted to an append-only audit log.
+- **PII / retention:** no data-retention policy or deletion workflow.
+- **Regulatory disclaimer:** no investment-advice disclaimer is enforced in output.
+- **Observability:** no traces, metrics, or alerting on provider errors, verification failures, or HITL decisions.
+
+Do not expose this service to untrusted users until the gaps above are addressed.
+
+## Operations
+
+### Local quick start
+
+Prerequisites: [uv](https://docs.astral.sh/uv/) and Docker.
+
+```bash
+cp .env.example .env   # add provider keys for LLM runs; retrieval demo works without them
+make demo
+```
+
+`make demo` runs `docker compose up -d`, `uv sync`, parses the sample filings, seeds pgvector, and runs a retrieval query. Manual equivalent:
+
+```bash
+docker compose up -d
+uv sync
+uv run python -m src.ingestion
+uv run python -m src.retrieval seed
+uv run python -m src.retrieval hybrid "total net sales 383.3 billion" --k 3
+```
+
+Full pipeline:
+
+```bash
+uv run python -m src.graph ask "What were Apple's total net sales in fiscal 2023?" --k 5
+uv run python -m src.graph ask "What's the current P/E ratio for AAPL given the latest filing?" --k 5
+uv run python -m src.graph ask "Build a bull and bear case for AAPL, should I invest?" --k 5
+```
+
+### Common commands
+
+```bash
+# Tests (offline; no network/DB)
+make test
+
+# Offline retrieval comparison
+make ablation
+
+# End-to-end eval (requires provider keys + pgvector)
+uv run python -m src.eval --limit 5
+uv run python -m src.eval --metrics ragas --limit 5
+
+# Targeted retrieval checks
+uv run python -m src.retrieval search "what are the main risks" --k 5
+uv run python -m src.retrieval hybrid "total net sales 383.3 billion" --k 5
+uv run python -m src.retrieval rerank "liquidity 148.3 billion" --k 5
+```
+
+### Verification coverage
+
+| Layer | Coverage | Gap |
+|---|---|---|
+| Chunking, compression, routing, embeddings | Unit tests | No property-based or adversarial input tests |
+| Dense/hybrid/rerank retrieval | Unit tests + offline ablation | No DB integration test; no load test |
+| Provider fallback + tier routing | Unit tests with fake providers | No live-provider integration or chaos test |
+| Graph node order | Unit test asserts `verify_citations` before `human_review_gate` | No end-to-end HITL resume test |
+| Citation verification | Unit tests + 3-example smoke run | Heuristic overlap; no NLI/numeric regression suite |
+| Real RAGAS | Adapter present | Not run; dependency/lock failure |
+| API, auth, rate limits | Not implemented | — |
+
+### Configuration
+
+Key environment variables (see `.env.example` for the full set):
+
+| Variable | Purpose | Default |
+|---|---|---|
+| `POSTGRES_DATABASE_URL` | pgvector connection | `postgresql://rag_user:rag_password@localhost:5432/rag_db` |
+| `REDIS_URL` | cache/checkpoint connection | `redis://localhost:6379/0` |
+| `EMBEDDING_PROVIDER` / `EMBEDDING_MODEL` | embedding backend | `sentence_transformers` / `all-MiniLM-L6-v2` |
+| `RERANKER_MODEL` | cross-encoder | `cross-encoder/ms-marco-MiniLM-L-6-v2` |
+| `DENSE_TOP_K` / `BM25_TOP_K` / `FUSION_TOP_K` / `RERANK_TOP_K` | retrieval depths | `20 / 20 / 20 / 8` |
+| `FALLBACK_CHAIN` | provider order | `["openai","groq","gemini","vllm"]` |
+| `HITL_ENABLED` | recommendation gate | `true` |
+| `VERIFICATION_MAX_RETRIES` | bounded verification retries | `2` |
+| `CHECKPOINTER_TYPE` | `redis` or `in_memory` | `in_memory` |
+
+### Observability today
+
+The pipeline logs provider/model/tier, verification failures, retrieval counts, rerank counts, cache behavior, and HITL decisions. `tokens_in` is recorded per LLM call. There is no metrics endpoint, trace export, alerting, or measured p95 latency/cost per query; those are deferred to Phase 2. Cost is bounded by tier routing, token budget, retrieval depth, and caching, but not enforced by a hard per-request budget.
+
+## Limits and non-goals
+
+- **Corpus:** 2 Apple 10-Ks; Items 1A and 7 only. No Item 8, 10-Q, 8-K, proxies, transcripts, peers, or IFRS filings.
+- **Parsing:** HTML text extraction, not XBRL-first. Tables are flattened, so row/column relationships are lost.
+- **P/E:** live price plus EPS extracted from text. Filing EPS and trailing EPS can differ; the tool does not reconcile them.
+- **Evaluation:** retrieval ablation is measured; end-to-end is a 3-question smoke run; real RAGAS is not yet measured.
+- **Verification:** keyword overlap, not entailment. Treat `verification.passed` as a floor.
+- **Scale:** single-process CLI; no horizontal scaling, queueing, or concurrency controls.
+- **Not legal, financial, or investment advice.** Recommendation-like output is withheld pending human review.
+
+## Roadmap
+
+Priority is risk reduction, not feature count.
+
+**P0 — correctness and evidence**
+
+1. Table-aware/XBRL ingestion for Item 8 and financial-statement tables.
+2. Passage-level citation labels; add negative/abstention cases to the eval set.
+3. Unblock and run full 30-question RAGAS; freeze judge model and prompts.
+4. NLI-based claim verification + numeric normalization (`$M` vs `$B`, basic vs diluted EPS).
+5. P/E via companyfacts/XBRL with explicit EPS definition and point-in-time price.
+
+**P1 — production controls**
+
+1. API with auth, tenant isolation, rate limiting, and request budgets.
+2. Prompt-injection defenses: instruction/data separation, tool allowlist, output sanitization.
+3. Structured audit logging for HITL approvals/rejections and verification failures.
+4. CI gate: tests + retrieval ablation + eval regression thresholds.
+5. Observability: traces/metrics for retrieval latency, provider errors, verification failure rate, HITL volume.
+
+**P2 — product surface**
+
+1. FastAPI + citation-highlighting UI with source preview.
+2. Peer/multi-filing comparison and temporal queries.
+3. Deployment hardening and on-call runbooks.
 
 ## Components
 
@@ -200,7 +323,7 @@ uv run python -m src.eval --metrics ragas
 | Validation | `pydantic`, `pydantic-settings` | Config & schemas |
 | Eval | `ragas` (real backend), deterministic heuristics | Metrics |
 
-## State
+## State contract
 
 `GraphState` (TypedDict) flows through nodes:
 
@@ -223,30 +346,16 @@ uv run python -m src.eval --metrics ragas
 
 ## Tools
 
-LangChain tools bound to the LLM (also callable directly):
+- `get_stock_price(ticker)` — yfinance live price, validated by `TickerPriceResponse`.
+- `calculate_pe_ratio(price, eps)` — `price / eps`.
+- `calculate_gross_margin(revenue, gross_profit)` — `gross_profit / revenue`.
+- `calculate_growth_rate(current, previous)` — `(current-previous)/previous`.
 
-- `get_stock_price(ticker)` — yfinance live price, returns `{ticker, price, currency, as_of}` validated by `TickerPriceResponse`
-- `calculate_pe_ratio(price, eps)` — `price / eps`
-- `calculate_gross_margin(revenue, gross_profit)` — `gross_profit / revenue`
-- `calculate_growth_rate(current, previous)` — `(current-previous)/previous`
+All return `RatioResult` (Pydantic) with `value`, `numerator`, `denominator`, and `formula`. The `tool` node auto-handles P/E queries: fetch live price, extract EPS from chunks, compute the ratio, and append `[Tool-augmented: ...]`. See [Limits](#limits-and-non-goals) for why this remains fragile.
 
-All return `RatioResult` (Pydantic) with `value`, `numerator`, `denominator`, `formula`. The `tool` node auto-handles P/E queries: fetches live price, extracts EPS from chunks, computes the ratio, and appends `[Tool-augmented: ...]`. See [Limits](#limits--interview-notes) for why this is fragile.
+## Caching and checkpoints
 
-## Caching
-
-`src/retrieval/cache.py` caches query/chunk embeddings by `model::text` hash in Redis (TTL 1h) with an in-memory fallback. Repeated queries hit cache → faster.
-
-Checkpointer: `src/graph/checkpoint.py` tries `RedisSaver` when `checkpointer_type=redis` and Redis is reachable, else `MemorySaver` (logged fallback). Enables HITL state to survive restarts when Redis is available.
-
-## Future scope
-
-1. **Data & ingestion:** XBRL-first, table-aware parsing for Item 8; automated EDGAR ingestion with User-Agent + throttling; 10-Q/8-K/proxy/transcripts; structure-aware chunking.
-2. **Retrieval:** metadata pre-filters, query rewriting/HyDE, multi-hop and parent-document retrieval, benchmarked rerankers, separate graph nodes for dense/BM25/fusion/rerank.
-3. **Live data & tools:** SEC companyfacts lookup, historical prices, DCF/ratio suite, XBRL numeric extraction with Pydantic schemas.
-4. **Trust & safety:** NLI-based claim verification, numeric normalization (`$M` vs `$B`), audit logs for HITL, advice disclaimer, refusal path.
-5. **Evaluation:** full 30-question RAGAS run + frozen judge, 100+ question set with peer/temporal queries, CI regression gate, cost/latency tracking.
-6. **Robustness:** circuit breakers, specific timeout/429/auth handling, complete fallback chain with logged reasons.
-7. **Deployment/UX:** FastAPI + chat UI with citation highlighting; keep Dockerized Postgres/Redis; AWS/MLOps and LGTM observability deferred to Phase 2.
+`src/retrieval/cache.py` caches query/chunk embeddings by `model::text` hash in Redis (TTL 1h) with an in-memory fallback. `src/graph/checkpoint.py` uses `RedisSaver` when `checkpointer_type=redis` and Redis is reachable; otherwise it falls back to `MemorySaver` and logs the downgrade.
 
 ## Project structure
 
@@ -273,19 +382,17 @@ Makefile             # one-command local demo and eval targets
 docker-compose.yml   # Postgres/pgvector + Redis
 ```
 
-## Repository metadata (for maintainers)
+## Repository metadata
 
 Suggested GitHub description:
 
-> Grounded RAG over SEC 10-K filings with hybrid retrieval, reranking, model fallback, citation verification, and human-in-the-loop review.
+> Grounded RAG over SEC 10-K filings with hybrid retrieval, reranking, provider fallback, citation verification, and human-in-the-loop review.
 
 Suggested topics: `sec-edgar`, `rag`, `langgraph`, `pgvector`, `bm25`, `reranking`, `ragas`, `financial-analysis`, `python`.
 
-Set them with GitHub CLI (requires `gh auth login`):
-
 ```bash
 gh repo edit SachinMaurya01/FinSight \
-  --description "Grounded RAG over SEC 10-K filings with hybrid retrieval, reranking, model fallback, citation verification, and human-in-the-loop review." \
+  --description "Grounded RAG over SEC 10-K filings with hybrid retrieval, reranking, provider fallback, citation verification, and human-in-the-loop review." \
   --add-topic sec-edgar --add-topic rag --add-topic langgraph --add-topic pgvector \
   --add-topic bm25 --add-topic reranking --add-topic ragas --add-topic financial-analysis \
   --add-topic python
