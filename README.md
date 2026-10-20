@@ -13,11 +13,24 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 
 **Reference implementation, not a production deployment.** The pipeline and controls are real; the corpus, evaluation coverage, and operational hardening are not yet production-grade. This README separates what is measured from what is assumed.
 
-**Links:** [Architecture](docs/architecture.svg) · [CLI demo](docs/demo.svg) · [Results](#evaluation-results) · [Failure analysis](#failure-analysis)
+**Links:** 
+- [Architecture](docs/architecture.svg)
+- [CLI demo](docs/demo.svg)
+- [Results](#evaluation-results)
+- [Failure analysis](#failure-analysis)
 
 **Topics:** `sec-edgar` · `rag` · `langgraph` · `pgvector` · `bm25` · `reranking` · `ragas` · `python`
 
-**Contents:** [Scope](#scope) · [Architecture](#architecture) · [Design decisions](#design-decisions) · [Production readiness](#production-readiness) · [Evaluation](#evaluation-results) · [Failure analysis](#failure-analysis) · [Security](#security-and-compliance) · [Operations](#operations) · [Roadmap](#roadmap)
+**Contents:** 
+- [Scope](#scope)
+- [Architecture](#architecture)
+- [Design decisions](#design-decisions)
+- [Production readiness](#production-readiness)
+- [Evaluation](#evaluation-results)
+- [Failure analysis](#failure-analysis)
+- [Security](#security-and-compliance)
+- [Operations](#operations)
+- [Roadmap](#roadmap)
 
 ## Executive summary
 
@@ -382,18 +395,5 @@ Makefile             # one-command local demo and eval targets
 docker-compose.yml   # Postgres/pgvector + Redis
 ```
 
-## Repository metadata
-
-Suggested GitHub description:
-
-> Grounded RAG over SEC 10-K filings with hybrid retrieval, reranking, provider fallback, citation verification, and human-in-the-loop review.
-
-Suggested topics: `sec-edgar`, `rag`, `langgraph`, `pgvector`, `bm25`, `reranking`, `ragas`, `financial-analysis`, `python`.
-
-```bash
-gh repo edit SachinMaurya01/FinSight \
-  --description "Grounded RAG over SEC 10-K filings with hybrid retrieval, reranking, provider fallback, citation verification, and human-in-the-loop review." \
-  --add-topic sec-edgar --add-topic rag --add-topic langgraph --add-topic pgvector \
-  --add-topic bm25 --add-topic reranking --add-topic ragas --add-topic financial-analysis \
   --add-topic python
 ```
