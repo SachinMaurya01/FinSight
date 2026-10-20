@@ -1,0 +1,5 @@
+# SEC filings under data/ are vendored sample inputs, not application source.
+# This keeps GitHub's language bar focused on the Python codebase instead of
+# reporting the project as "HTML".
+data/** linguist-vendored
+data/*.html linguist-vendored

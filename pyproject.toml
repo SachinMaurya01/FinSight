@@ -1,7 +1,7 @@
 [project]
 name = "finsight"
 version = "0.1.0"
-description = "Add your description here"
+description = "Grounded RAG over SEC 10-K filings with hybrid retrieval, reranking, model fallback, citation verification, and HITL."
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [

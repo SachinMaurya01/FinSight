@@ -1,3 +1,6 @@
+# Local backing services for FinSight.
+# One-command smoke path: `make demo` (starts these, then parses/seeds/queries).
+# Infrastructure only: `docker compose up -d`.
 services:
   postgres:
     image: pgvector/pgvector:pg16
