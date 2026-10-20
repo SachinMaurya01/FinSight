@@ -2,6 +2,8 @@
   "total_examples": 3,
   "successful": 3,
   "elapsed_seconds": 89.52,
+  "metrics_backend": "heuristic",
+  "metrics_fallback_reason": null,
   "avg_metrics": {
     "context_precision": 0.9167,
     "context_recall": 1.0,
@@ -47,7 +49,8 @@
       },
       "judge": {
         "score": 1.0,
-        "reasoning": "The answer correctly states Apple's total net sales for fiscal 2023 as $383.3 billion, which exactly matches the expected answer and is directly supported by the provided context."
+        "reasoning": "The answer correctly states Apple's total net sales for fiscal 2023 as $383.3 billion, which exactly matches the expected answer and is directly supported by the provided context.",
+        "backend": "llm"
       }
     },
     {
@@ -106,7 +109,8 @@
       },
       "judge": {
         "score": 1.0,
-        "reasoning": "heuristic: 1/1 expected numbers in answer, 1/1 in context"
+        "reasoning": "heuristic: 1/1 expected numbers in answer, 1/1 in context",
+        "backend": "heuristic"
       }
     },
     {
@@ -183,7 +187,8 @@
       },
       "judge": {
         "score": 1.0,
-        "reasoning": "heuristic: 1/1 expected numbers in answer, 1/1 in context"
+        "reasoning": "heuristic: 1/1 expected numbers in answer, 1/1 in context",
+        "backend": "heuristic"
       }
     }
   ]

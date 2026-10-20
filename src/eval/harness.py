@@ -11,13 +11,31 @@ from typing import Any
 from src.config import settings
 from src.eval.dataset import load_dataset
 from src.eval.judge import evaluate_numeric_judge
-from src.eval.metrics import compute_metrics
+from src.eval.metrics import (
+    MetricsBackend,
+    RagasUnavailableError,
+    compute_metrics,
+    compute_ragas_metrics,
+    ensure_ragas_available,
+)
 
 logger = logging.getLogger(__name__)
 
 
-def run_eval(limit: int | None = None, output_path: Path | None = None) -> dict[str, Any]:
-    """Run eval dataset through the pipeline and return aggregated results."""
+def run_eval(
+    limit: int | None = None,
+    output_path: Path | None = None,
+    metrics_backend: MetricsBackend = "heuristic",
+) -> dict[str, Any]:
+    """Run eval dataset through the pipeline and return aggregated results.
+
+    ``metrics_backend="ragas"`` fails fast if RAGAS is unavailable. ``"auto"``
+    tries RAGAS once and explicitly records a heuristic fallback instead of
+    pretending the scores are RAGAS.
+    """
+    if metrics_backend == "ragas":
+        ensure_ragas_available()
+
     examples = load_dataset()
     if limit:
         examples = examples[:limit]
@@ -28,6 +46,8 @@ def run_eval(limit: int | None = None, output_path: Path | None = None) -> dict[
     results: list[dict[str, Any]] = []
     total_metrics = {"context_precision": 0, "context_recall": 0, "faithfulness": 0, "answer_relevance": 0}
     judge_scores: list[float] = []
+    active_backend: str = metrics_backend
+    fallback_reason: str | None = None
 
     start = time.time()
     for ex in examples:
@@ -39,7 +59,30 @@ def run_eval(limit: int | None = None, output_path: Path | None = None) -> dict[
             contexts = [c.get("content", "") for c in chunks]
             expected_citations = [c.model_dump() for c in ex.expected_citations]
 
-            metrics = compute_metrics(ex.question, answer, chunks, expected_citations, contexts)
+            backend_for_example = active_backend
+            if backend_for_example in ("ragas", "auto"):
+                try:
+                    metrics = compute_ragas_metrics(
+                        ex.question,
+                        answer,
+                        contexts,
+                        ex.expected_answer,
+                        settings,
+                    )
+                    backend_for_example = "ragas"
+                except RagasUnavailableError as exc:
+                    if active_backend == "ragas":
+                        raise
+                    fallback_reason = str(exc)
+                    logger.warning("RAGAS unavailable, using heuristic metrics: %s", exc)
+                    active_backend = "heuristic"
+                    backend_for_example = "heuristic"
+                    metrics = compute_metrics(
+                        ex.question, answer, chunks, expected_citations, contexts
+                    )
+            else:
+                metrics = compute_metrics(ex.question, answer, chunks, expected_citations, contexts)
+
             judge = evaluate_numeric_judge(ex.question, answer, ex.expected_answer, contexts)
 
             total_metrics["context_precision"] += metrics.context_precision
@@ -59,8 +102,13 @@ def run_eval(limit: int | None = None, output_path: Path | None = None) -> dict[
                     "verification": state.get("verification"),
                     "tier": state.get("tier"),
                     "provider": state.get("provider"),
+                    "metrics_backend": backend_for_example,
                     "metrics": metrics.__dict__,
-                    "judge": {"score": judge.score, "reasoning": judge.reasoning},
+                    "judge": {
+                        "score": judge.score,
+                        "reasoning": judge.reasoning,
+                        "backend": judge.backend,
+                    },
                 }
             )
         except Exception as exc:
@@ -74,6 +122,8 @@ def run_eval(limit: int | None = None, output_path: Path | None = None) -> dict[
         "total_examples": len(examples),
         "successful": n,
         "elapsed_seconds": round(elapsed, 2),
+        "metrics_backend": active_backend,
+        "metrics_fallback_reason": fallback_reason,
         "avg_metrics": {k: round(v / max(n, 1), 4) for k, v in total_metrics.items()},
         "avg_judge": round(sum(judge_scores) / max(len(judge_scores), 1), 4),
         "judge_scores": judge_scores,
@@ -85,7 +135,7 @@ def run_eval(limit: int | None = None, output_path: Path | None = None) -> dict[
         output_path.write_text(json.dumps(baseline, indent=2), encoding="utf-8")
         logger.info("Baseline written to %s", output_path)
     else:
-        default = Path("data/eval/baseline.json")
+        default = settings.data_dir / "eval" / "baseline.json"
         default.parent.mkdir(parents=True, exist_ok=True)
         default.write_text(json.dumps(baseline, indent=2), encoding="utf-8")
         logger.info("Baseline written to %s", default)

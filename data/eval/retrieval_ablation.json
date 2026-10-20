@@ -1,0 +1,1593 @@
+{
+  "n_examples": 30,
+  "n_scored": 28,
+  "k": 8,
+  "chunk_count": 247,
+  "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+  "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "dense_top_k": 20,
+  "bm25_top_k": 20,
+  "fusion_top_k": 20,
+  "configs": {
+    "dense_only": {
+      "context_precision": 0.7321,
+      "context_recall": 1.0,
+      "mrr": 0.8929,
+      "n_scored": 28
+    },
+    "hybrid": {
+      "context_precision": 0.7366,
+      "context_recall": 1.0,
+      "mrr": 0.9196,
+      "n_scored": 28
+    },
+    "hybrid_rerank": {
+      "context_precision": 0.7589,
+      "context_recall": 1.0,
+      "mrr": 0.9464,
+      "n_scored": 28
+    }
+  },
+  "per_example": [
+    {
+      "id": "eval_001",
+      "question": "What were Apple's total net sales in fiscal 2023?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.625,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.625,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.75,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_002",
+      "question": "What is Apple's main risk related to competition?",
+      "category": "risk_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_003",
+      "question": "Summarize the key risk factors in Apple's 10-K Item 1A.",
+      "category": "summarization",
+      "configs": {
+        "dense_only": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_004",
+      "question": "How has Apple's gross margin changed from 2021 to 2025?",
+      "category": "trend_analysis",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.5,
+          "context_recall": 1.0,
+          "mrr": 0.5,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.375,
+          "context_recall": 1.0,
+          "mrr": 0.5,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.375,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_005",
+      "question": "Compare the liquidity risk between the two Apple filings",
+      "category": "comparison",
+      "configs": {
+        "dense_only": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.875,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_006",
+      "question": "What was Apple's cybersecurity risk described in the 10-K?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_007",
+      "question": "Build a bull and bear case for AAPL based on its last filings, should I invest?",
+      "category": "investment_thesis",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.75,
+          "context_recall": 1.0,
+          "mrr": 0.5,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.75,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_008",
+      "question": "What's the current P/E ratio for AAPL given the latest filing's EPS and live price?",
+      "category": "tool_calling",
+      "configs": {
+        "dense_only": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.625,
+          "context_recall": 1.0,
+          "mrr": 0.25,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.75,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_009",
+      "question": "What does Apple say about macroeconomic and industry risks?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.875,
+          "context_recall": 1.0,
+          "mrr": 0.5,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.875,
+          "context_recall": 1.0,
+          "mrr": 0.5,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.875,
+          "context_recall": 1.0,
+          "mrr": 0.5,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_010",
+      "question": "What are Apple's material cash requirements including debt?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.25,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.75,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.75,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_011",
+      "question": "How did Apple's Services net sales perform in 2023?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.375,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.5,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.5,
+          "context_recall": 1.0,
+          "mrr": 0.5,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_012",
+      "question": "What is Apple's exposure to credit risk?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_013",
+      "question": "Summarize Apple's manufacturing purchase obligations",
+      "category": "summarization",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.375,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.125,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.125,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_014",
+      "question": "What did Apple report for liquidity and capital resources cash position?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.25,
+          "context_recall": 1.0,
+          "mrr": 0.5,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.25,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.25,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_015",
+      "question": "Compare Apple's product vs services gross margin trends",
+      "category": "comparison",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.75,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.625,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.625,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_016",
+      "question": "What are the risks of industrial accidents at suppliers?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_017",
+      "question": "Should I buy AAPL stock based on this filing?",
+      "category": "investment_thesis",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.5,
+          "context_recall": 1.0,
+          "mrr": 0.5,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.5,
+          "context_recall": 1.0,
+          "mrr": 0.5,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.5,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_018",
+      "question": "What was the effective tax rate impact in 2025?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.5,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.5,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.625,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_019",
+      "question": "How does Apple describe its fiscal period?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.875,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.75,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_020",
+      "question": "What is Apple's risk regarding design and manufacturing defects?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_021",
+      "question": "What was the total net sales by reportable segment for Americas in 2025?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.375,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.375,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.5,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_022",
+      "question": "Analyze how Apple's net sales by segment evolved 2023-2025",
+      "category": "trend_analysis",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.875,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_023",
+      "question": "What is the current stock price of AAPL?",
+      "category": "tool_calling",
+      "configs": {
+        "dense_only": {
+          "context_precision": null,
+          "context_recall": null,
+          "mrr": null,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": null,
+          "context_recall": null,
+          "mrr": null,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": null,
+          "context_recall": null,
+          "mrr": null,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_024",
+      "question": "Calculate the gross margin for Apple if revenue is 383285 and gross profit 170000",
+      "category": "tool_calling",
+      "configs": {
+        "dense_only": {
+          "context_precision": null,
+          "context_recall": null,
+          "mrr": null,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid": {
+          "context_precision": null,
+          "context_recall": null,
+          "mrr": null,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": null,
+          "context_recall": null,
+          "mrr": null,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_025",
+      "question": "Compare the investment risks versus growth opportunities for Apple",
+      "category": "comparison",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.875,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_026",
+      "question": "What does Apple say about payment card data requirements?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_027",
+      "question": "What is Apple's policy on share repurchases and dividends?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.375,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.375,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.375,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_028",
+      "question": "Should I overweight AAPL in my portfolio based on this 10-K?",
+      "category": "investment_thesis",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.875,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.875,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.875,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 1A Risk Factors",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_029",
+      "question": "What was Apple's Europe net sales in 2023?",
+      "category": "fact_extraction",
+      "configs": {
+        "dense_only": {
+          "context_precision": 0.5,
+          "context_recall": 1.0,
+          "mrr": 0.5,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 0.625,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 1A Risk Factors"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 0.625,
+          "context_recall": 1.0,
+          "mrr": 0.5,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_030",
+      "question": "How has Apple's total net sales growth rate changed from 2022 to 2023?",
+      "category": "trend_analysis",
+      "configs": {
+        "dense_only": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    }
+  ]
+}

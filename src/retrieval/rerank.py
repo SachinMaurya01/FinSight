@@ -37,14 +37,17 @@ def rerank_candidates(
     rows: list[dict[str, Any]],
     settings: Settings,
     top_k: int | None = None,
+    reranker: CrossEncoderReranker | None = None,
 ) -> list[dict[str, Any]]:
     """Rerank ``rows`` by query relevance and return the top ``top_k``.
 
     Each row keeps its original fields plus a ``rerank_score``. If no reranker
     is configured, the input order is returned unchanged (truncated to top_k).
+    Pass ``reranker`` to reuse a loaded model across calls (e.g. in eval
+    ablations); otherwise the configured model is built on every call.
     """
     top_k = top_k if top_k is not None else settings.rerank_top_k
-    reranker = build_reranker(settings)
+    reranker = reranker if reranker is not None else build_reranker(settings)
     if reranker is None:
         logger.warning("No reranker configured; skipping rerank")
         return rows[:top_k]

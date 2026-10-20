@@ -20,6 +20,7 @@ class CustomJudgeResult:
     reasoning: str
     numeric_claims_checked: int
     numeric_claims_correct: int
+    backend: str = "heuristic"
 
 
 def _heuristic_judge(answer: str, expected_answer: str, contexts: list[str]) -> CustomJudgeResult:
@@ -90,6 +91,7 @@ def evaluate_numeric_judge(
                 reasoning=str(data.get("reasoning", ""))[:500],
                 numeric_claims_checked=int(data.get("numeric_claims_checked", 0)),
                 numeric_claims_correct=int(data.get("numeric_claims_correct", 0)),
+                backend="llm",
             )
         raise ValueError("no JSON in judge output")
     except Exception as exc:
