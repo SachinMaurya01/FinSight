@@ -19,8 +19,6 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 - [Results](#evaluation-results)
 - [Failure analysis](#failure-analysis)
 
-**Topics:** `sec-edgar` · `rag` · `langgraph` · `pgvector` · `bm25` · `reranking` · `ragas` · `python`
-
 **Contents:** 
 - [Scope](#scope)
 - [Architecture](#architecture)
@@ -393,7 +391,4 @@ data/
   eval/              # eval_dataset.json, baseline.json, retrieval_ablation.json
 Makefile             # one-command local demo and eval targets
 docker-compose.yml   # Postgres/pgvector + Redis
-```
-
-  --add-topic python
 ```
