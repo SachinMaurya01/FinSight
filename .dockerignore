@@ -1,0 +1,14 @@
+.git
+.gitignore
+.venv
+__pycache__
+*.py[co]
+.pytest_cache
+.mypy_cache
+.ruff_cache
+.env
+data/parsed
+data/chunks
+docs
+tests
+PRD.md

@@ -1,6 +1,6 @@
-# Local backing services for FinSight.
-# One-command smoke path: `make demo` (starts these, then parses/seeds/queries).
-# Infrastructure only: `docker compose up -d`.
+# FinSight local stack: API + Postgres (pgvector) + Redis.
+# Full stack:        docker compose up --build
+# Ingest + seed:     docker compose --profile ingest run --rm ingest
 services:
   postgres:
     image: pgvector/pgvector:pg16
@@ -34,6 +34,64 @@ services:
       timeout: 3s
       retries: 10
     restart: unless-stopped
+
+  api:
+    build: .
+    container_name: finsight-api
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      POSTGRES_DATABASE_URL: postgresql://rag_user:rag_password@postgres:5432/rag_db
+      REDIS_URL: redis://redis:6379/0
+      CHECKPOINTER_TYPE: ${CHECKPOINTER_TYPE:-redis}
+      SEC_EDGAR_USER_AGENT: ${SEC_EDGAR_USER_AGENT:-FinSightResearch dev@example.com}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GOOGLE_API_KEY: ${GOOGLE_API_KEY:-}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request;urllib.request.urlopen('http://localhost:8000/health', timeout=3)",
+        ]
+      interval: 15s
+      timeout: 5s
+      start_period: 40s
+      retries: 5
+    restart: unless-stopped
+
+  ingest:
+    build: .
+    profiles: ["ingest"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      POSTGRES_DATABASE_URL: postgresql://rag_user:rag_password@postgres:5432/rag_db
+      REDIS_URL: redis://redis:6379/0
+      SEC_EDGAR_USER_AGENT: ${SEC_EDGAR_USER_AGENT:-FinSightResearch dev@example.com}
+    volumes:
+      - ./data:/app/data
+    command: ["sh", "-c", "python -m src.ingestion && python -m src.retrieval seed"]
 
 volumes:
   pgdata:
