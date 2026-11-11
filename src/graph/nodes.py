@@ -5,11 +5,13 @@ from __future__ import annotations
 import logging
 from typing import Any
 
+from langgraph.errors import GraphInterrupt
 from langgraph.types import interrupt
 
 from src.config import settings
 from src.graph.state import GraphState
 from src.hitl.gate import hitl_payload, is_recommendation
+from src.hitl.store import get_review_store
 from src.ingestion.chunker import Chunk
 from src.llm.answer import build_answer_prompt
 from src.llm.fallback import DegradedResponseError, call_with_fallback
@@ -209,37 +211,53 @@ def verify_citations_node(state: GraphState) -> dict[str, Any]:
 
 
 def human_review_gate_node(state: GraphState) -> dict[str, Any]:
-    """HITL gate."""
+    """HITL gate using LangGraph ``interrupt`` so the API can resume by thread_id."""
     if not settings.hitl_enabled:
         logger.info("HITL disabled; skipping review gate")
         return {"is_recommendation": False, "hitl_approved": True}
 
     answer = state.get("answer") or state.get("draft_answer") or ""
     query = state.get("query", "")
+    thread_id = state.get("thread_id")
     is_rec = is_recommendation(answer, query)
     logger.info("human_review_gate: is_recommendation=%s", is_rec)
 
     if not is_rec:
         return {"is_recommendation": False, "hitl_approved": True}
 
-    # It's recommendation-like: pause for human approval via interrupt
+    # It's recommendation-like: pause for human approval via interrupt.
     payload = hitl_payload(answer, query, state.get("sources"))
     logger.info("HITL interrupt triggered for recommendation: %r", query[:80])
 
-    try:
-        # LangGraph interrupt: pauses execution and expects Command(resume=...) on resume
-        feedback = interrupt(payload)
-    except Exception as exc:
-        # If not running with a checkpointer that supports interrupt, fall back to auto-approve
-        # for tests / non-interactive runs. Log and approve.
-        logger.warning("interrupt not supported in this run (%s); auto-approving", exc)
-        return {"is_recommendation": True, "hitl_approved": True, "hitl_feedback": "auto-approved (no checkpointer)"}
+    store = get_review_store(settings)
+    if thread_id:
+        store.add(thread_id, payload)
 
-    # feedback is expected to be dict like {"approved": bool, "feedback": str}
+    try:
+        # LangGraph interrupt: pauses execution and expects Command(resume=...) on resume.
+        feedback = interrupt(payload)
+    except GraphInterrupt:
+        # This is the expected pause; propagate so LangGraph can checkpoint it.
+        raise
+    except Exception as exc:
+        # No interrupt-capable checkpointer (e.g. ad-hoc test graphs): auto-approve.
+        logger.warning("interrupt not supported in this run (%s); auto-approving", exc)
+        if thread_id:
+            store.remove(thread_id)
+        return {
+            "is_recommendation": True,
+            "hitl_approved": True,
+            "hitl_feedback": "auto-approved (no checkpointer)",
+        }
+
+    if thread_id:
+        store.remove(thread_id)
+
+    # feedback is expected to be dict like {"approved": bool, "note": str}
     if isinstance(feedback, dict):
         approved = bool(feedback.get("approved", False))
-        fb = feedback.get("feedback")
-        logger.info("HITL resume: approved=%s feedback=%r", approved, fb)
+        fb = feedback.get("note", feedback.get("feedback"))
+        logger.info("HITL resume: approved=%s note=%r", approved, fb)
         if not approved:
             return {
                 "is_recommendation": True,

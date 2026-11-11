@@ -11,6 +11,9 @@ class GraphState(TypedDict, total=False):
     # Core query / retrieval
     query: str
     k: int
+    ticker: str | None
+    fiscal_year: int | None
+    thread_id: str | None
     tier: ComplexityTier
     chunks: list[dict[str, Any]]
     # LLM answer
