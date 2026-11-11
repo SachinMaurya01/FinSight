@@ -21,7 +21,8 @@ services:
     restart: unless-stopped
 
   redis:
-    image: redis:7-alpine
+    # Redis 8 ships the JSON + Search modules required by langgraph-checkpoint-redis.
+    image: redis:8-alpine
     container_name: finsight-redis
     ports:
       - "6379:6379"
@@ -51,7 +52,7 @@ services:
       LOG_LEVEL: ${LOG_LEVEL:-INFO}
       POSTGRES_DATABASE_URL: postgresql://rag_user:rag_password@postgres:5432/rag_db
       REDIS_URL: redis://redis:6379/0
-      CHECKPOINTER_TYPE: ${CHECKPOINTER_TYPE:-redis}
+      CHECKPOINTER_TYPE: redis
       SEC_EDGAR_USER_AGENT: ${SEC_EDGAR_USER_AGENT:-FinSightResearch dev@example.com}
       OPENAI_API_KEY: ${OPENAI_API_KEY:-}
       GROQ_API_KEY: ${GROQ_API_KEY:-}

@@ -2,6 +2,9 @@
 
 FROM python:3.13-slim AS builder
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ca-certificates libgomp1 && \
+    rm -rf /var/lib/apt/lists/*
 ENV UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
     HF_HOME=/app/.cache/huggingface \
@@ -22,7 +25,10 @@ CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 PY
 
 FROM python:3.13-slim
-RUN useradd -m app
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends ca-certificates libgomp1 && \
+    rm -rf /var/lib/apt/lists/* && \
+    useradd -m app
 WORKDIR /app
 COPY --from=builder /app /app
 ENV PATH="/app/.venv/bin:$PATH" \

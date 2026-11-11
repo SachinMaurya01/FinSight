@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import json
 import logging
+import socket
 import uuid
 from collections.abc import Iterator
 from typing import Any
+from urllib.parse import urlparse
 
 from fastapi import APIRouter, HTTPException, Query, Request
 from fastapi.responses import JSONResponse, StreamingResponse
@@ -314,14 +316,32 @@ def _check_redis() -> ReadinessCheck:
         return ReadinessCheck(ok=False, detail=f"{type(exc).__name__}: {exc}")
 
 
+def _vllm_reachable() -> bool:
+    """Best-effort TCP probe for a local/self-hosted OpenAI-compatible endpoint."""
+    if not (settings.vllm_base_url and settings.vllm_model):
+        return False
+    parsed = urlparse(settings.vllm_base_url)
+    if not parsed.hostname:
+        return False
+    port = parsed.port or (443 if parsed.scheme == "https" else 80)
+    try:
+        with socket.create_connection((parsed.hostname, port), timeout=1):
+            return True
+    except OSError:
+        return False
+
+
 def _check_llm_provider() -> ReadinessCheck:
-    available = [
+    keyed = [
         provider
         for provider in settings.fallback_chain
-        if settings.has_provider_credentials(provider)
+        if provider in ("openai", "groq", "gemini")
+        and settings.has_provider_credentials(provider)
     ]
-    if available:
-        return ReadinessCheck(ok=True, detail=", ".join(available))
+    if keyed:
+        return ReadinessCheck(ok=True, detail=", ".join(keyed))
+    if "vllm" in settings.fallback_chain and _vllm_reachable():
+        return ReadinessCheck(ok=True, detail="vllm")
     return ReadinessCheck(ok=False, detail="no LLM provider credentials configured")
 
 
@@ -331,7 +351,7 @@ async def ready() -> ReadinessResponse | JSONResponse:
     checks = {
         "postgres": await run_in_threadpool(_check_postgres),
         "redis": await run_in_threadpool(_check_redis),
-        "llm_provider": _check_llm_provider(),
+        "llm_provider": await run_in_threadpool(_check_llm_provider),
     }
     ok = all(check.ok for check in checks.values())
     response = ReadinessResponse(status="ok" if ok else "degraded", checks=checks)

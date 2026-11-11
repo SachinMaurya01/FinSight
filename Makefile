@@ -1,11 +1,17 @@
 UV ?= uv
 COMPOSE ?= docker compose
 
-.PHONY: up sync ingest seed demo ablation eval test
+.PHONY: up down logs sync ingest seed demo ablation eval test
 
 up:
-	$(COMPOSE) up -d
+	$(COMPOSE) up -d --build
 	@until $(COMPOSE) exec -T postgres pg_isready -U rag_user -d rag_db >/dev/null 2>&1; do sleep 1; done
+
+down:
+	$(COMPOSE) down
+
+logs:
+	$(COMPOSE) logs -f api
 
 sync:
 	$(UV) sync
@@ -13,7 +19,10 @@ sync:
 ingest: sync
 	$(UV) run python -m src.ingestion
 
-seed: up sync
+seed:
+	$(COMPOSE) up -d postgres redis
+	@until $(COMPOSE) exec -T postgres pg_isready -U rag_user -d rag_db >/dev/null 2>&1; do sleep 1; done
+	$(UV) sync
 	$(UV) run python -m src.retrieval seed
 
 # One-command local smoke demo: infra + parse/chunk + embed/seed + retrieval.
