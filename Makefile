@@ -1,7 +1,7 @@
 UV ?= uv
 COMPOSE ?= docker compose
 
-.PHONY: up down logs sync ingest seed demo ablation eval test
+.PHONY: up down logs sync ingest seed demo ablation eval test lint typecheck test-cov eval-smoke eval-gate
 
 up:
 	$(COMPOSE) up -d --build
@@ -38,3 +38,23 @@ eval: sync
 
 test:
 	@for f in tests/test_*.py; do $(UV) run python "$$f" || exit 1; done
+
+lint: sync
+	$(UV) run ruff check .
+	$(UV) run ruff format --check .
+
+typecheck: sync
+	$(UV) run mypy src
+
+test-cov: sync
+	$(UV) run pytest --cov=src --cov-report=term-missing --cov-fail-under=70
+
+# Offline retrieval regression gate (no LLM/DB needed).
+eval-smoke: sync
+	$(UV) run python -m src.eval --ablation --limit 10 --output /tmp/eval_smoke.json
+	$(UV) run python -m src.eval.gate --baseline data/eval/smoke_baseline.json --new /tmp/eval_smoke.json
+
+# Full answer-eval gate against the checked-in baseline (needs LLM keys + seeded DB).
+eval-gate: sync
+	$(UV) run python -m src.eval --metrics heuristic --output /tmp/eval_full.json
+	$(UV) run python -m src.eval.gate --baseline data/eval/baseline.json --new /tmp/eval_full.json
