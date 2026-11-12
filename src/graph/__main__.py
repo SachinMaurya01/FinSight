@@ -11,6 +11,7 @@ import argparse
 import logging
 import sys
 
+from langchain_core.runnables import RunnableConfig
 from langgraph.types import Command
 
 from src.config import settings
@@ -40,7 +41,7 @@ def main() -> int:
 
         try:
             graph = build_graph()
-            config = {"configurable": {"thread_id": "finsight-cli"}}
+            config: RunnableConfig = {"configurable": {"thread_id": "finsight-cli"}}
 
             try:
                 state = graph.invoke({"query": args.query, "k": args.k, "verification_retries": 0}, config=config)
@@ -57,11 +58,9 @@ def main() -> int:
             # with our auto-approve fallback). If we do have a real interrupt, prompt the user.
             if state.get("hitl_approved") is None and state.get("is_recommendation"):
                 # Real interrupt case: graph is paused at human_review_gate
-                snapshot = graph.get_state(config)
-                # snapshot.next indicates next node; interrupts are in snapshot.tasks
                 print("\n[HITL] Investment recommendation detected — human review required.")
                 print(f"Query: {state.get('query')}")
-                print(f"Draft answer:\n{state.get('answer','')[:500]}")
+                print(f"Draft answer:\n{state.get('answer', '')[:500]}")
                 try:
                     resp = input("Approve this output? (y/n): ").strip().lower()
                 except EOFError:
@@ -82,7 +81,9 @@ def main() -> int:
         print(f"tier={state.get('tier')} provider={state.get('provider')} tokens_in={state.get('tokens_in')}")
         verification = state.get("verification")
         if verification:
-            print(f"verification passed={verification.get('passed')} failed={len(verification.get('failed_claims', []))}")
+            print(
+                f"verification passed={verification.get('passed')} failed={len(verification.get('failed_claims', []))}"
+            )
         if state.get("is_recommendation") is not None:
             print(f"is_recommendation={state.get('is_recommendation')} hitl_approved={state.get('hitl_approved')}")
         print("=== ANSWER ===")

@@ -48,9 +48,7 @@ def fuse_hybrid(
 
     def _accumulate(rows: list[dict[str, Any]], weight: float) -> None:
         for rank, row in enumerate(rows, start=1):
-            entry = entries.setdefault(
-                _identity(row), {"row": dict(row), "dense": 0.0, "lexical": 0.0}
-            )
+            entry = entries.setdefault(_identity(row), {"row": dict(row), "dense": 0.0, "lexical": 0.0})
             contribution = weight / (settings.rrf_k + rank)
             if weight == settings.dense_weight:
                 entry["dense"] += contribution
@@ -77,6 +75,7 @@ def retrieve_hybrid(query: str, settings: Settings, k: int | None = None) -> lis
     dense_rows = retrieve_dense(query, settings, k=settings.dense_top_k)
     bm25_rows = build_bm25_index(settings.chunk_store_dir).search(query, settings.bm25_top_k)
     fused = fuse_hybrid(dense_rows, bm25_rows, settings)
-    logger.info("Hybrid retrieval: %d dense + %d bm25 -> %d fused (top %d)",
-                len(dense_rows), len(bm25_rows), len(fused), k)
+    logger.info(
+        "Hybrid retrieval: %d dense + %d bm25 -> %d fused (top %d)", len(dense_rows), len(bm25_rows), len(fused), k
+    )
     return fused[:k]

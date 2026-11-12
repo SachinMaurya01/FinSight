@@ -36,7 +36,9 @@ def _heuristic_judge(answer: str, expected_answer: str, contexts: list[str]) -> 
         score = 1.0 if not hallucinated else max(0.0, 1 - len(hallucinated) / max(len(ans_nums), 1))
         return CustomJudgeResult(
             score=round(score, 4),
-            reasoning=f"heuristic: hallucinated numbers {hallucinated}" if hallucinated else "heuristic: no hallucinated numbers",
+            reasoning=f"heuristic: hallucinated numbers {hallucinated}"
+            if hallucinated
+            else "heuristic: no hallucinated numbers",
             numeric_claims_checked=len(ans_nums),
             numeric_claims_correct=len(ans_nums - hallucinated),
         )
@@ -67,14 +69,15 @@ def evaluate_numeric_judge(
         Question: {question}
         Expected answer: {expected_answer}
         Answer to judge: {answer}
-        Contexts: {' | '.join(contexts[:3])}
+        Contexts: {" | ".join(contexts[:3])}
 
         Return JSON: {{"score": 0.0-1.0, "reasoning": "...", "numeric_claims_checked": int, "numeric_claims_correct": int}}
         Only return JSON, no extra text.
         """
     try:
-        from src.llm.fallback import call_with_fallback
         import json
+
+        from src.llm.fallback import call_with_fallback
 
         # Use judge_model via direct LLM call (not via answer pipeline)
         # Build prompt for judge

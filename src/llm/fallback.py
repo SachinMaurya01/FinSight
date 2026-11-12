@@ -10,10 +10,10 @@ from openai import (
     APIConnectionError as OpenAIAPIConnectionError,
 )
 from openai import (
-    APITimeoutError as OpenAITimeoutError,
+    APIStatusError as OpenAIAPIStatusError,
 )
 from openai import (
-    APIStatusError as OpenAIAPIStatusError,
+    APITimeoutError as OpenAITimeoutError,
 )
 from openai import (
     AuthenticationError as OpenAIAuthenticationError,
@@ -64,9 +64,7 @@ def _provider_exception(name: str, exc: BaseException) -> bool:
     if isinstance(exc, (ProviderUnavailableError, MalformedResponseError)):
         return True
     # Any other provider error also triggers a fallback hop (logged distinctly).
-    logger.warning(
-        "Provider %s failed with unexpected %s: %s (falling back)", name, type(exc).__name__, exc
-    )
+    logger.warning("Provider %s failed with unexpected %s: %s (falling back)", name, type(exc).__name__, exc)
     return True
 
 

@@ -26,9 +26,7 @@ class TickerPriceResponse(BaseModel):
 class RatioResult(BaseModel):
     """Validated result from a financial ratio calculation."""
 
-    ratio_type: Literal["pe_ratio", "gross_margin", "growth_rate"] = Field(
-        description="Which ratio was computed"
-    )
+    ratio_type: Literal["pe_ratio", "gross_margin", "growth_rate"] = Field(description="Which ratio was computed")
     value: float = Field(description="Computed ratio value (fraction for margin/growth, absolute for P/E)")
     numerator: float = Field(description="Numerator used")
     denominator: float = Field(description="Denominator used")

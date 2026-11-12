@@ -14,7 +14,8 @@ import threading
 import time
 from typing import Any
 
-from src.config import Settings, settings as default_settings
+from src.config import Settings
+from src.config import settings as default_settings
 
 logger = logging.getLogger(__name__)
 

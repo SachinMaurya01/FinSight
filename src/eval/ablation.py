@@ -82,8 +82,7 @@ class InMemoryDenseIndex:
 def _citation_matches(row: dict[str, Any], citation: dict[str, Any]) -> bool:
     """Metadata-level citation match (ticker / fiscal period / section)."""
     return all(
-        not citation.get(key) or row.get(key) == citation.get(key)
-        for key in ("ticker", "fiscal_period", "section")
+        not citation.get(key) or row.get(key) == citation.get(key) for key in ("ticker", "fiscal_period", "section")
     )
 
 
@@ -102,9 +101,7 @@ def score_retrieval(
 
     relevant = [any(_citation_matches(row, citation) for citation in citations) for row in rows]
     precision = sum(relevant) / len(rows) if rows else 0.0
-    recall = sum(
-        1 for citation in citations if any(_citation_matches(row, citation) for row in rows)
-    ) / len(citations)
+    recall = sum(1 for citation in citations if any(_citation_matches(row, citation) for row in rows)) / len(citations)
     mrr = next((1.0 / rank for rank, is_relevant in enumerate(relevant, start=1) if is_relevant), 0.0)
     return RetrievalScore(
         context_precision=round(precision, 4),

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from langchain_core.runnables import RunnableConfig
 from langgraph.graph import END, START, StateGraph
 from langgraph.graph.state import CompiledStateGraph
 
@@ -87,14 +88,16 @@ def ask(query: str, k: int | None = None) -> dict:
     k = k if k is not None else settings.rerank_top_k
     graph = build_graph()
     thread_id = f"ask-{uuid.uuid4().hex[:8]}"
-    config = {"configurable": {"thread_id": thread_id}}
+    config: RunnableConfig = {"configurable": {"thread_id": thread_id}}
     result = graph.invoke({"query": query, "k": k, "verification_retries": 0}, config=config)
 
     # If paused at HITL (requires human approval), auto-approve for this helper.
     try:
         state = graph.get_state(config)
         if state.next and "human_review_gate" in state.next:
-            result = graph.invoke(Command(resume={"approved": True, "feedback": "auto-approved (ask helper)"}), config=config)
+            result = graph.invoke(
+                Command(resume={"approved": True, "feedback": "auto-approved (ask helper)"}), config=config
+            )
     except Exception:
         pass
 

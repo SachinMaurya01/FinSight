@@ -56,7 +56,27 @@ def _claim_grounded_heuristic(claim: str, chunks: list[dict[str, Any]]) -> tuple
     claim_norm = _normalize(claim)
     claim_tokens = set(re.findall(r"[a-z0-9]+", claim_norm))
     # Remove stopwords-ish small tokens for overlap calc
-    stop = {"the", "a", "an", "and", "or", "is", "are", "was", "were", "of", "in", "for", "to", "with", "by", "as", "on", "at", "from"}
+    stop = {
+        "the",
+        "a",
+        "an",
+        "and",
+        "or",
+        "is",
+        "are",
+        "was",
+        "were",
+        "of",
+        "in",
+        "for",
+        "to",
+        "with",
+        "by",
+        "as",
+        "on",
+        "at",
+        "from",
+    }
     claim_keywords = {t for t in claim_tokens if t not in stop and len(t) > 2}
     all_numeric = set(_NUMERIC_RE.findall(claim))
     numeric_tokens = {t for t in all_numeric if _is_financial_numeric(t)}
@@ -70,9 +90,11 @@ def _claim_grounded_heuristic(claim: str, chunks: list[dict[str, Any]]) -> tuple
         if numeric_tokens:
             chunk_all = set(_NUMERIC_RE.findall(chunk_norm))
             chunk_numbers = {t for t in chunk_all if _is_financial_numeric(t)}
+
             # Normalize numbers for comparison: remove commas, $, etc
             def _norm_num(s: str) -> str:
                 return re.sub(r"[,$%]", "", s).lower()
+
             claim_nums_norm = {_norm_num(n) for n in numeric_tokens}
             chunk_nums_norm = {_norm_num(n) for n in chunk_numbers}
             if not (claim_nums_norm & chunk_nums_norm):
@@ -167,7 +189,12 @@ def verify_citations(
     numeric_failed = sum(1 for f in failed if any(_is_financial_numeric(t) for t in _NUMERIC_RE.findall(f["claim"])))
     if numeric_failed > 0:
         passed = False
-        logger.warning("Verification failed: %d financial numeric claims ungrounded (%d/%d total failed)", numeric_failed, len(failed), len(claims))
+        logger.warning(
+            "Verification failed: %d financial numeric claims ungrounded (%d/%d total failed)",
+            numeric_failed,
+            len(failed),
+            len(claims),
+        )
     elif len(failed) == 0:
         passed = True
         logger.info("Verification passed: %d/%d claims grounded", len(verified), len(claims))

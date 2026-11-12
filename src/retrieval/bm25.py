@@ -7,8 +7,8 @@ import re
 from pathlib import Path
 
 from rank_bm25 import BM25Okapi
-# use bm25s for highly optimized
 
+# use bm25s for highly optimized
 from src.ingestion.chunker import Chunk
 from src.retrieval.search import load_chunk_files
 

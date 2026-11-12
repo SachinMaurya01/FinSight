@@ -13,7 +13,7 @@ logger = logging.getLogger(__name__)
 @lru_cache(maxsize=1)
 def _encoding() -> Encoding | None:
     """
-        other token count methods based on diff models o200k_base, p50k_base, etc
+    other token count methods based on diff models o200k_base, p50k_base, etc
     """
     #  inline way to load a module
     try:

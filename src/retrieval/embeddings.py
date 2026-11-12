@@ -1,4 +1,4 @@
-""" Dense embeddings: embed chunk text into vectors.
+"""Dense embeddings: embed chunk text into vectors.
 
 Provides a small ``Embedder`` interface so the retrieval layer is provider
 agnostic. Supported providers (``settings.embedding_provider``):
@@ -14,7 +14,9 @@ from __future__ import annotations
 
 import logging
 from dataclasses import dataclass
-from typing import Protocol
+from typing import Any, Protocol
+
+from pydantic import SecretStr
 
 from src.config import Settings
 from src.ingestion.chunker import Chunk
@@ -31,7 +33,7 @@ class Embedder(Protocol):
 class LangChainEmbedder:
     """Adapter over a langchain-style embedding object (``embed_documents``)."""
 
-    def __init__(self, embeddings: object) -> None:
+    def __init__(self, embeddings: Any) -> None:
         self._embeddings = embeddings
 
     def embed_texts(self, texts: list[str]) -> list[list[float]]:
@@ -57,14 +59,18 @@ def build_embedder(settings: Settings) -> Embedder:
         from langchain_openai import OpenAIEmbeddings
 
         return LangChainEmbedder(
-            OpenAIEmbeddings(model=settings.embedding_model, api_key=settings.openai_api_key)
+            OpenAIEmbeddings(
+                model=settings.embedding_model,
+                api_key=SecretStr(settings.openai_api_key or ""),
+            )
         )
     if provider == "gemini":
         from langchain_google_genai import GoogleGenerativeAIEmbeddings
 
         return LangChainEmbedder(
             GoogleGenerativeAIEmbeddings(
-                model=settings.embedding_model, google_api_key=settings.google_api_key
+                model=settings.embedding_model,
+                api_key=SecretStr(settings.google_api_key or ""),
             )
         )
     if provider == "sentence_transformers":
@@ -131,7 +137,9 @@ def embed_chunks(
                 cached = get_cached_embedding(settings.embedding_model, chunk.content, settings)
                 if cached is not None:
                     if len(cached) != settings.embedding_dimensions:
-                        logger.warning("Cached dimension mismatch, re-embedding chunk %s", chunk.metadata.get("chunk_index"))
+                        logger.warning(
+                            "Cached dimension mismatch, re-embedding chunk %s", chunk.metadata.get("chunk_index")
+                        )
                     else:
                         out.append(ChunkEmbedding(chunk=chunk, embedding=cached))
                         continue

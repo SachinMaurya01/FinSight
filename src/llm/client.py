@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 
 from langchain_core.language_models.chat_models import BaseChatModel
+from pydantic import SecretStr
 
 from src.config import ProviderName, Settings
 
@@ -28,9 +29,9 @@ def build_llm(
 
         return ChatOpenAI(
             model=model_name or settings.openai_model,
-            api_key=settings.openai_api_key,
+            api_key=SecretStr(settings.openai_api_key),
             temperature=0.0,
-            max_tokens=2048,
+            model_kwargs={"max_tokens": 2048},
         )
 
     if provider == "groq":
@@ -40,7 +41,7 @@ def build_llm(
 
         logger.info("Building Groq LLM (model=%s)", model_name or settings.groq_model)
         return ChatGroq(
-            api_key=settings.groq_api_key,
+            api_key=SecretStr(settings.groq_api_key),
             model=model_name or settings.groq_model,
             temperature=0.0,
             max_tokens=2048,
@@ -53,7 +54,7 @@ def build_llm(
 
         return ChatGoogleGenerativeAI(
             model=model_name or settings.openai_model,
-            google_api_key=settings.google_api_key,
+            api_key=SecretStr(settings.google_api_key),
             temperature=0.0,
             max_tokens=2048,
         )
@@ -66,9 +67,9 @@ def build_llm(
         return ChatOpenAI(
             model=model_name or settings.vllm_model,
             base_url=settings.vllm_base_url,
-            api_key=settings.vllm_api_key or "EMPTY",
+            api_key=SecretStr(settings.vllm_api_key or "EMPTY"),
             temperature=0.0,
-            max_tokens=2048,
+            model_kwargs={"max_tokens": 2048},
         )
 
     raise ValueError(f"Unsupported provider: {provider!r}")

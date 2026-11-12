@@ -52,11 +52,6 @@ def call_llm_node(state: GraphState) -> dict[str, Any]:
     prompt = build_answer_prompt(state["query"], chunks)
     tier = state.get("tier")
 
-    # Check if query needs live data
-    use_tools = settings.enable_tools and any(
-        kw in state["query"].lower()
-        for kw in ("p/e", "pe ratio", "current price", "live price", "stock price", "growth rate", "gross margin")
-    )
     # Also trigger tool path if chunks don't contain needed metric but live price might help;
     # for general tool demo we allow LLM to decide — so use tool-aware call whenever enable_tools
     # and the LLM has tools bound. To keep simple, we route all enable_tools cases through tool_support
@@ -284,7 +279,12 @@ def finalize_node(state: GraphState) -> dict[str, Any]:
         # Degrade gracefully: keep answer but ensure flag is visible if not already
         failed = verification.get("failed_claims", [])
         if failed and "[Verification:" not in answer:
-            answer = answer + "\n\n[Flagged: verification failed for claims: " + "; ".join(c["claim"][:60] for c in failed) + "]"
+            answer = (
+                answer
+                + "\n\n[Flagged: verification failed for claims: "
+                + "; ".join(c["claim"][:60] for c in failed)
+                + "]"
+            )
             logger.warning("finalize: surfaced flagged answer with %d ungrounded claims", len(failed))
 
     # If HITL rejected, answer already set to withheld message

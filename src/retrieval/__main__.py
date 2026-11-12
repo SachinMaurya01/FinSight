@@ -21,8 +21,10 @@ from src.retrieval.storage import get_engine, init_schema
 
 
 def _print_result(row: dict, rank: int) -> None:
-    print(f"\n#{rank}  score={row['score']:.4f}  "
-          f"{row['ticker']} {row['filing_type']} {row['fiscal_period']} | {row['section']}")
+    print(
+        f"\n#{rank}  score={row['score']:.4f}  "
+        f"{row['ticker']} {row['filing_type']} {row['fiscal_period']} | {row['section']}"
+    )
     print(row["content"][:220].replace("\n", " "))
 
 
@@ -78,8 +80,10 @@ def main() -> int:
         print(f"Top {len(results)} reranked results for query: {args.query!r}")
         for rank, row in enumerate(results, start=1):
             score = row.get("rerank_score", row.get("score"))
-            print(f"\n#{rank}  rerank_score={score:.4f}  "
-                  f"{row['ticker']} {row['filing_type']} {row['fiscal_period']} | {row['section']}")
+            print(
+                f"\n#{rank}  rerank_score={score:.4f}  "
+                f"{row['ticker']} {row['filing_type']} {row['fiscal_period']} | {row['section']}"
+            )
             print(row["content"][:220].replace("\n", " "))
         return 0
 

@@ -91,8 +91,7 @@ def init_schema(engine: Engine, dimensions: int) -> None:
         existing = _column_dimension(conn)
         if existing is not None and existing != int(dimensions):
             logger.warning(
-                "chunks.embedding is vector(%d) but configured dimension is %d — "
-                "dropping and recreating the table",
+                "chunks.embedding is vector(%d) but configured dimension is %d — dropping and recreating the table",
                 existing,
                 dimensions,
             )

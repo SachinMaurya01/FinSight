@@ -24,6 +24,13 @@ from src.tools import TOOL_MAP, TOOLS
 logger = logging.getLogger(__name__)
 
 
+def _content_text(content: Any) -> str:
+    """Normalize LangChain message content (str or content blocks) to plain text."""
+    if isinstance(content, str):
+        return content
+    return json.dumps(content, default=str)
+
+
 def _execute_tool_call(tool_call: dict[str, Any]) -> ToolMessage:
     """Execute a single tool call dict (LangChain format) and return ToolMessage."""
     name = tool_call.get("name") or tool_call.get("function", {}).get("name")
@@ -180,8 +187,10 @@ def call_with_tools_fallback(
             content2 = strip_think_block(str(response2.content))
             if not content2.strip():
                 raise MalformedResponseError("empty response on tool-second call")
-            tokens2 = count_tokens(prompt) + sum(count_tokens(m.content) for m in tool_messages)  # type: ignore[attr-defined]
-            logger.info("Tool-second call served by %s model=%s", provider, model_name2 or _default_model(settings, provider))
+            tokens2 = count_tokens(prompt) + sum(count_tokens(_content_text(m.content)) for m in tool_messages)
+            logger.info(
+                "Tool-second call served by %s model=%s", provider, model_name2 or _default_model(settings, provider)
+            )
             return LLMResult(
                 content=content2,
                 provider=provider,

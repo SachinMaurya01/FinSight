@@ -19,9 +19,7 @@ _SECTION_MARKERS: dict[str, re.Pattern[str]] = {
     # Matches "Item 1A. Risk Factors" heading to find Risk Factors section start.
     "Item 1A Risk Factors": re.compile(r"Item\s*1A\s*\." + _SPACING + r"Risk Factors", re.IGNORECASE),
     # Matches "Item 1B. Unresolved ..." heading to find Risk Factors section end.
-    "Item 1B Unresolved Staff Comments": re.compile(
-        r"Item\s*1B\s*\." + _SPACING + r"Unresolved", re.IGNORECASE
-    ),
+    "Item 1B Unresolved Staff Comments": re.compile(r"Item\s*1B\s*\." + _SPACING + r"Unresolved", re.IGNORECASE),
     # Matches "Item 7. Management ..." heading to find MD&A section start.
     "Item 7 MD&A": re.compile(r"Item\s*7\s*\." + _SPACING + r"Management", re.IGNORECASE),
     # Matches "Item 7A." heading to find MD&A section end.
@@ -44,9 +42,7 @@ _FILING_TYPE_IN_NAME_RE = re.compile(r"(?:10-[KQ]|10[KQ]|8-[KQ]|8-K)", re.IGNORE
 # Fiscal-period markers: XBRL cover-page tags first, then the cover-page phrase
 # "fiscal year ended September 27, 2025" used in the body document.
 # Extracts 4-digit year from XBRL DocumentFiscalYearFocus tag for FY label.
-_DOC_FISCAL_YEAR_FOCUS_RE = re.compile(
-    r"DocumentFiscalYearFocus[^>]*>\s*(\d{4})\s*<", re.IGNORECASE
-)
+_DOC_FISCAL_YEAR_FOCUS_RE = re.compile(r"DocumentFiscalYearFocus[^>]*>\s*(\d{4})\s*<", re.IGNORECASE)
 # Extracts month/day/year from cover phrase "fiscal year ended ..." as FY fallback.
 _COVER_FISCAL_YEAR_END_RE = re.compile(
     r"fiscal year ended" + _SPACING + r"([A-Za-z]+)" + _SPACING + r"\d{1,2}," + _SPACING + r"(\d{4})",
@@ -69,11 +65,13 @@ class ParsedDocument:
     """A parsed filing with its metadata and extracted sections."""
 
     source_file: str
-    ticker: str # unique arrangement of characters. e.g. AAPL -> Apple
-    filing_type: str # form name or code of the document that the company submitted. e.g. 10-K (annual), 10-Q (quarterly), 8-K (announce major, unscheduled material events)
-    fiscal_period: str | None = None # specific timeframe of the company's financial calendar e.g. Q1, Q2, Q3, FY
+    ticker: str  # unique arrangement of characters. e.g. AAPL -> Apple
+    filing_type: str  # form name or code of the document that the company submitted. e.g. 10-K (annual), 10-Q (quarterly), 8-K (announce major, unscheduled material events)
+    fiscal_period: str | None = None  # specific timeframe of the company's financial calendar e.g. Q1, Q2, Q3, FY
     filename: str | None = None
-    warnings: list[str] = field(default_factory=list) #  prevents one of Python's most notorious bugs: the mutable default argument trap
+    warnings: list[str] = field(
+        default_factory=list
+    )  #  prevents one of Python's most notorious bugs: the mutable default argument trap
     sections: list[ParsedSection] = field(default_factory=list)
 
 
@@ -124,9 +122,7 @@ def _clean_text(fragment: str) -> str:
     return "\n\n".join(paragraphs)
 
 
-_BLOCK_TAGS = frozenset(
-    {"p", "div", "li", "h1", "h2", "h3", "h4", "h5", "h6", "tr", "br"}
-)
+_BLOCK_TAGS = frozenset({"p", "div", "li", "h1", "h2", "h3", "h4", "h5", "h6", "tr", "br"})
 
 
 def _collect_text_tokens(node: Any, out: list[str | None]) -> None:
@@ -158,7 +154,7 @@ def extract_section(text: str, label: str, start_name: str, end_name: str) -> Pa
     if end_pos <= start.start():
         logger.warning("Section end marker precedes start for %s", label)
         return None
-    clean = _clean_text(text[start.start():end_pos])
+    clean = _clean_text(text[start.start() : end_pos])
     return ParsedSection(
         section=label,
         text=clean,
@@ -190,7 +186,7 @@ def _filing_type_from_name(name: str) -> str | None:
     match = _FILING_TYPE_IN_NAME_RE.search(name)
     if not match:
         return None
-    return re.sub(r"(10|8)K$", r"\1-K", match.group(0).upper())
+    return re.sub(r"(10|8)([KQ])$", r"\1-\2", match.group(0).upper())
 
 
 def _extract_fiscal_period(html: str) -> str | None:

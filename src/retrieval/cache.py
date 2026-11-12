@@ -27,7 +27,9 @@ def _get_redis_client(settings: Settings):  # type: ignore[no-untyped-def]
     try:
         import redis  # type: ignore[import-not-found]
 
-        client = redis.Redis.from_url(settings.redis_url, decode_responses=True, socket_connect_timeout=2, socket_timeout=2)
+        client = redis.Redis.from_url(
+            settings.redis_url, decode_responses=True, socket_connect_timeout=2, socket_timeout=2
+        )
         client.ping()
         return client
     except Exception as exc:

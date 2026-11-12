@@ -21,9 +21,7 @@ def format_context(chunks: list[Chunk]) -> str:
     blocks: list[str] = []
     for index, chunk in enumerate(chunks, start=1):
         meta = chunk.metadata
-        tags = ", ".join(
-            str(meta.get(k)) for k in ("ticker", "filing_type", "fiscal_period", "section")
-        )
+        tags = ", ".join(str(meta.get(k)) for k in ("ticker", "filing_type", "fiscal_period", "section"))
         blocks.append(f"[{index}] (source: {tags})\n{chunk.content.strip()}")
     return "\n\n".join(blocks)
 

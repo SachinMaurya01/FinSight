@@ -44,7 +44,12 @@ def run_eval(
     from src.graph.checkpoint import get_checkpointer  # noqa: F401  # keep import for side-effect
 
     results: list[dict[str, Any]] = []
-    total_metrics = {"context_precision": 0, "context_recall": 0, "faithfulness": 0, "answer_relevance": 0}
+    total_metrics: dict[str, float] = {
+        "context_precision": 0.0,
+        "context_recall": 0.0,
+        "faithfulness": 0.0,
+        "answer_relevance": 0.0,
+    }
     judge_scores: list[float] = []
     active_backend: str = metrics_backend
     fallback_reason: str | None = None
@@ -77,9 +82,7 @@ def run_eval(
                     logger.warning("RAGAS unavailable, using heuristic metrics: %s", exc)
                     active_backend = "heuristic"
                     backend_for_example = "heuristic"
-                    metrics = compute_metrics(
-                        ex.question, answer, chunks, expected_citations, contexts
-                    )
+                    metrics = compute_metrics(ex.question, answer, chunks, expected_citations, contexts)
             else:
                 metrics = compute_metrics(ex.question, answer, chunks, expected_citations, contexts)
 

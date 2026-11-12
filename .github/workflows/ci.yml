@@ -56,8 +56,8 @@ jobs:
       - run: uv sync --frozen
       - name: Lint
         run: |
-          uv run ruff check src tests
-          uv run ruff format --check src tests
+          uv run ruff check .
+          uv run ruff format --check .
       - name: Typecheck
         run: uv run mypy src
       - name: Test with coverage

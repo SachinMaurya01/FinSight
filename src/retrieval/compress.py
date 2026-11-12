@@ -53,11 +53,7 @@ def compress_chunks(
         sentence_embeddings = active_embedder.embed_texts(sentences)
         similarities = [_cosine(query_embedding, emb) for emb in sentence_embeddings]
         best = max(similarities)
-        kept = [
-            sentence
-            for sentence, sim in zip(sentences, similarities)
-            if sim >= best * _KEEP_SIM_RATIO
-        ]
+        kept = [sentence for sentence, sim in zip(sentences, similarities) if sim >= best * _KEEP_SIM_RATIO]
         trimmed = " ".join(kept).strip()
         if not trimmed:
             trimmed = sentences[similarities.index(best)]

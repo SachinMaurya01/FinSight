@@ -62,7 +62,7 @@ def _fetch_price_sync(ticker: str) -> dict[str, Any]:
             candidate = info.get("currentPrice") or info.get("regularMarketPrice")
             if candidate is not None:
                 price = float(candidate)
-        except (ValueError, KeyError, RuntimeError, ConnectionError) as exc:
+        except (ValueError, KeyError, RuntimeError, ConnectionError, AttributeError) as exc:
             logger.warning("yfinance info failed for %s: %s", normalized, exc)
 
     if price is None or price <= 0:

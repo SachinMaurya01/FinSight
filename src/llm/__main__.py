@@ -33,8 +33,10 @@ def main() -> int:
         chunks = [Chunk(content=row["content"], metadata=row) for row in rows]
         print(f"Retrieved {len(chunks)} chunks for query: {args.query!r}")
         for rank, row in enumerate(rows, start=1):
-            print(f"  #{rank} {row['ticker']} {row['filing_type']} {row['fiscal_period']} "
-                  f"| {row['section']} (score={row['score']:.3f})")
+            print(
+                f"  #{rank} {row['ticker']} {row['filing_type']} {row['fiscal_period']} "
+                f"| {row['section']} (score={row['score']:.3f})"
+            )
             print(f"    {row['content'][:CONTEXT_CHARS].strip()}")
         print("\n=== ANSWER ===")
         answer = answer_query(args.query, chunks, settings)

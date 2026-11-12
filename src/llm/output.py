@@ -5,9 +5,7 @@ from __future__ import annotations
 import re
 
 # Matches leaked <think>/<thinking> reasoning blocks to strip them from final answer.
-_THINK_BLOCK_RE = re.compile(
-    r"<\s*think(?:ing)?\s*>.*?<\s*/\s*think(?:ing)?\s*>", re.DOTALL
-)
+_THINK_BLOCK_RE = re.compile(r"<\s*think(?:ing)?\s*>.*?<\s*/\s*think(?:ing)?\s*>", re.DOTALL)
 
 
 def strip_think_block(content: str) -> str:

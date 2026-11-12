@@ -60,7 +60,6 @@ class Settings(BaseConfigSettings):
     parsed_docs_dir: Path = PROJECT_ROOT / "data" / "parsed"  # keeps parsed filings separate from read-only sources.
     chunk_store_dir: Path = PROJECT_ROOT / "data" / "chunks"  # persists chunked docs for reuse without re-parsing.
 
-
     # Default model
     openai_model: str = "gpt-4o-mini"
     openai_embedding_model: str = "text-embedding-3-small"
@@ -75,7 +74,6 @@ class Settings(BaseConfigSettings):
     vllm_api_key: str | None = None  # optional auth for secured self-hosted vLLM servers.
     vllm_model: str | None = "qwen3.5:9b"  # local Ollama model id (from `ollama list`); None disables vLLM path.
 
-
     # Model routing
     model_routing: ModelRouting = ModelRouting()  # maps simple/normal/complex queries to cheap/medium/expensive models.
 
@@ -83,13 +81,17 @@ class Settings(BaseConfigSettings):
     fallback_chain: list[ProviderName] = ["openai", "groq", "gemini", "vllm"]
 
     # Embeddings
-    embedding_provider: EmbeddingProvider = "sentence_transformers"  # selects embedding backend (local default avoids API cost).
+    embedding_provider: EmbeddingProvider = (
+        "sentence_transformers"  # selects embedding backend (local default avoids API cost).
+    )
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"  # compact local model balancing quality vs speed.
     embedding_dimensions: int = Field(default=384, gt=0)  # must match vector DB schema for similarity search.
     embedding_batch_size: int = Field(default=64, gt=0)  # batches embedding calls to limit memory and API usage.
 
     # Reranker
-    reranker_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"  # cross-encoder re-scores fused hits for better precision.
+    reranker_model: str = (
+        "cross-encoder/ms-marco-MiniLM-L-6-v2"  # cross-encoder re-scores fused hits for better precision.
+    )
     reranker_device: str = "cpu"  # pins reranker to CPU/GPU explicitly for portable deployments.
 
     # Chunking
@@ -103,14 +105,18 @@ class Settings(BaseConfigSettings):
     rerank_top_k: int = Field(default=8, gt=0)  # final evidence set size passed to LLM and citation check.
     rrf_k: int = Field(default=60, gt=0)  # RRF smoothing constant controlling rank vs score influence.
     dense_weight: float = Field(default=0.6, ge=0.0, le=1.0)  # weights semantic matches higher than lexical ones.
-    lexical_weight: float = Field(default=0.4, ge=0.0, le=1.0)  # keeps keyword signal so tickers/figures are not missed.
+    lexical_weight: float = Field(
+        default=0.4, ge=0.0, le=1.0
+    )  # keeps keyword signal so tickers/figures are not missed.
 
     # Context compression
     context_token_budget: int = Field(default=12000, gt=0)  # caps prompt tokens to fit model window and control cost.
     max_compressed_chunks: int = Field(default=8, gt=0)  # limits chunks kept after compression to bound latency.
 
     # Citation verification
-    verification_max_retries: int = Field(default=2, ge=0, le=3)  # retries unverified answers before flagging as degraded.
+    verification_max_retries: int = Field(
+        default=2, ge=0, le=3
+    )  # retries unverified answers before flagging as degraded.
 
     # Human-in-the-loop
     hitl_enabled: bool = True  # compliance gate blocking investment-like answers without review.
@@ -124,14 +130,20 @@ class Settings(BaseConfigSettings):
     checkpointer_type: CheckpointerType = "in_memory"  # selects persistent Redis vs ephemeral memory checkpointer.
 
     # Storage
-    postgres_database_url: str = "postgresql://rag_user:rag_password@localhost:5432/rag_db"  # vector/metadata store connection (pgvector).
+    postgres_database_url: str = (
+        "postgresql://rag_user:rag_password@localhost:5432/rag_db"  # vector/metadata store connection (pgvector).
+    )
 
     # SEC EDGAR
     sec_edgar_user_agent: str = "FinSightResearch dev@example.com"  # SEC-required User-Agent with contact email.
-    sec_request_throttle_seconds: float = Field(default=0.5, gt=0)  # throttles EDGAR requests to respect fair-use limits.
+    sec_request_throttle_seconds: float = Field(
+        default=0.5, gt=0
+    )  # throttles EDGAR requests to respect fair-use limits.
 
     # Evaluation
-    eval_dataset_path: Path = PROJECT_ROOT / "data" / "eval" / "eval_dataset.json"  # fixed offline eval set for RAGAS regression checks.
+    eval_dataset_path: Path = (
+        PROJECT_ROOT / "data" / "eval" / "eval_dataset.json"
+    )  # fixed offline eval set for RAGAS regression checks.
     ragas_metrics: list[str] = [  # quality metrics tracked on every pipeline change.
         "context_precision",
         "context_recall",
@@ -187,9 +199,9 @@ class Settings(BaseConfigSettings):
         return self
 
     # Helpers
-    def tier_model(self, tier: ComplexityTier) -> ModelTierConfig:
+    def tier_model(self, tier: str) -> ModelTierConfig:
         """Resolve model config for tier."""
-        tier_to_field: dict[ComplexityTier, str] = {
+        tier_to_field: dict[str, str] = {
             "simple": "cheap",
             "normal": "medium",
             "complex": "expensive",

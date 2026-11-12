@@ -44,8 +44,10 @@ def save_chunks(chunks: list[Chunk], output_dir: Path, source_file: str) -> Path
 def preview_chunks(chunks: list[Chunk], n: int) -> None:
     for chunk in chunks[:n]:
         meta = chunk.metadata
-        print(f"--- [{meta['chunk_index']}] {meta['ticker']} {meta['filing_type']} "
-              f"{meta['fiscal_period']} {meta['section']} @{meta['char_offset']}")
+        print(
+            f"--- [{meta['chunk_index']}] {meta['ticker']} {meta['filing_type']} "
+            f"{meta['fiscal_period']} {meta['section']} @{meta['char_offset']}"
+        )
         print(chunk.content[:200].replace("\n", " "))
         print()
 
@@ -54,8 +56,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("source_dir", nargs="?", default=str(settings.data_dir), type=Path)
     parser.add_argument("output_dir", nargs="?", default=str(settings.parsed_docs_dir), type=Path)
-    parser.add_argument("--preview", type=int, default=0,
-                        help="print the first N chunks of each document")
+    parser.add_argument("--preview", type=int, default=0, help="print the first N chunks of each document")
     args = parser.parse_args()
 
     html_files = sorted(args.source_dir.glob("*.html"))
@@ -67,8 +68,10 @@ def main() -> int:
         document = parse_edgar_file(html_file)
         parsed_path = save_document(document, args.output_dir)
         sections = ", ".join(f"{s.section} ({s.word_count} words)" for s in document.sections)
-        print(f"{document.source_file}: {document.filing_type} ticker={document.ticker} "
-              f"fiscal_period={document.fiscal_period} -> {parsed_path}")
+        print(
+            f"{document.source_file}: {document.filing_type} ticker={document.ticker} "
+            f"fiscal_period={document.fiscal_period} -> {parsed_path}"
+        )
         if sections:
             print(f"    sections: {sections}")
         for warning in document.warnings:

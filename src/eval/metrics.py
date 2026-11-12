@@ -20,6 +20,7 @@ from dataclasses import dataclass
 from typing import Any, Literal
 
 from langchain_core.embeddings import Embeddings as _LangchainEmbeddings
+from pydantic import SecretStr
 
 from src.config import Settings
 from src.retrieval.embeddings import Embedder
@@ -163,7 +164,15 @@ def _import_ragas() -> tuple[Any, ...]:
             "--metrics heuristic. "
             f"Original error: {type(exc).__name__}: {exc}"
         ) from exc
-    return EvaluationDataset, SingleTurnSample, evaluate, ContextPrecision, ContextRecall, Faithfulness, ResponseRelevancy
+    return (
+        EvaluationDataset,
+        SingleTurnSample,
+        evaluate,
+        ContextPrecision,
+        ContextRecall,
+        Faithfulness,
+        ResponseRelevancy,
+    )
 
 
 def ensure_ragas_available() -> None:
@@ -201,19 +210,18 @@ def _build_ragas_llm(settings: Settings) -> Any:
     if settings.openai_api_key:
         return ChatOpenAI(
             model=settings.openai_model,
-            api_key=settings.openai_api_key,
+            api_key=SecretStr(settings.openai_api_key),
             temperature=0.0,
         )
     if settings.groq_api_key:
         return ChatOpenAI(
             model=settings.judge_model,
-            api_key=settings.groq_api_key,
+            api_key=SecretStr(settings.groq_api_key),
             base_url=settings.groq_base_url,
             temperature=0.0,
         )
     raise RagasUnavailableError(
-        "RAGAS needs an LLM judge. Set OPENAI_API_KEY or GROQ_API_KEY, "
-        "or run with --metrics heuristic."
+        "RAGAS needs an LLM judge. Set OPENAI_API_KEY or GROQ_API_KEY, or run with --metrics heuristic."
     )
 
 

@@ -254,10 +254,9 @@ async def review(
     state: dict[str, Any]
     try:
         snapshot = await run_in_threadpool(graph.get_state, config)
-        values = dict(getattr(snapshot, "values", {}) or {})
         next_nodes = getattr(snapshot, "next", ()) or ()
     except Exception:
-        values, next_nodes = {}, ()
+        next_nodes = ()
 
     if store.get(thread_id) is None and settings.hitl_interrupt_node not in next_nodes:
         raise HTTPException(status_code=404, detail="no pending review for thread_id")
@@ -335,8 +334,7 @@ def _check_llm_provider() -> ReadinessCheck:
     keyed = [
         provider
         for provider in settings.fallback_chain
-        if provider in ("openai", "groq", "gemini")
-        and settings.has_provider_credentials(provider)
+        if provider in ("openai", "groq", "gemini") and settings.has_provider_credentials(provider)
     ]
     if keyed:
         return ReadinessCheck(ok=True, detail=", ".join(keyed))

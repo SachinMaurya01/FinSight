@@ -19,7 +19,7 @@ _DEFAULT_SEPARATORS: list[str] = ["\n\n", "\n", ". ", " ", ""]
 
 
 def build_chunk_splitter(settings: Settings) -> RecursiveCharacterTextSplitter:
-    """ recursive character splitter from config."""
+    """recursive character splitter from config."""
     return RecursiveCharacterTextSplitter(
         chunk_size=settings.chunk_size,
         chunk_overlap=settings.chunk_overlap,
@@ -27,7 +27,7 @@ def build_chunk_splitter(settings: Settings) -> RecursiveCharacterTextSplitter:
     )
 
 
-@dataclass(frozen=True) # makes it an immutable data holder ( its attributes cannot be changed )
+@dataclass(frozen=True)  # makes it an immutable data holder ( its attributes cannot be changed )
 class Chunk:
     """A single chunk with its metadata."""
 
