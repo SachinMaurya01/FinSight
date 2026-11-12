@@ -26,9 +26,25 @@ def _expect_error(fn, *args) -> Exception:  # type: ignore[no-untyped-def]
 
 
 def test_ratios() -> None:
-    pe = calculate_pe_ratio.invoke({"price": 100.0, "eps": 4.0})
+    pe = calculate_pe_ratio.invoke(
+        {
+            "price": 100.0,
+            "eps": 4.0,
+            "period_end": "2025-09-27",
+            "eps_basis": "diluted_ttm",
+            "source": "xbrl",
+            "accession": "0000320193-25-000079",
+            "as_of": "2026-01-02T00:00:00Z",
+        }
+    )
     assert pe["ratio_type"] == "pe_ratio"
     assert pe["value"] == 25.0
+    assert pe["period_end"] == "2025-09-27"
+    assert pe["eps_basis"] == "diluted_ttm"
+    assert pe["source"] == "xbrl"
+    assert pe["accession"] == "0000320193-25-000079"
+    assert pe["as_of"] == "2026-01-02T00:00:00Z"
+    assert pe["not_meaningful"] is False
 
     margin = calculate_gross_margin.invoke({"revenue": 200.0, "gross_profit": 80.0})
     assert margin["value"] == 0.4
@@ -40,7 +56,13 @@ def test_ratios() -> None:
 
 def test_ratio_validation() -> None:
     assert isinstance(_expect_error(calculate_pe_ratio.func, -1.0, 2.0), ValueError)
-    assert isinstance(_expect_error(calculate_pe_ratio.func, 10.0, 0.0), ValueError)
+    zero = calculate_pe_ratio.invoke({"price": 10.0, "eps": 0.0})
+    assert zero["value"] is None
+    assert zero["display"] == "not meaningful"
+    assert zero["not_meaningful"] is True
+    negative = calculate_pe_ratio.invoke({"price": 10.0, "eps": -1.0})
+    assert negative["value"] is None
+    assert negative["not_meaningful"] is True
     assert isinstance(_expect_error(calculate_gross_margin.func, 0.0, 1.0), ValueError)
     assert isinstance(_expect_error(calculate_growth_rate.func, 1.0, 0.0), ValueError)
     print("PASS test_ratio_validation")

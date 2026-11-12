@@ -65,6 +65,7 @@ REQUIRED_METADATA = {
     "section",
     "chunk_index",
     "char_offset",
+    "chunk_type",
 }
 
 
@@ -78,6 +79,7 @@ def test_metadata_present() -> None:
         assert chunk.metadata["fiscal_period"] == "FY2099"
         assert chunk.metadata["section"] == "Item 1A Risk Factors"
         assert chunk.metadata["source_file"] == "synth-10K.html"
+        assert chunk.metadata["chunk_type"] == "text"
     print(f"PASS test_metadata_present ({len(chunks)} chunks)")
 
 

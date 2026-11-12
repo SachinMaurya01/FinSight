@@ -161,14 +161,14 @@ PRD targets are used where defined; retrieval MRR@8 is an engineering gate added
 
 | Symptom | Example | Root cause | Next action |
 |---|---|---|---|
-| Low precision on table-heavy questions | `eval_004`, `eval_010`, `eval_014`, `eval_027` | HTML parser flattens Item 7 tables; chunks contain the right section but not the right passage | XBRL-first + table-aware parsing; passage-level labels |
+| Low precision on table-heavy questions | `eval_004`, `eval_010`, `eval_014`, `eval_027` | Historical: HTML parser flattened tables | **Fixed in Phase 4:** Item 8 tables are serialized as structured, unsplit chunks; labels now include Item 8 where it is the source |
 | Hybrid regression | `eval_013` precision `0.375 → 0.125` | Lexical matches from table-adjacent text crowd out the narrative passage | Query-aware fusion, lexical score thresholds, or table-aware candidate filters |
 | Rerank helps rank, not recall | `eval_004` MRR `0.50 → 1.00`, precision flat at `0.375` | The relevant chunk was already in the candidate set | Improve candidate recall separately from reranking |
 | Recall appears perfect | All configurations | Citation labels are section-level, so “right section” is easy | Add passage/chunk-level labels and negative examples |
-| P/E answer is fragile | `eval_008` | Live price via yfinance + EPS regex from text; filing EPS ≠ trailing EPS; basic vs diluted | XBRL companyfacts, point-in-time price, explicit EPS definition |
+| P/E answer is fragile | `eval_008` | Historical: EPS regex over prose mixed filing and trailing EPS | **Fixed in Phase 4:** SEC companyfacts TTM diluted EPS with period, accession, and price timestamp |
 | Verification can pass weak claims | 3/3 smoke run passed | Keyword overlap, not entailment | NLI claim verification + numeric normalization |
 | RAGAS not available | `--metrics ragas` | Dependency/lock incompatibility | Pin a working RAGAS stack; add integration test |
-| Narrow corpus | 2 Apple 10-Ks | No Item 8, 10-Q/8-K, transcripts, peers, or international filings | Expand corpus before claiming broad financial QA |
+| Narrow corpus | 2 Apple 10-Ks | Only Items 1A, 7, and 8; no 10-Q/8-K, transcripts, peers, or international filings | Expand corpus before claiming broad financial QA |
 
 ## Reliability and failure modes
 
@@ -176,7 +176,7 @@ PRD targets are used where defined; retrieval MRR@8 is an engineering gate added
 - **Verification failure:** bounded retry to retrieval (max 2). After exhaustion, the answer is returned with a visible verification flag, not silently passed. The verifier tolerates zero unmatched financial numeric claims and at most one non-numeric weak claim.
 - **Postgres unavailable:** retrieval cannot proceed; the error is surfaced. There is no local vector-store fallback.
 - **Redis unavailable:** embedding cache and Redis checkpointer fall back to in-memory behavior; HITL state is lost on restart.
-- **Tool failure:** price fetch failure returns a tool error and does not fabricate a price. Missing EPS degrades to price-only with an explanation.
+- **Tool failure:** price fetch failure returns a tool error and does not fabricate a price. If SEC XBRL is unavailable or has no diluted EPS fact, P/E degrades to a price-only response with an explicit reason.
 - **Partial ingestion:** parser warns when a section marker is missing; the document may still be chunked with fewer sections. There is no ingestion-level completeness gate yet.
 
 ## Security and compliance
@@ -286,6 +286,9 @@ Key environment variables (see `.env.example` for the full set):
 | `CIRCUIT_BREAKER_FAILURES` / `COOLDOWN_SECONDS` | per-provider breaker thresholds | `5` / `30` |
 | `TRACING_ENABLED` | per-request span tracing | `true` |
 | `LANGFUSE_ENABLED` | optional Langfuse trace export (`uv sync --extra langfuse`) | `false` |
+| `XBRL_ENABLED` | use SEC XBRL facts for P/E | `true` |
+| `SEC_CACHE_TTL_SECONDS` | companyfacts cache TTL | `86400` |
+| `SEC_MAX_ATTEMPTS` / `SEC_BACKOFF_SECONDS` | SEC retry policy | `3` / `0.5` |
 
 ### Observability today
 
@@ -296,9 +299,9 @@ Key environment variables (see `.env.example` for the full set):
 
 ## Limits and non-goals
 
-- **Corpus:** 2 Apple 10-Ks; Items 1A and 7 only. No Item 8, 10-Q, 8-K, proxies, transcripts, peers, or IFRS filings.
-- **Parsing:** HTML text extraction, not XBRL-first. Tables are flattened, so row/column relationships are lost.
-- **P/E:** live price plus EPS extracted from text. Filing EPS and trailing EPS can differ; the tool does not reconcile them.
+- **Corpus:** 2 Apple 10-Ks; Items 1A, 7, and 8. No 10-Q/8-K, proxies, transcripts, peers, or IFRS filings.
+- **Parsing:** Item 8 tables are table-aware and kept intact; other sections still use text extraction. Complex rowspan/colspan tables are serialized best-effort.
+- **P/E:** live yfinance price plus SEC XBRL TTM diluted EPS; negative/zero EPS returns "not meaningful". The price is point-in-time at request time, not the filing date.
 - **Evaluation:** retrieval ablation is measured; end-to-end is a 3-question smoke run; real RAGAS is not yet measured.
 - **Verification:** keyword overlap, not entailment. Treat `verification.passed` as a floor.
 - **Scale:** single-process CLI; no horizontal scaling, queueing, or concurrency controls.
@@ -310,11 +313,10 @@ Priority is risk reduction, not feature count.
 
 **P0 — correctness and evidence**
 
-1. Table-aware/XBRL ingestion for Item 8 and financial-statement tables.
-2. Passage-level citation labels; add negative/abstention cases to the eval set.
-3. Unblock and run full 30-question RAGAS; freeze judge model and prompts.
-4. NLI-based claim verification + numeric normalization (`$M` vs `$B`, basic vs diluted EPS).
-5. P/E via companyfacts/XBRL with explicit EPS definition and point-in-time price.
+1. Passage-level citation labels; add negative/abstention cases to the eval set.
+2. Unblock and run full 30-question RAGAS; freeze judge model and prompts.
+3. NLI-based claim verification + numeric normalization (`$M` vs `$B`, basic vs diluted EPS).
+4. Extend table-aware ingestion to 10-Q/8-K and all Item 8 notes.
 
 **P1 — production controls**
 
@@ -371,11 +373,11 @@ Priority is risk reduction, not feature count.
 ## Tools
 
 - `get_stock_price(ticker)` — yfinance live price, validated by `TickerPriceResponse`.
-- `calculate_pe_ratio(price, eps)` — `price / eps`.
+- `calculate_pe_ratio(price, eps, period_end=..., eps_basis=..., source=..., accession=..., as_of=...)` — `price / diluted TTM EPS`.
 - `calculate_gross_margin(revenue, gross_profit)` — `gross_profit / revenue`.
 - `calculate_growth_rate(current, previous)` — `(current-previous)/previous`.
 
-All return `RatioResult` (Pydantic) with `value`, `numerator`, `denominator`, and `formula`. The `tool` node auto-handles P/E queries: fetch live price, extract EPS from chunks, compute the ratio, and append `[Tool-augmented: ...]`. See [Limits](#limits-and-non-goals) for why this remains fragile.
+All return `RatioResult` (Pydantic) with `value`, `numerator`, `denominator`, `formula`, and optional provenance (`period_end`, `eps_basis`, `source`, `accession`, `as_of`). Negative/zero EPS returns `value=None`, `display="not meaningful"`. The `tool` node auto-handles P/E queries: it fetches the live price, pulls SEC XBRL TTM diluted EPS, computes the ratio, and appends a provenance-tagged `[Tool-augmented: ...]` note.
 
 ## Caching and checkpoints
 

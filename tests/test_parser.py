@@ -42,7 +42,7 @@ def test_parse_minimal_html() -> None:
 def test_parse_missing_sections_warns() -> None:
     document = parse_edgar_html("<html><body><p>Nothing here</p></body></html>")
     assert document.sections == []
-    assert len(document.warnings) == 2
+    assert len(document.warnings) == 3
     assert document.filing_type == "UNKNOWN"
     assert document.ticker == "unknown"
     print("PASS test_parse_missing_sections_warns")
