@@ -16,6 +16,8 @@ from fastapi import FastAPI
 
 from src.api.routes import router
 from src.config import settings
+from src.observability.logging import configure_logging
+from src.observability.middleware import RequestContextMiddleware
 
 logger = logging.getLogger(__name__)
 
@@ -48,6 +50,7 @@ def create_app(graph: Any | None = None) -> FastAPI:
     ``graph`` is injectable for tests; production leaves it unset and the
     lifespan builds the default LangGraph from settings.
     """
+    configure_logging(settings.log_level)
     app = FastAPI(
         title="FinSight",
         version=settings.app_version,
@@ -56,5 +59,6 @@ def create_app(graph: Any | None = None) -> FastAPI:
     )
     if graph is not None:
         app.state.graph = graph
+    app.add_middleware(RequestContextMiddleware)
     app.include_router(router)
     return app

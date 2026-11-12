@@ -31,6 +31,8 @@ def build_llm(
             model=model_name or settings.openai_model,
             api_key=SecretStr(settings.openai_api_key),
             temperature=0.0,
+            timeout=settings.llm_timeout_seconds,
+            max_retries=0,
             model_kwargs={"max_tokens": 2048},
         )
 
@@ -44,6 +46,8 @@ def build_llm(
             api_key=SecretStr(settings.groq_api_key),
             model=model_name or settings.groq_model,
             temperature=0.0,
+            timeout=settings.llm_timeout_seconds,
+            max_retries=0,
             max_tokens=2048,
         )
 
@@ -53,9 +57,10 @@ def build_llm(
         from langchain_google_genai import ChatGoogleGenerativeAI
 
         return ChatGoogleGenerativeAI(
-            model=model_name or settings.openai_model,
+            model=model_name or settings.fallback_tier_models["gemini"]["normal"],
             api_key=SecretStr(settings.google_api_key),
             temperature=0.0,
+            request_timeout=settings.llm_timeout_seconds,
             max_tokens=2048,
         )
 
@@ -69,6 +74,8 @@ def build_llm(
             base_url=settings.vllm_base_url,
             api_key=SecretStr(settings.vllm_api_key or "EMPTY"),
             temperature=0.0,
+            timeout=settings.llm_timeout_seconds,
+            max_retries=0,
             model_kwargs={"max_tokens": 2048},
         )
 

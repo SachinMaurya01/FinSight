@@ -16,6 +16,8 @@ from src.ingestion.chunker import Chunk
 from src.llm.answer import build_answer_prompt
 from src.llm.fallback import DegradedResponseError, call_with_fallback
 from src.llm.tool_support import call_with_tools_fallback
+from src.observability.context import bind_request_context
+from src.observability.metrics import record_hitl, record_verification_failure
 from src.retrieval.compress import compress_chunks
 from src.retrieval.rerank import retrieve_reranked
 from src.routing import classify_complexity
@@ -27,6 +29,7 @@ logger = logging.getLogger(__name__)
 def classify_complexity_node(state: GraphState) -> dict[str, Any]:
     """Classify query complexity to pick the model tier."""
     tier = classify_complexity(state["query"])
+    bind_request_context(tier=tier)
     logger.info("classify_complexity: %r -> %s", state["query"], tier)
     return {"tier": tier, "verification_retries": state.get("verification_retries", 0)}
 
@@ -60,25 +63,22 @@ def call_llm_node(state: GraphState) -> dict[str, Any]:
         if settings.enable_tools:
             result = call_with_tools_fallback(prompt, settings, tier=tier)
             logger.info("call_llm (tools) provider=%s tier=%s", result.provider, tier)
-            return {
-                "draft_answer": result.content,
-                "answer": result.content,
-                "provider": result.provider,
-                "tokens_in": result.tokens_in,
-            }
         else:
             result = call_with_fallback(prompt, settings, tier=tier)
-            return {
-                "draft_answer": result.content,
-                "answer": result.content,
-                "provider": result.provider,
-                "tokens_in": result.tokens_in,
-            }
+        bind_request_context(provider=result.provider)
+        return {
+            "draft_answer": result.content,
+            "answer": result.content,
+            "provider": result.provider,
+            "model": getattr(result, "model", None),
+            "tokens_in": result.tokens_in,
+            "tokens_out": getattr(result, "tokens_out", 0),
+        }
     except DegradedResponseError:
         raise
     except Exception as exc:
-        logger.warning("call_llm failed: %s", exc)
-        return {"answer": f"Error generating answer: {exc}", "draft_answer": "", "error": str(exc)}
+        logger.exception("call_llm failed: %s", exc)
+        raise DegradedResponseError(f"answer generation failed: {type(exc).__name__}: {exc}") from exc
 
 
 def tool_node(state: GraphState) -> dict[str, Any]:
@@ -194,6 +194,13 @@ def verify_citations_node(state: GraphState) -> dict[str, Any]:
     # conditional edge can decide to loop back to retrieve or proceed.
     new_retries = retries + 1 if not result.passed else retries
     if not result.passed:
+        has_financial_claim = any(
+            any(character.isdigit() for character in claim.get("claim", "")) for claim in result.failed_claims
+        )
+        record_verification_failure(
+            "numeric_hallucination" if has_financial_claim else "ungrounded_claims",
+            max(len(result.failed_claims), 1),
+        )
         return {
             "verification": result.to_dict(),
             "verification_retries": new_retries,
@@ -209,6 +216,7 @@ def human_review_gate_node(state: GraphState) -> dict[str, Any]:
     """HITL gate using LangGraph ``interrupt`` so the API can resume by thread_id."""
     if not settings.hitl_enabled:
         logger.info("HITL disabled; skipping review gate")
+        record_hitl("disabled")
         return {"is_recommendation": False, "hitl_approved": True}
 
     answer = state.get("answer") or state.get("draft_answer") or ""
@@ -218,10 +226,12 @@ def human_review_gate_node(state: GraphState) -> dict[str, Any]:
     logger.info("human_review_gate: is_recommendation=%s", is_rec)
 
     if not is_rec:
+        record_hitl("not_required")
         return {"is_recommendation": False, "hitl_approved": True}
 
     # It's recommendation-like: pause for human approval via interrupt.
     payload = hitl_payload(answer, query, state.get("sources"))
+    record_hitl("requested")
     logger.info("HITL interrupt triggered for recommendation: %r", query[:80])
 
     store = get_review_store(settings)
@@ -239,6 +249,7 @@ def human_review_gate_node(state: GraphState) -> dict[str, Any]:
         logger.warning("interrupt not supported in this run (%s); auto-approving", exc)
         if thread_id:
             store.remove(thread_id)
+        record_hitl("auto_approved")
         return {
             "is_recommendation": True,
             "hitl_approved": True,
@@ -254,17 +265,21 @@ def human_review_gate_node(state: GraphState) -> dict[str, Any]:
         fb = feedback.get("note", feedback.get("feedback"))
         logger.info("HITL resume: approved=%s note=%r", approved, fb)
         if not approved:
+            record_hitl("rejected")
             return {
                 "is_recommendation": True,
                 "hitl_approved": False,
                 "hitl_feedback": fb,
                 "answer": "Response withheld pending human review: investment recommendation not approved.",
             }
+        record_hitl("approved")
         return {"is_recommendation": True, "hitl_approved": True, "hitl_feedback": fb}
 
     # If feedback is a simple boolean or string
     if isinstance(feedback, bool):
+        record_hitl("approved" if feedback else "rejected")
         return {"is_recommendation": True, "hitl_approved": feedback}
+    record_hitl("approved")
     return {"is_recommendation": True, "hitl_approved": True, "hitl_feedback": str(feedback)}
 
 

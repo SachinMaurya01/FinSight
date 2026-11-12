@@ -4,11 +4,11 @@ from __future__ import annotations
 
 import json
 import logging
-from typing import Any
+from typing import Any, cast
 
 from langchain_core.messages import AIMessage, HumanMessage, SystemMessage, ToolMessage
 
-from src.config import Settings
+from src.config import ProviderName, Settings
 from src.llm.client import ProviderUnavailableError, build_llm
 from src.llm.fallback import (
     DegradedResponseError,
@@ -18,6 +18,10 @@ from src.llm.fallback import (
     _provider_exception,
 )
 from src.llm.output import strip_think_block
+from src.observability.metrics import record_fallback, record_llm_usage
+from src.observability.tracing import trace_callbacks
+from src.resilience.breaker import CircuitOpenError, get_breaker
+from src.resilience.retry import invoke_with_resilience
 from src.tokens import count_tokens
 from src.tools import TOOL_MAP, TOOLS
 
@@ -107,13 +111,21 @@ def call_with_tools_fallback(
     first_provider: str | None = None
     first_model: str | None = None
 
-    for provider in ordered:
-        model_name = tier_cfg.model_name if (tier_cfg and provider == tier_cfg.provider) else None
+    for index, provider in enumerate(ordered):
+        next_provider = ordered[index + 1] if index + 1 < len(ordered) else "none"
+        provider_tier = settings.tier_model_for_provider(tier, provider) if tier else None
+        model_name = provider_tier.model_name if provider_tier else None
+        if not get_breaker(provider, settings).allow():
+            logger.warning("Skipping provider=%s (circuit open)", provider)
+            failures.append((provider, "circuit_open"))
+            record_fallback(provider, next_provider)
+            continue
         try:
             llm = build_llm(settings, provider, model_name=model_name)  # type: ignore[arg-type]
         except ProviderUnavailableError as exc:
             logger.info("Skipping provider=%s (no credentials): %s", provider, exc)
             failures.append((provider, "no_credentials"))
+            record_fallback(provider, next_provider)
             continue
         try:
             # Bind tools if LLM supports it
@@ -122,7 +134,13 @@ def call_with_tools_fallback(
             except (AttributeError, ValueError, NotImplementedError) as exc:
                 logger.warning("Provider %s does not support bind_tools: %s", provider, exc)
                 llm_with_tools = llm
-            response = llm_with_tools.invoke(messages)  # type: ignore[arg-type]
+            response = invoke_with_resilience(
+                provider,
+                llm_with_tools.invoke,
+                messages,
+                settings=settings,
+                callbacks=trace_callbacks(),
+            )
             # LangChain may return AIMessage or string
             if isinstance(response, str):
                 response = AIMessage(content=response)
@@ -131,9 +149,15 @@ def call_with_tools_fallback(
             first_model = model_name or _default_model(settings, provider)
             logger.info("Tool-first call served by %s model=%s", provider, first_model)
             break
+        except CircuitOpenError as exc:
+            logger.warning("Skipping provider=%s (circuit open): %s", provider, exc)
+            failures.append((provider, "circuit_open"))
+            record_fallback(provider, next_provider)
+            continue
         except Exception as exc:
             if _provider_exception(provider, exc):
                 failures.append((provider, type(exc).__name__))
+                record_fallback(provider, next_provider)
                 continue
             raise
 
@@ -152,12 +176,17 @@ def call_with_tools_fallback(
         content = strip_think_block(str(first_result.content))
         if not content.strip():
             raise MalformedResponseError("empty/whitespace-only response")
-        tokens = count_tokens(prompt)
+        tokens_in = count_tokens(prompt)
+        tokens_out = count_tokens(content)
+        model = first_model or _default_model(settings, cast(ProviderName, first_provider))
+        record_llm_usage(first_provider, model, tokens_in, tokens_out)
         return LLMResult(
             content=content,
             provider=first_provider,
             tier=tier,
-            tokens_in=tokens,
+            tokens_in=tokens_in,
+            tokens_out=tokens_out,
+            model=model,
             failures=tuple(failures),
         )
 
@@ -173,34 +202,58 @@ def call_with_tools_fallback(
     # Build new message list: original messages + first AI + tool results
     second_messages: list = list(messages) + [first_result] + tool_messages  # type: ignore[list-item]
 
-    for provider in ordered:
-        model_name2 = tier_cfg.model_name if (tier_cfg and provider == tier_cfg.provider) else None
+    for index, provider in enumerate(ordered):
+        next_provider2 = ordered[index + 1] if index + 1 < len(ordered) else "none"
+        provider_tier2 = settings.tier_model_for_provider(tier, provider) if tier else None
+        model_name2 = provider_tier2.model_name if provider_tier2 else None
+        if not get_breaker(provider, settings).allow():
+            logger.warning("Skipping provider=%s on tool-second call (circuit open)", provider)
+            failures.append((provider, "circuit_open"))
+            record_fallback(provider, next_provider2)
+            continue
         try:
             llm2 = build_llm(settings, provider, model_name=model_name2)  # type: ignore[arg-type]
         except ProviderUnavailableError as exc:
             logger.info("Skipping provider=%s on tool-second call: %s", provider, exc)
+            failures.append((provider, "no_credentials"))
+            record_fallback(provider, next_provider2)
             continue
         try:
-            response2 = llm2.invoke(second_messages)  # type: ignore[arg-type]
+            response2 = invoke_with_resilience(
+                provider,
+                llm2.invoke,
+                second_messages,
+                settings=settings,
+                callbacks=trace_callbacks(),
+            )
             if isinstance(response2, str):
                 response2 = AIMessage(content=response2)
             content2 = strip_think_block(str(response2.content))
             if not content2.strip():
                 raise MalformedResponseError("empty response on tool-second call")
-            tokens2 = count_tokens(prompt) + sum(count_tokens(_content_text(m.content)) for m in tool_messages)
-            logger.info(
-                "Tool-second call served by %s model=%s", provider, model_name2 or _default_model(settings, provider)
-            )
+            tokens_in2 = count_tokens(prompt) + sum(count_tokens(_content_text(m.content)) for m in tool_messages)
+            tokens_out2 = count_tokens(content2)
+            model2 = model_name2 or _default_model(settings, provider)
+            record_llm_usage(provider, model2, tokens_in2, tokens_out2)
+            logger.info("Tool-second call served by %s model=%s", provider, model2)
             return LLMResult(
                 content=content2,
                 provider=provider,
                 tier=tier,
-                tokens_in=tokens2,
+                tokens_in=tokens_in2,
+                tokens_out=tokens_out2,
+                model=model2,
                 failures=tuple(failures),
             )
+        except CircuitOpenError as exc:
+            logger.warning("Skipping provider=%s on tool-second call (circuit open): %s", provider, exc)
+            failures.append((provider, "circuit_open"))
+            record_fallback(provider, next_provider2)
+            continue
         except Exception as exc:
             if _provider_exception(provider, exc):
                 failures.append((provider, type(exc).__name__))
+                record_fallback(provider, next_provider2)
                 continue
             raise
 

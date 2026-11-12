@@ -19,6 +19,8 @@ from src.graph.nodes import (
     verify_citations_node,
 )
 from src.graph.state import GraphState
+from src.observability.context import bind_request_context, reset_request_context
+from src.observability.tracing import current_trace, finish_trace, start_trace, trace_node
 
 
 def _route_after_verify(state: GraphState) -> str:
@@ -46,14 +48,14 @@ def build_graph(checkpointer=None) -> CompiledStateGraph:  # type: ignore[no-unt
         checkpointer = get_checkpointer(settings)
 
     graph = StateGraph(GraphState)
-    graph.add_node("classify_complexity", classify_complexity_node)
-    graph.add_node("retrieve", retrieve_node)
-    graph.add_node("compress", compress_node)
-    graph.add_node("call_llm", call_llm_node)
-    graph.add_node("tool", tool_node)
-    graph.add_node("verify_citations", verify_citations_node)
-    graph.add_node("human_review_gate", human_review_gate_node)
-    graph.add_node("finalize", finalize_node)
+    graph.add_node("classify_complexity", trace_node("classify_complexity", classify_complexity_node))
+    graph.add_node("retrieve", trace_node("retrieve", retrieve_node))
+    graph.add_node("compress", trace_node("compress", compress_node))
+    graph.add_node("call_llm", trace_node("call_llm", call_llm_node))
+    graph.add_node("tool", trace_node("tool", tool_node))
+    graph.add_node("verify_citations", trace_node("verify_citations", verify_citations_node))
+    graph.add_node("human_review_gate", trace_node("human_review_gate", human_review_gate_node))
+    graph.add_node("finalize", trace_node("finalize", finalize_node))
 
     graph.add_edge(START, "classify_complexity")
     graph.add_edge("classify_complexity", "retrieve")
@@ -89,19 +91,30 @@ def ask(query: str, k: int | None = None) -> dict:
     graph = build_graph()
     thread_id = f"ask-{uuid.uuid4().hex[:8]}"
     config: RunnableConfig = {"configurable": {"thread_id": thread_id}}
-    result = graph.invoke({"query": query, "k": k, "verification_retries": 0}, config=config)
 
-    # If paused at HITL (requires human approval), auto-approve for this helper.
+    own_trace = False
+    trace = current_trace()
+    if trace is None and settings.tracing_enabled:
+        trace = start_trace(thread_id, thread_id=thread_id)
+        own_trace = True
+    tokens = bind_request_context(thread_id=thread_id, trace_id=thread_id if trace else None)
     try:
-        state = graph.get_state(config)
-        if state.next and "human_review_gate" in state.next:
-            result = graph.invoke(
-                Command(resume={"approved": True, "feedback": "auto-approved (ask helper)"}), config=config
-            )
-    except Exception:
-        pass
+        result = graph.invoke({"query": query, "k": k, "verification_retries": 0}, config=config)
 
-    return result
+        # If paused at HITL (requires human approval), auto-approve for this helper.
+        try:
+            state = graph.get_state(config)
+            if state.next and "human_review_gate" in state.next:
+                result = graph.invoke(
+                    Command(resume={"approved": True, "feedback": "auto-approved (ask helper)"}), config=config
+                )
+        except Exception:
+            pass
+        return result
+    finally:
+        if own_trace:
+            finish_trace(trace)
+        reset_request_context(tokens)
 
 
 __all__ = ["GraphState", "ask", "build_graph"]
