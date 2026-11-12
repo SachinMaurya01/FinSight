@@ -10,6 +10,14 @@ wheels/
 .venv
 .DS_Store
 
+# Tool caches / reports
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
 # environment
 .env
 FinSight-prd.md
