@@ -7,11 +7,11 @@ import logging
 import socket
 import uuid
 from collections.abc import Iterator
-from typing import Any
+from typing import Any, Literal
 from urllib.parse import urlparse
 
 from fastapi import APIRouter, HTTPException, Query, Request
-from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.responses import JSONResponse, Response, StreamingResponse
 from langgraph.types import Command
 from sqlalchemy import create_engine, text
 from starlette.concurrency import run_in_threadpool
@@ -28,6 +28,9 @@ from src.api.schemas import (
 )
 from src.config import settings
 from src.hitl.store import get_review_store
+from src.observability.context import bind_request_context
+from src.observability.metrics import metrics_payload, record_request
+from src.observability.tracing import trace_callbacks
 
 logger = logging.getLogger(__name__)
 
@@ -46,7 +49,11 @@ def _thread_id(requested: str | None) -> str:
 
 
 def _config(thread_id: str) -> dict[str, Any]:
-    return {"configurable": {"thread_id": thread_id}}
+    config: dict[str, Any] = {"configurable": {"thread_id": thread_id}}
+    callbacks = trace_callbacks()
+    if callbacks:
+        config["callbacks"] = callbacks
+    return config
 
 
 def _input(payload: AskRequest, thread_id: str) -> dict[str, Any]:
@@ -91,15 +98,18 @@ def _response(
     answer = state.get("draft_answer") if pending else state.get("answer")
     if answer is None:
         answer = state.get("answer")
+    status: Literal["completed", "pending_review", "degraded"] = "pending_review" if pending else "completed"
+    if not pending and state.get("error") and not (answer or "").strip():
+        status = "degraded"
     return AskResponse(
         thread_id=thread_id,
-        status="pending_review" if pending else "completed",
+        status=status,
         answer=answer,
         sources=_sources(state),
         provider=state.get("provider"),
         tier=state.get("tier"),
         verification=state.get("verification"),
-        reason=reason,
+        reason=reason or state.get("degraded_reason"),
     )
 
 
@@ -108,6 +118,7 @@ async def ask(payload: AskRequest, request: Request) -> AskResponse:
     """Run one query through the graph; returns a cited answer or a review pause."""
     graph = _graph(request)
     thread_id = _thread_id(payload.thread_id)
+    bind_request_context(thread_id=thread_id)
     config = _config(thread_id)
 
     try:
@@ -117,6 +128,7 @@ async def ask(payload: AskRequest, request: Request) -> AskResponse:
 
         if isinstance(exc, DegradedResponseError):
             logger.warning("ask degraded for thread=%s: %s", thread_id, exc)
+            record_request("degraded", None)
             return AskResponse(
                 thread_id=thread_id,
                 status="degraded",
@@ -125,6 +137,7 @@ async def ask(payload: AskRequest, request: Request) -> AskResponse:
                 reason=str(exc),
             )
         logger.exception("ask failed for thread=%s", thread_id)
+        record_request("degraded", None)
         return AskResponse(
             thread_id=thread_id,
             status="degraded",
@@ -134,7 +147,10 @@ async def ask(payload: AskRequest, request: Request) -> AskResponse:
         )
 
     pending = _is_pending(graph, config, state)
-    return _response(thread_id, state, pending=pending)
+    response = _response(thread_id, state, pending=pending)
+    bind_request_context(tier=response.tier, provider=response.provider)
+    record_request(response.status, response.tier)
+    return response
 
 
 def _sse(event: str, data: dict[str, Any]) -> str:
@@ -153,6 +169,7 @@ def ask_stream(
     """Stream node progress and LLM tokens as Server-Sent Events."""
     graph = _graph(request)
     resolved_thread = _thread_id(thread_id)
+    bind_request_context(thread_id=resolved_thread)
     config = _config(resolved_thread)
     payload = AskRequest(
         query=query,
@@ -189,9 +206,11 @@ def ask_stream(
             from src.llm.fallback import DegradedResponseError
 
             if isinstance(exc, DegradedResponseError):
+                record_request("degraded", None)
                 yield _sse("error", {"status": "degraded", "reason": str(exc)})
             else:
                 logger.exception("stream failed for thread=%s", resolved_thread)
+                record_request("degraded", None)
                 yield _sse(
                     "error",
                     {"status": "degraded", "reason": f"{type(exc).__name__}: {exc}"},
@@ -206,6 +225,8 @@ def ask_stream(
 
         pending = _is_pending(graph, config, values)
         response = _response(resolved_thread, values, pending=pending)
+        bind_request_context(tier=response.tier, provider=response.provider)
+        record_request(response.status, response.tier)
         if pending:
             yield _sse("pending_review", response.model_dump())
         yield _sse("done", response.model_dump())
@@ -248,6 +269,7 @@ async def review(
 ) -> AskResponse:
     """Approve or reject a paused recommendation, resuming its graph thread."""
     graph = _graph(request)
+    bind_request_context(thread_id=thread_id)
     config = _config(thread_id)
     store = get_review_store(settings)
 
@@ -273,7 +295,17 @@ async def review(
         raise HTTPException(status_code=500, detail=f"could not resume thread: {exc}") from exc
 
     pending = _is_pending(graph, config, state)
-    return _response(thread_id, state, pending=pending)
+    response = _response(thread_id, state, pending=pending)
+    bind_request_context(tier=response.tier, provider=response.provider)
+    record_request(response.status, response.tier)
+    return response
+
+
+@router.get("/metrics", include_in_schema=False)
+async def metrics() -> Response:
+    """Prometheus metrics exposition."""
+    payload, media_type = metrics_payload()
+    return Response(content=payload, media_type=media_type)
 
 
 @router.get("/health", response_model=HealthResponse)

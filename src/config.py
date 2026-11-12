@@ -79,6 +79,36 @@ class Settings(BaseConfigSettings):
 
     # Fallback chain
     fallback_chain: list[ProviderName] = ["openai", "groq", "gemini", "vllm"]
+    # Per-provider tier models so a fallback never silently serves a weaker model.
+    fallback_tier_models: dict[ProviderName, dict[str, str]] = {
+        "openai": {"simple": "gpt-4o-mini", "normal": "gpt-4o", "complex": "gpt-4-turbo"},
+        "groq": {
+            "simple": "qwen/qwen3.5-9b",
+            "normal": "qwen/qwen3.5-9b",
+            "complex": "openai/gpt-oss-120b",
+        },
+        "gemini": {
+            "simple": "gemini-2.0-flash",
+            "normal": "gemini-2.0-flash",
+            "complex": "gemini-2.5-pro",
+        },
+        "vllm": {"simple": "qwen3.5:9b", "normal": "qwen3.5:9b", "complex": "qwen3.5:9b"},
+    }
+
+    # Resilience
+    llm_timeout_seconds: float = Field(default=30.0, gt=0)
+    llm_max_attempts: int = Field(default=3, ge=1, le=5)
+    retry_backoff_multiplier: float = Field(default=0.5, ge=0.0)
+    retry_backoff_max_seconds: float = Field(default=8.0, ge=0.0)
+    circuit_breaker_failures: int = Field(default=5, ge=1)
+    circuit_breaker_cooldown_seconds: float = Field(default=30.0, ge=0.0)
+
+    # Observability
+    tracing_enabled: bool = True
+    langfuse_enabled: bool = False
+    langfuse_public_key: str | None = None
+    langfuse_secret_key: str | None = None
+    langfuse_host: str = "https://cloud.langfuse.com"
 
     # Embeddings
     embedding_provider: EmbeddingProvider = (
@@ -198,6 +228,17 @@ class Settings(BaseConfigSettings):
                 raise ValueError(f"model_routing.{tier}.model_name must not be empty")
         return self
 
+    @model_validator(mode="after")
+    def validate_fallback_tier_models(self) -> "Settings":
+        for provider in self.fallback_chain:
+            models = self.fallback_tier_models.get(provider)
+            if not models:
+                raise ValueError(f"fallback_tier_models missing provider {provider!r}")
+            for tier in ("simple", "normal", "complex"):
+                if not models.get(tier, "").strip():
+                    raise ValueError(f"fallback_tier_models.{provider}.{tier} must not be empty")
+        return self
+
     # Helpers
     def tier_model(self, tier: str) -> ModelTierConfig:
         """Resolve model config for tier."""
@@ -207,6 +248,21 @@ class Settings(BaseConfigSettings):
             "complex": "expensive",
         }
         return getattr(self.model_routing, tier_to_field[tier])
+
+    def tier_model_for_provider(self, tier: str, provider: ProviderName) -> ModelTierConfig:
+        """Resolve the tier config for a specific provider in the fallback chain."""
+        primary = self.tier_model(tier)
+        if provider == primary.provider:
+            return primary
+        model_name = self.fallback_tier_models.get(provider, {}).get(tier)
+        if not model_name:
+            raise ValueError(f"no {tier!r} model configured for fallback provider {provider!r}")
+        return ModelTierConfig(
+            model_name=model_name,
+            provider=provider,
+            temperature=primary.temperature,
+            max_tokens=primary.max_tokens,
+        )
 
     def has_provider_credentials(self, provider: ProviderName) -> bool:
         """Check if credentials exist for provider."""

@@ -83,15 +83,15 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 | Area | Status | Notes |
 |---|---|---|
 | Retrieval pipeline | Implemented | Dense, BM25, RRF, rerank, compression |
-| LLM reliability | Implemented | Tier routing + fallback chain + degraded-mode error |
+| LLM reliability | Implemented | Tier routing, fallback chain, timeouts, transient retries, per-provider circuit breakers, degraded responses |
 | Citation verification | Implemented, heuristic | Keyword overlap; NLI/numeric checks are future work |
 | HITL control | Implemented, default-on | CLI gate + Redis checkpointer; `--no-hitl` and `ask()` auto-approval must be guarded in production |
 | Evaluation | Partial | Retrieval measured on 28 questions; end-to-end n=3; RAGAS blocked |
-| API / UI | Not included | CLI only |
+| API / UI | API implemented, no UI | FastAPI `/v1/ask`, SSE stream, HITL review endpoints, `/health`, `/ready`, `/metrics` |
 | AuthN / AuthZ | Not included | No tenant model or access control |
 | Rate limiting / quotas | Not included | Required before exposing an API |
-| Observability | Deferred | Phase 2 LGTM stack; currently logs + token counts only |
-| CI regression gate | Not configured | `make test` and `make ablation` exist, but no workflow |
+| Observability | Implemented | JSON logs with request IDs, Prometheus `/metrics`, per-request node/token traces; Langfuse optional. No alerting/SLO dashboard yet |
+| CI regression gate | Implemented | GitHub Actions runs lint, mypy, coverage, and offline retrieval gate; nightly full eval job |
 | Deployment | Local only | `docker-compose.yml` for Postgres/pgvector + Redis |
 | Secrets | Env-only | `.env` is gitignored; `.env.example` uses placeholders |
 | Data retention / deletion | Not implemented | Sample public filings only |
@@ -236,6 +236,12 @@ uv run python -m src.graph ask "Build a bull and bear case for AAPL, should I in
 # Tests (offline; no network/DB)
 make test
 
+# Quality gates
+make lint          # ruff check + format check
+make typecheck     # mypy
+make test-cov      # pytest with 70% coverage floor
+make eval-smoke    # offline retrieval regression gate
+
 # Offline retrieval comparison
 make ablation
 
@@ -276,10 +282,17 @@ Key environment variables (see `.env.example` for the full set):
 | `HITL_ENABLED` | recommendation gate | `true` |
 | `VERIFICATION_MAX_RETRIES` | bounded verification retries | `2` |
 | `CHECKPOINTER_TYPE` | `redis` or `in_memory` | `in_memory` |
+| `LLM_TIMEOUT_SECONDS` / `LLM_MAX_ATTEMPTS` | provider timeout and retry count | `30` / `3` |
+| `CIRCUIT_BREAKER_FAILURES` / `COOLDOWN_SECONDS` | per-provider breaker thresholds | `5` / `30` |
+| `TRACING_ENABLED` | per-request span tracing | `true` |
+| `LANGFUSE_ENABLED` | optional Langfuse trace export (`uv sync --extra langfuse`) | `false` |
 
 ### Observability today
 
-The pipeline logs provider/model/tier, verification failures, retrieval counts, rerank counts, cache behavior, and HITL decisions. `tokens_in` is recorded per LLM call. There is no metrics endpoint, trace export, alerting, or measured p95 latency/cost per query; those are deferred to Phase 2. Cost is bounded by tier routing, token budget, retrieval depth, and caching, but not enforced by a hard per-request budget.
+- **Logs:** one-line JSON with `request_id`, `thread_id`, `tier`, `provider`, `latency_ms`, plus node/tool context. Clients may send `X-Request-ID`; it is echoed on the response.
+- **Metrics:** `GET /metrics` exposes `finsight_requests_total`, `finsight_node_latency_seconds`, `finsight_llm_tokens_total`, `finsight_llm_cost_usd_total`, `finsight_fallback_total`, `finsight_verification_failures_total`, and `finsight_hitl_total` (plus request latency/in-progress).
+- **Traces:** each request emits a `trace_completed` JSON event with per-node/LLM/tool spans, latency, and token counts. Langfuse can be enabled for remote trace export.
+- **Resilience:** provider calls use per-attempt timeouts, retries only for transient failures (429/5xx/timeouts) with exponential backoff, and per-provider circuit breakers. Every fallback provider has an explicit tier-to-model mapping; exhausted chains return `status="degraded"` with a reason.
 
 ## Limits and non-goals
 

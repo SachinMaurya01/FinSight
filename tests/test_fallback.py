@@ -23,6 +23,9 @@ TEST_SETTINGS = Settings(
     google_api_key=None,
     postgres_database_url="postgresql://localhost:5432/finsight_test",
     fallback_chain=["openai", "groq", "gemini"],
+    llm_max_attempts=1,
+    retry_backoff_multiplier=0.0,
+    retry_backoff_max_seconds=0.0,
 )
 
 
@@ -148,12 +151,67 @@ def test_empty_response_treated_as_failure() -> None:
     print("PASS test_empty_response_treated_as_failure")
 
 
+def test_fallback_uses_provider_specific_tier_model() -> None:
+    calls: list[str] = []
+    models: list[str | None] = []
+
+    def fake_build_llm(settings, provider, model_name=None):
+        calls.append(provider)
+        models.append(model_name)
+        if provider == "openai":
+            return _FakeLLM(exc=_rate_limit())
+        return _FakeLLM()
+
+    original = fb.build_llm
+    fb.build_llm = fake_build_llm
+    try:
+        result = call_with_fallback("q", TEST_SETTINGS, tier="simple")
+    finally:
+        fb.build_llm = original
+
+    assert calls == ["openai", "groq"], calls
+    assert models == ["gpt-4o-mini", "qwen/qwen3.5-9b"], models
+    assert result.provider == "groq"
+    assert result.model == "qwen/qwen3.5-9b"
+    assert result.tokens_out > 0
+    print("PASS test_fallback_uses_provider_specific_tier_model")
+
+
+def test_open_circuit_skips_provider() -> None:
+    from src.resilience.breaker import get_breaker, reset_breakers
+
+    reset_breakers()
+    breaker = get_breaker("openai", TEST_SETTINGS)
+    for _ in range(TEST_SETTINGS.circuit_breaker_failures):
+        breaker.record(False)
+    calls: list[str] = []
+
+    def fake_build_llm(settings, provider, model_name=None):
+        calls.append(provider)
+        return _FakeLLM()
+
+    original = fb.build_llm
+    fb.build_llm = fake_build_llm
+    try:
+        result = call_with_fallback("q", TEST_SETTINGS)
+    finally:
+        fb.build_llm = original
+        reset_breakers()
+
+    assert calls == ["groq"], calls
+    assert result.provider == "groq"
+    assert ("openai", "circuit_open") in result.failures
+    print("PASS test_open_circuit_skips_provider")
+
+
 def main() -> int:
     test_falls_back_to_next_provider_on_error()
     test_tier_routes_primary_provider_first()
     test_skips_providers_without_credentials()
     test_all_providers_fail_raises_degraded()
     test_empty_response_treated_as_failure()
+    test_fallback_uses_provider_specific_tier_model()
+    test_open_circuit_skips_provider()
     return 0
 
 
