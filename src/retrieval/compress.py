@@ -47,6 +47,15 @@ def compress_chunks(
     out: list[dict[str, Any]] = []
     used = 0
     for row in rows:
+        if row.get("chunk_type") == "table":
+            # Tables carry row/header relationships and must stay intact.
+            if used + count_tokens(row["content"]) > budget:
+                continue
+            new_row = dict(row)
+            new_row["compressed"] = False
+            used += count_tokens(row["content"])
+            out.append(new_row)
+            continue
         sentences = split_sentences(row["content"])
         if not sentences:
             continue

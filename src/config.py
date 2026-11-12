@@ -170,6 +170,13 @@ class Settings(BaseConfigSettings):
         default=0.5, gt=0
     )  # throttles EDGAR requests to respect fair-use limits.
 
+    # SEC XBRL companyfacts
+    xbrl_enabled: bool = True  # enables structured financial facts for P/E and numeric answers.
+    sec_companyfacts_base_url: str = "https://data.sec.gov/api/xbrl/companyfacts"
+    sec_cache_ttl_seconds: int = Field(default=86_400, gt=0)  # companyfacts change only on new filings.
+    sec_max_attempts: int = Field(default=3, ge=1, le=5)
+    sec_backoff_seconds: float = Field(default=0.5, ge=0.0)
+
     # Evaluation
     eval_dataset_path: Path = (
         PROJECT_ROOT / "data" / "eval" / "eval_dataset.json"

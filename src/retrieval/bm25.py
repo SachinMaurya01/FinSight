@@ -51,6 +51,8 @@ class BM25Index:
                     "section": meta.get("section"),
                     "source_doc": meta.get("source_file"),
                     "chunk_index": meta.get("chunk_index"),
+                    "chunk_type": meta.get("chunk_type", "text"),
+                    "unit_scale": meta.get("unit_scale"),
                     "score": float(scores[i]),
                 }
             )

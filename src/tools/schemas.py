@@ -27,10 +27,22 @@ class RatioResult(BaseModel):
     """Validated result from a financial ratio calculation."""
 
     ratio_type: Literal["pe_ratio", "gross_margin", "growth_rate"] = Field(description="Which ratio was computed")
-    value: float = Field(description="Computed ratio value (fraction for margin/growth, absolute for P/E)")
-    numerator: float = Field(description="Numerator used")
-    denominator: float = Field(description="Denominator used")
+    value: float | None = Field(
+        default=None,
+        description="Computed ratio value (fraction for margin/growth, absolute for P/E); None when not meaningful",
+    )
+    numerator: float | None = Field(default=None, description="Numerator used")
+    denominator: float | None = Field(default=None, description="Denominator used")
     formula: str = Field(description="Human-readable formula")
+    period_end: str | None = Field(default=None, description="Period end for the EPS input, ISO date")
+    eps_basis: Literal["diluted_ttm", "diluted_fy", "reported"] | None = Field(
+        default=None, description="How the EPS input was derived"
+    )
+    source: Literal["xbrl", "tool", "input"] | None = Field(default=None, description="Source of the inputs")
+    accession: str | None = Field(default=None, description="SEC accession number for the XBRL EPS fact")
+    as_of: str | None = Field(default=None, description="Price timestamp")
+    display: str | None = Field(default=None, description="Human-readable value, e.g. 'not meaningful'")
+    not_meaningful: bool = Field(default=False, description="True when the ratio should not be interpreted")
 
 
 class ExtractedFinancialMetrics(BaseModel):

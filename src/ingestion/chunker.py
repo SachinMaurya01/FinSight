@@ -13,7 +13,7 @@ from typing import Any
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from src.config import Settings
-from src.ingestion.parser import ParsedDocument, ParsedSection
+from src.ingestion.parser import ParsedDocument, ParsedSection, ParsedTable
 
 _DEFAULT_SEPARATORS: list[str] = ["\n\n", "\n", ". ", " ", ""]
 
@@ -54,9 +54,32 @@ def chunk_section(
         metadata["section"] = section.section
         metadata["chunk_index"] = start_index + i
         metadata["char_offset"] = position
+        metadata["chunk_type"] = "text"
+        metadata["unit_scale"] = None
         chunks.append(Chunk(content=text, metadata=metadata))
         position += max(len(text) - overlap, 0)
     return chunks
+
+
+def chunk_table(table: ParsedTable, base_metadata: dict[str, Any], start_index: int) -> Chunk | None:
+    """Serialize one table into one chunk; tables are never split."""
+    content = table.to_text().strip()
+    if not content:
+        return None
+    metadata = dict(base_metadata)
+    metadata.update(
+        {
+            "section": table.section,
+            "chunk_index": start_index,
+            "char_offset": table.char_offset,
+            "chunk_type": "table",
+            "unit_scale": table.unit_scale,
+            "table_headers": list(table.headers),
+            "table_rows": table.row_count,
+            "table_title": table.title,
+        }
+    )
+    return Chunk(content=content, metadata=metadata)
 
 
 def chunk_document(
@@ -84,4 +107,8 @@ def chunk_document(
                 overlap=settings.chunk_overlap,
             )
         )
+        for table in section.tables:
+            chunk = chunk_table(table, base_metadata, start_index=len(chunks))
+            if chunk is not None:
+                chunks.append(chunk)
     return chunks

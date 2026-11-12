@@ -93,7 +93,19 @@ def tool_node(state: GraphState) -> dict[str, Any]:
     if not settings.enable_tools:
         return {}
 
-    needs_price = any(kw in query_lc for kw in ("p/e", "pe ratio", "current price", "live price", "stock price"))
+    needs_price = any(
+        kw in query_lc
+        for kw in (
+            "p/e",
+            "pe ratio",
+            "price-to-earnings",
+            "price to earnings",
+            "current price",
+            "live price",
+            "stock price",
+            "valuation",
+        )
+    )
     if not needs_price:
         logger.info("tool_node: no tool needed for query")
         return {}
@@ -124,54 +136,99 @@ def tool_node(state: GraphState) -> dict[str, Any]:
         logger.warning("tool_node price unexpected error: %s", exc)
         return {"tool_results": [{"tool": "get_stock_price", "ticker": ticker, "error": str(exc)}]}
 
-    # Try to extract EPS from retrieved chunks
-    eps: float | None = None
-    eps_patterns = [
-        r"diluted[^.]{0,60}?earnings[^.]{0,60}?\$?\s*([\d,]+\.\d+)",
-        r"earnings per share[^.]{0,60}?\$?\s*([\d,]+\.\d+)",
-        r"\bEPS\b[^.]{0,40}?\$?\s*([\d,]+\.\d+)",
-        r"basic.*?earnings.*?\$?\s*([\d,]+\.\d+)",
+    tool_results: list[dict[str, Any]] = [
+        {
+            "tool": "get_stock_price",
+            "ticker": ticker,
+            "price": price,
+            "as_of": price_data.get("as_of") if isinstance(price_data, dict) else None,
+        }
     ]
-    for row in chunks:
-        content = row.get("content", "")
-        for pat in eps_patterns:
-            mm = re.search(pat, content, re.I)
-            if mm:
-                try:
-                    eps = float(mm.group(1).replace(",", ""))
-                    logger.info("tool_node: extracted EPS %s from chunk", eps)
-                    break
-                except (ValueError, IndexError):
-                    continue
-        if eps is not None:
-            break
 
-    tool_results: list[dict[str, Any]] = [{"tool": "get_stock_price", "ticker": ticker, "price": price}]
+    # EPS now comes from SEC XBRL, not a regex over retrieved prose. This gives a
+    # point-in-time TTM diluted value with an explicit period and accession.
+    if not settings.xbrl_enabled:
+        return _price_only_answer(state, ticker, price, tool_results, "XBRL is disabled (XBRL_ENABLED=false)")
+    try:
+        from src.sec.xbrl import XbrlUnavailableError, get_ttm_diluted_eps
 
-    # If EPS found, calculate P/E
+        eps_result = get_ttm_diluted_eps(ticker, settings)
+    except XbrlUnavailableError as exc:
+        logger.warning("tool_node: XBRL EPS unavailable for %s: %s", ticker, exc)
+        tool_results.append({"tool": "get_ttm_diluted_eps", "ticker": ticker, "error": str(exc)})
+        return _price_only_answer(state, ticker, price, tool_results, str(exc))
+    except Exception as exc:
+        logger.warning("tool_node: XBRL EPS unexpected error for %s: %s", ticker, exc)
+        tool_results.append({"tool": "get_ttm_diluted_eps", "ticker": ticker, "error": str(exc)})
+        return _price_only_answer(state, ticker, price, tool_results, f"{type(exc).__name__}: {exc}")
+
+    from src.tools import TOOL_MAP as TM
+
+    pe_data = TM["calculate_pe_ratio"].invoke(
+        {
+            "price": price,
+            "eps": eps_result.value,
+            "period_end": eps_result.period_end,
+            "eps_basis": eps_result.basis,
+            "source": eps_result.source,
+            "accession": eps_result.accession,
+            "as_of": _price_as_of(price_data),
+        }
+    )
+    pe_val = pe_data.get("value")
+    tool_results.append(
+        {
+            "tool": "calculate_pe_ratio",
+            "price": price,
+            "eps": eps_result.value,
+            "eps_basis": eps_result.basis,
+            "eps_period_end": eps_result.period_end,
+            "eps_accession": eps_result.accession,
+            "source": eps_result.source,
+            "pe": pe_val,
+            "not_meaningful": pe_data.get("not_meaningful", False),
+        }
+    )
     answer = state.get("answer") or state.get("draft_answer") or ""
-    if eps is not None and eps != 0:
-        try:
-            from src.tools import TOOL_MAP as TM
+    provenance = (
+        f"XBRL diluted TTM EPS ${eps_result.value:.2f} for period ending {eps_result.period_end} "
+        f"(accession {eps_result.accession or 'n/a'})"
+    )
+    if pe_data.get("not_meaningful") or pe_val is None:
+        enhanced = (
+            answer.rstrip()
+            + f"\n\n[Tool-augmented: Live {ticker} price is ${price:.2f}. {provenance}. "
+            + "EPS is zero or negative, so P/E is not meaningful.]"
+        )
+    else:
+        enhanced = (
+            answer.rstrip()
+            + f"\n\n[Tool-augmented: Live {ticker} price is ${price:.2f} "
+            + f"(as of {_price_as_of(price_data) or 'latest market data'}). {provenance}. "
+            + f"P/E ratio = {pe_val:.2f} (price ${price:.2f} / EPS ${eps_result.value:.2f}).]"
+        )
+    logger.info("tool_node: P/E calculated %s using XBRL EPS %s", pe_val, eps_result.value)
+    return {"tool_results": tool_results, "answer": enhanced, "draft_answer": enhanced}
 
-            pe_data = TM["calculate_pe_ratio"].invoke({"price": price, "eps": eps})
-            pe_val = pe_data["value"] if isinstance(pe_data, dict) else float(pe_data)
-            tool_results.append({"tool": "calculate_pe_ratio", "price": price, "eps": eps, "pe": pe_val})
-            enhanced = (
-                answer.rstrip()
-                + f"\n\n[Tool-augmented: Live {ticker} price is ${price:.2f}. "
-                + f"Using filing EPS ${eps:.2f}, P/E ratio = {pe_val:.2f} (price ${price:.2f} / EPS ${eps:.2f}).]"
-            )
-            logger.info("tool_node: P/E calculated %s", pe_val)
-            return {"tool_results": tool_results, "answer": enhanced, "draft_answer": enhanced}
-        except (ValueError, KeyError, RuntimeError, TypeError) as exc:
-            logger.warning("tool_node PE calc failed: %s", exc)
-            tool_results.append({"tool": "calculate_pe_ratio", "error": str(exc)})
-    # No EPS or calc failed: provide live price only
+
+def _price_as_of(price_data: Any) -> str | None:
+    """Extract the price timestamp from a price tool response."""
+    return price_data.get("as_of") if isinstance(price_data, dict) else None
+
+
+def _price_only_answer(
+    state: GraphState,
+    ticker: str,
+    price: float,
+    tool_results: list[dict[str, Any]],
+    reason: str,
+) -> dict[str, Any]:
+    """Return a price-only tool result when XBRL EPS cannot be obtained."""
+    answer = state.get("answer") or state.get("draft_answer") or ""
     enhanced = (
         answer.rstrip()
-        + f"\n\n[Tool-augmented: Live {ticker} price is ${price:.2f} (as of latest market data). "
-        + "Filing context does not contain explicit EPS in retrieved chunks, so P/E cannot be fully derived from filings alone; live price provided for manual calculation.]"
+        + f"\n\n[Tool-augmented: Live {ticker} price is ${price:.2f}. "
+        + f"XBRL diluted TTM EPS is unavailable ({reason}), so P/E cannot be fully derived from filings.]"
     )
     return {"tool_results": tool_results, "answer": enhanced, "draft_answer": enhanced}
 

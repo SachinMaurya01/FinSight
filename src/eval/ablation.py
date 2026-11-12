@@ -51,6 +51,8 @@ def _row_from_chunk(chunk: Chunk) -> dict[str, Any]:
         "section": metadata.get("section"),
         "source_doc": metadata.get("source_file"),
         "chunk_index": metadata.get("chunk_index"),
+        "chunk_type": metadata.get("chunk_type", "text"),
+        "unit_scale": metadata.get("unit_scale"),
     }
 
 

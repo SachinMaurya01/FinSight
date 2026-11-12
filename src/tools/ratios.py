@@ -20,18 +20,53 @@ def _validate_denominator(value: float, name: str) -> None:
 
 
 @tool
-def calculate_pe_ratio(price: float, eps: float) -> dict[str, Any]:
-    """Calculate P/E ratio = price / EPS.
+def calculate_pe_ratio(
+    price: float,
+    eps: float,
+    period_end: str | None = None,
+    eps_basis: str | None = None,
+    source: str | None = None,
+    accession: str | None = None,
+    as_of: str | None = None,
+) -> dict[str, Any]:
+    """Calculate P/E ratio = price / diluted TTM EPS.
 
     Args:
         price: Current stock price (must be >0).
-        eps: Diluted earnings per share (must be !=0).
+        eps: Diluted trailing-twelve-month earnings per share.
+        period_end: EPS period end (ISO date).
+        eps_basis: How EPS was derived, e.g. ``diluted_ttm``.
+        source: Input source, e.g. ``xbrl``.
+        accession: SEC accession number for the EPS fact.
+        as_of: Price timestamp.
     Returns:
-        Validated RatioResult dict.
+        Validated RatioResult dict; negative/zero EPS returns ``not_meaningful``.
     """
-    _validate_denominator(eps, "eps")
+    if not isinstance(eps, (int, float)) or isinstance(eps, bool):
+        raise TypeError(f"eps must be numeric, got {type(eps).__name__}")
     if price <= 0:
         raise ValueError("price must be >0")
+
+    basis = eps_basis if eps_basis in {"diluted_ttm", "diluted_fy", "reported"} else None
+    input_source = source if source in {"xbrl", "tool", "input"} else None
+    if eps <= 0:
+        result = RatioResult(
+            ratio_type="pe_ratio",
+            value=None,
+            numerator=price,
+            denominator=eps,
+            formula="P/E = price / eps",
+            period_end=period_end,
+            eps_basis=basis,  # type: ignore[arg-type]
+            source=input_source,  # type: ignore[arg-type]
+            accession=accession,
+            as_of=as_of,
+            display="not meaningful",
+            not_meaningful=True,
+        )
+        logger.info("calculate_pe_ratio price=%s eps=%s -> not meaningful", price, eps)
+        return result.model_dump()
+
     value = price / eps
     result = RatioResult(
         ratio_type="pe_ratio",
@@ -39,6 +74,12 @@ def calculate_pe_ratio(price: float, eps: float) -> dict[str, Any]:
         numerator=price,
         denominator=eps,
         formula="P/E = price / eps",
+        period_end=period_end,
+        eps_basis=basis,  # type: ignore[arg-type]
+        source=input_source,  # type: ignore[arg-type]
+        accession=accession,
+        as_of=as_of,
+        display=f"{value:.2f}",
     )
     logger.info("calculate_pe_ratio price=%s eps=%s -> %s", price, eps, value)
     return result.model_dump()

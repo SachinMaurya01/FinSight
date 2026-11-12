@@ -11,7 +11,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 0,
-        "char_offset": 0
+        "char_offset": 0,
+        "chunk_type": "text"
       }
     },
     {
@@ -24,7 +25,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 1,
-        "char_offset": 680
+        "char_offset": 680,
+        "chunk_type": "text"
       }
     },
     {
@@ -37,7 +39,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 2,
-        "char_offset": 1107
+        "char_offset": 1107,
+        "chunk_type": "text"
       }
     },
     {
@@ -50,7 +53,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 3,
-        "char_offset": 1927
+        "char_offset": 1927,
+        "chunk_type": "text"
       }
     },
     {
@@ -63,7 +67,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 4,
-        "char_offset": 2732
+        "char_offset": 2732,
+        "chunk_type": "text"
       }
     },
     {
@@ -76,7 +81,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 5,
-        "char_offset": 3262
+        "char_offset": 3262,
+        "chunk_type": "text"
       }
     },
     {
@@ -89,7 +95,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 6,
-        "char_offset": 4025
+        "char_offset": 4025,
+        "chunk_type": "text"
       }
     },
     {
@@ -102,7 +109,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 7,
-        "char_offset": 4797
+        "char_offset": 4797,
+        "chunk_type": "text"
       }
     },
     {
@@ -115,7 +123,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 8,
-        "char_offset": 4845
+        "char_offset": 4845,
+        "chunk_type": "text"
       }
     },
     {
@@ -128,7 +137,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 9,
-        "char_offset": 5489
+        "char_offset": 5489,
+        "chunk_type": "text"
       }
     },
     {
@@ -141,7 +151,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 10,
-        "char_offset": 6084
+        "char_offset": 6084,
+        "chunk_type": "text"
       }
     },
     {
@@ -154,7 +165,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 11,
-        "char_offset": 6318
+        "char_offset": 6318,
+        "chunk_type": "text"
       }
     },
     {
@@ -167,7 +179,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 12,
-        "char_offset": 6867
+        "char_offset": 6867,
+        "chunk_type": "text"
       }
     },
     {
@@ -180,7 +193,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 13,
-        "char_offset": 7551
+        "char_offset": 7551,
+        "chunk_type": "text"
       }
     },
     {
@@ -193,7 +207,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 14,
-        "char_offset": 8029
+        "char_offset": 8029,
+        "chunk_type": "text"
       }
     },
     {
@@ -206,7 +221,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 15,
-        "char_offset": 8696
+        "char_offset": 8696,
+        "chunk_type": "text"
       }
     },
     {
@@ -219,7 +235,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 16,
-        "char_offset": 9406
+        "char_offset": 9406,
+        "chunk_type": "text"
       }
     },
     {
@@ -232,7 +249,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 17,
-        "char_offset": 10091
+        "char_offset": 10091,
+        "chunk_type": "text"
       }
     },
     {
@@ -245,7 +263,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 18,
-        "char_offset": 10451
+        "char_offset": 10451,
+        "chunk_type": "text"
       }
     },
     {
@@ -258,7 +277,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 19,
-        "char_offset": 10700
+        "char_offset": 10700,
+        "chunk_type": "text"
       }
     },
     {
@@ -271,7 +291,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 20,
-        "char_offset": 11312
+        "char_offset": 11312,
+        "chunk_type": "text"
       }
     },
     {
@@ -284,7 +305,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 21,
-        "char_offset": 11324
+        "char_offset": 11324,
+        "chunk_type": "text"
       }
     },
     {
@@ -297,7 +319,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 22,
-        "char_offset": 12112
+        "char_offset": 12112,
+        "chunk_type": "text"
       }
     },
     {
@@ -310,7 +333,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 23,
-        "char_offset": 12547
+        "char_offset": 12547,
+        "chunk_type": "text"
       }
     },
     {
@@ -323,7 +347,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 24,
-        "char_offset": 13186
+        "char_offset": 13186,
+        "chunk_type": "text"
       }
     },
     {
@@ -336,7 +361,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 25,
-        "char_offset": 13751
+        "char_offset": 13751,
+        "chunk_type": "text"
       }
     },
     {
@@ -349,7 +375,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 26,
-        "char_offset": 14533
+        "char_offset": 14533,
+        "chunk_type": "text"
       }
     },
     {
@@ -362,7 +389,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 27,
-        "char_offset": 15280
+        "char_offset": 15280,
+        "chunk_type": "text"
       }
     },
     {
@@ -375,7 +403,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 28,
-        "char_offset": 16107
+        "char_offset": 16107,
+        "chunk_type": "text"
       }
     },
     {
@@ -388,7 +417,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 29,
-        "char_offset": 16207
+        "char_offset": 16207,
+        "chunk_type": "text"
       }
     },
     {
@@ -401,7 +431,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 30,
-        "char_offset": 16272
+        "char_offset": 16272,
+        "chunk_type": "text"
       }
     },
     {
@@ -414,7 +445,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 31,
-        "char_offset": 17079
+        "char_offset": 17079,
+        "chunk_type": "text"
       }
     },
     {
@@ -427,7 +459,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 32,
-        "char_offset": 17926
+        "char_offset": 17926,
+        "chunk_type": "text"
       }
     },
     {
@@ -440,7 +473,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 33,
-        "char_offset": 17960
+        "char_offset": 17960,
+        "chunk_type": "text"
       }
     },
     {
@@ -453,7 +487,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 34,
-        "char_offset": 18475
+        "char_offset": 18475,
+        "chunk_type": "text"
       }
     },
     {
@@ -466,7 +501,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 35,
-        "char_offset": 18692
+        "char_offset": 18692,
+        "chunk_type": "text"
       }
     },
     {
@@ -479,7 +515,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 36,
-        "char_offset": 19248
+        "char_offset": 19248,
+        "chunk_type": "text"
       }
     },
     {
@@ -492,7 +529,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 37,
-        "char_offset": 20028
+        "char_offset": 20028,
+        "chunk_type": "text"
       }
     },
     {
@@ -505,7 +543,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 38,
-        "char_offset": 20324
+        "char_offset": 20324,
+        "chunk_type": "text"
       }
     },
     {
@@ -518,7 +557,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 39,
-        "char_offset": 20757
+        "char_offset": 20757,
+        "chunk_type": "text"
       }
     },
     {
@@ -531,7 +571,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 40,
-        "char_offset": 21319
+        "char_offset": 21319,
+        "chunk_type": "text"
       }
     },
     {
@@ -544,7 +585,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 41,
-        "char_offset": 21641
+        "char_offset": 21641,
+        "chunk_type": "text"
       }
     },
     {
@@ -557,7 +599,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 42,
-        "char_offset": 22067
+        "char_offset": 22067,
+        "chunk_type": "text"
       }
     },
     {
@@ -570,7 +613,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 43,
-        "char_offset": 22879
+        "char_offset": 22879,
+        "chunk_type": "text"
       }
     },
     {
@@ -583,7 +627,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 44,
-        "char_offset": 23524
+        "char_offset": 23524,
+        "chunk_type": "text"
       }
     },
     {
@@ -596,7 +641,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 45,
-        "char_offset": 23637
+        "char_offset": 23637,
+        "chunk_type": "text"
       }
     },
     {
@@ -609,7 +655,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 46,
-        "char_offset": 24481
+        "char_offset": 24481,
+        "chunk_type": "text"
       }
     },
     {
@@ -622,7 +669,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 47,
-        "char_offset": 25172
+        "char_offset": 25172,
+        "chunk_type": "text"
       }
     },
     {
@@ -635,7 +683,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 48,
-        "char_offset": 25726
+        "char_offset": 25726,
+        "chunk_type": "text"
       }
     },
     {
@@ -648,7 +697,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 49,
-        "char_offset": 26099
+        "char_offset": 26099,
+        "chunk_type": "text"
       }
     },
     {
@@ -661,7 +711,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 50,
-        "char_offset": 26820
+        "char_offset": 26820,
+        "chunk_type": "text"
       }
     },
     {
@@ -674,7 +725,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 51,
-        "char_offset": 27425
+        "char_offset": 27425,
+        "chunk_type": "text"
       }
     },
     {
@@ -687,7 +739,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 52,
-        "char_offset": 28173
+        "char_offset": 28173,
+        "chunk_type": "text"
       }
     },
     {
@@ -700,7 +753,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 53,
-        "char_offset": 28173
+        "char_offset": 28173,
+        "chunk_type": "text"
       }
     },
     {
@@ -713,7 +767,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 54,
-        "char_offset": 28835
+        "char_offset": 28835,
+        "chunk_type": "text"
       }
     },
     {
@@ -726,7 +781,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 55,
-        "char_offset": 29376
+        "char_offset": 29376,
+        "chunk_type": "text"
       }
     },
     {
@@ -739,7 +795,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 56,
-        "char_offset": 30179
+        "char_offset": 30179,
+        "chunk_type": "text"
       }
     },
     {
@@ -752,7 +809,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 57,
-        "char_offset": 30179
+        "char_offset": 30179,
+        "chunk_type": "text"
       }
     },
     {
@@ -765,7 +823,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 58,
-        "char_offset": 30377
+        "char_offset": 30377,
+        "chunk_type": "text"
       }
     },
     {
@@ -778,7 +837,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 59,
-        "char_offset": 31032
+        "char_offset": 31032,
+        "chunk_type": "text"
       }
     },
     {
@@ -791,7 +851,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 60,
-        "char_offset": 31267
+        "char_offset": 31267,
+        "chunk_type": "text"
       }
     },
     {
@@ -804,7 +865,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 61,
-        "char_offset": 31627
+        "char_offset": 31627,
+        "chunk_type": "text"
       }
     },
     {
@@ -817,7 +879,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 62,
-        "char_offset": 32420
+        "char_offset": 32420,
+        "chunk_type": "text"
       }
     },
     {
@@ -830,7 +893,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 63,
-        "char_offset": 32497
+        "char_offset": 32497,
+        "chunk_type": "text"
       }
     },
     {
@@ -843,7 +907,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 64,
-        "char_offset": 33246
+        "char_offset": 33246,
+        "chunk_type": "text"
       }
     },
     {
@@ -856,7 +921,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 65,
-        "char_offset": 33766
+        "char_offset": 33766,
+        "chunk_type": "text"
       }
     },
     {
@@ -869,7 +935,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 66,
-        "char_offset": 34312
+        "char_offset": 34312,
+        "chunk_type": "text"
       }
     },
     {
@@ -882,7 +949,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 67,
-        "char_offset": 34848
+        "char_offset": 34848,
+        "chunk_type": "text"
       }
     },
     {
@@ -895,7 +963,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 68,
-        "char_offset": 35228
+        "char_offset": 35228,
+        "chunk_type": "text"
       }
     },
     {
@@ -908,7 +977,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 69,
-        "char_offset": 35966
+        "char_offset": 35966,
+        "chunk_type": "text"
       }
     },
     {
@@ -921,7 +991,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 70,
-        "char_offset": 36229
+        "char_offset": 36229,
+        "chunk_type": "text"
       }
     },
     {
@@ -934,7 +1005,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 71,
-        "char_offset": 36946
+        "char_offset": 36946,
+        "chunk_type": "text"
       }
     },
     {
@@ -947,7 +1019,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 72,
-        "char_offset": 37568
+        "char_offset": 37568,
+        "chunk_type": "text"
       }
     },
     {
@@ -960,7 +1033,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 73,
-        "char_offset": 38233
+        "char_offset": 38233,
+        "chunk_type": "text"
       }
     },
     {
@@ -973,7 +1047,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 74,
-        "char_offset": 38664
+        "char_offset": 38664,
+        "chunk_type": "text"
       }
     },
     {
@@ -986,7 +1061,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 75,
-        "char_offset": 38758
+        "char_offset": 38758,
+        "chunk_type": "text"
       }
     },
     {
@@ -999,7 +1075,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 76,
-        "char_offset": 39590
+        "char_offset": 39590,
+        "chunk_type": "text"
       }
     },
     {
@@ -1012,7 +1089,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 77,
-        "char_offset": 40024
+        "char_offset": 40024,
+        "chunk_type": "text"
       }
     },
     {
@@ -1025,7 +1103,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 78,
-        "char_offset": 40113
+        "char_offset": 40113,
+        "chunk_type": "text"
       }
     },
     {
@@ -1038,7 +1117,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 79,
-        "char_offset": 40896
+        "char_offset": 40896,
+        "chunk_type": "text"
       }
     },
     {
@@ -1051,7 +1131,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 80,
-        "char_offset": 41733
+        "char_offset": 41733,
+        "chunk_type": "text"
       }
     },
     {
@@ -1064,7 +1145,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 81,
-        "char_offset": 42270
+        "char_offset": 42270,
+        "chunk_type": "text"
       }
     },
     {
@@ -1077,7 +1159,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 82,
-        "char_offset": 42968
+        "char_offset": 42968,
+        "chunk_type": "text"
       }
     },
     {
@@ -1090,7 +1173,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 83,
-        "char_offset": 43702
+        "char_offset": 43702,
+        "chunk_type": "text"
       }
     },
     {
@@ -1103,7 +1187,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 84,
-        "char_offset": 44142
+        "char_offset": 44142,
+        "chunk_type": "text"
       }
     },
     {
@@ -1116,7 +1201,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 85,
-        "char_offset": 44937
+        "char_offset": 44937,
+        "chunk_type": "text"
       }
     },
     {
@@ -1129,7 +1215,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 86,
-        "char_offset": 45595
+        "char_offset": 45595,
+        "chunk_type": "text"
       }
     },
     {
@@ -1142,7 +1229,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 87,
-        "char_offset": 45670
+        "char_offset": 45670,
+        "chunk_type": "text"
       }
     },
     {
@@ -1155,7 +1243,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 88,
-        "char_offset": 46513
+        "char_offset": 46513,
+        "chunk_type": "text"
       }
     },
     {
@@ -1168,7 +1257,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 89,
-        "char_offset": 46583
+        "char_offset": 46583,
+        "chunk_type": "text"
       }
     },
     {
@@ -1181,7 +1271,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 90,
-        "char_offset": 46583
+        "char_offset": 46583,
+        "chunk_type": "text"
       }
     },
     {
@@ -1194,7 +1285,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 91,
-        "char_offset": 47392
+        "char_offset": 47392,
+        "chunk_type": "text"
       }
     },
     {
@@ -1207,7 +1299,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 92,
-        "char_offset": 47818
+        "char_offset": 47818,
+        "chunk_type": "text"
       }
     },
     {
@@ -1220,7 +1313,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 93,
-        "char_offset": 48244
+        "char_offset": 48244,
+        "chunk_type": "text"
       }
     },
     {
@@ -1233,7 +1327,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 94,
-        "char_offset": 49084
+        "char_offset": 49084,
+        "chunk_type": "text"
       }
     },
     {
@@ -1246,7 +1341,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 95,
-        "char_offset": 49730
+        "char_offset": 49730,
+        "chunk_type": "text"
       }
     },
     {
@@ -1259,7 +1355,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 96,
-        "char_offset": 49846
+        "char_offset": 49846,
+        "chunk_type": "text"
       }
     },
     {
@@ -1272,7 +1369,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 97,
-        "char_offset": 50692
+        "char_offset": 50692,
+        "chunk_type": "text"
       }
     },
     {
@@ -1285,7 +1383,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 98,
-        "char_offset": 51133
+        "char_offset": 51133,
+        "chunk_type": "text"
       }
     },
     {
@@ -1298,7 +1397,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 99,
-        "char_offset": 51133
+        "char_offset": 51133,
+        "chunk_type": "text"
       }
     },
     {
@@ -1311,7 +1411,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 100,
-        "char_offset": 51926
+        "char_offset": 51926,
+        "chunk_type": "text"
       }
     },
     {
@@ -1324,7 +1425,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 101,
-        "char_offset": 52533
+        "char_offset": 52533,
+        "chunk_type": "text"
       }
     },
     {
@@ -1337,7 +1439,8 @@
         "filename": null,
         "section": "Item 1A Risk Factors",
         "chunk_index": 102,
-        "char_offset": 53257
+        "char_offset": 53257,
+        "chunk_type": "text"
       }
     },
     {
@@ -1350,7 +1453,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 103,
-        "char_offset": 0
+        "char_offset": 0,
+        "chunk_type": "text"
       }
     },
     {
@@ -1363,7 +1467,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 104,
-        "char_offset": 541
+        "char_offset": 541,
+        "chunk_type": "text"
       }
     },
     {
@@ -1376,7 +1481,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 105,
-        "char_offset": 1273
+        "char_offset": 1273,
+        "chunk_type": "text"
       }
     },
     {
@@ -1389,7 +1495,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 106,
-        "char_offset": 2012
+        "char_offset": 2012,
+        "chunk_type": "text"
       }
     },
     {
@@ -1402,7 +1509,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 107,
-        "char_offset": 2816
+        "char_offset": 2816,
+        "chunk_type": "text"
       }
     },
     {
@@ -1415,7 +1523,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 108,
-        "char_offset": 3586
+        "char_offset": 3586,
+        "chunk_type": "text"
       }
     },
     {
@@ -1428,7 +1537,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 109,
-        "char_offset": 4074
+        "char_offset": 4074,
+        "chunk_type": "text"
       }
     },
     {
@@ -1441,7 +1551,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 110,
-        "char_offset": 4847
+        "char_offset": 4847,
+        "chunk_type": "text"
       }
     },
     {
@@ -1454,7 +1565,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 111,
-        "char_offset": 5693
+        "char_offset": 5693,
+        "chunk_type": "text"
       }
     },
     {
@@ -1467,7 +1579,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 112,
-        "char_offset": 6370
+        "char_offset": 6370,
+        "chunk_type": "text"
       }
     },
     {
@@ -1480,7 +1593,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 113,
-        "char_offset": 7046
+        "char_offset": 7046,
+        "chunk_type": "text"
       }
     },
     {
@@ -1493,7 +1607,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 114,
-        "char_offset": 7876
+        "char_offset": 7876,
+        "chunk_type": "text"
       }
     },
     {
@@ -1506,7 +1621,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 115,
-        "char_offset": 8474
+        "char_offset": 8474,
+        "chunk_type": "text"
       }
     },
     {
@@ -1519,7 +1635,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 116,
-        "char_offset": 9115
+        "char_offset": 9115,
+        "chunk_type": "text"
       }
     },
     {
@@ -1532,7 +1649,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 117,
-        "char_offset": 9784
+        "char_offset": 9784,
+        "chunk_type": "text"
       }
     },
     {
@@ -1545,7 +1663,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 118,
-        "char_offset": 10186
+        "char_offset": 10186,
+        "chunk_type": "text"
       }
     },
     {
@@ -1558,7 +1677,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 119,
-        "char_offset": 11027
+        "char_offset": 11027,
+        "chunk_type": "text"
       }
     },
     {
@@ -1571,7 +1691,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 120,
-        "char_offset": 11600
+        "char_offset": 11600,
+        "chunk_type": "text"
       }
     },
     {
@@ -1584,7 +1705,8 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 121,
-        "char_offset": 12373
+        "char_offset": 12373,
+        "chunk_type": "text"
       }
     },
     {
@@ -1597,7 +1719,1592 @@
         "filename": null,
         "section": "Item 7 MD&A",
         "chunk_index": 122,
-        "char_offset": 13161
+        "char_offset": 13161,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Item 8. Financial Statements and Supplementary Data\n\nAll financial statement schedules have been omitted, since the required information is not applicable or is not present in amounts sufficient to require submission of the schedule, or because the information required is included in the consolidated financial statements and accompanying notes.\n\nApple Inc. | 2023 Form 10-K | 27\n\nApple Inc.\n\nCONSOLIDATED STATEMENTS OF OPERATIONS\n\n(In millions, except number of shares, which are reflected in thousands, and per-share amounts)\n\nSee accompanying Notes to Consolidated Financial Statements.\n\nApple Inc. | 2023 Form 10-K | 28\n\nApple Inc.\n\nCONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME\n\n(In millions)\n\nSee accompanying Notes to Consolidated Financial Statements.\n\nApple Inc. | 2023 Form 10-K | 29\n\nApple Inc.\n\nCONSOLIDATED BALANCE SHEETS\n\n(In millions, except number of shares, which are reflected in thousands, and par value)\n\nSee accompanying Notes to Consolidated Financial Statements.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 123,
+        "char_offset": 0,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "See accompanying Notes to Consolidated Financial Statements.\n\nApple Inc. | 2023 Form 10-K | 30\n\nApple Inc.\n\nCONSOLIDATED STATEMENTS OF SHAREHOLDERS’ EQUITY\n\n(In millions, except per-share amounts)\n\nSee accompanying Notes to Consolidated Financial Statements.\n\nApple Inc. | 2023 Form 10-K | 31\n\nApple Inc.\n\nCONSOLIDATED STATEMENTS OF CASH FLOWS\n\n(In millions)\n\nSee accompanying Notes to Consolidated Financial Statements.\n\nApple Inc. | 2023 Form 10-K | 32\n\nApple Inc.\n\nNotes to Consolidated Financial Statements\n\nNote 1 – Summary of Significant Accounting Policies\n\nBasis of Presentation and Preparation",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 124,
+        "char_offset": 838,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Apple Inc.\n\nNotes to Consolidated Financial Statements\n\nNote 1 – Summary of Significant Accounting Policies\n\nBasis of Presentation and Preparation\n\nThe consolidated financial statements include the accounts of Apple Inc. and its wholly owned subsidiaries. The preparation of these consolidated financial statements and accompanying notes in conformity with GAAP requires the use of management estimates. Certain prior period amounts in the consolidated financial statements and accompanying notes have been reclassified to conform to the current period’s presentation.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 125,
+        "char_offset": 1290,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "The Company’s fiscal year is the 52- or 53-week period that ends on the last Saturday of September. An additional week is included in the first fiscal quarter every five or six years to realign the Company’s fiscal quarters with calendar quarters, which occurred in the first fiscal quarter of 2023. The Company’s fiscal year 2023 spanned 53 weeks, whereas fiscal years 2022 and 2021 spanned 52 weeks each. Unless otherwise stated, references to particular years, quarters, months and periods refer to the Company’s fiscal years ended in September and the associated quarters, months and periods of those fiscal years.\n\nRevenue\n\nThe Company records revenue net of taxes collected from customers that are remitted to governmental authorities.\n\nShare-Based Compensation\n\nThe Company recognizes share-based compensation expense on a straight-line basis for its estimate of equity awards that will ultimately vest.\n\nCash Equivalents",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 126,
+        "char_offset": 1708,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Cash Equivalents\n\nAll highly liquid investments with maturities of three months or less at the date of purchase are treated as cash equivalents.\n\nMarketable Securities\n\nThe cost of securities sold is determined using the specific identification method.\n\nInventories\n\nInventories are measured using the first-in, first-out method.\n\nProperty, Plant and Equipment\n\nDepreciation on property, plant and equipment is recognized on a straight-line basis.\n\nDerivative Instruments\n\nThe Company presents derivative assets and liabilities at their gross fair values in the Consolidated Balance Sheets.\n\nIncome Taxes\n\nThe Company records certain deferred tax assets and liabilities in connection with the minimum tax on certain foreign earnings created by the Act.\n\nLeases\n\nThe Company combines and accounts for lease and nonlease components as a single lease component for leases of corporate, data center and retail facilities.\n\nApple Inc. | 2023 Form 10-K | 33\n\nNote 2 – Revenue",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 127,
+        "char_offset": 2486,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Apple Inc. | 2023 Form 10-K | 33\n\nNote 2 – Revenue\n\nThe Company recognizes revenue at the amount to which it expects to be entitled when control of the products or services is transferred to its customers. Control is generally transferred when the Company has a present right to payment and title and the significant risks and rewards of ownership of products or services are transferred to its customers. For most of the Company’s Products net sales, control transfers when products are shipped. For the Company’s Services net sales, control transfers over time as services are delivered. Payment for Products and Services net sales is collected within a short period following transfer of control or commencement of delivery of services, as applicable.\n\nThe Company records reductions to Products net sales related to future product returns, price protection and other customer incentive programs based on the Company’s expectations and historical experience.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 128,
+        "char_offset": 3305,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "For arrangements with multiple performance obligations, which represent promises within an arrangement that are distinct, the Company allocates revenue to all distinct performance obligations based on their relative stand-alone selling prices (“SSPs”). When available, the Company uses observable prices to determine SSPs. When observable prices are not available, SSPs are established that reflect the Company’s best estimates of what the selling prices of the performance obligations would be if they were sold regularly on a stand-alone basis. The Company’s process for estimating SSPs without observable prices considers multiple factors that may vary depending upon the unique facts and circumstances related to each performance obligation including, where applicable, prices charged by the Company for similar offerings, market trends in the pricing for similar offerings, product-specific business objectives and the estimated cost to provide the performance obligation.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 129,
+        "char_offset": 4116,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "The Company has identified up to three performance obligations regularly included in arrangements involving the sale of iPhone, Mac, iPad and certain other products. The first performance obligation, which represents the substantial portion of the allocated sales price, is the hardware and bundled software delivered at the time of sale. The second performance obligation is the right to receive certain product-related bundled services, which include iCloud ® , Siri ® and Maps. The third performance obligation is the right to receive, on a when-and-if-available basis, future unspecified software upgrades relating to the software bundled with each device. The Company allocates revenue and any related discounts to these performance obligations based on their relative SSPs. Because the Company lacks observable prices for the undelivered performance obligations, the allocation of revenue is based on the Company’s estimated SSPs",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 130,
+        "char_offset": 4943,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": ". Revenue allocated to the delivered hardware and bundled software is recognized when control has transferred to the customer, which generally occurs when the product is shipped. Revenue allocated to the product-related bundled services and unspecified software upgrade rights is deferred and recognized on a straight-line basis over the estimated period they are expected to be provided.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 131,
+        "char_offset": 5728,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "For certain long-term service arrangements, the Company has performance obligations for services it has not yet delivered. For these arrangements, the Company does not have a right to bill for the undelivered services. The Company has determined that any unbilled consideration relates entirely to the value of the undelivered services. Accordingly, the Company has not recognized revenue, and does not disclose amounts, related to these undelivered services.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 132,
+        "char_offset": 5966,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "For the sale of third-party products where the Company obtains control of the product before transferring it to the customer, the Company recognizes revenue based on the gross amount billed to customers. The Company considers multiple factors when determining whether it obtains control of third-party products, including evaluating if it can establish the price of the product, retains inventory risk for tangible products or has the responsibility for ensuring acceptability of the product. For third-party applications sold through the App Store, the Company does not obtain control of the product before transferring it to the customer. Therefore, the Company accounts for all third-party application–related sales on a net basis by recognizing in Services net sales only the commission it retains.\n\nApple Inc. | 2023 Form 10-K | 34\n\nNet sales disaggregated by significant products and services for 2023, 2022 and 2021 were as follows (in millions):",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 133,
+        "char_offset": 6275,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Net sales disaggregated by significant products and services for 2023, 2022 and 2021 were as follows (in millions):\n\n(1) Products net sales include amortization of the deferred value of unspecified software upgrade rights, which are bundled in the sales price of the respective product.\n\n(2) Services net sales include amortization of the deferred value of services bundled in the sales price of certain products.\n\nTotal net sales include $ 8.2 billion of revenue recognized in 2023 that was included in deferred revenue as of September 24, 2022, $ 7.5 billion of revenue recognized in 2022 that was included in deferred revenue as of September 25, 2021, and $ 6.7 billion of revenue recognized in 2021 that was included in deferred revenue as of September 26, 2020.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 134,
+        "char_offset": 7078,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "The Company’s proportion of net sales by disaggregated revenue source was generally consistent for each reportable segment in Note 13, “Segment Information and Geographic Data” for 2023, 2022 and 2021, except in Greater China, where iPhone revenue represented a moderately higher proportion of net sales.\n\nAs of September 30, 2023 and September 24, 2022, the Company had total deferred revenue of $ 12.1 billion and $ 12.4 billion, respectively. As of September 30, 2023, the Company expects 67 % of total deferred revenue to be realized in less than a year, 25 % within one-to-two years, 7 % within two-to-three years and 1 % in greater than three years.\n\nNote 3 – Earnings Per Share\n\nThe following table shows the computation of basic and diluted earnings per share for 2023, 2022 and 2021 (net income in millions and shares in thousands):",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 135,
+        "char_offset": 7694,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Approximately 24 million restricted stock units (“RSUs”) were excluded from the computation of diluted earnings per share for 2023 because their effect would have been antidilutive.\n\nApple Inc. | 2023 Form 10-K | 35\n\nNote 4 – Financial Instruments\n\nCash, Cash Equivalents and Marketable Securities\n\nThe following tables show the Company’s cash, cash equivalents and marketable securities by significant investment category as of September 30, 2023 and September 24, 2022 (in millions):\n\n(1) The valuation techniques used to measure the fair values of the Company’s Level 2 financial instruments, which generally have counterparties with high credit ratings, are based on quoted market prices or model-driven valuations using significant inputs derived from or corroborated by observable market data.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 136,
+        "char_offset": 8385,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "(2) As of September 30, 2023 and September 24, 2022, total marketable securities included $ 13.8 billion and $ 12.7 billion, respectively, that were restricted from general use, related to the State Aid Decision (refer to Note 7, “Income Taxes”) and other agreements.\n\nApple Inc. | 2023 Form 10-K | 36\n\nThe following table shows the fair value of the Company’s non-current marketable debt securities, by contractual maturity, as of September 30, 2023 (in millions):\n\nThe Company’s investments in marketable debt securities have been classified and accounted for as available-for-sale. The Company classifies marketable debt securities as either current or non-current based solely on each instrument’s underlying contractual maturity date.\n\nDerivative Instruments and Hedging",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 137,
+        "char_offset": 9034,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Derivative Instruments and Hedging\n\nThe Company may use derivative instruments to partially offset its business exposure to foreign exchange and interest rate risk. However, the Company may choose not to hedge certain exposures for a variety of reasons including accounting considerations or the prohibitive economic cost of hedging particular exposures. There can be no assurance the hedges will offset more than a portion of the financial impact resulting from movements in foreign exchange or interest rates.\n\nThe Company classifies cash flows related to derivative instruments in the same section of the Consolidated Statements of Cash Flows as the items being hedged, which are generally classified as operating activities.\n\nForeign Exchange Rate Risk",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 138,
+        "char_offset": 9659,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Foreign Exchange Rate Risk\n\nTo protect gross margins from fluctuations in foreign exchange rates, the Company may use forwards, options or other instruments, and may designate these instruments as cash flow hedges. The Company generally hedges portions of its forecasted foreign currency exposure associated with revenue and inventory purchases, typically for up to 12 months.\n\nTo protect the Company’s foreign currency–denominated term debt or marketable securities from fluctuations in foreign exchange rates, the Company may use forwards, cross-currency swaps or other instruments. The Company designates these instruments as either cash flow or fair value hedges. As of September 30, 2023, the maximum length of time over which the Company is hedging its exposure to the variability in future cash flows for term debt–related foreign currency transactions is 19 years.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 139,
+        "char_offset": 10265,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "The Company may also use derivative instruments that are not designated as accounting hedges to protect gross margins from certain fluctuations in foreign exchange rates, as well as to offset a portion of the foreign currency gains and losses generated by the remeasurement of certain assets and liabilities denominated in non-functional currencies.\n\nInterest Rate Risk\n\nTo protect the Company’s term debt or marketable securities from fluctuations in interest rates, the Company may use interest rate swaps, options or other instruments. The Company designates these instruments as either cash flow or fair value hedges.\n\nThe notional amounts of the Company’s outstanding derivative instruments as of September 30, 2023 and September 24, 2022 were as follows (in millions):\n\nApple Inc. | 2023 Form 10-K | 37\n\nThe gross fair values of the Company’s derivative assets and liabilities as of September 24, 2022 were as follows (in millions):",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 140,
+        "char_offset": 10987,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "The gross fair values of the Company’s derivative assets and liabilities as of September 24, 2022 were as follows (in millions):\n\n(1) Derivative assets are measured using Level 2 fair value inputs and are included in other current assets and other non-current assets in the Consolidated Balance Sheet.\n\n(2) Derivative liabilities are measured using Level 2 fair value inputs and are included in other current liabilities and other non-current liabilities in the Consolidated Balance Sheet.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 141,
+        "char_offset": 11775,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "The derivative assets above represent the Company’s gross credit exposure if all counterparties failed to perform. To mitigate credit risk, the Company generally uses collateral security arrangements that provide for collateral to be received or posted when the net fair values of certain derivatives fluctuate from contractually established thresholds. To further limit credit risk, the Company generally uses master netting arrangements with the respective counterparties to the Company’s derivative contracts, under which the Company is allowed to settle transactions with a single net amount payable by one party to the other. As of September 24, 2022, the potential effects of these rights of set-off associated with the Company’s derivative contracts, including the effects of collateral, would be a reduction to both derivative assets and derivative liabilities of $ 7.8 billion, resulting in a net derivative asset of $ 412 million.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 142,
+        "char_offset": 12114,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "The carrying amounts of the Company’s hedged items in fair value hedges as of September 30, 2023 and September 24, 2022 were as follows (in millions):\n\nAccounts Receivable\n\nTrade Receivables\n\nAs of September 24, 2022, the Company had one customer that represented 10% or more of total trade receivables, which accounted for 10 %. The Company’s third-party cellular network carriers accounted for 41 % and 44 % of total trade receivables as of September 30, 2023 and September 24, 2022, respectively. The Company requires third-party credit support or collateral from certain customers to limit credit risk.\n\nVendor Non-Trade Receivables",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 143,
+        "char_offset": 12904,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Vendor Non-Trade Receivables\n\nThe Company has non-trade receivables from certain of its manufacturing vendors resulting from the sale of components to these vendors who manufacture subassemblies or assemble final products for the Company. The Company purchases these components directly from suppliers. The Company does not reflect the sale of these components in products net sales. Rather, the Company recognizes any gain on these sales as a reduction of products cost of sales when the related final products are sold by the Company. As of September 30, 2023, the Company had two vendors that individually represented 10% or more of total vendor non-trade receivables, which accounted for 48 % and 23 %. As of September 24, 2022, the Company had two vendors that individually represented 10% or more of total vendor non-trade receivables, which accounted for 54 % and 13 %.\n\nApple Inc. | 2023 Form 10-K | 38\n\nNote 5 – Property, Plant and Equipment",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 144,
+        "char_offset": 13390,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Apple Inc. | 2023 Form 10-K | 38\n\nNote 5 – Property, Plant and Equipment\n\nThe following table shows the Company’s gross property, plant and equipment by major asset class and accumulated depreciation as of September 30, 2023 and September 24, 2022 (in millions):\n\nDepreciation expense on property, plant and equipment was $ 8.5 billion, $ 8.7 billion and $ 9.5 billion during 2023, 2022 and 2021, respectively.\n\nNote 6 – Consolidated Financial Statement Details\n\nThe following tables show the Company’s consolidated financial statement details as of September 30, 2023 and September 24, 2022 (in millions):\n\nOther Non-Current Assets\n\nOther Current Liabilities\n\nOther Non-Current Liabilities\n\nOther Income/(Expense), Net\n\nThe following table shows the detail of other income/(expense), net for 2023, 2022 and 2021 (in millions):\n\nApple Inc. | 2023 Form 10-K | 39\n\nNote 7 – Income Taxes\n\nProvision for Income Taxes and Effective Tax Rate",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 145,
+        "char_offset": 14190,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Apple Inc. | 2023 Form 10-K | 39\n\nNote 7 – Income Taxes\n\nProvision for Income Taxes and Effective Tax Rate\n\nThe provision for income taxes for 2023, 2022 and 2021, consisted of the following (in millions):\n\nThe foreign provision for income taxes is based on foreign pretax earnings of $ 72.9 billion, $ 71.3 billion and $ 68.7 billion in 2023, 2022 and 2021, respectively.\n\nA reconciliation of the provision for income taxes to the amount computed by applying the statutory federal income tax rate ( 21 % in 2023, 2022 and 2021) to income before provision for income taxes for 2023, 2022 and 2021, is as follows (dollars in millions):\n\nApple Inc. | 2023 Form 10-K | 40\n\nDeferred Tax Assets and Liabilities\n\nAs of September 30, 2023 and September 24, 2022, the significant components of the Company’s deferred tax assets and liabilities were (in millions):",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 146,
+        "char_offset": 14975,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "As of September 30, 2023 and September 24, 2022, the significant components of the Company’s deferred tax assets and liabilities were (in millions):\n\nAs of September 30, 2023, the Company had $ 5.2 billion in foreign tax credit carryforwards in Ireland and $ 3.0 billion in California R&D credit carryforwards, both of which can be carried forward indefinitely. A valuation allowance has been recorded for the credit carryforwards and a portion of other temporary differences.\n\nUncertain Tax Positions\n\nAs of September 30, 2023, the total amount of gross unrecognized tax benefits was $ 19.5 billion, of which $ 9.5 billion, if recognized, would impact the Company’s effective tax rate. As of September 24, 2022, the total amount of gross unrecognized tax benefits was $ 16.8 billion, of which $ 8.0 billion, if recognized, would have impacted the Company’s effective tax rate.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 147,
+        "char_offset": 15680,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "The aggregate change in the balance of gross unrecognized tax benefits, which excludes interest and penalties, for 2023, 2022 and 2021, is as follows (in millions):\n\nThe Company is subject to taxation and files income tax returns in the U.S. federal jurisdiction and many state and foreign jurisd ictions. Tax years after 2017 for the U.S. federal jurisdiction, and after 2014 in certain major foreign jurisdictions, remain subject to examination. Altho ugh the timing of resolution or closure of examinations is not certain, the Company believes it is reasonably possible that its gross unrecognized tax benefits could decrease in the next 12 months by as much as $ 4.5 billion.\n\nApple Inc. | 2023 Form 10-K | 41\n\nEuropean Commission State Aid Decision",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 148,
+        "char_offset": 16407,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "On August 30, 2016, the European Commission announced its decision that Ireland granted state aid to the Company by providing tax opinions in 1991 and 2007 concerning the tax allocation of profits of the Irish branches of two subsidiaries of the Company (the “State Aid Decision”). The State Aid Decision ordered Ireland to calculate and recover additional taxes from the Company for the period June 2003 through December 2014. Irish legislative changes, effective as of January 2015, eliminated the application of the tax opinions from that date forward. The recovery amount was calculated to be € 13.1 billion, plus interest of € 1.2 billion. The Company and Ireland appealed the State Aid Decision to the General Court of the Court of Justice of the European Union (the “General Court”). On July 15, 2020, the General Court annulled the State Aid Decision",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 149,
+        "char_offset": 17010,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": ". On July 15, 2020, the General Court annulled the State Aid Decision. On September 25, 2020, the European Commission appealed the General Court’s decision to the European Court of Justice (the “ECJ”) and a hearing was held on May 23, 2023. A decision from the ECJ is expected in calendar year 2024. The Company believes it would be eligible to claim a U.S. foreign tax credit for a portion of any incremental Irish corporate income taxes potentially due related to the State Aid Decision.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 150,
+        "char_offset": 17718,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "On an annual basis, the Company may request approval from the Irish Minister for Finance to reduce the recovery amount for certain taxes paid to other countries. As of September 30, 2023, the adjusted recovery amount was € 12.7 billion, excluding interest. The adjusted recovery amount plus interest is funded into escrow, where it will remain restricted from general use pending the conclusion of all legal proceedings. Refer to the Cash, Cash Equivalents and Marketable Securities section of Note 4, “Financial Instruments” for more information.\n\nNote 8 – Leases\n\nThe Company has lease arrangements for certain equipment and facilities, including corporate, data center, manufacturing and retail space. These leases typically have original terms not exceeding 10 years and generally contain multiyear renewal options, some of which are reasonably certain of exercise.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 151,
+        "char_offset": 18057,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Payments under the Company’s lease arrangements may be fixed or variable, and variable lease payments are primarily based on purchases of output of the underlying leased assets. Lease costs associated with fixed payments on the Company’s operating leases were $ 2.0 billion, $ 1.9 billion and $ 1.7 billion for 2023, 2022 and 2021, respectively. Lease costs associated with variable payments on the Company’s leases were $ 13.9 billion, $ 14.9 billion and $ 12.9 billion for 2023, 2022 and 2021, respectively.\n\nThe Company made $ 1.9 billion, $ 1.8 billion and $ 1.4 billion of fixed cash payments related to operating leases in 2023, 2022 and 2021, respectively. Noncash activities involving right-of-use (“ROU”) assets obtained in exchange for lease liabilities were $ 2.1 billion, $ 2.8 billion and $ 3.3 billion for 2023, 2022 and 2021, respectively.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 152,
+        "char_offset": 18776,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "The following table shows ROU assets and lease liabilities, and the associated financial statement line items, as of September 30, 2023 and September 24, 2022 (in millions):\n\nApple Inc. | 2023 Form 10-K | 42\n\nLease liability maturities as of September 30, 2023, are as follows (in millions):\n\nThe weighted-average remaining lease term related to the Company’s lease liabilities as of September 30, 2023 and September 24, 2022 was 10.6 years and 10.1 years, respectively. The discount rate related to the Company’s lease liabilities as of September 30, 2023 and September 24, 2022 was 3.0 % and 2.3 %, respectively. The discount rates related to the Company’s lease liabilities are generally based on estimates of the Company’s incremental borrowing rate, as the discount rates implicit in the Company’s leases cannot be readily determined.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 153,
+        "char_offset": 19480,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "As of September 30, 2023, the Company had $ 544 million of future payments under additional leases, primarily for corporate facilities and retail space, that had not yet commenced. These leases will commence between 2024 and 2026, with lease terms ranging from 1 year to 21 years.\n\nNote 9 – Debt\n\nCommercial Paper",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 154,
+        "char_offset": 20169,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Note 9 – Debt\n\nCommercial Paper\n\nThe Company issues unsecured short-term promissory notes pursuant to a commercial paper program. The Company uses net proceeds from the commercial paper program for general corporate purposes, including dividends and share repurchases. As of September 30, 2023 and September 24, 2022, the Company had $ 6.0 billion and $ 10.0 billion of commercial paper outstanding, respectively, with maturities generally less than nine months . The weighted-average interest rate of the Company’s commercial paper was 5.28 % and 2.31 % as of September 30, 2023 and September 24, 2022, respectively. The following table provides a summary of cash flows associated with the issuance and maturities of commercial paper for 2023, 2022 and 2021 (in millions):\n\nApple Inc. | 2023 Form 10-K | 43\n\nTerm Debt",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 155,
+        "char_offset": 20332,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Apple Inc. | 2023 Form 10-K | 43\n\nTerm Debt\n\nThe Company has outstanding Notes, which are senior unsecured obligations with interest payable in arrears. The following table provides a summary of the Company’s term debt as of September 30, 2023 and September 24, 2022:\n\nTo manage interest rate risk on certain of its U.S. dollar–denominated fixed-rate notes, the Company uses interest rate swaps to effectively convert the fixed interest rates to floating interest rates on a portion of these notes. Additionally, to manage foreign exchange rate risk on certain of its foreign currency–denominated notes, the Company uses cross-currency swaps to effectively convert these notes to U.S. dollar–denominated notes.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 156,
+        "char_offset": 21000,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "The effective interest rates for the Notes include the interest on the Notes, amortization of the discount or premium and, if applicable, adjustments related to hedging. The Company recognized $ 3.7 billion, $ 2.8 billion and $ 2.6 billion of interest expense on its term debt for 2023, 2022 and 2021, respectively.\n\nThe future principal payments for the Company’s Notes as of September 30, 2023, are as follows (in millions):\n\nAs of September 30, 2023 and September 24, 2022, the fair value of the Company’s Notes, based on Level 2 inputs, was $ 90.8 billion and $ 98.8 billion, respectively.\n\nNote 10 – Shareholders’ Equity\n\nShare Repurchase Program",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 157,
+        "char_offset": 21560,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Note 10 – Shareholders’ Equity\n\nShare Repurchase Program\n\nDuring 2023, the Company repurchased 471 million shares of its common stock for $ 76.6 billion, excluding excise tax due under the Inflation Reduction Act of 2022. The Company’s share repurchase programs do not obligate the Company to acquire a minimum amount of shares. Under the programs, shares may be repurchased in privately negotiated or open market transactions, including under plans complying with Rule 10b5-1 under the Exchange Act.\n\nApple Inc. | 2023 Form 10-K | 44\n\nShares of Common Stock\n\nThe following table shows the changes in shares of common stock for 2023, 2022 and 2021 (in thousands):\n\nNote 11 – Share-Based Compensation\n\n2022 Employee Stock Plan",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 158,
+        "char_offset": 22061,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Note 11 – Share-Based Compensation\n\n2022 Employee Stock Plan\n\nThe Apple Inc. 2022 Employee Stock Plan (the “2022 Plan”) is a shareholder-approved plan that provides for broad-based equity grants to employees, including executive officers, and permits the granting of RSUs, stock grants, performance-based awards, stock options and stock appreciation rights. RSUs granted under the 2022 Plan generally vest over four years , based on continued employment, and are settled upon vesting in shares of the Company’s common stock on a one -for-one basis. All RSUs granted under the 2022 Plan have dividend equivalent rights, which entitle holders of RSUs to the same dividend value per share as holders of common stock. A maximum of approximately 1.3 billion shares were authorized for issuance pursuant to 2022 Plan awards at the time the plan was approved on March 4, 2022.\n\n2014 Employee Stock Plan",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 159,
+        "char_offset": 22636,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "2014 Employee Stock Plan\n\nThe Apple Inc. 2014 Employee Stock Plan (the “2014 Plan”) is a shareholder-approved plan that provided for broad-based equity grants to employees, including executive officers. The 2014 Plan permitted the granting of substantially the same types of equity awards with substantially the same terms as the 2022 Plan. The 2014 Plan also permitted the granting of cash bonus awards. In the third quarter of 2022, the Company terminated the authority to grant new awards under the 2014 Plan.\n\nRestricted Stock Units\n\nA summary of the Company’s RSU activity and related information for 2023, 2022 and 2021, is as follows:",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 160,
+        "char_offset": 23381,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Restricted Stock Units\n\nA summary of the Company’s RSU activity and related information for 2023, 2022 and 2021, is as follows:\n\nThe fair value as of the respective vesting dates of RSUs was $ 15.9 billion, $ 18.2 billion and $ 19.0 billion for 2023, 2022 and 2021, respectively. The majority of RSUs that vested in 2023, 2022 and 2021 were net share settled such that the Company withheld shares with a value equivalent to the employees’ obligation for the applicable income and other employment taxes, and remitted the cash to the appropriate taxing authorities. The total shares withheld were approximately 37 million, 41 million and 53 million for 2023, 2022 and 2021, respectively, and were based on the value of the RSUs on their respective vesting dates as determined by the Company’s closing stock price. Total payments to taxing authorities for employees’ tax obligations were $ 5.6 billion, $ 6.4 billion and $ 6.8 billion in 2023, 2022 and 2021, respectively.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 161,
+        "char_offset": 23872,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Apple Inc. | 2023 Form 10-K | 45\n\nShare-Based Compensation\n\nThe following table shows share-based compensation expense and the related income tax benefit included in the Consolidated Statements of Operations for 2023, 2022 and 2021 (in millions):\n\nAs of September 30, 2023, the total unrecognized compensation cost related to outstanding RSUs was $ 18.6 billion, which the Company expects to recognize over a weighted-average period of 2.5 years.\n\nNote 12 – Commitments, Contingencies and Supply Concentrations\n\nUnconditional Purchase Obligations",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 162,
+        "char_offset": 24692,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Note 12 – Commitments, Contingencies and Supply Concentrations\n\nUnconditional Purchase Obligations\n\nThe Company has entered into certain off–balance sheet commitments that require the future purchase of goods or services (“unconditional purchase obligations”). The Company’s unconditional purchase obligations primarily consist of supplier arrangements, licensed intellectual property and content, and distribution rights. Future payments under noncancelable unconditional purchase obligations with a remaining term in excess of one year as of September 30, 2023, are as follows (in millions):\n\nContingencies",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 163,
+        "char_offset": 25088,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Contingencies\n\nThe Company is subject to various legal proceedings and claims that have arisen in the ordinary course of business and that have not been fully resolved. The outcome of litigation is inherently uncertain. In the opinion of management, there was not at least a reasonable possibility the Company may have incurred a material loss, or a material loss greater than a recorded accrual, concerning loss contingencies for asserted legal and other claims.\n\nConcentrations in the Available Sources of Supply of Materials and Product",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 164,
+        "char_offset": 25546,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Concentrations in the Available Sources of Supply of Materials and Product\n\nAlthough most components essential to the Company’s business are generally available from multiple sources, certain components are currently obtained from single or limited sources. The Company also competes for various components with other participants in the markets for smartphones, personal computers, tablets, wearables and accessories. Therefore, many components used by the Company, including those that are available from multiple sources, are at times subject to industry-wide shortage and significant commodity pricing fluctuations.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 165,
+        "char_offset": 25935,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "The Company uses some custom components that are not commonly used by its competitors, and new products introduced by the Company often utilize custom components available from only one source. When a component or product uses new technologies, initial capacity constraints may exist until the suppliers’ yields have matured or their manufacturing capacities have increased. The continued availability of these components at acceptable prices, or at all, may be affected if suppliers decide to concentrate on the production of common components instead of components customized to meet the Company’s requirements.\n\nSubstantially all of the Company’s hardware products are manufactured by outsourcing partners that are located primarily in China mainland, India, Japan, South Korea, Taiwan and Vietnam.\n\nApple Inc. | 2023 Form 10-K | 46\n\nNote 13 – Segment Information and Geographic Data",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 166,
+        "char_offset": 26404,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Apple Inc. | 2023 Form 10-K | 46\n\nNote 13 – Segment Information and Geographic Data\n\nThe Company manages its business primarily on a geographic basis. The Company’s reportable segments consist of the Americas, Europe, Greater China, Japan and Rest of Asia Pacific. Americas includes both North and South America. Europe includes European countries, as well as India, the Middle East and Africa. Greater China includes China mainland, Hong Kong and Taiwan. Rest of Asia Pacific includes Australia and those Asian countries not included in the Company’s other reportable segments. Although the reportable segments provide similar hardware and software products and similar services, each one is managed separately to better align with the location of the Company’s customers and distribution partners and the unique market dynamics of each geographic region.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 167,
+        "char_offset": 27140,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "The Company evaluates the performance of its reportable segments based on net sales and operating income. Net sales for geographic segments are generally based on the location of customers and sales through the Company’s retail stores located in those geographic locations. Operating income for each segment consists of net sales to third parties, related cost of sales, and operating expenses directly attributable to the segment. The information provided to the Company’s chief operating decision maker for purposes of making decisions and assessing segment performance excludes asset information.\n\nThe following table shows information by reportable segment for 2023, 2022 and 2021 (in millions):\n\nA reconciliation of the Company’s segment operating income to the Consolidated Statements of Operations for 2023, 2022 and 2021 is as follows (in millions):",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 168,
+        "char_offset": 27846,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "(1) Includes corporate marketing expenses, certain share-based compensation expenses, various nonrecurring charges, and other separately managed general and administrative costs.\n\nApple Inc. | 2023 Form 10-K | 47\n\nThe U.S. and China were the only countries that accounted for more than 10% of the Company’s net sales in 2023, 2022 and 2021. Net sales for 2023, 2022 and 2021 and long-lived assets as of September 30, 2023 and September 24, 2022 were as follows (in millions):\n\n(1) China includes Hong Kong and Taiwan.\n\nApple Inc. | 2023 Form 10-K | 48\n\nReport of Independent Registered Public Accounting Firm\n\nTo the Shareholders and the Board of Directors of Apple Inc.\n\nOpinion on the Financial Statements",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 169,
+        "char_offset": 28553,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "To the Shareholders and the Board of Directors of Apple Inc.\n\nOpinion on the Financial Statements\n\nWe have audited the accompanying consolidated balance sheets of Apple Inc. as of September 30, 2023 and September 24, 2022, the related consolidated statements of operations, comprehensive income, shareholders’ equity and cash flows for each of the three years in the period ended September 30, 2023, and the related notes (collectively referred to as the “financial statements”). In our opinion, the financial statements present fairly, in all material respects, the financial position of Apple Inc. at September 30, 2023 and September 24, 2022, and the results of its operations and its cash flows for each of the three years in the period ended September 30, 2023, in conformity with U.S. generally accepted accounting principles.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 170,
+        "char_offset": 29110,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "We also have audited, in accordance with the standards of the Public Company Accounting Oversight Board (United States) (the “PCAOB”), Apple Inc.’s internal control over financial reporting as of September 30, 2023, based on criteria established in Internal Control – Integrated Framework issued by the Committee of Sponsoring Organizations of the Treadway Commission (2013 framework) and our report dated November 2, 2023 expressed an unqualified opinion thereon.\n\nBasis for Opinion\n\nThese financial statements are the responsibility of Apple Inc.’s management. Our responsibility is to express an opinion on Apple Inc.’s financial statements based on our audits. We are a public accounting firm registered with the PCAOB and are required to be independent with respect to Apple Inc. in accordance with the U.S. federal securities laws and the applicable rules and regulations of the U.S. Securities and Exchange Commission and the PCAOB.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 171,
+        "char_offset": 29792,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "We conducted our audits in accordance with the standards of the PCAOB. Those standards require that we plan and perform the audit to obtain reasonable assurance about whether the financial statements are free of material misstatement, whether due to error or fraud. Our audits included performing procedures to assess the risks of material misstatement of the financial statements, whether due to error or fraud, and performing procedures that respond to those risks. Such procedures included examining, on a test basis, evidence regarding the amounts and disclosures in the financial statements. Our audits also included evaluating the accounting principles used and significant estimates made by management, as well as evaluating the overall presentation of the financial statements. We believe that our audits provide a reasonable basis for our opinion.\n\nCritical Audit Matter",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 172,
+        "char_offset": 30581,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Critical Audit Matter\n\nThe critical audit matter communicated below is a matter arising from the current period audit of the financial statements that was communicated or required to be communicated to the audit committee and that: (1) relates to accounts or disclosures that are material to the financial statements and (2) involved our especially challenging, subjective, or complex judgments. The communication of the critical audit matter does not alter in any way our opinion on the financial statements, taken as a whole, and we are not, by communicating the critical audit matter below, providing a separate opinion on the critical audit matter or on the account or disclosure to which it relates.\n\nApple Inc. | 2023 Form 10-K | 49\n\n/s/ Ernst & Young LLP\n\nWe have served as Apple Inc.’s auditor since 2009.\n\nSan Jose, California\n\nNovember 2, 2023\n\nApple Inc. | 2023 Form 10-K | 50\n\nReport of Independent Registered Public Accounting Firm",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 173,
+        "char_offset": 31310,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "San Jose, California\n\nNovember 2, 2023\n\nApple Inc. | 2023 Form 10-K | 50\n\nReport of Independent Registered Public Accounting Firm\n\nTo the Shareholders and the Board of Directors of Apple Inc.\n\nOpinion on Internal Control Over Financial Reporting\n\nWe have audited Apple Inc.’s internal control over financial reporting as of September 30, 2023, based on criteria established in Internal Control – Integrated Framework issued by the Committee of Sponsoring Organizations of the Treadway Commission (2013 framework) (the “COSO criteria”). In our opinion, Apple Inc. maintained, in all material respects, effective internal control over financial reporting as of September 30, 2023, based on the COSO criteria.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 174,
+        "char_offset": 32104,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "We also have audited, in accordance with the standards of the Public Company Accounting Oversight Board (United States) (the “PCAOB”), the consolidated balance sheets of Apple Inc. as of September 30, 2023 and September 24, 2022, the related consolidated statements of operations, comprehensive income, shareholders’ equity and cash flows for each of the three years in the period ended September 30, 2023, and the related notes and our report dated November 2, 2023 expressed an unqualified opinion thereon.\n\nBasis for Opinion",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 175,
+        "char_offset": 32660,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Basis for Opinion\n\nApple Inc.’s management is responsible for maintaining effective internal control over financial reporting, and for its assessment of the effectiveness of internal control over financial reporting included in the accompanying Management’s Annual Report on Internal Control over Financial Reporting. Our responsibility is to express an opinion on Apple Inc.’s internal control over financial reporting based on our audit. We are a public accounting firm registered with the PCAOB and are required to be independent with respect to Apple Inc. in accordance with the U.S. federal securities laws and the applicable rules and regulations of the U.S. Securities and Exchange Commission and the PCAOB.\n\nWe conducted our audit in accordance with the standards of the PCAOB. Those standards require that we plan and perform the audit to obtain reasonable assurance about whether effective internal control over financial reporting was maintained in all material respects.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 176,
+        "char_offset": 33037,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Our audit included obtaining an understanding of internal control over financial reporting, assessing the risk that a material weakness exists, testing and evaluating the design and operating effectiveness of internal control based on the assessed risk, and performing such other procedures as we considered necessary in the circumstances. We believe that our audit provides a reasonable basis for our opinion.\n\nDefinition and Limitations of Internal Control Over Financial Reporting",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 177,
+        "char_offset": 33869,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "A company’s internal control over financial reporting is a process designed to provide reasonable assurance regarding the reliability of financial reporting and the preparation of financial statements for external purposes in accordance with U.S. generally accepted accounting principles. A company’s internal control over financial reporting includes those policies and procedures that (1) pertain to the maintenance of records that, in reasonable detail, accurately and fairly reflect the transactions and dispositions of the assets of the company; (2) provide reasonable assurance that transactions are recorded as necessary to permit preparation of financial statements in accordance with U.S",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 178,
+        "char_offset": 34202,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": ". generally accepted accounting principles, and that receipts and expenditures of the company are being made only in accordance with authorizations of management and directors of the company; and (3) provide reasonable assurance regarding prevention or timely detection of unauthorized acquisition, use, or disposition of the company’s assets that could have a material effect on the financial statements.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 179,
+        "char_offset": 34748,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Because of its inherent limitations, internal control over financial reporting may not prevent or detect misstatements. Also, projections of any evaluation of effectiveness to future periods are subject to the risk that controls may become inadequate because of changes in conditions, or that the degree of compliance with the policies or procedures may deteriorate.\n\n/s/ Ernst & Young LLP\n\nSan Jose, California\n\nNovember 2, 2023\n\nApple Inc. | 2023 Form 10-K | 51",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 180,
+        "char_offset": 35003,
+        "chunk_type": "text"
+      }
+    },
+    {
+      "content": "Consolidated Statements of Operations for the years ended September 30, 2023, September 24, 2022 and September 25, 2021 | Page: 28\nConsolidated Statements of Comprehensive Income for the years ended September 30, 2023, September 24, 2022 and September 25, 2021 | Page: 29\nConsolidated Balance Sheets as of September 30, 2023 and September 24, 2022 | Page: 30\nConsolidated Statements of Shareholders’ Equity for the years ended September 30, 2023, September 24, 2022 and September 25, 2021 | Page: 31\nConsolidated Statements of Cash Flows for the years ended September 30, 2023, September 24, 2022 and September 25, 2021 | Page: 32\nNotes to Consolidated Financial Statements | Page: 33\nReports of Independent Registered Public Accounting Firm | Page: 49",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 181,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": null,
+        "table_headers": [
+          "Page"
+        ],
+        "table_rows": 7,
+        "table_title": "Item 8. Financial Statements and Supplementary Data"
+      }
+    },
+    {
+      "content": "Products | FY2023: $298,085 | FY2022: $316,199 | FY2021: $297,392\nServices | FY2023: 85,200 | FY2022: 78,129 | FY2021: 68,425\nTotal net sales | FY2023: 383,285 | FY2022: 394,328 | FY2021: 365,817\nProducts | FY2023: 189,282 | FY2022: 201,471 | FY2021: 192,266\nServices | FY2023: 24,855 | FY2022: 22,075 | FY2021: 20,715\nTotal cost of sales | FY2023: 214,137 | FY2022: 223,546 | FY2021: 212,981\nGross margin | FY2023: 169,148 | FY2022: 170,782 | FY2021: 152,836\nResearch and development | FY2023: 29,915 | FY2022: 26,251 | FY2021: 21,914\nSelling, general and administrative | FY2023: 24,932 | FY2022: 25,094 | FY2021: 21,973\nTotal operating expenses | FY2023: 54,847 | FY2022: 51,345 | FY2021: 43,887\nOperating income | FY2023: 114,301 | FY2022: 119,437 | FY2021: 108,949\nOther income/(expense), net | FY2023: ( 565 ) | FY2022: ( 334 ) | FY2021: 258\nIncome before provision for income taxes | FY2023: 113,736 | FY2022: 119,103 | FY2021: 109,207\nProvision for income taxes | FY2023: 16,741 | FY2022: 19,300 | FY2021: 14,527\nNet income | FY2023: $96,995 | FY2022: $99,803 | FY2021: $94,680\nBasic | FY2023: $6.16 | FY2022: $6.15 | FY2021: $5.67\nDiluted | FY2023: $6.13 | FY2022: $6.11 | FY2021: $5.61\nBasic | FY2023: 15,744,231 | FY2022: 16,215,963 | FY2021: 16,701,272\nDiluted | FY2023: 15,812,547 | FY2022: 16,325,819 | FY2021: 16,864,919 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 182,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 19,
+        "table_title": "CONSOLIDATED STATEMENTS OF OPERATIONS"
+      }
+    },
+    {
+      "content": "Net income | FY2023: $96,995 | FY2022: $99,803 | FY2021: $94,680\nChange in foreign currency translation, net of tax | FY2023: ( 765 ) | FY2022: ( 1,511 ) | FY2021: 501\nChange in fair value of derivative instruments | FY2023: 323 | FY2022: 3,212 | FY2021: 32\nAdjustment for net (gains)/losses realized and included in net income | FY2023: ( 1,717 ) | FY2022: ( 1,074 ) | FY2021: 1,003\nTotal change in unrealized gains/losses on derivative instruments | FY2023: ( 1,394 ) | FY2022: 2,138 | FY2021: 1,035\nChange in fair value of marketable debt securities | FY2023: 1,563 | FY2022: ( 12,104 ) | FY2021: ( 694 )\nAdjustment for net (gains)/losses realized and included in net income | FY2023: 253 | FY2022: 205 | FY2021: ( 273 )\nTotal change in unrealized gains/losses on marketable debt securities | FY2023: 1,816 | FY2022: ( 11,899 ) | FY2021: ( 967 )\nTotal other comprehensive income/(loss) | FY2023: ( 343 ) | FY2022: ( 11,272 ) | FY2021: 569\nTotal comprehensive income | FY2023: $96,652 | FY2022: $88,531 | FY2021: $95,249 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 183,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 10,
+        "table_title": "CONSOLIDATED STATEMENTS OF COMPREHENSIVE INCOME"
+      }
+    },
+    {
+      "content": "Cash and cash equivalents | FY2023: $29,965 | FY2022: $23,646\nMarketable securities | FY2023: 31,590 | FY2022: 24,658\nAccounts receivable, net | FY2023: 29,508 | FY2022: 28,184\nVendor non-trade receivables | FY2023: 31,477 | FY2022: 32,748\nInventories | FY2023: 6,331 | FY2022: 4,946\nOther current assets | FY2023: 14,695 | FY2022: 21,223\nTotal current assets | FY2023: 143,566 | FY2022: 135,405\nMarketable securities | FY2023: 100,544 | FY2022: 120,805\nProperty, plant and equipment, net | FY2023: 43,715 | FY2022: 42,117\nOther non-current assets | FY2023: 64,758 | FY2022: 54,428\nTotal non-current assets | FY2023: 209,017 | FY2022: 217,350\nTotal assets | FY2023: $352,583 | FY2022: $352,755\nAccounts payable | FY2023: $62,611 | FY2022: $64,115\nOther current liabilities | FY2023: 58,829 | FY2022: 60,845\nDeferred revenue | FY2023: 8,061 | FY2022: 7,912\nCommercial paper | FY2023: 5,985 | FY2022: 9,982\nTerm debt | FY2023: 9,822 | FY2022: 11,128\nTotal current liabilities | FY2023: 145,308 | FY2022: 153,982\nTerm debt | FY2023: 95,281 | FY2022: 98,959\nOther non-current liabilities | FY2023: 49,848 | FY2022: 49,142\nTotal non-current liabilities | FY2023: 145,129 | FY2022: 148,101\nTotal liabilities | FY2023: 290,437 | FY2022: 302,083\nCommon stock and additional paid-in capital, $ 0.00001 par value: 50,400,000 shares authorized; 15,550,061 and 15,943,425 shares issued and outstanding, respectively | FY2023: 73,812 | FY2022: 64,849\nAccumulated deficit | FY2023: ( 214 ) | FY2022: ( 3,068 )\nAccumulated other comprehensive loss | FY2023: ( 11,452 ) | FY2022: ( 11,109 )\nTotal shareholders’ equity | FY2023: 62,146 | FY2022: 50,672\nTotal liabilities and shareholders’ equity | FY2023: $352,583 | FY2022: $352,755 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 184,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022"
+        ],
+        "table_rows": 27,
+        "table_title": "CONSOLIDATED BALANCE SHEETS"
+      }
+    },
+    {
+      "content": "Total shareholders’ equity, beginning balances | FY2023: $50,672 | FY2022: $63,090 | FY2021: $65,339\nBeginning balances | FY2023: 64,849 | FY2022: 57,365 | FY2021: 50,779\nCommon stock issued | FY2023: 1,346 | FY2022: 1,175 | FY2021: 1,105\nCommon stock withheld related to net share settlement of equity awards | FY2023: ( 3,521 ) | FY2022: ( 2,971 ) | FY2021: ( 2,627 )\nShare-based compensation | FY2023: 11,138 | FY2022: 9,280 | FY2021: 8,108\nEnding balances | FY2023: 73,812 | FY2022: 64,849 | FY2021: 57,365\nBeginning balances | FY2023: ( 3,068 ) | FY2022: 5,562 | FY2021: 14,966\nNet income | FY2023: 96,995 | FY2022: 99,803 | FY2021: 94,680\nDividends and dividend equivalents declared | FY2023: ( 14,996 ) | FY2022: ( 14,793 ) | FY2021: ( 14,431 )\nCommon stock withheld related to net share settlement of equity awards | FY2023: ( 2,099 ) | FY2022: ( 3,454 ) | FY2021: ( 4,151 )\nCommon stock repurchased | FY2023: ( 77,046 ) | FY2022: ( 90,186 ) | FY2021: ( 85,502 )\nEnding balances | FY2023: ( 214 ) | FY2022: ( 3,068 ) | FY2021: 5,562\nBeginning balances | FY2023: ( 11,109 ) | FY2022: 163 | FY2021: ( 406 )\nOther comprehensive income/(loss) | FY2023: ( 343 ) | FY2022: ( 11,272 ) | FY2021: 569\nEnding balances | FY2023: ( 11,452 ) | FY2022: ( 11,109 ) | FY2021: 163\nTotal shareholders’ equity, ending balances | FY2023: $62,146 | FY2022: $50,672 | FY2021: $63,090\nDividends and dividend equivalents declared per share or RSU | FY2023: $0.94 | FY2022: $0.90 | FY2021: $0.85 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 185,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 17,
+        "table_title": "CONSOLIDATED STATEMENTS OF SHAREHOLDERS’ EQUITY"
+      }
+    },
+    {
+      "content": "Cash, cash equivalents and restricted cash, beginning balances | FY2023: $24,977 | FY2022: $35,929 | FY2021: $39,789\nNet income | FY2023: 96,995 | FY2022: 99,803 | FY2021: 94,680\nDepreciation and amortization | FY2023: 11,519 | FY2022: 11,104 | FY2021: 11,284\nShare-based compensation expense | FY2023: 10,833 | FY2022: 9,038 | FY2021: 7,906\nOther | FY2023: ( 2,227 ) | FY2022: 1,006 | FY2021: ( 4,921 )\nAccounts receivable, net | FY2023: ( 1,688 ) | FY2022: ( 1,823 ) | FY2021: ( 10,125 )\nVendor non-trade receivables | FY2023: 1,271 | FY2022: ( 7,520 ) | FY2021: ( 3,903 )\nInventories | FY2023: ( 1,618 ) | FY2022: 1,484 | FY2021: ( 2,642 )\nOther current and non-current assets | FY2023: ( 5,684 ) | FY2022: ( 6,499 ) | FY2021: ( 8,042 )\nAccounts payable | FY2023: ( 1,889 ) | FY2022: 9,448 | FY2021: 12,326\nOther current and non-current liabilities | FY2023: 3,031 | FY2022: 6,110 | FY2021: 7,475\nCash generated by operating activities | FY2023: 110,543 | FY2022: 122,151 | FY2021: 104,038\nPurchases of marketable securities | FY2023: ( 29,513 ) | FY2022: ( 76,923 ) | FY2021: ( 109,558 )\nProceeds from maturities of marketable securities | FY2023: 39,686 | FY2022: 29,917 | FY2021: 59,023\nProceeds from sales of marketable securities | FY2023: 5,828 | FY2022: 37,446 | FY2021: 47,460\nPayments for acquisition of property, plant and equipment | FY2023: ( 10,959 ) | FY2022: ( 10,708 ) | FY2021: ( 11,085 )\nOther | FY2023: ( 1,337 ) | FY2022: ( 2,086 ) | FY2021: ( 385 )\nCash generated by/(used in) investing activities | FY2023: 3,705 | FY2022: ( 22,354 ) | FY2021: ( 14,545 )\nPayments for taxes related to net share settlement of equity awards | FY2023: ( 5,431 ) | FY2022: ( 6,223 ) | FY2021: ( 6,556 )\nPayments for dividends and dividend equivalents | FY2023: ( 15,025 ) | FY2022: ( 14,841 ) | FY2021: ( 14,467 )\nRepurchases of common stock | FY2023: ( 77,550 ) | FY2022: ( 89,402 ) | FY2021: ( 85,971 )\nProceeds from issuance of term debt, net | FY2023: 5,228 | FY2022: 5,465 | FY2021: 20,393\nRepayments of term debt | FY2023: ( 11,151 ) | FY2022: ( 9,543 ) | FY2021: ( 8,750 )\nProceeds from/(Repayments of) commercial paper, net | FY2023: ( 3,978 ) | FY2022: 3,955 | FY2021: 1,022\nOther | FY2023: ( 581 ) | FY2022: ( 160 ) | FY2021: 976\nCash used in financing activities | FY2023: ( 108,488 ) | FY2022: ( 110,749 ) | FY2021: ( 93,353 )\nIncrease/(Decrease) in cash, cash equivalents and restricted cash | FY2023: 5,760 | FY2022: ( 10,952 ) | FY2021: ( 3,860 )\nCash, cash equivalents and restricted cash, ending balances | FY2023: $30,737 | FY2022: $24,977 | FY2021: $35,929\nCash paid for income taxes, net | FY2023: $18,679 | FY2022: $19,573 | FY2021: $25,385\nCash paid for interest | FY2023: $3,803 | FY2022: $2,865 | FY2021: $2,687 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 186,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 30,
+        "table_title": "CONSOLIDATED STATEMENTS OF CASH FLOWS"
+      }
+    },
+    {
+      "content": "iPhone (1) | FY2023: $200,583 | FY2022: $205,489 | FY2021: $191,973\nMac (1) | FY2023: 29,357 | FY2022: 40,177 | FY2021: 35,190\niPad (1) | FY2023: 28,300 | FY2022: 29,292 | FY2021: 31,862\nWearables, Home and Accessories (1) | FY2023: 39,845 | FY2022: 41,241 | FY2021: 38,367\nServices (2) | FY2023: 85,200 | FY2022: 78,129 | FY2021: 68,425\nTotal net sales | FY2023: $383,285 | FY2022: $394,328 | FY2021: $365,817 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 187,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 6,
+        "table_title": "Apple Inc. | 2023 Form 10-K | 34"
+      }
+    },
+    {
+      "content": "Net income | FY2023: $96,995 | FY2022: $99,803 | FY2021: $94,680\nWeighted-average basic shares outstanding | FY2023: 15,744,231 | FY2022: 16,215,963 | FY2021: 16,701,272\nEffect of dilutive share-based awards | FY2023: 68,316 | FY2022: 109,856 | FY2021: 163,647\nWeighted-average diluted shares | FY2023: 15,812,547 | FY2022: 16,325,819 | FY2021: 16,864,919\nBasic earnings per share | FY2023: $6.16 | FY2022: $6.15 | FY2021: $5.67\nDiluted earnings per share | FY2023: $6.13 | FY2022: $6.11 | FY2021: $5.61 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 188,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 6,
+        "table_title": "Earnings Per Share"
+      }
+    },
+    {
+      "content": "Adjusted Cost | Unrealized Gains | Unrealized Losses | Fair Value | Cash and Cash Equivalents | Current Marketable Securities | Non-Current Marketable Securities\nCash | $28,359 | $ | — | $ | — | $28,359 | $28,359 | $ | — | $ | —\nMoney market funds | 481 | — | — | 481 | 481 | — | —\nMutual funds and equity securities | 442 | 12 | ( 26 ) | 428 | — | 428 | —\nSubtotal | 923 | 12 | ( 26 ) | 909 | 481 | 428 | —\nU.S. Treasury securities | 19,406 | — | ( 1,292 ) | 18,114 | 35 | 5,468 | 12,611\nU.S. agency securities | 5,736 | — | ( 600 ) | 5,136 | 36 | 271 | 4,829\nNon-U.S. government securities | 17,533 | 6 | ( 1,048 ) | 16,491 | — | 11,332 | 5,159\nCertificates of deposit and time deposits | 1,354 | — | — | 1,354 | 1,034 | 320 | —\nCommercial paper | 608 | — | — | 608 | — | 608 | —\nCorporate debt securities | 76,840 | 6 | ( 5,956 ) | 70,890 | 20 | 12,627 | 58,243\nMunicipal securities | 628 | — | ( 26 ) | 602 | — | 192 | 410\nMortgage- and asset-backed securities | 22,365 | 6 | ( 2,735 ) | 19,636 | — | 344 | 19,292\nSubtotal | 144,470 | 18 | ( 11,657 ) | 132,831 | 1,125 | 31,162 | 100,544\nTotal (2) | $173,752 | $30 | $ | ( 11,683 ) | $162,099 | $29,965 | $31,590 | $100,544 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 189,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [],
+        "table_rows": 15,
+        "table_title": "Cash, Cash Equivalents and Marketable Securities"
+      }
+    },
+    {
+      "content": "Adjusted Cost | Unrealized Gains | Unrealized Losses | Fair Value | Cash and Cash Equivalents | Current Marketable Securities | Non-Current Marketable Securities\nCash | $18,546 | $ | — | $ | — | $18,546 | $18,546 | $ | — | $ | —\nMoney market funds | 2,929 | — | — | 2,929 | 2,929 | — | —\nMutual funds | 274 | — | ( 47 ) | 227 | — | 227 | —\nSubtotal | 3,203 | — | ( 47 ) | 3,156 | 2,929 | 227 | —\nU.S. Treasury securities | 25,134 | — | ( 1,725 ) | 23,409 | 338 | 5,091 | 17,980\nU.S. agency securities | 5,823 | — | ( 655 ) | 5,168 | — | 240 | 4,928\nNon-U.S. government securities | 16,948 | 2 | ( 1,201 ) | 15,749 | — | 8,806 | 6,943\nCertificates of deposit and time deposits | 2,067 | — | — | 2,067 | 1,805 | 262 | —\nCommercial paper | 718 | — | — | 718 | 28 | 690 | —\nCorporate debt securities | 87,148 | 9 | ( 7,707 ) | 79,450 | — | 9,023 | 70,427\nMunicipal securities | 921 | — | ( 35 ) | 886 | — | 266 | 620\nMortgage- and asset-backed securities | 22,553 | — | ( 2,593 ) | 19,960 | — | 53 | 19,907\nSubtotal | 161,312 | 11 | ( 13,916 ) | 147,407 | 2,171 | 24,431 | 120,805\nTotal (2) | $183,061 | $11 | $ | ( 13,963 ) | $169,109 | $23,646 | $24,658 | $120,805",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 190,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": null,
+        "table_headers": [],
+        "table_rows": 15,
+        "table_title": "100,544"
+      }
+    },
+    {
+      "content": "Due after 1 year through 5 years | $74,427\nDue after 5 years through 10 years | 9,964\nDue after 10 years | 16,153\nTotal fair value | $100,544 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 191,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [],
+        "table_rows": 4,
+        "table_title": "Apple Inc. | 2023 Form 10-K | 36"
+      }
+    },
+    {
+      "content": "Foreign exchange contracts | FY2023: $74,730 | FY2022: $102,670\nInterest rate contracts | FY2023: $19,375 | FY2022: $20,125\nForeign exchange contracts | FY2023: $104,777 | FY2022: $185,381 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 192,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022"
+        ],
+        "table_rows": 3,
+        "table_title": "Interest Rate Risk"
+      }
+    },
+    {
+      "content": "Fair Value of Derivatives Designated as Accounting Hedges | Fair Value of Derivatives Not Designated as Accounting Hedges | Total Fair Value\nForeign exchange contracts | $4,317 | $2,819 | $7,136\nForeign exchange contracts | $2,205 | $2,547 | $4,752\nInterest rate contracts | $1,367 | $ | — | $1,367 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 193,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [],
+        "table_rows": 4,
+        "table_title": "Apple Inc. | 2023 Form 10-K | 37"
+      }
+    },
+    {
+      "content": "Current and non-current marketable securities | FY2023: $14,433 | FY2022: $13,378\nCurrent and non-current term debt | FY2023: $ | FY2022: ( 18,247 ) | value 3: $ | value 4: ( 18,739 ) (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 194,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022"
+        ],
+        "table_rows": 2,
+        "table_title": "million."
+      }
+    },
+    {
+      "content": "Land and buildings | FY2023: $23,446 | FY2022: $22,126\nMachinery, equipment and internal-use software | FY2023: 78,314 | FY2022: 81,060\nLeasehold improvements | FY2023: 12,839 | FY2022: 11,271\nGross property, plant and equipment | FY2023: 114,599 | FY2022: 114,457\nAccumulated depreciation | FY2023: ( 70,884 ) | FY2022: ( 72,340 )\nTotal property, plant and equipment, net | FY2023: $43,715 | FY2022: $42,117 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 195,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022"
+        ],
+        "table_rows": 6,
+        "table_title": "Property, Plant and Equipment"
+      }
+    },
+    {
+      "content": "Deferred tax assets | FY2023: $17,852 | FY2022: $15,375\nOther non-current assets | FY2023: 46,906 | FY2022: 39,053\nTotal other non-current assets | FY2023: $64,758 | FY2022: $54,428 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 196,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022"
+        ],
+        "table_rows": 3,
+        "table_title": "Other Non-Current Assets"
+      }
+    },
+    {
+      "content": "Income taxes payable | FY2023: $8,819 | FY2022: $6,552\nOther current liabilities | FY2023: 50,010 | FY2022: 54,293\nTotal other current liabilities | FY2023: $58,829 | FY2022: $60,845 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 197,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022"
+        ],
+        "table_rows": 3,
+        "table_title": "Other Current Liabilities"
+      }
+    },
+    {
+      "content": "Long-term taxes payable | FY2023: $15,457 | FY2022: $16,657\nOther non-current liabilities | FY2023: 34,391 | FY2022: 32,485\nTotal other non-current liabilities | FY2023: $49,848 | FY2022: $49,142",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 198,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": null,
+        "table_headers": [
+          "FY2023",
+          "FY2022"
+        ],
+        "table_rows": 3,
+        "table_title": "Other Non-Current Liabilities"
+      }
+    },
+    {
+      "content": "Interest and dividend income | FY2023: $3,750 | FY2022: $2,825 | FY2021: $2,843\nInterest expense | FY2023: ( 3,933 ) | FY2022: ( 2,931 ) | FY2021: ( 2,645 )\nOther income/(expense), net | FY2023: ( 382 ) | FY2022: ( 228 ) | FY2021: 60\nTotal other income/(expense), net | FY2023: $ | FY2022: ( 565 ) | FY2021: $ | value 4: ( 334 ) | value 5: $258 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 199,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 4,
+        "table_title": "Other Income/(Expense), Net"
+      }
+    },
+    {
+      "content": "Current | FY2023: $9,445 | FY2022: $7,890 | FY2021: $8,257\nDeferred | FY2023: ( 3,644 ) | FY2022: ( 2,265 ) | FY2021: ( 7,176 )\nTotal | FY2023: 5,801 | FY2022: 5,625 | FY2021: 1,081\nCurrent | FY2023: 1,570 | FY2022: 1,519 | FY2021: 1,620\nDeferred | FY2023: ( 49 ) | FY2022: 84 | FY2021: ( 338 )\nTotal | FY2023: 1,521 | FY2022: 1,603 | FY2021: 1,282\nCurrent | FY2023: 8,750 | FY2022: 8,996 | FY2021: 9,424\nDeferred | FY2023: 669 | FY2022: 3,076 | FY2021: 2,740\nTotal | FY2023: 9,419 | FY2022: 12,072 | FY2021: 12,164\nProvision for income taxes | FY2023: $16,741 | FY2022: $19,300 | FY2021: $14,527 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 200,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 10,
+        "table_title": "Provision for Income Taxes and Effective Tax Rate"
+      }
+    },
+    {
+      "content": "Computed expected tax | FY2023: $23,885 | FY2022: $25,012 | FY2021: $22,933\nState taxes, net of federal effect | FY2023: 1,124 | FY2022: 1,518 | FY2021: 1,151\nEarnings of foreign subsidiaries | FY2023: ( 5,744 ) | FY2022: ( 4,366 ) | FY2021: ( 4,715 )\nResearch and development credit, net | FY2023: ( 1,212 ) | FY2022: ( 1,153 ) | FY2021: ( 1,033 )\nExcess tax benefits from equity awards | FY2023: ( 1,120 ) | FY2022: ( 1,871 ) | FY2021: ( 2,137 )\nForeign-derived intangible income deduction | FY2023: — | FY2022: ( 296 ) | FY2021: ( 1,372 )\nOther | FY2023: ( 192 ) | FY2022: 456 | FY2021: ( 300 )\nProvision for income taxes | FY2023: $16,741 | FY2022: $19,300 | FY2021: $14,527\nEffective tax rate | FY2023: 14.7 | FY2022: % | FY2021: 16.2 | value 4: % | value 5: 13.3 | value 6: % (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 201,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 9,
+        "table_title": "billion in 2023, 2022 and 2021, respectively."
+      }
+    },
+    {
+      "content": "Tax credit carryforwards | FY2023: $8,302 | FY2022: $6,962\nAccrued liabilities and other reserves | FY2023: 6,365 | FY2022: 6,515\nCapitalized research and development | FY2023: 6,294 | FY2022: 1,267\nDeferred revenue | FY2023: 4,571 | FY2022: 5,742\nUnrealized losses | FY2023: 2,447 | FY2022: 2,913\nLease liabilities | FY2023: 2,421 | FY2022: 2,400\nOther | FY2023: 2,343 | FY2022: 3,407\nTotal deferred tax assets | FY2023: 32,743 | FY2022: 29,206\nLess: Valuation allowance | FY2023: ( 8,374 ) | FY2022: ( 7,530 )\nTotal deferred tax assets, net | FY2023: 24,369 | FY2022: 21,676\nRight-of-use assets | FY2023: 2,179 | FY2022: 2,163\nDepreciation | FY2023: 1,998 | FY2022: 1,582\nMinimum tax on foreign earnings | FY2023: 1,940 | FY2022: 1,983\nUnrealized gains | FY2023: 511 | FY2022: 942\nOther | FY2023: 490 | FY2022: 469\nTotal deferred tax liabilities | FY2023: 7,118 | FY2022: 7,139\nNet deferred tax assets | FY2023: $17,251 | FY2022: $14,537 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 202,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022"
+        ],
+        "table_rows": 17,
+        "table_title": "Deferred Tax Assets and Liabilities"
+      }
+    },
+    {
+      "content": "Beginning balances | FY2023: $16,758 | FY2022: $15,477 | FY2021: $16,475\nIncreases related to tax positions taken during a prior year | FY2023: 2,044 | FY2022: 2,284 | FY2021: 816\nDecreases related to tax positions taken during a prior year | FY2023: ( 1,463 ) | FY2022: ( 1,982 ) | FY2021: ( 1,402 )\nIncreases related to tax positions taken during the current year | FY2023: 2,628 | FY2022: 1,936 | FY2021: 1,607\nDecreases related to settlements with taxing authorities | FY2023: ( 19 ) | FY2022: ( 28 ) | FY2021: ( 1,838 )\nDecreases related to expiration of the statute of limitations | FY2023: ( 494 ) | FY2022: ( 929 ) | FY2021: ( 181 )\nEnding balances | FY2023: $19,454 | FY2022: $16,758 | FY2021: $15,477 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 203,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 7,
+        "table_title": "billion, if recognized, would have impacted the Company’s effective tax rate."
+      }
+    },
+    {
+      "content": "Operating leases | Financial Statement Line Items: Other non-current assets | FY2023: $10,661 | FY2022: $10,417\nFinance leases | Financial Statement Line Items: Property, plant and equipment, net | FY2023: 1,015 | FY2022: 952\nTotal right-of-use assets | Financial Statement Line Items: $11,676 | FY2023: $11,369\nOperating leases | Financial Statement Line Items: Other current liabilities | FY2023: $1,410 | FY2022: $1,534\nOther non-current liabilities | Financial Statement Line Items: 10,408 | FY2023: 9,936\nFinance leases | Financial Statement Line Items: Other current liabilities | FY2023: 165 | FY2022: 129\nOther non-current liabilities | Financial Statement Line Items: 859 | FY2023: 812\nTotal lease liabilities | Financial Statement Line Items: $12,842 | FY2023: $12,411 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 204,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "Financial Statement Line Items",
+          "FY2023",
+          "FY2022"
+        ],
+        "table_rows": 8,
+        "table_title": "billion for 2023, 2022 and 2021, respectively."
+      }
+    },
+    {
+      "content": "2024 | Finance Leases: $1,719 | Total: $196 | value 3: $1,915\n2025 | Finance Leases: 1,875 | Total: 151 | value 3: 2,026\n2026 | Finance Leases: 1,732 | Total: 120 | value 3: 1,852\n2027 | Finance Leases: 1,351 | Total: 52 | value 3: 1,403\n2028 | Finance Leases: 1,181 | Total: 34 | value 3: 1,215\nThereafter | Finance Leases: 5,983 | Total: 872 | value 3: 6,855\nTotal undiscounted liabilities | Finance Leases: 13,841 | Total: 1,425 | value 3: 15,266\nLess: Imputed interest | Finance Leases: ( 2,023 ) | Total: ( 401 ) | value 3: ( 2,424 )\nTotal lease liabilities | Finance Leases: $11,818 | Total: $1,024 | value 3: $12,842 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 205,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "Finance Leases",
+          "Total"
+        ],
+        "table_rows": 9,
+        "table_title": "Apple Inc. | 2023 Form 10-K | 42"
+      }
+    },
+    {
+      "content": "Proceeds from/(Repayments of) commercial paper, net | FY2023: $ | FY2022: ( 1,333 ) | FY2021: $5,264 | value 4: $ | value 5: ( 357 )\nProceeds from commercial paper | FY2023: — | FY2022: 5,948 | FY2021: 7,946\nRepayments of commercial paper | FY2023: ( 2,645 ) | FY2022: ( 7,257 ) | FY2021: ( 6,567 )\nProceeds from/(Repayments of) commercial paper, net | FY2023: ( 2,645 ) | FY2022: ( 1,309 ) | FY2021: 1,379\nTotal proceeds from/(repayments of) commercial paper, net | FY2023: $ | FY2022: ( 3,978 ) | FY2021: $3,955 | value 4: $1,022 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 206,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 5,
+        "table_title": "% as of September 30, 2023 and September 24, 2022, respectively."
+      }
+    },
+    {
+      "content": "Amount (in millions) | FY2023: Effective Interest Rate | FY2022: Amount (in millions) | value 3: Effective Interest Rate\nFixed-rate 0.000 % – 4.650 % notes | FY2023: 2024 – 2062 | FY2022: $101,322 | value 3: 0.03 % – 6.72 % | value 4: $111,824 | value 5: 0.03 % – 4.78 %\nFixed-rate 4.000 % – 4.850 % notes | FY2023: 2026 – 2053 | FY2022: 5,250 | value 3: 4.04 % – 4.88 % | value 4: —\nTotal term debt principal | FY2023: 106,572 | FY2022: 111,824\nUnamortized premium/(discount) and issuance costs, net | FY2023: ( 356 ) | FY2022: ( 374 )\nHedge accounting fair value adjustments | FY2023: ( 1,113 ) | FY2022: ( 1,363 )\nTotal term debt | FY2023: 105,103 | FY2022: 110,087\nLess: Current portion of term debt | FY2023: ( 9,822 ) | FY2022: ( 11,128 )\nTotal non-current portion of term debt | FY2023: $95,281 | FY2022: $98,959 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 207,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022"
+        ],
+        "table_rows": 9,
+        "table_title": "The following table provides a summary of the Company’s term debt as of September 30, 2023 and September 24, 2022:"
+      }
+    },
+    {
+      "content": "2024 | $9,943\n2025 | 10,775\n2026 | 12,265\n2027 | 9,786\n2028 | 7,800\nThereafter | 56,003\nTotal term debt principal | $106,572 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 208,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [],
+        "table_rows": 7,
+        "table_title": "billion of interest expense on its term debt for 2023, 2022 and 2021, respectively."
+      }
+    },
+    {
+      "content": "Common stock outstanding, beginning balances | FY2023: 15,943,425 | FY2022: 16,426,786 | FY2021: 16,976,763\nCommon stock repurchased | FY2023: ( 471,419 ) | FY2022: ( 568,589 ) | FY2021: ( 656,340 )\nCommon stock issued, net of shares withheld for employee taxes | FY2023: 78,055 | FY2022: 85,228 | FY2021: 106,363\nCommon stock outstanding, ending balances | FY2023: 15,550,061 | FY2022: 15,943,425 | FY2021: 16,426,786 (USD thousands)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 209,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "thousands",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 4,
+        "table_title": "Shares of Common Stock"
+      }
+    },
+    {
+      "content": "Balance as of September 26, 2020 | Weighted-Average Grant Date Fair Value Per RSU: 310,778 | Aggregate Fair Value (in millions): $51.58\nRSUs granted | Weighted-Average Grant Date Fair Value Per RSU: 89,363 | Aggregate Fair Value (in millions): $116.33\nRSUs vested | Weighted-Average Grant Date Fair Value Per RSU: ( 145,766 ) | Aggregate Fair Value (in millions): $50.71\nRSUs canceled | Weighted-Average Grant Date Fair Value Per RSU: ( 13,948 ) | Aggregate Fair Value (in millions): $68.95\nBalance as of September 25, 2021 | Weighted-Average Grant Date Fair Value Per RSU: 240,427 | Aggregate Fair Value (in millions): $75.16\nRSUs granted | Weighted-Average Grant Date Fair Value Per RSU: 91,674 | Aggregate Fair Value (in millions): $150.70\nRSUs vested | Weighted-Average Grant Date Fair Value Per RSU: ( 115,861 ) | Aggregate Fair Value (in millions): $72.12\nRSUs canceled | Weighted-Average Grant Date Fair Value Per RSU: ( 14,739 ) | Aggregate Fair Value (in millions): $99.77\nBalance as of September 24, 2022 | Weighted-Average Grant Date Fair Value Per RSU: 201,501 | Aggregate Fair Value (in millions): $109.48\nRSUs granted | Weighted-Average Grant Date Fair Value Per RSU: 88,768 | Aggregate Fair Value (in millions): $150.87\nRSUs vested | Weighted-Average Grant Date Fair Value Per RSU: ( 101,878 ) | Aggregate Fair Value (in millions): $97.31\nRSUs canceled | Weighted-Average Grant Date Fair Value Per RSU: ( 8,144 ) | Aggregate Fair Value (in millions): $127.98\nBalance as of September 30, 2023 | Weighted-Average Grant Date Fair Value Per RSU: 180,247 | Aggregate Fair Value (in millions): $135.91 | value 3: $30,860 (USD thousands)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 210,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "thousands",
+        "table_headers": [
+          "Weighted-Average Grant Date Fair Value Per RSU",
+          "Aggregate Fair Value (in millions)"
+        ],
+        "table_rows": 13,
+        "table_title": "A summary of the Company’s RSU activity and related information for 2023, 2022 and 2021, is as follows:"
+      }
+    },
+    {
+      "content": "Share-based compensation expense | FY2023: $10,833 | FY2022: $9,038 | FY2021: $7,906\nIncome tax benefit related to share-based compensation expense | FY2023: $ | FY2022: ( 3,421 ) | FY2021: $ | value 4: ( 4,002 ) | value 5: $ | value 6: ( 4,056 ) (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 211,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 2,
+        "table_title": "Share-Based Compensation"
+      }
+    },
+    {
+      "content": "2024 | $4,258\n2025 | 2,674\n2026 | 3,434\n2027 | 1,277\n2028 | 5,878\nThereafter | 3,215\nTotal | $20,736 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 212,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [],
+        "table_rows": 7,
+        "table_title": "Unconditional Purchase Obligations"
+      }
+    },
+    {
+      "content": "Net sales | FY2023: $162,560 | FY2022: $169,658 | FY2021: $153,306\nOperating income | FY2023: $60,508 | FY2022: $62,683 | FY2021: $53,382\nNet sales | FY2023: $94,294 | FY2022: $95,118 | FY2021: $89,307\nOperating income | FY2023: $36,098 | FY2022: $35,233 | FY2021: $32,505\nNet sales | FY2023: $72,559 | FY2022: $74,200 | FY2021: $68,366\nOperating income | FY2023: $30,328 | FY2022: $31,153 | FY2021: $28,504\nNet sales | FY2023: $24,257 | FY2022: $25,977 | FY2021: $28,482\nOperating income | FY2023: $11,888 | FY2022: $12,257 | FY2021: $12,798\nNet sales | FY2023: $29,615 | FY2022: $29,375 | FY2021: $26,356\nOperating income | FY2023: $12,066 | FY2022: $11,569 | FY2021: $9,817 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 213,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 10,
+        "table_title": "Segment Information and Geographic Data"
+      }
+    },
+    {
+      "content": "Segment operating income | FY2023: $150,888 | FY2022: $152,895 | FY2021: $137,006\nResearch and development expense | FY2023: ( 29,915 ) | FY2022: ( 26,251 ) | FY2021: ( 21,914 )\nOther corporate expenses, net (1) | FY2023: ( 6,672 ) | FY2022: ( 7,207 ) | FY2021: ( 6,143 )\nTotal operating income | FY2023: $114,301 | FY2022: $119,437 | FY2021: $108,949 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 214,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 4,
+        "table_title": "9,817"
+      }
+    },
+    {
+      "content": "U.S. | FY2023: $138,573 | FY2022: $147,859 | FY2021: $133,803\nChina (1) | FY2023: 72,559 | FY2022: 74,200 | FY2021: 68,366\nOther countries | FY2023: 172,153 | FY2022: 172,269 | FY2021: 163,648\nTotal net sales | FY2023: $383,285 | FY2022: $394,328 | FY2021: $365,817 (USD millions)",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 215,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": "millions",
+        "table_headers": [
+          "FY2023",
+          "FY2022",
+          "FY2021"
+        ],
+        "table_rows": 4,
+        "table_title": "Apple Inc. | 2023 Form 10-K | 47"
+      }
+    },
+    {
+      "content": "U.S. | FY2023: $33,276 | FY2022: $31,119\nChina (1) | FY2023: 5,778 | FY2022: 7,260\nOther countries | FY2023: 4,661 | FY2022: 3,738\nTotal long-lived assets | FY2023: $43,715 | FY2022: $42,117",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 216,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": null,
+        "table_headers": [
+          "FY2023",
+          "FY2022"
+        ],
+        "table_rows": 4,
+        "table_title": "365,817"
+      }
+    },
+    {
+      "content": "Description of the Matter | As discussed in Note 7 to the financial statements, Apple Inc. is subject to taxation and files income tax returns in the U.S. federal jurisdiction and many state and foreign jurisdictions. As of September 30, 2023, the total amount of gross unrecognized tax benefits was $ 19.5 billion, of which $ 9.5 billion, if recognized, would impact Apple Inc.’s effective tax rate. In accounting for some of the uncertain tax positions, Apple Inc. uses significant judgment in the interpretation and application of complex domestic and international tax laws. Auditing management’s evaluation of whether an uncertain tax position is more likely than not to be sustained and the measurement of the benefit of various tax positions can be complex, involves significant judgment, and is based on interpretations of tax laws and legal rulings.",
+      "metadata": {
+        "source_file": "aapl-10K2.html",
+        "ticker": "aapl",
+        "filing_type": "10-K",
+        "fiscal_period": "FY2023",
+        "filename": null,
+        "section": "Item 8 Financial Statements",
+        "chunk_index": 217,
+        "char_offset": 494351,
+        "chunk_type": "table",
+        "unit_scale": null,
+        "table_headers": [],
+        "table_rows": 1,
+        "table_title": "Critical Audit Matter"
       }
     }
   ]

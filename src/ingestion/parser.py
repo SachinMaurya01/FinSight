@@ -24,12 +24,17 @@ _SECTION_MARKERS: dict[str, re.Pattern[str]] = {
     "Item 7 MD&A": re.compile(r"Item\s*7\s*\." + _SPACING + r"Management", re.IGNORECASE),
     # Matches "Item 7A." heading to find MD&A section end.
     "Item 7A Market Risk": re.compile(r"Item\s*7A\s*\.", re.IGNORECASE),
+    # Matches "Item 8. Financial Statements ..." heading to find the statements/notes start.
+    "Item 8 Financial Statements": re.compile(r"Item\s*8\s*\." + _SPACING + r"Financial Statements", re.IGNORECASE),
+    # Matches "Item 9. Changes ..." heading to find the financial-statements section end.
+    "Item 9 Changes": re.compile(r"Item\s*9\s*\." + _SPACING + r"Changes", re.IGNORECASE),
 }
 
 # (section_label, start_marker, end_marker) in document order.
 _SECTIONS: list[tuple[str, str, str]] = [
     ("Item 1A Risk Factors", "Item 1A Risk Factors", "Item 1B Unresolved Staff Comments"),
     ("Item 7 MD&A", "Item 7 MD&A", "Item 7A Market Risk"),
+    ("Item 8 Financial Statements", "Item 8 Financial Statements", "Item 9 Changes"),
 ]
 
 # Extracts <type> value (e.g. 10-K) from EDGAR <document> block.
@@ -51,6 +56,42 @@ _COVER_FISCAL_YEAR_END_RE = re.compile(
 
 
 @dataclass(frozen=True)
+class ParsedTable:
+    """A structured HTML table extracted from a filing section."""
+
+    section: str
+    headers: tuple[str, ...]
+    rows: tuple[tuple[str, ...], ...]
+    unit_scale: str | None
+    char_offset: int
+    title: str | None = None
+
+    @property
+    def row_count(self) -> int:
+        return len(self.rows)
+
+    def to_text(self) -> str:
+        """Serialize rows with header context, preserving one table as one chunk."""
+        lines: list[str] = []
+        for row in self.rows:
+            if self.headers and len(row) > 1:
+                parts = [row[0]]
+                for index, cell in enumerate(row[1:]):
+                    if not cell:
+                        continue
+                    header = self.headers[index] if index < len(self.headers) else f"value {index + 1}"
+                    parts.append(f"{header}: {cell}")
+                if len(parts) > 1:
+                    lines.append(" | ".join(parts))
+            elif len(row) > 1:
+                lines.append(" | ".join(cell for cell in row if cell))
+        if not lines:
+            return ""
+        suffix = f" (USD {self.unit_scale})" if self.unit_scale else ""
+        return "\n".join(lines) + suffix
+
+
+@dataclass(frozen=True)
 class ParsedSection:
     """A single extracted section from a filing."""
 
@@ -58,6 +99,7 @@ class ParsedSection:
     text: str
     char_offset: int
     word_count: int
+    tables: list[ParsedTable] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
@@ -91,15 +133,19 @@ def _last_match(pattern: re.Pattern[str], text: str) -> re.Match[str] | None:
     return matches[-1] if matches else None
 
 
-def _clean_text(fragment: str) -> str:
+def _clean_text(fragment: str, *, drop_tables: bool = False) -> str:
     """Extract plain text from an HTML fragment, preserving paragraph breaks.
 
     Block-level elements (``div``/``p``/``li``/headers/``br``) become ``\\n\\n``
     paragraph separators; inline elements (``font``/``span``) are flattened with
     single spaces. Paragraph breaks give the chunker sane boundaries to split on
-    instead of mid-sentence.
+    instead of mid-sentence. Set ``drop_tables`` when tables are extracted
+    separately as structured chunks.
     """
     soup = BeautifulSoup(fragment, "html.parser")
+    if drop_tables:
+        for table in soup.find_all("table"):
+            table.decompose()
     tokens: list[str | None] = []
     _collect_text_tokens(soup, tokens)
 
@@ -143,8 +189,134 @@ def _collect_text_tokens(node: Any, out: list[str | None]) -> None:
             _collect_text_tokens(child, out)
 
 
+_UNIT_SCALE_RE = re.compile(r"(?:in|amounts in)\s+(thousands|millions|billions)", re.IGNORECASE)
+_YEAR_RE = re.compile(r"(?:19|20)\d{2}")
+_NUMBER_RE = re.compile(r"^[$(]?[-+]?\d[\d,.]*[%)]?$")
+
+
+def _cell_text(cell: Tag) -> str:
+    return re.sub(r"\s+", " ", cell.get_text(" ", strip=True).replace("\xa0", " ")).strip()
+
+
+def _compact_cells(cells: list[str]) -> list[str]:
+    """Merge split currency/parenthesis tokens emitted by EDGAR table cells."""
+    out: list[str] = []
+    index = 0
+    while index < len(cells):
+        cell = cells[index]
+        nxt = cells[index + 1] if index + 1 < len(cells) else ""
+        if cell == "$" and _NUMBER_RE.match(nxt):
+            out.append(f"${nxt}")
+            index += 2
+            continue
+        if cell == "(" and index + 1 < len(cells):
+            if index + 2 < len(cells) and cells[index + 2] == ")":
+                out.append(f"({nxt})")
+                index += 3
+                continue
+            out.append(f"({nxt}")
+            index += 2
+            continue
+        if cell == ")" and out:
+            out[-1] = f"{out[-1]})"
+            index += 1
+            continue
+        if cell:
+            out.append(cell)
+        index += 1
+    return out
+
+
+def _normalize_header(value: str) -> str:
+    year = _YEAR_RE.search(value)
+    if year and len(value) <= 40:
+        return f"FY{year.group(0)}"
+    return value
+
+
+def _detect_unit_scale(table: Tag) -> str | None:
+    context = " ".join(str(item) for item in table.find_all_previous(string=True, limit=30))
+    context = f"{context} {table.get_text(' ', strip=True)}"
+    match = _UNIT_SCALE_RE.search(context)
+    return match.group(1).lower() if match else None
+
+
+def _parse_table(table: Tag, section: str, char_offset: int) -> ParsedTable | None:
+    raw_rows: list[list[str]] = []
+    for tr in table.find_all("tr"):
+        cells = [_cell_text(cell) for cell in tr.find_all(["th", "td"], recursive=False)]
+        cells = _compact_cells(cells)
+        if cells:
+            raw_rows.append(cells)
+    if len(raw_rows) < 2:
+        return None
+
+    header_index: int | None = None
+    headers: tuple[str, ...] = ()
+    for index, row in enumerate(raw_rows[:3]):
+        year_cells = [cell for cell in row if _YEAR_RE.search(cell)]
+        if len(year_cells) >= 2:
+            header_cells = row
+            if header_cells and not _YEAR_RE.search(header_cells[0]):
+                header_cells = header_cells[1:]
+            headers = tuple(_normalize_header(cell) for cell in header_cells)
+            header_index = index
+            break
+
+    if header_index is None:
+        first = raw_rows[0]
+        if len(first) > 1 and not any(_NUMBER_RE.match(cell) for cell in first[1:]):
+            headers = tuple(_normalize_header(cell) for cell in first)
+            if headers and not _YEAR_RE.search(headers[0]):
+                headers = headers[1:]
+            header_index = 0
+
+    data_rows = raw_rows[(header_index + 1) if header_index is not None else 0 :]
+    rows = tuple(tuple(row) for row in data_rows if len(row) > 1)
+    if not rows:
+        return None
+
+    title = None
+    for previous in table.find_all_previous(string=True, limit=10):
+        text = re.sub(r"\s+", " ", str(previous)).strip()
+        if 3 <= len(text) <= 120 and not _UNIT_SCALE_RE.search(text):
+            title = text
+            break
+
+    return ParsedTable(
+        section=section,
+        headers=headers,
+        rows=rows,
+        unit_scale=_detect_unit_scale(table),
+        char_offset=char_offset,
+        title=title,
+    )
+
+
+def _extract_tables(fragment: str, section: str, char_offset: int) -> list[ParsedTable]:
+    soup = BeautifulSoup(fragment, "html.parser")
+    tables: list[ParsedTable] = []
+    seen: set[str] = set()
+    for table in soup.find_all("table"):
+        if table.find_parent("table") is not None:
+            continue
+        parsed = _parse_table(table, section, char_offset)
+        if parsed is None:
+            continue
+        text = parsed.to_text()
+        if len(text) < 20 or text in seen:
+            continue
+        seen.add(text)
+        tables.append(parsed)
+    return tables
+
+
 def extract_section(text: str, label: str, start_name: str, end_name: str) -> ParsedSection | None:
-    """Slice ``[start_marker .. end_marker)`` out of ``text`` and extract plain text."""
+    """Slice ``[start_marker .. end_marker)`` out of ``text`` and extract plain text.
+
+    Item 8 is table-aware: its tables become structured ``ParsedTable`` objects
+    and are removed from the narrative text to avoid duplicate, rowless chunks.
+    """
     start = _last_match(_SECTION_MARKERS[start_name], text)
     if start is None:
         logger.warning("Section start marker not found for %s", label)
@@ -154,12 +326,16 @@ def extract_section(text: str, label: str, start_name: str, end_name: str) -> Pa
     if end_pos <= start.start():
         logger.warning("Section end marker precedes start for %s", label)
         return None
-    clean = _clean_text(text[start.start() : end_pos])
+    fragment = text[start.start() : end_pos]
+    table_aware = label == "Item 8 Financial Statements"
+    tables = _extract_tables(fragment, label, start.start()) if table_aware else []
+    clean = _clean_text(fragment, drop_tables=table_aware)
     return ParsedSection(
         section=label,
         text=clean,
         char_offset=start.start(),
         word_count=len(clean.split()),
+        tables=tables,
     )
 
 
@@ -205,9 +381,10 @@ def _extract_fiscal_period(html: str) -> str | None:
 
 
 def parse_edgar_html(html: str) -> ParsedDocument:
-    """Parse the full text of an EDGAR 10-K/8-K HTML document.
+    """Parse an EDGAR 10-K/8-K HTML document.
 
-    Extracts Item 1A (Risk Factors) and Item 7 (MD&A) sections only
+    Extracts Item 1A (Risk Factors), Item 7 (MD&A), and Item 8 (financial
+    statements). Item 8 tables are returned as structured ``ParsedTable`` rows.
     """
     filing_type, filename = _extract_filing_meta(html)
     warnings: list[str] = []

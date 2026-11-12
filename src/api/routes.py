@@ -71,6 +71,7 @@ def _sources(state: dict[str, Any]) -> list[str]:
     return sorted(
         {
             f"{row['ticker']} {row['filing_type']} {row['fiscal_period']} | {row['section']}"
+            + (" | table" if row.get("chunk_type") == "table" else "")
             for row in state.get("chunks", [])
         }
     )

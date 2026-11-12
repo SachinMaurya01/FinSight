@@ -23,7 +23,8 @@ def _cache_key(model: str, text: str) -> str:
     return f"finsight:emb:{model}:{h}"
 
 
-def _get_redis_client(settings: Settings):  # type: ignore[no-untyped-def]
+def get_redis_client(settings: Settings):  # type: ignore[no-untyped-def]
+    """Return a live Redis client, or ``None`` when Redis is unavailable."""
     try:
         import redis  # type: ignore[import-not-found]
 
@@ -35,6 +36,9 @@ def _get_redis_client(settings: Settings):  # type: ignore[no-untyped-def]
     except Exception as exc:
         logger.info("Redis unavailable (%s), using in-memory cache", exc)
         return None
+
+
+_get_redis_client = get_redis_client
 
 
 def get_cached_embedding(model: str, text: str, settings: Settings) -> list[float] | None:

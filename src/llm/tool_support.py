@@ -72,8 +72,9 @@ def _messages_from_prompt(prompt: str) -> list[SystemMessage | HumanMessage]:
     system = SystemMessage(
         content=(
             "You are a financial research assistant. Use the provided context and "
-            "available tools to answer. If the question asks for a live price, P/E ratio, "
-            "growth rate or margin that requires live data, call the appropriate tool. "
+            "available tools to answer. If the question asks for a live price, call the "
+            "price tool. Do not estimate or calculate P/E from EPS quoted in prose: the "
+            "pipeline computes P/E from SEC XBRL TTM diluted EPS after your answer. "
             "Cite passage numbers for filing-grounded claims."
         )
     )

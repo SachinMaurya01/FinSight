@@ -49,6 +49,8 @@ _INSERT_CHUNK_SQL = text("""
 
 _SIMILARITY_SQL = text("""
     SELECT content, ticker, filing_type, fiscal_period, section, source_doc, chunk_index,
+           COALESCE(metadata->>'chunk_type', 'text') AS chunk_type,
+           metadata->>'unit_scale' AS unit_scale,
            1 - (embedding <=> CAST(:query AS vector)) AS score
     FROM chunks
     ORDER BY embedding <=> CAST(:query AS vector)
