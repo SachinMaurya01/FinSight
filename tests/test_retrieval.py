@@ -47,10 +47,7 @@ class FakeEmbedder:
 
 
 def make_chunks(n: int) -> list[Chunk]:
-    return [
-        Chunk(content=f"synthetic chunk number {i}", metadata={"chunk_index": i})
-        for i in range(n)
-    ]
+    return [Chunk(content=f"synthetic chunk number {i}", metadata={"chunk_index": i}) for i in range(n)]
 
 
 def test_embed_chunks_batching() -> None:

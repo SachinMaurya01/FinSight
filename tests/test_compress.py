@@ -25,10 +25,7 @@ class _FakeEmbedder:
     """Sentence embeddings: high similarity to query when 'risk' is present, else zero."""
 
     def embed_texts(self, texts):
-        return [
-            [1.0, 0.0] if "risk" in t else [0.0, 0.0]
-            for t in texts
-        ]
+        return [[1.0, 0.0] if "risk" in t else [0.0, 0.0] for t in texts]
 
 
 def test_split_sentences() -> None:
@@ -45,7 +42,7 @@ def test_compress_keeps_relevant_sentences() -> None:
     rows = [
         {
             "content": "Apple faces supply chain risk in China. The company sells iPhones. "
-                       "Risk factors include competition. Green widgets are popular.",
+            "Risk factors include competition. Green widgets are popular.",
             "chunk_index": 0,
         }
     ]

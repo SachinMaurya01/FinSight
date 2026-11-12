@@ -3,9 +3,9 @@
 from __future__ import annotations
 
 import sys
+import uuid
 from pathlib import Path
 from types import SimpleNamespace
-import uuid
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -35,18 +35,23 @@ def test_graph_invoke_returns_answer() -> None:
     graph_nodes.retrieve_reranked = lambda query, settings, k=None: _fake_rows()
     graph_nodes.compress_chunks = lambda query, rows, settings: rows
     # Mock both tool and non-tool fallback paths
-    mock_result = SimpleNamespace(content="Supply chain [1]", provider="groq", tier="simple", tokens_in=100, failures=())
+    mock_result = SimpleNamespace(
+        content="Supply chain [1]", provider="groq", tier="simple", tokens_in=100, failures=()
+    )
     graph_nodes.call_with_tools_fallback = lambda prompt, settings, tier=None, max_tool_iters=3: mock_result
     graph_nodes.call_with_fallback = lambda prompt, settings, tier=None: mock_result
     try:
         graph = build_graph()
         config = {"configurable": {"thread_id": f"test-{uuid.uuid4().hex[:4]}"}}
-        state = graph.invoke({"query": "what was the net income in 2023", "k": 5, "verification_retries": 0}, config=config)
+        state = graph.invoke(
+            {"query": "what was the net income in 2023", "k": 5, "verification_retries": 0}, config=config
+        )
         # Handle HITL pause (should not pause for simple factual)
         try:
             gs = graph.get_state(config)
             if gs.next:
                 from langgraph.types import Command
+
                 state = graph.invoke(Command(resume={"approved": True}), config=config)
         except Exception:
             pass
@@ -119,6 +124,7 @@ def test_graph_node_order() -> None:
     graph_nodes.finalize_node = tracked_finalize
     try:
         from langgraph.graph import END, START, StateGraph
+
         from src.graph.state import GraphState
 
         g = StateGraph(GraphState)
@@ -145,7 +151,16 @@ def test_graph_node_order() -> None:
         for k, v in origs.items():
             setattr(graph_nodes, k, v)
 
-    assert calls == ["classify_complexity", "retrieve", "compress", "call_llm", "tool", "verify_citations", "human_review_gate", "finalize"], calls
+    assert calls == [
+        "classify_complexity",
+        "retrieve",
+        "compress",
+        "call_llm",
+        "tool",
+        "verify_citations",
+        "human_review_gate",
+        "finalize",
+    ], calls
     print("PASS test_graph_node_order")
 
 

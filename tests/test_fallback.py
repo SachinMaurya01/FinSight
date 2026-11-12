@@ -115,8 +115,7 @@ def test_skips_providers_without_credentials() -> None:
 
 def test_all_providers_fail_raises_degraded() -> None:
     def fake_build_llm(settings, provider, model_name=None):
-        return _FakeLLM(exc=fb.OpenAIAuthenticationError(
-            "bad key", response=_http_response(401), body=None))
+        return _FakeLLM(exc=fb.OpenAIAuthenticationError("bad key", response=_http_response(401), body=None))
 
     original = fb.build_llm
     fb.build_llm = fake_build_llm

@@ -43,7 +43,9 @@ def main() -> int:
         patch.object(store_module, "_STORE", store),
         patch.object(graph_nodes, "retrieve_reranked", lambda query, settings, k=None: _rows()),
         patch.object(graph_nodes, "compress_chunks", lambda query, rows, settings: rows),
-        patch.object(graph_nodes, "call_with_tools_fallback", lambda prompt, settings, tier=None, max_tool_iters=3: mock),
+        patch.object(
+            graph_nodes, "call_with_tools_fallback", lambda prompt, settings, tier=None, max_tool_iters=3: mock
+        ),
         patch.object(graph_nodes, "call_with_fallback", lambda prompt, settings, tier=None: mock),
     ):
         graph = build_graph(checkpointer=MemorySaver())

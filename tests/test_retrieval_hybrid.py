@@ -27,18 +27,36 @@ TEST_SETTINGS = Settings(
 SYNTH_CHUNKS = [
     Chunk(
         content="Apple's total net sales were 383.3 billion dollars in fiscal 2025.",
-        metadata={"ticker": "aapl", "filing_type": "10-K", "fiscal_period": "FY2025",
-                  "section": "Item 7 MD&A", "source_file": "aapl-10K.html", "chunk_index": 0},
+        metadata={
+            "ticker": "aapl",
+            "filing_type": "10-K",
+            "fiscal_period": "FY2025",
+            "section": "Item 7 MD&A",
+            "source_file": "aapl-10K.html",
+            "chunk_index": 0,
+        },
     ),
     Chunk(
         content="The company generates most of its revenue from the iPhone product line.",
-        metadata={"ticker": "aapl", "filing_type": "10-K", "fiscal_period": "FY2025",
-                  "section": "Item 7 MD&A", "source_file": "aapl-10K.html", "chunk_index": 1},
+        metadata={
+            "ticker": "aapl",
+            "filing_type": "10-K",
+            "fiscal_period": "FY2025",
+            "section": "Item 7 MD&A",
+            "source_file": "aapl-10K.html",
+            "chunk_index": 1,
+        },
     ),
     Chunk(
         content="Risk factors include competition and cybersecurity threats.",
-        metadata={"ticker": "aapl", "filing_type": "10-K", "fiscal_period": "FY2025",
-                  "section": "Item 1A Risk Factors", "source_file": "aapl-10K.html", "chunk_index": 2},
+        metadata={
+            "ticker": "aapl",
+            "filing_type": "10-K",
+            "fiscal_period": "FY2025",
+            "section": "Item 1A Risk Factors",
+            "source_file": "aapl-10K.html",
+            "chunk_index": 2,
+        },
     ),
 ]
 
@@ -100,20 +118,21 @@ def test_retrieve_hybrid_orchestration() -> None:
 
     def fake_retrieve_dense(query, settings, k=None):
         calls.append("dense")
-        return [{"content": "net sales chunk", "source_doc": "aapl-10K.html",
-                 "chunk_index": 0, "score": 0.5}]
+        return [{"content": "net sales chunk", "source_doc": "aapl-10K.html", "chunk_index": 0, "score": 0.5}]
 
     def fake_build_index(directory):
         calls.append("bm25")
 
         class _Index:
             def search(self, query, k):
-                return [{"content": "risk chunk", "source_doc": "aapl-10K.html",
-                         "chunk_index": 2, "score": 5.0}]
+                return [{"content": "risk chunk", "source_doc": "aapl-10K.html", "chunk_index": 2, "score": 5.0}]
 
         return _Index()
 
-    original_dense, original_build = retrieve_hybrid.__globals__["retrieve_dense"], retrieve_hybrid.__globals__["build_bm25_index"]
+    original_dense, original_build = (
+        retrieve_hybrid.__globals__["retrieve_dense"],
+        retrieve_hybrid.__globals__["build_bm25_index"],
+    )
     retrieve_hybrid.__globals__["retrieve_dense"] = fake_retrieve_dense
     retrieve_hybrid.__globals__["build_bm25_index"] = fake_build_index
     try:

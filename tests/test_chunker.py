@@ -11,7 +11,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.config import settings
-from src.ingestion.chunker import Chunk, chunk_document
+from src.ingestion.chunker import chunk_document
 from src.ingestion.parser import ParsedDocument, ParsedSection
 
 # Clearly-marked synthetic fixture (not a real filing).
@@ -40,10 +40,7 @@ _SYNTHETIC_PARAGRAPHS = [
     "Synthetic risk factor paragraph about adverse publicity and brand perception.",
     "Synthetic risk factor paragraph about dependence on operating system updates.",
 ]
-SYNTHETIC_TEXT = (
-    "Item 1A. Risk Factors SYNTHETIC TEST FIXTURE.\n\n"
-    + "\n\n".join(_SYNTHETIC_PARAGRAPHS)
-)
+SYNTHETIC_TEXT = "Item 1A. Risk Factors SYNTHETIC TEST FIXTURE.\n\n" + "\n\n".join(_SYNTHETIC_PARAGRAPHS)
 
 SYNTHETIC_DOC = ParsedDocument(
     source_file="synth-10K.html",
