@@ -12,7 +12,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 0,
         "char_offset": 0,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -26,7 +27,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 1,
         "char_offset": 680,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -40,7 +42,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 2,
         "char_offset": 1107,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -54,7 +57,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 3,
         "char_offset": 1927,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -68,7 +72,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 4,
         "char_offset": 2732,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -82,7 +87,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 5,
         "char_offset": 3262,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -96,7 +102,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 6,
         "char_offset": 4025,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -110,7 +117,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 7,
         "char_offset": 4797,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -124,7 +132,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 8,
         "char_offset": 4845,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -138,7 +147,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 9,
         "char_offset": 5489,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -152,7 +162,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 10,
         "char_offset": 6084,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -166,7 +177,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 11,
         "char_offset": 6318,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -180,7 +192,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 12,
         "char_offset": 6867,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -194,7 +207,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 13,
         "char_offset": 7551,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -208,7 +222,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 14,
         "char_offset": 8029,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -222,7 +237,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 15,
         "char_offset": 8696,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -236,7 +252,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 16,
         "char_offset": 9406,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -250,7 +267,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 17,
         "char_offset": 10091,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -264,7 +282,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 18,
         "char_offset": 10451,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -278,7 +297,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 19,
         "char_offset": 10700,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -292,7 +312,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 20,
         "char_offset": 11312,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -306,7 +327,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 21,
         "char_offset": 11324,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -320,7 +342,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 22,
         "char_offset": 12112,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -334,7 +357,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 23,
         "char_offset": 12547,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -348,7 +372,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 24,
         "char_offset": 13186,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -362,7 +387,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 25,
         "char_offset": 13751,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -376,7 +402,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 26,
         "char_offset": 14533,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -390,7 +417,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 27,
         "char_offset": 15280,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -404,7 +432,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 28,
         "char_offset": 16107,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -418,7 +447,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 29,
         "char_offset": 16207,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -432,7 +462,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 30,
         "char_offset": 16272,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -446,7 +477,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 31,
         "char_offset": 17079,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -460,7 +492,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 32,
         "char_offset": 17926,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -474,7 +507,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 33,
         "char_offset": 17960,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -488,7 +522,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 34,
         "char_offset": 18475,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -502,7 +537,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 35,
         "char_offset": 18692,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -516,7 +552,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 36,
         "char_offset": 19248,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -530,7 +567,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 37,
         "char_offset": 20028,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -544,7 +582,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 38,
         "char_offset": 20324,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -558,7 +597,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 39,
         "char_offset": 20757,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -572,7 +612,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 40,
         "char_offset": 21319,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -586,7 +627,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 41,
         "char_offset": 21641,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -600,7 +642,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 42,
         "char_offset": 22067,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -614,7 +657,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 43,
         "char_offset": 22879,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -628,7 +672,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 44,
         "char_offset": 23524,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -642,7 +687,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 45,
         "char_offset": 23637,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -656,7 +702,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 46,
         "char_offset": 24481,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -670,7 +717,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 47,
         "char_offset": 25172,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -684,7 +732,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 48,
         "char_offset": 25726,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -698,7 +747,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 49,
         "char_offset": 26099,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -712,7 +762,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 50,
         "char_offset": 26820,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -726,7 +777,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 51,
         "char_offset": 27425,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -740,7 +792,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 52,
         "char_offset": 28173,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -754,7 +807,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 53,
         "char_offset": 28173,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -768,7 +822,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 54,
         "char_offset": 28835,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -782,7 +837,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 55,
         "char_offset": 29376,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -796,7 +852,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 56,
         "char_offset": 30179,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -810,7 +867,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 57,
         "char_offset": 30179,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -824,7 +882,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 58,
         "char_offset": 30377,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -838,7 +897,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 59,
         "char_offset": 31032,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -852,7 +912,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 60,
         "char_offset": 31267,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -866,7 +927,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 61,
         "char_offset": 31627,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -880,7 +942,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 62,
         "char_offset": 32420,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -894,7 +957,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 63,
         "char_offset": 32497,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -908,7 +972,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 64,
         "char_offset": 33246,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -922,7 +987,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 65,
         "char_offset": 33766,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -936,7 +1002,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 66,
         "char_offset": 34312,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -950,7 +1017,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 67,
         "char_offset": 34848,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -964,7 +1032,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 68,
         "char_offset": 35228,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -978,7 +1047,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 69,
         "char_offset": 35966,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -992,7 +1062,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 70,
         "char_offset": 36229,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1006,7 +1077,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 71,
         "char_offset": 36946,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1020,7 +1092,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 72,
         "char_offset": 37568,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1034,7 +1107,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 73,
         "char_offset": 38233,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1048,7 +1122,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 74,
         "char_offset": 38664,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1062,7 +1137,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 75,
         "char_offset": 38758,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1076,7 +1152,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 76,
         "char_offset": 39590,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1090,7 +1167,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 77,
         "char_offset": 40024,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1104,7 +1182,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 78,
         "char_offset": 40113,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1118,7 +1197,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 79,
         "char_offset": 40896,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1132,7 +1212,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 80,
         "char_offset": 41733,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1146,7 +1227,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 81,
         "char_offset": 42270,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1160,7 +1242,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 82,
         "char_offset": 42968,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1174,7 +1257,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 83,
         "char_offset": 43702,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1188,7 +1272,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 84,
         "char_offset": 44142,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1202,7 +1287,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 85,
         "char_offset": 44937,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1216,7 +1302,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 86,
         "char_offset": 45595,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1230,7 +1317,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 87,
         "char_offset": 45670,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1244,7 +1332,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 88,
         "char_offset": 46513,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1258,7 +1347,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 89,
         "char_offset": 46583,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1272,7 +1362,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 90,
         "char_offset": 46583,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1286,7 +1377,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 91,
         "char_offset": 47392,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1300,7 +1392,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 92,
         "char_offset": 47818,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1314,7 +1407,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 93,
         "char_offset": 48244,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1328,7 +1422,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 94,
         "char_offset": 49084,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1342,7 +1437,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 95,
         "char_offset": 49730,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1356,7 +1452,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 96,
         "char_offset": 49846,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1370,7 +1467,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 97,
         "char_offset": 50692,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1384,7 +1482,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 98,
         "char_offset": 51133,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1398,7 +1497,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 99,
         "char_offset": 51133,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1412,7 +1512,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 100,
         "char_offset": 51926,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1426,7 +1527,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 101,
         "char_offset": 52533,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1440,7 +1542,8 @@
         "section": "Item 1A Risk Factors",
         "chunk_index": 102,
         "char_offset": 53257,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1454,7 +1557,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 103,
         "char_offset": 0,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1468,7 +1572,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 104,
         "char_offset": 541,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1482,7 +1587,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 105,
         "char_offset": 1273,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1496,7 +1602,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 106,
         "char_offset": 2012,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1510,7 +1617,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 107,
         "char_offset": 2816,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1524,7 +1632,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 108,
         "char_offset": 3586,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1538,7 +1647,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 109,
         "char_offset": 4074,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1552,7 +1662,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 110,
         "char_offset": 4847,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1566,7 +1677,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 111,
         "char_offset": 5693,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1580,7 +1692,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 112,
         "char_offset": 6370,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1594,7 +1707,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 113,
         "char_offset": 7046,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1608,7 +1722,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 114,
         "char_offset": 7876,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1622,7 +1737,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 115,
         "char_offset": 8474,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1636,7 +1752,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 116,
         "char_offset": 9115,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1650,7 +1767,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 117,
         "char_offset": 9784,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1664,7 +1782,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 118,
         "char_offset": 10186,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1678,7 +1797,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 119,
         "char_offset": 11027,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1692,7 +1812,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 120,
         "char_offset": 11600,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1706,7 +1827,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 121,
         "char_offset": 12373,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1720,7 +1842,8 @@
         "section": "Item 7 MD&A",
         "chunk_index": 122,
         "char_offset": 13161,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1734,7 +1857,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 123,
         "char_offset": 0,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1748,7 +1872,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 124,
         "char_offset": 838,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1762,7 +1887,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 125,
         "char_offset": 1290,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1776,7 +1902,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 126,
         "char_offset": 1708,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1790,7 +1917,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 127,
         "char_offset": 2486,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1804,7 +1932,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 128,
         "char_offset": 3305,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1818,7 +1947,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 129,
         "char_offset": 4116,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1832,7 +1962,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 130,
         "char_offset": 4943,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1846,7 +1977,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 131,
         "char_offset": 5728,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1860,7 +1992,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 132,
         "char_offset": 5966,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1874,7 +2007,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 133,
         "char_offset": 6275,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1888,7 +2022,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 134,
         "char_offset": 7078,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1902,7 +2037,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 135,
         "char_offset": 7694,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1916,7 +2052,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 136,
         "char_offset": 8385,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1930,7 +2067,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 137,
         "char_offset": 9034,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1944,7 +2082,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 138,
         "char_offset": 9659,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1958,7 +2097,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 139,
         "char_offset": 10265,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1972,7 +2112,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 140,
         "char_offset": 10987,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -1986,7 +2127,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 141,
         "char_offset": 11775,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2000,7 +2142,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 142,
         "char_offset": 12114,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2014,7 +2157,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 143,
         "char_offset": 12904,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2028,7 +2172,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 144,
         "char_offset": 13390,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2042,7 +2187,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 145,
         "char_offset": 14190,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2056,7 +2202,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 146,
         "char_offset": 14975,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2070,7 +2217,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 147,
         "char_offset": 15680,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2084,7 +2232,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 148,
         "char_offset": 16407,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2098,7 +2247,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 149,
         "char_offset": 17010,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2112,7 +2262,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 150,
         "char_offset": 17718,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2126,7 +2277,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 151,
         "char_offset": 18057,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2140,7 +2292,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 152,
         "char_offset": 18776,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2154,7 +2307,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 153,
         "char_offset": 19480,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2168,7 +2322,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 154,
         "char_offset": 20169,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2182,7 +2337,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 155,
         "char_offset": 20332,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2196,7 +2352,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 156,
         "char_offset": 21000,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2210,7 +2367,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 157,
         "char_offset": 21560,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2224,7 +2382,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 158,
         "char_offset": 22061,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2238,7 +2397,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 159,
         "char_offset": 22636,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2252,7 +2412,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 160,
         "char_offset": 23381,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2266,7 +2427,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 161,
         "char_offset": 23872,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2280,7 +2442,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 162,
         "char_offset": 24692,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2294,7 +2457,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 163,
         "char_offset": 25088,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2308,7 +2472,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 164,
         "char_offset": 25546,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2322,7 +2487,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 165,
         "char_offset": 25935,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2336,7 +2502,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 166,
         "char_offset": 26404,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2350,7 +2517,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 167,
         "char_offset": 27140,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2364,7 +2532,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 168,
         "char_offset": 27846,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2378,7 +2547,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 169,
         "char_offset": 28553,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2392,7 +2562,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 170,
         "char_offset": 29110,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2406,7 +2577,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 171,
         "char_offset": 29792,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2420,7 +2592,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 172,
         "char_offset": 30581,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2434,7 +2607,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 173,
         "char_offset": 31310,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2448,7 +2622,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 174,
         "char_offset": 32104,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2462,7 +2637,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 175,
         "char_offset": 32660,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2476,7 +2652,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 176,
         "char_offset": 33037,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2490,7 +2667,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 177,
         "char_offset": 33869,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2504,7 +2682,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 178,
         "char_offset": 34202,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2518,7 +2697,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 179,
         "char_offset": 34748,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {
@@ -2532,7 +2712,8 @@
         "section": "Item 8 Financial Statements",
         "chunk_index": 180,
         "char_offset": 35003,
-        "chunk_type": "text"
+        "chunk_type": "text",
+        "unit_scale": null
       }
     },
     {

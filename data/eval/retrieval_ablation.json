@@ -2,7 +2,7 @@
   "n_examples": 30,
   "n_scored": 28,
   "k": 8,
-  "chunk_count": 247,
+  "chunk_count": 433,
   "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
   "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
   "dense_top_k": 20,
@@ -10,21 +10,21 @@
   "fusion_top_k": 20,
   "configs": {
     "dense_only": {
-      "context_precision": 0.7321,
-      "context_recall": 1.0,
-      "mrr": 0.8929,
+      "context_precision": 0.7411,
+      "context_recall": 0.9464,
+      "mrr": 0.8661,
       "n_scored": 28
     },
     "hybrid": {
-      "context_precision": 0.7366,
-      "context_recall": 1.0,
-      "mrr": 0.9196,
+      "context_precision": 0.7455,
+      "context_recall": 0.9464,
+      "mrr": 0.9167,
       "n_scored": 28
     },
     "hybrid_rerank": {
-      "context_precision": 0.7589,
-      "context_recall": 1.0,
-      "mrr": 0.9464,
+      "context_precision": 0.7768,
+      "context_recall": 0.9821,
+      "mrr": 0.9,
       "n_scored": 28
     }
   },
@@ -35,16 +35,16 @@
       "category": "fact_extraction",
       "configs": {
         "dense_only": {
-          "context_precision": 0.625,
-          "context_recall": 1.0,
-          "mrr": 1.0,
+          "context_precision": 0.375,
+          "context_recall": 0.5,
+          "mrr": 0.5,
           "sections": [
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A"
           ]
@@ -55,8 +55,8 @@
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A",
             "Item 7 MD&A",
@@ -70,12 +70,12 @@
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A"
           ]
         }
@@ -200,14 +200,14 @@
             "Item 7 MD&A",
             "Item 7 MD&A",
             "Item 7 MD&A",
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A"
           ]
         },
         "hybrid": {
           "context_precision": 0.375,
-          "context_recall": 1.0,
+          "context_recall": 0.5,
           "mrr": 0.5,
           "sections": [
             "Item 7 MD&A",
@@ -215,13 +215,13 @@
             "Item 7 MD&A",
             "Item 7 MD&A",
             "Item 7 MD&A",
-            "Item 7 MD&A",
             "Item 1A Risk Factors",
+            "Item 7 MD&A",
             "Item 7 MD&A"
           ]
         },
         "hybrid_rerank": {
-          "context_precision": 0.375,
+          "context_precision": 0.5,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
@@ -230,7 +230,7 @@
             "Item 7 MD&A",
             "Item 7 MD&A",
             "Item 7 MD&A",
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A"
           ]
@@ -243,7 +243,7 @@
       "category": "comparison",
       "configs": {
         "dense_only": {
-          "context_precision": 1.0,
+          "context_precision": 0.875,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
@@ -254,7 +254,7 @@
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid": {
@@ -265,15 +265,15 @@
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
-            "Item 7 MD&A",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors"
           ]
         },
         "hybrid_rerank": {
-          "context_precision": 1.0,
+          "context_precision": 0.875,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
@@ -283,7 +283,7 @@
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors"
           ]
         }
@@ -347,7 +347,7 @@
       "category": "investment_thesis",
       "configs": {
         "dense_only": {
-          "context_precision": 0.75,
+          "context_precision": 0.875,
           "context_recall": 1.0,
           "mrr": 0.5,
           "sections": [
@@ -356,24 +356,24 @@
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid": {
-          "context_precision": 0.75,
+          "context_precision": 0.875,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
-            "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid_rerank": {
@@ -381,14 +381,14 @@
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         }
       }
@@ -399,48 +399,48 @@
       "category": "tool_calling",
       "configs": {
         "dense_only": {
-          "context_precision": 1.0,
+          "context_precision": 0.75,
           "context_recall": 1.0,
-          "mrr": 1.0,
+          "mrr": 0.5,
           "sections": [
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid": {
-          "context_precision": 0.625,
-          "context_recall": 1.0,
-          "mrr": 0.25,
-          "sections": [
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A"
-          ]
-        },
-        "hybrid_rerank": {
           "context_precision": 0.75,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": 1.0,
+          "context_recall": 1.0,
+          "mrr": 1.0,
+          "sections": [
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         }
       }
@@ -503,48 +503,48 @@
       "category": "fact_extraction",
       "configs": {
         "dense_only": {
-          "context_precision": 0.25,
+          "context_precision": 1.0,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid": {
-          "context_precision": 0.75,
+          "context_precision": 0.875,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 7 MD&A",
             "Item 7 MD&A",
             "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid_rerank": {
-          "context_precision": 0.75,
+          "context_precision": 1.0,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         }
       }
@@ -561,27 +561,27 @@
           "sections": [
             "Item 7 MD&A",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 1A Risk Factors",
             "Item 7 MD&A",
             "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid": {
-          "context_precision": 0.5,
+          "context_precision": 0.625,
           "context_recall": 1.0,
-          "mrr": 1.0,
+          "mrr": 0.5,
           "sections": [
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid_rerank": {
@@ -589,14 +589,14 @@
           "context_recall": 1.0,
           "mrr": 0.5,
           "sections": [
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements"
           ]
         }
       }
@@ -659,47 +659,47 @@
       "category": "summarization",
       "configs": {
         "dense_only": {
-          "context_precision": 0.375,
+          "context_precision": 0.875,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid": {
-          "context_precision": 0.125,
+          "context_precision": 0.5,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid_rerank": {
-          "context_precision": 0.125,
+          "context_precision": 0.75,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors"
           ]
         }
@@ -711,48 +711,48 @@
       "category": "fact_extraction",
       "configs": {
         "dense_only": {
-          "context_precision": 0.25,
-          "context_recall": 1.0,
-          "mrr": 0.5,
+          "context_precision": 0.375,
+          "context_recall": 0.5,
+          "mrr": 1.0,
           "sections": [
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid": {
-          "context_precision": 0.25,
+          "context_precision": 0.5,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid_rerank": {
-          "context_precision": 0.25,
+          "context_precision": 0.75,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
             "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         }
       }
@@ -764,7 +764,7 @@
       "configs": {
         "dense_only": {
           "context_precision": 0.75,
-          "context_recall": 1.0,
+          "context_recall": 0.5,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
@@ -779,7 +779,7 @@
         },
         "hybrid": {
           "context_precision": 0.625,
-          "context_recall": 1.0,
+          "context_recall": 0.5,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
@@ -794,7 +794,7 @@
         },
         "hybrid_rerank": {
           "context_precision": 0.625,
-          "context_recall": 1.0,
+          "context_recall": 0.5,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
@@ -867,48 +867,48 @@
       "category": "investment_thesis",
       "configs": {
         "dense_only": {
-          "context_precision": 0.5,
+          "context_precision": 0.25,
           "context_recall": 1.0,
-          "mrr": 0.5,
+          "mrr": 0.25,
           "sections": [
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 1A Risk Factors"
           ]
         },
         "hybrid": {
-          "context_precision": 0.5,
+          "context_precision": 0.25,
           "context_recall": 1.0,
-          "mrr": 0.5,
+          "mrr": 0.1667,
           "sections": [
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
             "Item 7 MD&A",
             "Item 1A Risk Factors"
           ]
         },
         "hybrid_rerank": {
-          "context_precision": 0.5,
+          "context_precision": 0.25,
           "context_recall": 1.0,
-          "mrr": 1.0,
+          "mrr": 0.2,
           "sections": [
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements"
           ]
         }
       }
@@ -919,33 +919,33 @@
       "category": "fact_extraction",
       "configs": {
         "dense_only": {
-          "context_precision": 0.5,
+          "context_precision": 0.625,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A"
           ]
         },
         "hybrid": {
-          "context_precision": 0.5,
+          "context_precision": 0.625,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid_rerank": {
@@ -956,11 +956,11 @@
             "Item 7 MD&A",
             "Item 7 MD&A",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         }
       }
@@ -971,48 +971,48 @@
       "category": "fact_extraction",
       "configs": {
         "dense_only": {
-          "context_precision": 0.875,
+          "context_precision": 0.625,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
             "Item 7 MD&A"
           ]
         },
         "hybrid": {
-          "context_precision": 1.0,
+          "context_precision": 0.5,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A"
           ]
         },
         "hybrid_rerank": {
-          "context_precision": 0.75,
+          "context_precision": 0.25,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
             "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         }
       }
@@ -1075,33 +1075,33 @@
       "category": "fact_extraction",
       "configs": {
         "dense_only": {
-          "context_precision": 0.375,
+          "context_precision": 0.5,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid": {
-          "context_precision": 0.375,
+          "context_precision": 0.5,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid_rerank": {
@@ -1111,11 +1111,11 @@
           "sections": [
             "Item 7 MD&A",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A"
           ]
         }
@@ -1131,11 +1131,11 @@
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A",
             "Item 7 MD&A"
@@ -1146,9 +1146,9 @@
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A",
             "Item 7 MD&A",
@@ -1161,12 +1161,12 @@
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A"
           ]
@@ -1184,12 +1184,12 @@
           "mrr": null,
           "sections": [
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors"
           ]
         },
@@ -1201,11 +1201,11 @@
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid_rerank": {
@@ -1213,14 +1213,14 @@
           "context_recall": null,
           "mrr": null,
           "sections": [
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
           ]
         }
       }
@@ -1238,11 +1238,11 @@
             "Item 7 MD&A",
             "Item 1A Risk Factors",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A"
+            "Item 1A Risk Factors"
           ]
         },
         "hybrid": {
@@ -1255,9 +1255,9 @@
             "Item 1A Risk Factors",
             "Item 7 MD&A",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid_rerank": {
@@ -1267,12 +1267,12 @@
           "sections": [
             "Item 7 MD&A",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 1A Risk Factors",
             "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements"
           ]
         }
       }
@@ -1335,22 +1335,22 @@
       "category": "fact_extraction",
       "configs": {
         "dense_only": {
-          "context_precision": 1.0,
+          "context_precision": 0.75,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid": {
-          "context_precision": 1.0,
+          "context_precision": 0.75,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
@@ -1358,22 +1358,22 @@
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors"
           ]
         },
         "hybrid_rerank": {
-          "context_precision": 1.0,
+          "context_precision": 0.75,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors"
@@ -1387,48 +1387,48 @@
       "category": "fact_extraction",
       "configs": {
         "dense_only": {
-          "context_precision": 0.375,
+          "context_precision": 0.75,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid": {
-          "context_precision": 0.375,
+          "context_precision": 0.75,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
             "Item 1A Risk Factors",
-            "Item 7 MD&A",
             "Item 1A Risk Factors",
             "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 7 MD&A"
           ]
         },
         "hybrid_rerank": {
-          "context_precision": 0.375,
+          "context_precision": 0.75,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
             "Item 7 MD&A",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements"
           ]
         }
       }
@@ -1439,48 +1439,48 @@
       "category": "investment_thesis",
       "configs": {
         "dense_only": {
-          "context_precision": 0.875,
+          "context_precision": 0.375,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid": {
-          "context_precision": 0.875,
+          "context_precision": 0.375,
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements"
           ]
         },
         "hybrid_rerank": {
-          "context_precision": 0.875,
+          "context_precision": 0.5,
           "context_recall": 1.0,
-          "mrr": 1.0,
+          "mrr": 0.5,
           "sections": [
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
             "Item 1A Risk Factors",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 1A Risk Factors",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements",
+            "Item 1A Risk Factors"
           ]
         }
       }
@@ -1498,11 +1498,11 @@
             "Item 7 MD&A",
             "Item 7 MD&A",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors"
+            "Item 7 MD&A"
           ]
         },
         "hybrid": {
@@ -1512,27 +1512,27 @@
           "sections": [
             "Item 7 MD&A",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 1A Risk Factors"
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 7 MD&A"
           ]
         },
         "hybrid_rerank": {
-          "context_precision": 0.625,
+          "context_precision": 0.5,
           "context_recall": 1.0,
           "mrr": 0.5,
           "sections": [
             "Item 7 MD&A",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A"
+            "Item 8 Financial Statements"
           ]
         }
       }
@@ -1547,7 +1547,7 @@
           "context_recall": 1.0,
           "mrr": 1.0,
           "sections": [
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A",
             "Item 7 MD&A",
@@ -1559,7 +1559,7 @@
         },
         "hybrid": {
           "context_precision": 1.0,
-          "context_recall": 1.0,
+          "context_recall": 0.5,
           "mrr": 1.0,
           "sections": [
             "Item 7 MD&A",
@@ -1580,9 +1580,9 @@
             "Item 7 MD&A",
             "Item 7 MD&A",
             "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
-            "Item 7 MD&A",
-            "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A",
             "Item 7 MD&A"
           ]

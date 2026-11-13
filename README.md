@@ -34,16 +34,17 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 
 - **Problem:** 10-K answers are buried in long, table-heavy filings; generic chat-with-PDF tools lose citation traceability and numeric precision.
 - **Approach:** section-scoped ingestion, hybrid retrieval (dense + BM25 with RRF), cross-encoder reranking, tiered model routing, provider fallback, citation verification, and HITL for recommendation-like output.
-- **Current evidence:** offline retrieval ablation on 28 citation-labeled questions. Hybrid + rerank reaches `MRR@8 = 0.9464` vs `0.8929` for dense-only; context precision is `0.7589` vs `0.7321`.
+- **Current evidence:** offline retrieval ablation on 28 citation-labeled questions after Item 8 ingestion. Hybrid + rerank reaches `MRR@8 = 0.9000` vs `0.8661` for dense-only; context precision is `0.7768` vs `0.7411`.
 - **Current gap:** full 30-question RAGAS is not measured. The checked-in end-to-end baseline is a 3-question heuristic smoke run. RAGAS is wired behind `--metrics ragas` but the current dependency lock cannot import it.
-- **Production status:** local reference stack only. No API, auth, rate limiting, observability, or CI deployment gate yet.
+- **Production status:** local reference stack with FastAPI, retries/circuit breakers, JSON logs, Prometheus metrics, optional Langfuse traces, and CI gates. Auth, rate limiting, and horizontal scaling are not included.
 
 ## Scope
 
 | In scope | Out of scope (today) |
 |---|---|
-| 10-K HTML ingestion for Item 1A and Item 7 | Full 10-K coverage, including Item 8 financial statements |
-| Text chunks with ticker/period/section metadata | XBRL-native numeric extraction and table-structure preservation |
+| 10-K HTML ingestion for Items 1A, 7, and 8 | 10-Q/8-K/proxies/transcripts; full note-level coverage |
+| Text and structured table chunks with ticker/period/section metadata | Full XBRL taxonomy coverage and rowspan/colspan reconstruction |
+| SEC XBRL companyfacts for TTM diluted EPS | Multi-company concept alias coverage beyond the checked tickers |
 | Dense + BM25 hybrid retrieval + reranking | Peer comparison, 10-Q/8-K/proxies/transcripts |
 | Provider routing and fallback | Production auth, multi-tenant isolation, rate limiting |
 | Citation verification + bounded retry | NLI-grade entailment and numeric normalization |
@@ -54,16 +55,16 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 
 ![FinSight architecture](docs/architecture.svg)
 
-**Offline:** `data/*.html` → `parse_edgar_file` (Item 1A, Item 7) → `chunk_document` (1000/150, metadata) → `embed_chunks` (sentence-transformers, 384d) → pgvector.
+**Offline:** `data/*.html` → `parse_edgar_file` (Items 1A, 7, 8; Item 8 tables serialized as structured rows) → `chunk_document` (text 1000/150 plus unsplit table chunks, metadata) → `embed_chunks` (sentence-transformers, 384d) → pgvector.
 
-**Online:** `ask()` → classify complexity → retrieve (dense top-20 + BM25 top-20 → RRF → rerank top-8) → compress → LLM (tier routing + fallback + tools) → verify citations (retry on failure) → human review gate → final answer + sources.
+**Online:** `ask()` → classify complexity → retrieve (dense top-20 + BM25 top-20 → RRF → rerank top-8) → compress → LLM (tier routing + fallback + tools; P/E uses SEC XBRL TTM diluted EPS) → verify citations (retry on failure) → human review gate → final answer + sources.
 
 **Request invariants**
 
 1. The `src.graph` orchestration path always executes `verify_citations` before `finalize`. The lower-level `src.llm answer` CLI is a debugging path and bypasses verification and HITL.
 2. Recommendation-like output pauses at the HITL gate by default. `--no-hitl` and the non-interactive `ask()` helper auto-approve; both are local/eval escape hatches, not production-safe controls.
 3. All graph LLM calls go through the provider fallback chain; failures are logged with provider and reason.
-4. Retrieved evidence carries `ticker`, `filing_type`, `fiscal_period`, `section`, and `chunk_index` for citation and filtering.
+4. Retrieved evidence carries `ticker`, `filing_type`, `fiscal_period`, `section`, `chunk_index`, `chunk_type`, and `unit_scale` for citation and filtering.
 
 ## Design decisions
 
@@ -113,17 +114,17 @@ Reproduce: `uv run python -m src.eval --ablation`
 
 | Configuration | Context precision | Context recall | MRR | Δ MRR vs dense |
 |---|---:|---:|---:|---:|
-| Dense only | 0.7321 | 1.0000 | 0.8929 | — |
-| Hybrid (dense + BM25, RRF) | 0.7366 | 1.0000 | 0.9196 | +0.0267 |
-| Hybrid + cross-encoder rerank | 0.7589 | 1.0000 | 0.9464 | +0.0535 |
+| Dense only | 0.7411 | 0.9464 | 0.8661 | — |
+| Hybrid (dense + BM25, RRF) | 0.7455 | 0.9464 | 0.9167 | +0.0506 |
+| Hybrid + cross-encoder rerank | 0.7768 | 0.9821 | 0.9000 | +0.0339 |
 
 `MRR` is the mean reciprocal rank of the first relevant chunk. Precision/recall are computed against section-level labels.
 
 Interpretation:
 
-- Reranking improves **ordering** (`MRR +0.0535`) but not coverage; precision moves only `+0.0268`.
-- Hybrid is not uniformly better. It recovers exact financial terms (`eval_010` precision `0.250 → 0.750`) but can regress on lexical noise (`eval_013` `0.375 → 0.125`).
-- Recall@8 is saturated at `1.0` because labels are section-level. Precision and MRR are the useful signals.
+- With Item 8 table chunks in the index, reranking improves **precision and recall** but slightly lowers MRR versus hybrid (`0.9167 → 0.9000`). Table chunks add valid evidence and ranking noise.
+- Labels now include Item 8 for numeric questions that are answered by financial-statement tables; several narrative questions still prefer Item 7 or Item 1A.
+- Recall@8 is no longer saturated (`0.9821`), so missed Item 8 citations remain visible instead of being hidden by coarse labels.
 - These are **retrieval-only** numbers. They are not RAGAS, faithfulness, or answer-correctness scores.
 
 ### End-to-end smoke baseline (n=3, heuristic)
@@ -140,9 +141,9 @@ PRD targets are used where defined; retrieval MRR@8 is an engineering gate added
 
 | Gate | Target | Current | Status |
 |---|---:|---:|---|
-| Retrieval MRR@8 | ≥ 0.90 | 0.9464 | Met on 28 questions |
-| Context precision@8 | ≥ 0.80 | 0.7589 | Not met on coarse labels |
-| Context recall@8 | ≥ 0.80 | 1.0000 | Saturated; labels are section-level |
+| Retrieval MRR@8 | ≥ 0.90 | 0.9000 | Met on 28 questions |
+| Context precision@8 | ≥ 0.80 | 0.7768 | Not met on coarse labels |
+| Context recall@8 | ≥ 0.80 | 0.9821 | Met; remaining gap is missing Item 8 labels |
 | RAGAS faithfulness | ≥ 0.85 | Not measured | Blocked by RAGAS import/dependency issue |
 | Citation judge | ≥ 90% grounded | 3/3 examples (14/14 claims) | Not statistically meaningful |
 | Fallback success under provider failure | 100% | Unit-tested | No end-to-end chaos test |

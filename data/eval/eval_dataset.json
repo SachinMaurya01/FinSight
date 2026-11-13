@@ -168,6 +168,11 @@
         "ticker": "aapl",
         "fiscal_period": "FY2023",
         "section": "Item 7 MD&A"
+      },
+      {
+        "ticker": "aapl",
+        "section": "Item 8 Financial Statements",
+        "fiscal_period": "FY2023"
       }
     ],
     "complexity": "simple",
@@ -196,6 +201,10 @@
       {
         "ticker": "aapl",
         "section": "Item 7 MD&A"
+      },
+      {
+        "ticker": "aapl",
+        "section": "Item 8 Financial Statements"
       }
     ],
     "complexity": "normal",
@@ -211,6 +220,11 @@
         "ticker": "aapl",
         "fiscal_period": "FY2023",
         "section": "Item 7 MD&A"
+      },
+      {
+        "ticker": "aapl",
+        "section": "Item 8 Financial Statements",
+        "fiscal_period": "FY2023"
       }
     ],
     "complexity": "simple",
@@ -225,6 +239,10 @@
       {
         "ticker": "aapl",
         "section": "Item 7 MD&A"
+      },
+      {
+        "ticker": "aapl",
+        "section": "Item 8 Financial Statements"
       }
     ],
     "complexity": "complex",
@@ -268,6 +286,11 @@
         "ticker": "aapl",
         "fiscal_period": "FY2025",
         "section": "Item 7 MD&A"
+      },
+      {
+        "ticker": "aapl",
+        "section": "Item 8 Financial Statements",
+        "fiscal_period": "FY2025"
       }
     ],
     "complexity": "simple",
@@ -311,6 +334,11 @@
         "ticker": "aapl",
         "fiscal_period": "FY2025",
         "section": "Item 7 MD&A"
+      },
+      {
+        "ticker": "aapl",
+        "section": "Item 8 Financial Statements",
+        "fiscal_period": "FY2025"
       }
     ],
     "complexity": "simple",
@@ -325,6 +353,10 @@
       {
         "ticker": "aapl",
         "section": "Item 7 MD&A"
+      },
+      {
+        "ticker": "aapl",
+        "section": "Item 8 Financial Statements"
       }
     ],
     "complexity": "normal",
@@ -385,6 +417,10 @@
       {
         "ticker": "aapl",
         "section": "Item 7 MD&A"
+      },
+      {
+        "ticker": "aapl",
+        "section": "Item 8 Financial Statements"
       }
     ],
     "complexity": "simple",
@@ -414,6 +450,11 @@
         "ticker": "aapl",
         "fiscal_period": "FY2023",
         "section": "Item 7 MD&A"
+      },
+      {
+        "ticker": "aapl",
+        "section": "Item 8 Financial Statements",
+        "fiscal_period": "FY2023"
       }
     ],
     "complexity": "simple",
@@ -428,6 +469,10 @@
       {
         "ticker": "aapl",
         "section": "Item 7 MD&A"
+      },
+      {
+        "ticker": "aapl",
+        "section": "Item 8 Financial Statements"
       }
     ],
     "complexity": "normal",
