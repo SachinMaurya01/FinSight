@@ -25,6 +25,7 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 - [Design decisions](#design-decisions)
 - [Production readiness](#production-readiness)
 - [Evaluation](#evaluation-results)
+- [Experiments](EXPERIMENTS.md)
 - [Failure analysis](#failure-analysis)
 - [Security](#security-and-compliance)
 - [Operations](#operations)
@@ -33,7 +34,7 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 ## Executive summary
 
 - **Problem:** 10-K answers are buried in long, table-heavy filings; generic chat-with-PDF tools lose citation traceability and numeric precision.
-- **Approach:** section-scoped ingestion, hybrid retrieval (dense + BM25 with RRF), cross-encoder reranking, tiered model routing, provider fallback, citation verification, and HITL for recommendation-like output.
+- **Approach:** EDGAR ingestion with section-scoped, metadata-filtered chunks; hybrid retrieval (dense + BM25 with RRF), cross-encoder reranking, query understanding, tiered model routing, provider fallback, citation verification, and HITL for recommendation-like output.
 - **Current evidence:** offline retrieval ablation on 28 citation-labeled questions after Item 8 ingestion. Hybrid + rerank reaches `MRR@8 = 0.9000` vs `0.8661` for dense-only; context precision is `0.7768` vs `0.7411`.
 - **Current gap:** full 30-question RAGAS is not measured. The checked-in end-to-end baseline is a 3-question heuristic smoke run. RAGAS is wired behind `--metrics ragas` but the current dependency lock cannot import it.
 - **Production status:** local reference stack with FastAPI, retries/circuit breakers, JSON logs, Prometheus metrics, optional Langfuse traces, and CI gates. Auth, rate limiting, and horizontal scaling are not included.
@@ -43,9 +44,11 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 | In scope | Out of scope (today) |
 |---|---|
 | 10-K HTML ingestion for Items 1A, 7, and 8 | 10-Q/8-K/proxies/transcripts; full note-level coverage |
-| Text and structured table chunks with ticker/period/section metadata | Full XBRL taxonomy coverage and rowspan/colspan reconstruction |
+| EDGAR filing discovery/download with throttling and retries; idempotent `(accession, chunk_index)` upserts | Multi-company scale ingestion and backfill orchestration |
+| Text and structured table chunks with ticker/CIK/form/year/section/accession metadata | Full XBRL taxonomy coverage and rowspan/colspan reconstruction |
 | SEC XBRL companyfacts for TTM diluted EPS | Multi-company concept alias coverage beyond the checked tickers |
-| Dense + BM25 hybrid retrieval + reranking | Peer comparison, 10-Q/8-K/proxies/transcripts |
+| Dense + BM25 hybrid retrieval with metadata prefilters + reranking | Parent-child retrieval and learned sparse retrieval |
+| Query understanding (regex + optional LLM) with comparison decomposition | Multi-turn query rewriting and HyDE |
 | Provider routing and fallback | Production auth, multi-tenant isolation, rate limiting |
 | Citation verification + bounded retry | NLI-grade entailment and numeric normalization |
 | HITL gate for recommendation-like output | Regulatory advice, portfolio execution, or investment recommendations |
@@ -55,16 +58,17 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 
 ![FinSight architecture](docs/architecture.svg)
 
-**Offline:** `data/*.html` → `parse_edgar_file` (Items 1A, 7, 8; Item 8 tables serialized as structured rows) → `chunk_document` (text 1000/150 plus unsplit table chunks, metadata) → `embed_chunks` (sentence-transformers, 384d) → pgvector.
+**Offline:** `EdgarClient`/`data/*.html` (+ optional `data/filings.json` accession/filed-at manifest) → `parse_edgar_file` (Items 1A, 7, 8; Item 8 tables serialized as structured rows) → `chunk_document` (text 1000/150 plus unsplit table chunks with CIK/form/year/accession metadata) → `embed_chunks` (sentence-transformers, 384d, model + version tagged) → pgvector/Alembic-managed schema with HNSW + metadata indexes.
 
-**Online:** `ask()` → classify complexity → retrieve (dense top-20 + BM25 top-20 → RRF → rerank top-8) → compress → LLM (tier routing + fallback + tools; P/E uses SEC XBRL TTM diluted EPS) → verify citations (retry on failure) → human review gate → final answer + sources.
+**Online:** `ask()` → classify complexity → `parse_query` (tickers/year/form/intent; comparison sub-queries) → filtered retrieve (dense top-20 + BM25 top-20 → RRF → rerank top-8) → compress → LLM (tier routing + fallback + tools; P/E uses SEC XBRL TTM diluted EPS) → verify citations (retry on failure) → human review gate → final answer + sources.
 
 **Request invariants**
 
 1. The `src.graph` orchestration path always executes `verify_citations` before `finalize`. The lower-level `src.llm answer` CLI is a debugging path and bypasses verification and HITL.
 2. Recommendation-like output pauses at the HITL gate by default. `--no-hitl` and the non-interactive `ask()` helper auto-approve; both are local/eval escape hatches, not production-safe controls.
 3. All graph LLM calls go through the provider fallback chain; failures are logged with provider and reason.
-4. Retrieved evidence carries `ticker`, `filing_type`, `fiscal_period`, `section`, `chunk_index`, `chunk_type`, and `unit_scale` for citation and filtering.
+4. Retrieved evidence carries `ticker`, `cik`, `form_type`, `fiscal_period`, `fiscal_year`, `section`, `accession`, `filed_at`, `chunk_index`, `chunk_type`, and `unit_scale` for citation and filtering.
+5. Dense and BM25 apply the same metadata filters to the same candidate universe before fusion.
 
 ## Design decisions
 
@@ -83,7 +87,9 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 
 | Area | Status | Notes |
 |---|---|---|
-| Retrieval pipeline | Implemented | Dense, BM25, RRF, rerank, compression |
+| Retrieval pipeline | Implemented | Dense, BM25, RRF, rerank, compression, metadata prefilters, HNSW + composite metadata indexes |
+| Ingestion | Implemented, sample scale | EDGAR client (UA/throttle/retries), idempotent upserts, embedding model/version tags, Alembic |
+| Query understanding | Implemented, optional LLM | Regex fallback by default; optional Pydantic structured LLM extraction; comparison decomposition |
 | LLM reliability | Implemented | Tier routing, fallback chain, timeouts, transient retries, per-provider circuit breakers, degraded responses |
 | Citation verification | Implemented, heuristic | Keyword overlap; NLI/numeric checks are future work |
 | HITL control | Implemented, default-on | CLI gate + Redis checkpointer; `--no-hitl` and `ask()` auto-approval must be guarded in production |
@@ -107,6 +113,7 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 - Retrieval ablation is offline and deterministic: local embeddings, local reranker, `k=8`, checked-in chunks.
 - End-to-end baseline is a 3-question run through the full graph using Groq and the heuristic metrics backend.
 - Raw artifacts: [`data/eval/retrieval_ablation.json`](data/eval/retrieval_ablation.json), [`data/eval/baseline.json`](data/eval/baseline.json).
+- Phase 5 retrieval experiments and keep/drop decisions: [`EXPERIMENTS.md`](EXPERIMENTS.md) (E1 chunking, E2 embedder, E3 rerank top-N, E4 query rewriting).
 
 ### Retrieval ablation: dense vs hybrid vs hybrid + rerank
 
@@ -186,7 +193,7 @@ Implemented controls:
 
 - Secrets are injected via environment variables; `.env` is gitignored; no credentials are hardcoded.
 - Source filings are treated as read-only; derived chunks and embeddings live under `data/`.
-- SEC User-Agent and throttle settings exist in config; automated EDGAR crawling is not implemented.
+- SEC EDGAR requests set a contact User-Agent, rate-limit locally, and retry transient failures. Automated crawling is implemented as a bounded client, not a scheduler.
 - HITL is default-on for recommendation-like output. `--no-hitl` and `ask()` auto-approval are explicit local/eval escape hatches and must not be exposed in production.
 - Pydantic validates config and tool outputs; citations use a typed `VerificationResult` dataclass.
 
@@ -198,7 +205,7 @@ Explicit gaps:
 - **Audit trail:** HITL decisions are not persisted to an append-only audit log.
 - **PII / retention:** no data-retention policy or deletion workflow.
 - **Regulatory disclaimer:** no investment-advice disclaimer is enforced in output.
-- **Observability:** no traces, metrics, or alerting on provider errors, verification failures, or HITL decisions.
+- **Observability:** traces and metrics exist, but there is no alerting/SLO dashboard for provider errors, verification failures, or HITL decisions.
 
 Do not expose this service to untrusted users until the gaps above are addressed.
 
@@ -218,6 +225,7 @@ make demo
 ```bash
 docker compose up -d
 uv sync
+uv run alembic upgrade head
 uv run python -m src.ingestion
 uv run python -m src.retrieval seed
 uv run python -m src.retrieval hybrid "total net sales 383.3 billion" --k 3
@@ -237,6 +245,9 @@ uv run python -m src.graph ask "Build a bull and bear case for AAPL, should I in
 # Tests (offline; no network/DB)
 make test
 
+# Schema migration
+make migrate       # alembic upgrade head
+
 # Quality gates
 make lint          # ruff check + format check
 make typecheck     # mypy
@@ -252,8 +263,8 @@ uv run python -m src.eval --metrics ragas --limit 5
 
 # Targeted retrieval checks
 uv run python -m src.retrieval search "what are the main risks" --k 5
-uv run python -m src.retrieval hybrid "total net sales 383.3 billion" --k 5
-uv run python -m src.retrieval rerank "liquidity 148.3 billion" --k 5
+uv run python -m src.retrieval hybrid "total net sales 383.3 billion" --k 5 --ticker AAPL --year 2025 --form 10-K
+uv run python -m src.retrieval rerank "liquidity 148.3 billion" --k 5 --ticker AAPL --year 2023
 ```
 
 ### Verification coverage
@@ -277,6 +288,9 @@ Key environment variables (see `.env.example` for the full set):
 | `POSTGRES_DATABASE_URL` | pgvector connection | `postgresql://rag_user:rag_password@localhost:5432/rag_db` |
 | `REDIS_URL` | cache/checkpoint connection | `redis://localhost:6379/0` |
 | `EMBEDDING_PROVIDER` / `EMBEDDING_MODEL` | embedding backend | `sentence_transformers` / `all-MiniLM-L6-v2` |
+| `EMBEDDING_VERSION` | vector-version tag; filters prevent mixing spaces | `v1` |
+| `QUERY_UNDERSTANDING_ENABLED` | optional LLM query extraction (regex always fallback) | `false` |
+| `SEC_SUBMISSIONS_BASE_URL` / `SEC_ARCHIVE_BASE_URL` | EDGAR discovery/document endpoints | SEC data/archive URLs |
 | `RERANKER_MODEL` | cross-encoder | `cross-encoder/ms-marco-MiniLM-L-6-v2` |
 | `DENSE_TOP_K` / `BM25_TOP_K` / `FUSION_TOP_K` / `RERANK_TOP_K` | retrieval depths | `20 / 20 / 20 / 8` |
 | `FALLBACK_CHAIN` | provider order | `["openai","groq","gemini","vllm"]` |
@@ -302,6 +316,10 @@ Key environment variables (see `.env.example` for the full set):
 
 - **Corpus:** 2 Apple 10-Ks; Items 1A, 7, and 8. No 10-Q/8-K, proxies, transcripts, peers, or IFRS filings.
 - **Parsing:** Item 8 tables are table-aware and kept intact; other sections still use text extraction. Complex rowspan/colspan tables are serialized best-effort.
+- **Chunking:** text chunks are section-scoped at 1000/150; parent-child retrieval is not implemented, so E1 measures section/table awareness rather than a full parent-child design.
+- **Query understanding:** regex is the default path; the optional LLM parser has no accuracy benchmark. Comparison decomposition is limited to ticker sub-queries.
+- **Embedding versioning:** rows carry `embedding_model`/`embedding_version` and dense search filters on the active model, so vector spaces are not mixed in queries. There is no side-by-side multi-model embedding table; changing dimensions recreates the table.
+- **Experiments:** E2/E4 were not adopted (see `EXPERIMENTS.md`); E4 has no hard-tier labels and HyDE was not run. E3 has no p95 latency measurement.
 - **P/E:** live yfinance price plus SEC XBRL TTM diluted EPS; negative/zero EPS returns "not meaningful". The price is point-in-time at request time, not the filing date.
 - **Evaluation:** retrieval ablation is measured; end-to-end is a 3-question smoke run; real RAGAS is not yet measured.
 - **Verification:** keyword overlap, not entailment. Treat `verification.passed` as a floor.
@@ -391,7 +409,9 @@ src/
   config.py          # Settings
   routing.py         # Complexity classifier
   tokens.py          # Token counting
-  ingestion/         # parse (Item 1A + 7) + chunk
+  ingestion/         # parse (Items 1A, 7, 8) + chunk
+  sec/               # EDGAR client + XBRL companyfacts
+  query/             # query understanding + metadata filters
   retrieval/         # embed, bm25, hybrid, rerank, compress, cache, storage
   llm/               # prompt, client, fallback, tools, answer
   tools/             # price, ratios, schemas
@@ -403,8 +423,11 @@ tests/               # unit tests (no network/DB required)
 docs/                # architecture + CLI demo SVGs
 data/
   *.html             # vendored SEC sample filings
+  filings.json       # accession/CIK/filed-at metadata for local samples
   chunks/            # derived chunk JSON
   eval/              # eval_dataset.json, baseline.json, retrieval_ablation.json
+migrations/          # Alembic schema migrations
+EXPERIMENTS.md       # Phase 5 before/after retrieval experiments
 Makefile             # one-command local demo and eval targets
 docker-compose.yml   # Postgres/pgvector + Redis
 ```

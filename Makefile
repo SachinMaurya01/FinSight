@@ -1,7 +1,7 @@
 UV ?= uv
 COMPOSE ?= docker compose
 
-.PHONY: up down logs sync ingest seed demo ablation eval test lint typecheck test-cov eval-smoke eval-gate
+.PHONY: up down logs sync migrate ingest seed demo ablation eval test lint typecheck test-cov eval-smoke eval-gate
 
 up:
 	$(COMPOSE) up -d --build
@@ -15,6 +15,9 @@ logs:
 
 sync:
 	$(UV) sync
+
+migrate: sync
+	$(UV) run alembic upgrade head
 
 ingest: sync
 	$(UV) run python -m src.ingestion
