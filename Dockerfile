@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM python:3.13-slim AS builder
+FROM python:3.15-slim AS builder
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ca-certificates libgomp1 && \
@@ -24,7 +24,7 @@ SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 CrossEncoder("cross-encoder/ms-marco-MiniLM-L-6-v2")
 PY
 
-FROM python:3.13-slim
+FROM python:3.15-slim
 RUN apt-get update && \
     apt-get install -y --no-install-recommends ca-certificates libgomp1 && \
     rm -rf /var/lib/apt/lists/* && \
