@@ -80,11 +80,13 @@ def build_graph(checkpointer=None) -> CompiledStateGraph:  # type: ignore[no-unt
     return graph.compile(checkpointer=checkpointer) if checkpointer else graph.compile()
 
 
-def ask(query: str, k: int | None = None) -> dict:
+def ask(query: str, k: int | None = None, *, injected_context: str | None = None) -> dict:
     """Run a query through the graph and return final state.
 
     For HITL-triggering queries this auto-approves when called via this helper
     (non-interactive). The CLI handles real human prompts via Command resume.
+    ``injected_context`` is an eval-only fault-injection hook and is never
+    exposed by the HTTP API.
     """
     import uuid
 
@@ -102,7 +104,10 @@ def ask(query: str, k: int | None = None) -> dict:
         own_trace = True
     tokens = bind_request_context(thread_id=thread_id, trace_id=thread_id if trace else None)
     try:
-        result = graph.invoke({"query": query, "k": k, "verification_retries": 0}, config=config)
+        inputs: dict[str, object] = {"query": query, "k": k, "verification_retries": 0}
+        if injected_context is not None:
+            inputs["injected_context"] = injected_context
+        result = graph.invoke(inputs, config=config)
 
         # If paused at HITL (requires human approval), auto-approve for this helper.
         try:

@@ -103,6 +103,19 @@ class Settings(BaseConfigSettings):
     circuit_breaker_failures: int = Field(default=5, ge=1)
     circuit_breaker_cooldown_seconds: float = Field(default=30.0, ge=0.0)
 
+    # Security
+    api_auth_enabled: bool = True  # API keys are required by default; disable only for local tests.
+    api_key_pepper: str | None = None  # optional server-side pepper mixed into stored API-key hashes.
+    rate_limit_requests_per_minute: int = Field(default=60, ge=1)  # per-key/IP fixed-window request limit.
+    max_concurrent_requests_per_key: int = Field(default=4, ge=1)  # per-key/IP in-flight request cap.
+    request_timeout_seconds: float = Field(default=60.0, gt=0)  # API work timeout; returns 504 when exceeded.
+    recommendation_classifier_enabled: bool = (
+        False  # optional cheap-tier LLM classifier; regex heuristic remains the fallback.
+    )
+    log_query_text: bool = False  # keep user query text out of logs by default.
+    log_retention_days: int = Field(default=30, ge=1)  # operational log retention target.
+    audit_retention_days: int = Field(default=365, ge=1)  # HITL audit retention target.
+
     # Observability
     tracing_enabled: bool = True
     langfuse_enabled: bool = False
@@ -232,6 +245,12 @@ class Settings(BaseConfigSettings):
         if not _EMAIL_PATTERN.search(v):
             raise ValueError("SEC EDGAR requires User-Agent with email")
         return v
+
+    @model_validator(mode="after")
+    def validate_production_security(self) -> "Settings":
+        if self.environment == "production" and not self.api_auth_enabled:
+            raise ValueError("api_auth_enabled must be true in production")
+        return self
 
     @model_validator(mode="after")
     def validate_groq_config(self) -> "Settings":

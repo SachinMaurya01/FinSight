@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 from typing import Any
 
 from src.observability.context import context_snapshot
+from src.security.pii import redact_payload, redact_text
 
 # Attributes already rendered explicitly or internal to logging.
 _RESERVED: frozenset[str] = frozenset(
@@ -68,6 +69,8 @@ class JsonFormatter(logging.Formatter):
             payload["exception"] = self.formatException(record.exc_info)
         if record.stack_info:
             payload["stack"] = self.formatStack(record.stack_info)
+        payload = redact_payload(payload)
+        payload["message"] = redact_text(str(payload.get("message", "")))
         return json.dumps(payload, default=str, ensure_ascii=False)
 
 

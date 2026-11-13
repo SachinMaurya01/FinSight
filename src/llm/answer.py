@@ -10,6 +10,7 @@ from src.ingestion.chunker import Chunk
 from src.llm.fallback import call_with_fallback
 from src.llm.output import strip_think_block
 from src.llm.prompts import ANSWER_PROMPT_TEMPLATE
+from src.security.prompt_guard import wrap_untrusted
 
 logger = logging.getLogger(__name__)
 
@@ -22,7 +23,9 @@ def format_context(chunks: list[Chunk]) -> str:
     for index, chunk in enumerate(chunks, start=1):
         meta = chunk.metadata
         tags = ", ".join(str(meta.get(k)) for k in ("ticker", "filing_type", "fiscal_period", "section"))
-        blocks.append(f"[{index}] (source: {tags})\n{chunk.content.strip()}")
+        blocks.append(
+            f"[{index}] (source: {tags})\n{wrap_untrusted('PASSAGE', chunk.content.strip(), index)}"
+        )
     return "\n\n".join(blocks)
 
 
@@ -42,7 +45,12 @@ def answer_query(
 
     ``tier`` selects the model tier."""
     prompt = build_answer_prompt(query, chunks)
-    logger.info("Calling LLM (query=%r, context_chunks=%d, tier=%s)", query, len(chunks), tier)
+    logger.info(
+        "Calling LLM (query_length=%d, context_chunks=%d, tier=%s)",
+        len(query),
+        len(chunks),
+        tier,
+    )
     if llm is not None:
         response = llm.invoke(prompt)
         return _strip_think_block(str(response.content))

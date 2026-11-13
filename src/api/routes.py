@@ -2,20 +2,23 @@
 
 from __future__ import annotations
 
+import asyncio
 import json
 import logging
 import socket
 import uuid
-from collections.abc import Iterator
+from collections.abc import AsyncIterator, Iterator
 from typing import Any, Literal
 from urllib.parse import urlparse
 
-from fastapi import APIRouter, HTTPException, Query, Request
+from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from fastapi.responses import JSONResponse, Response, StreamingResponse
 from langgraph.types import Command
 from sqlalchemy import create_engine, text
 from starlette.concurrency import run_in_threadpool
 
+from src.api.auth import AuthContext
+from src.api.rate_limit import enforce_request_limits
 from src.api.schemas import (
     AskRequest,
     AskResponse,
@@ -27,6 +30,7 @@ from src.api.schemas import (
     ReviewRequest,
 )
 from src.config import settings
+from src.hitl.audit import get_audit_log
 from src.hitl.store import get_review_store
 from src.observability.context import bind_request_context
 from src.observability.metrics import metrics_payload, record_request
@@ -133,7 +137,11 @@ def _response(
 
 
 @router.post("/v1/ask", response_model=AskResponse)
-async def ask(payload: AskRequest, request: Request) -> AskResponse:
+async def ask(
+    payload: AskRequest,
+    request: Request,
+    _auth: AuthContext = Depends(enforce_request_limits),
+) -> AskResponse:
     """Run one query through the graph; returns a cited answer or a review pause."""
     graph = _graph(request)
     thread_id = _thread_id(payload.thread_id)
@@ -141,7 +149,14 @@ async def ask(payload: AskRequest, request: Request) -> AskResponse:
     config = _config(thread_id)
 
     try:
-        state = await run_in_threadpool(graph.invoke, _input(payload, thread_id), config)
+        state = await asyncio.wait_for(
+            run_in_threadpool(graph.invoke, _input(payload, thread_id), config),
+            timeout=settings.request_timeout_seconds,
+        )
+    except TimeoutError:
+        logger.warning("ask timed out for thread=%s", thread_id)
+        record_request("degraded", None)
+        raise HTTPException(status_code=504, detail="request timed out") from None
     except Exception as exc:
         from src.llm.fallback import DegradedResponseError
 
@@ -184,6 +199,7 @@ def ask_stream(
     ticker: str | None = Query(default=None, pattern=r"^[A-Z.\-]{1,10}$"),
     fiscal_year: int | None = Query(default=None, ge=2000, le=2100),
     thread_id: str | None = Query(default=None, min_length=1, max_length=128),
+    _auth: AuthContext = Depends(enforce_request_limits),
 ) -> StreamingResponse:
     """Stream node progress and LLM tokens as Server-Sent Events."""
     graph = _graph(request)
@@ -262,7 +278,9 @@ def ask_stream(
 
 
 @router.get("/v1/reviews/pending", response_model=PendingReviewsResponse)
-async def pending_reviews() -> PendingReviewsResponse:
+async def pending_reviews(
+    _auth: AuthContext = Depends(enforce_request_limits),
+) -> PendingReviewsResponse:
     """List recommendation outputs currently paused for human review."""
     store = get_review_store(settings)
     pending = [
@@ -285,6 +303,7 @@ async def review(
     thread_id: str,
     payload: ReviewRequest,
     request: Request,
+    auth: AuthContext = Depends(enforce_request_limits),
 ) -> AskResponse:
     """Approve or reject a paused recommendation, resuming its graph thread."""
     graph = _graph(request)
@@ -299,19 +318,36 @@ async def review(
     except Exception:
         next_nodes = ()
 
-    if store.get(thread_id) is None and settings.hitl_interrupt_node not in next_nodes:
+    pending_review = store.get(thread_id)
+    if pending_review is None and settings.hitl_interrupt_node not in next_nodes:
         raise HTTPException(status_code=404, detail="no pending review for thread_id")
 
     try:
-        state = await run_in_threadpool(
-            graph.invoke,
-            Command(resume={"approved": payload.approved, "note": payload.note}),
-            config,
+        state = await asyncio.wait_for(
+            run_in_threadpool(
+                graph.invoke,
+                Command(resume={"approved": payload.approved, "note": payload.note}),
+                config,
+            ),
+            timeout=settings.request_timeout_seconds,
         )
-        store.remove(thread_id)
+    except TimeoutError:
+        logger.warning("review timed out for thread=%s", thread_id)
+        raise HTTPException(status_code=504, detail="request timed out") from None
     except Exception as exc:
         logger.exception("review resume failed for thread=%s", thread_id)
         raise HTTPException(status_code=500, detail=f"could not resume thread: {exc}") from exc
+
+    draft = (pending_review or {}).get("answer") or state.get("draft_answer") or state.get("answer") or ""
+    audit = getattr(request.app.state, "audit_log", None) or get_audit_log(settings)
+    audit.record(
+        thread_id=thread_id,
+        reviewer=auth.name,
+        decision="approved" if payload.approved else "rejected",
+        note=payload.note,
+        draft=draft,
+    )
+    store.remove(thread_id)
 
     pending = _is_pending(graph, config, state)
     response = _response(thread_id, state, pending=pending)

@@ -44,11 +44,19 @@ async def _lifespan(app: FastAPI) -> AsyncIterator[None]:
     app.state.graph = None
 
 
-def create_app(graph: Any | None = None) -> FastAPI:
+def create_app(
+    graph: Any | None = None,
+    *,
+    auth_enabled: bool | None = None,
+    api_key_store: Any | None = None,
+    rate_limiter: Any | None = None,
+    concurrency_limiter: Any | None = None,
+    audit_log: Any | None = None,
+) -> FastAPI:
     """Create the FinSight FastAPI application.
 
-    ``graph`` is injectable for tests; production leaves it unset and the
-    lifespan builds the default LangGraph from settings.
+    ``graph`` and the security collaborators are injectable for tests;
+    production leaves them unset and uses settings-backed implementations.
     """
     configure_logging(settings.log_level)
     app = FastAPI(
@@ -59,6 +67,15 @@ def create_app(graph: Any | None = None) -> FastAPI:
     )
     if graph is not None:
         app.state.graph = graph
+    app.state.auth_enabled = settings.api_auth_enabled if auth_enabled is None else auth_enabled
+    if api_key_store is not None:
+        app.state.api_key_store = api_key_store
+    if rate_limiter is not None:
+        app.state.rate_limiter = rate_limiter
+    if concurrency_limiter is not None:
+        app.state.concurrency_limiter = concurrency_limiter
+    if audit_log is not None:
+        app.state.audit_log = audit_log
     app.add_middleware(RequestContextMiddleware)
     app.include_router(router)
     return app

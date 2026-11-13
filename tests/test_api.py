@@ -45,6 +45,17 @@ PAUSED = {
 }
 
 
+class FakeAudit:
+    """Capture HITL audit records without Postgres."""
+
+    def __init__(self) -> None:
+        self.records: list[dict[str, Any]] = []
+
+    def record(self, **kwargs: Any) -> bool:
+        self.records.append(kwargs)
+        return True
+
+
 class FakeGraph:
     """Minimal LangGraph stand-in supporting invoke/get_state/stream."""
 
@@ -82,8 +93,13 @@ def _store_without_redis() -> store_module.PendingReviewStore:
     return store
 
 
-def _client(graph: FakeGraph) -> TestClient:
-    return TestClient(create_app(graph=graph))
+def _client(
+    graph: FakeGraph,
+    *,
+    audit_log: FakeAudit | None = None,
+    auth_enabled: bool = False,
+) -> TestClient:
+    return TestClient(create_app(graph=graph, auth_enabled=auth_enabled, audit_log=audit_log))
 
 
 def test_schema_bounds() -> None:
@@ -129,9 +145,10 @@ def test_unverified_completed_response_includes_caveat() -> None:
 
 def test_ask_pending_and_review() -> None:
     graph = FakeGraph(paused=True)
+    audit = FakeAudit()
     store = _store_without_redis()
     with patch.object(store_module, "_STORE", store):
-        with _client(graph) as client:
+        with _client(graph, audit_log=audit) as client:
             response = client.post("/v1/ask", json={"query": "build a bull case for AAPL"})
             assert response.status_code == 200, response.text
             body = response.json()
@@ -153,6 +170,15 @@ def test_ask_pending_and_review() -> None:
             assert review.status_code == 200, review.text
             assert review.json()["status"] == "completed"
             assert graph.resumed is True
+            assert audit.records == [
+                {
+                    "thread_id": thread_id,
+                    "reviewer": "local",
+                    "decision": "approved",
+                    "note": "looks fine",
+                    "draft": "a",
+                }
+            ]
     print("PASS test_ask_pending_and_review")
 
 

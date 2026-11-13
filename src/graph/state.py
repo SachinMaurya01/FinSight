@@ -20,6 +20,7 @@ class GraphState(TypedDict, total=False):
     thread_id: str | None
     tier: ComplexityTier
     chunks: list[dict[str, Any]]
+    injected_context: str | None  # eval-only fault injection; never exposed by the HTTP API
     # LLM answer
     answer: str
     draft_answer: str

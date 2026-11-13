@@ -8,9 +8,10 @@ from typing import Any
 from langgraph.errors import GraphInterrupt
 from langgraph.types import interrupt
 
+from src.compliance.template import apply_investment_disclaimer
 from src.config import settings
 from src.graph.state import GraphState
-from src.hitl.gate import hitl_payload, is_recommendation
+from src.hitl.gate import classify_recommendation, hitl_payload
 from src.hitl.store import get_review_store
 from src.ingestion.chunker import Chunk
 from src.llm.answer import build_answer_prompt
@@ -22,6 +23,7 @@ from src.query.understanding import QueryIntent, filters_for, parse_query
 from src.retrieval.compress import compress_chunks
 from src.retrieval.rerank import retrieve_reranked
 from src.routing import classify_complexity
+from src.security.pii import query_log_fields
 from src.verification.abstention import ABSTAIN_MESSAGE, abstention_reason
 from src.verification.verify import verify_citations
 
@@ -32,7 +34,7 @@ def classify_complexity_node(state: GraphState) -> dict[str, Any]:
     """Classify query complexity to pick the model tier."""
     tier = classify_complexity(state["query"])
     bind_request_context(tier=tier)
-    logger.info("classify_complexity: %r -> %s", state["query"], tier)
+    logger.info("classify_complexity", extra={**query_log_fields(state["query"]), "tier": tier})
     return {"tier": tier, "verification_retries": state.get("verification_retries", 0)}
 
 
@@ -106,6 +108,10 @@ def retrieve_node(state: GraphState) -> dict[str, Any]:
             k=k,
             filters=filters_for(intent),
         )
+    injected = state.get("injected_context")
+    if injected and rows:
+        rows = list(rows)
+        rows[0] = {**rows[0], "content": f"{rows[0].get('content', '')}\n\n{injected}"}
     logger.info("retrieve_node: %d reranked chunks (retry=%s)", len(rows), state.get("verification_retries", 0))
     return {"chunks": rows}
 
@@ -362,7 +368,7 @@ def human_review_gate_node(state: GraphState) -> dict[str, Any]:
     answer = state.get("answer") or state.get("draft_answer") or ""
     query = state.get("query", "")
     thread_id = state.get("thread_id")
-    is_rec = is_recommendation(answer, query)
+    is_rec = classify_recommendation(answer, query, settings)
     logger.info("human_review_gate: is_recommendation=%s", is_rec)
 
     if not is_rec:
@@ -372,7 +378,7 @@ def human_review_gate_node(state: GraphState) -> dict[str, Any]:
     # It's recommendation-like: pause for human approval via interrupt.
     payload = hitl_payload(answer, query, state.get("sources"))
     record_hitl("requested")
-    logger.info("HITL interrupt triggered for recommendation: %r", query[:80])
+    logger.info("HITL interrupt triggered for recommendation", extra=query_log_fields(query))
 
     store = get_review_store(settings)
     if thread_id:
@@ -445,6 +451,9 @@ def finalize_node(state: GraphState) -> dict[str, Any]:
     # If HITL rejected, answer already set to withheld message
     if hitl_approved is False:
         logger.info("finalize: HITL rejected, returning withheld message")
+
+    if state.get("is_recommendation"):
+        answer = apply_investment_disclaimer(answer)
 
     sources = sorted(
         {
