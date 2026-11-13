@@ -18,8 +18,28 @@ from src.eval.metrics import (
     compute_ragas_metrics,
     ensure_ragas_available,
 )
+from src.verification.abstention import ABSTAIN_MESSAGE
 
 logger = logging.getLogger(__name__)
+
+
+def summarize_abstention(results: list[dict[str, Any]]) -> dict[str, Any]:
+    """Summarize abstention accuracy over examples that require abstention."""
+    expected = [result for result in results if result.get("expected_abstention")]
+    abstained = [result for result in expected if result.get("abstained")]
+    correct_reason = [
+        result
+        for result in abstained
+        if not result.get("expected_abstention_reason")
+        or result.get("abstention_reason") == result["expected_abstention_reason"]
+    ]
+    return {
+        "expected": len(expected),
+        "abstained": len(abstained),
+        "accuracy": round(len(abstained) / len(expected), 4) if expected else None,
+        "reason_matches": len(correct_reason),
+        "reason_accuracy": round(len(correct_reason) / len(expected), 4) if expected else None,
+    }
 
 
 def run_eval(
@@ -59,10 +79,31 @@ def run_eval(
         logger.info("Eval %s: %r", ex.id, ex.question)
         try:
             state = ask(ex.question, k=settings.rerank_top_k)
-            answer = state.get("answer", "")
+            answer = state.get("answer") or ""
             chunks = state.get("chunks", [])
             contexts = [c.get("content", "") for c in chunks]
             expected_citations = [c.model_dump() for c in ex.expected_citations]
+            abstention_reason = state.get("abstention_reason")
+            abstained = bool(abstention_reason) or answer.strip() == ABSTAIN_MESSAGE
+
+            if ex.expected_abstention:
+                results.append(
+                    {
+                        "id": ex.id,
+                        "question": ex.question,
+                        "expected_answer": ex.expected_answer,
+                        "expected_abstention": True,
+                        "expected_abstention_reason": ex.expected_abstention_reason,
+                        "answer": answer,
+                        "status": "abstained" if abstained else "completed",
+                        "abstained": abstained,
+                        "abstention_reason": abstention_reason,
+                        "verification": state.get("verification"),
+                        "tier": state.get("tier"),
+                        "provider": state.get("provider"),
+                    }
+                )
+                continue
 
             backend_for_example = active_backend
             if backend_for_example in ("ragas", "auto"):
@@ -102,6 +143,10 @@ def run_eval(
                     "answer": answer,
                     "complexity": ex.complexity,
                     "is_recommendation": ex.is_recommendation,
+                    "expected_abstention": False,
+                    "status": "abstained" if abstained else "completed",
+                    "abstained": abstained,
+                    "abstention_reason": abstention_reason,
                     "verification": state.get("verification"),
                     "tier": state.get("tier"),
                     "provider": state.get("provider"),
@@ -116,7 +161,16 @@ def run_eval(
             )
         except Exception as exc:
             logger.exception("Eval %s failed: %s", ex.id, exc)
-            results.append({"id": ex.id, "question": ex.question, "error": str(exc)})
+            results.append(
+                {
+                    "id": ex.id,
+                    "question": ex.question,
+                    "expected_abstention": ex.expected_abstention,
+                    "expected_abstention_reason": ex.expected_abstention_reason,
+                    "abstained": False,
+                    "error": str(exc),
+                }
+            )
 
     n = len([r for r in results if "metrics" in r])
     elapsed = time.time() - start
@@ -130,6 +184,7 @@ def run_eval(
         "avg_metrics": {k: round(v / max(n, 1), 4) for k, v in total_metrics.items()},
         "avg_judge": round(sum(judge_scores) / max(len(judge_scores), 1), 4),
         "judge_scores": judge_scores,
+        "abstention": summarize_abstention(results),
         "results": results,
     }
 

@@ -26,6 +26,8 @@ class EvalExample(BaseModel):
     complexity: Literal["simple", "normal", "complex"] = "normal"
     is_recommendation: bool = False
     category: str = "fact_extraction"
+    expected_abstention: bool = False
+    expected_abstention_reason: str | None = None
 
 
 def load_dataset(path: Path | None = None, shuffle: bool = False) -> list[EvalExample]:

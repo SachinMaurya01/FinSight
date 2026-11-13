@@ -478,5 +478,27 @@
     "complexity": "normal",
     "is_recommendation": false,
     "category": "trend_analysis"
+  },
+  {
+    "id": "eval_031",
+    "question": "What were Microsoft's total net sales in fiscal 2025?",
+    "expected_answer": "I can't answer this from the available filings",
+    "expected_citations": [],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "abstention",
+    "expected_abstention": true,
+    "expected_abstention_reason": "no_evidence"
+  },
+  {
+    "id": "eval_032",
+    "question": "What were Apple's total net sales in fiscal 2015?",
+    "expected_answer": "I can't answer this from the available filings",
+    "expected_citations": [],
+    "complexity": "simple",
+    "is_recommendation": false,
+    "category": "abstention",
+    "expected_abstention": true,
+    "expected_abstention_reason": "no_evidence"
   }
 ]

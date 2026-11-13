@@ -155,9 +155,8 @@ class Settings(BaseConfigSettings):
     semantic_verification_enabled: bool = (
         False  # LLM judge checks each claim against evidence (cheap tier); opt-in until eval-verified.
     )
-    abstention_min_rerank_score: float | None = (
-        -5.0
-    )  # top rerank score below this abstains; initial guess, tune on eval. None disables.
+    # Just below the lowest labeled answerable rerank score (-11.08); None disables the check.
+    abstention_min_rerank_score: float | None = -12.0
 
     # Human-in-the-loop
     hitl_enabled: bool = True  # compliance gate blocking investment-like answers without review.

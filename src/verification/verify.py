@@ -18,6 +18,8 @@ logger = logging.getLogger(__name__)
 _SENTENCE_SPLIT_RE = re.compile(r"(?<=[.!?])\s+")
 # Matches citation markers like [12] or 【12】 to strip before claim splitting.
 _CITATION_RE = re.compile(r"\[\d+\]|【\d+】")
+# Captures 1-based passage citations for per-claim numeric grounding.
+_CITATION_INDEX_RE = re.compile(r"\[(\d+)\]|【(\d+)】")
 # Matches financial numbers like $1,234.56 or 15% for grounding checks.
 _NUMERIC_RE = re.compile(r"\$?[\d,]+(?:\.\d+)?%?")
 
@@ -30,8 +32,32 @@ def _split_claims(answer: str) -> list[str]:
     return claims
 
 
+def _split_claim_entries(answer: str) -> list[tuple[str, str]]:
+    """Return (raw, citation-free) sentence-level claims for verification."""
+    entries: list[tuple[str, str]] = []
+    for sentence in _SENTENCE_SPLIT_RE.split(answer.strip()):
+        raw = sentence.strip()
+        clean = _CITATION_RE.sub("", raw).strip()
+        if clean:
+            entries.append((raw, clean))
+    return entries
+
+
 def _normalize(text: str) -> str:
     return re.sub(r"\s+", " ", text.lower()).strip()
+
+
+def _cited_chunk_indices(claim: str, chunk_count: int) -> tuple[list[int], list[int]]:
+    """Return valid 0-based cited chunk indices and any out-of-range citations."""
+    cited: set[int] = set()
+    invalid: set[int] = set()
+    for match in _CITATION_INDEX_RE.finditer(claim):
+        number = int(match.group(1) or match.group(2))
+        if 1 <= number <= chunk_count:
+            cited.add(number - 1)
+        else:
+            invalid.add(number)
+    return sorted(cited), sorted(invalid)
 
 
 def _is_year(token: str) -> bool:
@@ -163,7 +189,8 @@ def verify_citations(
     if not answer.strip():
         return VerificationResult(passed=False, total_claims=0, reasons=["empty answer"])
 
-    claims = _split_claims(answer)
+    claim_entries = _split_claim_entries(answer)
+    claims = [clean for _, clean in claim_entries]
     if not claims:
         return VerificationResult(passed=False, total_claims=0, reasons=["no claims extracted"])
 
@@ -182,7 +209,7 @@ def verify_citations(
                     tool_numbers.add(str(int(tr[key])) if float(tr[key]).is_integer() else "")
                     tool_numbers.add(re.sub(r"[,$%]", "", f"{tr[key]}"))
 
-    evidence = build_evidence(chunks, tool_results)
+    all_evidence = build_evidence(chunks, tool_results)
     verdicts: dict[int, ClaimVerdict] = {}
     judge_error: str | None = None
     if use_llm_judge:
@@ -192,7 +219,12 @@ def verify_citations(
             judge_error = str(exc)
             logger.warning("Semantic verification unavailable: %s", exc)
 
-    for index, claim in enumerate(claims):
+    for index, (raw_claim, claim) in enumerate(claim_entries):
+        cited_indices, invalid_citations = _cited_chunk_indices(raw_claim, len(chunks))
+        if cited_indices:
+            claim_evidence = build_evidence([chunks[i] for i in cited_indices], tool_results)
+        else:
+            claim_evidence = all_evidence
         grounded, chunk_idx, reason = _claim_grounded_heuristic(claim, chunks)
         # Tool grounding override: if failed but claim contains a tool-derived number, consider grounded
         if not grounded and tool_numbers:
@@ -204,10 +236,13 @@ def verify_citations(
                 chunk_idx = None
         if use_llm_judge:
             grounded, reason = _judge_decision(index, verdicts, judge_error)
-        bad_figures = ungrounded_figures(claim, evidence)
+        bad_figures = ungrounded_figures(claim, claim_evidence)
         if bad_figures:
             grounded = False
             reason = "ungrounded figure(s): " + ", ".join(figure.raw for figure in bad_figures)
+        if invalid_citations:
+            grounded = False
+            reason = "citation index out of range: " + ", ".join(str(number) for number in invalid_citations)
         entry = {"claim": claim, "chunk_index": chunk_idx, "reason": reason}
         if grounded:
             verified.append(entry)

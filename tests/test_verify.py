@@ -44,6 +44,30 @@ def test_numeric_hallucination_fails() -> None:
     print("PASS test_numeric_hallucination_fails")
 
 
+def test_numeric_grounding_uses_cited_chunk_only() -> None:
+    chunks = [
+        {"content": "Apple net sales were $383.3 billion in fiscal 2023."},
+        {"content": "Unrelated example: a vendor reported $999 billion in synthetic revenue."},
+    ]
+    result = verify_citations("Apple net sales were $999 billion in fiscal 2023 [1].", chunks)
+    assert not result.passed
+    assert any("ungrounded figure" in reason for reason in result.reasons)
+
+    cited_result = verify_citations("Apple net sales were $383.3 billion in fiscal 2023 [1].", chunks)
+    assert cited_result.passed, cited_result.reasons
+
+    uncited_result = verify_citations("Apple net sales were $383.3 billion in fiscal 2023.", chunks)
+    assert uncited_result.passed, uncited_result.reasons
+    print("PASS test_numeric_grounding_uses_cited_chunk_only")
+
+
+def test_invalid_citation_fails() -> None:
+    result = verify_citations("Apple net sales were $383.3 billion in fiscal 2023 [9].", CHUNKS)
+    assert not result.passed
+    assert any("citation index out of range" in reason for reason in result.reasons)
+    print("PASS test_invalid_citation_fails")
+
+
 def test_edge_cases_and_tool_grounding() -> None:
     assert not verify_citations("   ", CHUNKS).passed
     # A single ungrounded non-numeric claim is tolerated by design.
@@ -62,6 +86,8 @@ def main() -> int:
     test_helpers()
     test_grounded_answer_passes()
     test_numeric_hallucination_fails()
+    test_numeric_grounding_uses_cited_chunk_only()
+    test_invalid_citation_fails()
     test_edge_cases_and_tool_grounding()
     return 0
 

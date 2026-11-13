@@ -1,5 +1,5 @@
 {
-  "n_examples": 30,
+  "n_examples": 32,
   "n_scored": 28,
   "k": 8,
   "chunk_count": 433,
@@ -1584,6 +1584,110 @@
             "Item 7 MD&A",
             "Item 8 Financial Statements",
             "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_031",
+      "question": "What were Microsoft's total net sales in fiscal 2025?",
+      "category": "abstention",
+      "configs": {
+        "dense_only": {
+          "context_precision": null,
+          "context_recall": null,
+          "mrr": null,
+          "sections": [
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements"
+          ]
+        },
+        "hybrid": {
+          "context_precision": null,
+          "context_recall": null,
+          "mrr": null,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": null,
+          "context_recall": null,
+          "mrr": null,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 8 Financial Statements"
+          ]
+        }
+      }
+    },
+    {
+      "id": "eval_032",
+      "question": "What were Apple's total net sales in fiscal 2015?",
+      "category": "abstention",
+      "configs": {
+        "dense_only": {
+          "context_precision": null,
+          "context_recall": null,
+          "mrr": null,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 8 Financial Statements"
+          ]
+        },
+        "hybrid": {
+          "context_precision": null,
+          "context_recall": null,
+          "mrr": null,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 8 Financial Statements",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 7 MD&A"
+          ]
+        },
+        "hybrid_rerank": {
+          "context_precision": null,
+          "context_recall": null,
+          "mrr": null,
+          "sections": [
+            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 7 MD&A",
+            "Item 8 Financial Statements",
+            "Item 7 MD&A",
+            "Item 7 MD&A",
+            "Item 8 Financial Statements",
             "Item 7 MD&A"
           ]
         }

@@ -9,7 +9,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.config import settings
 from src.graph import nodes as graph_nodes
-from src.verification.abstention import ABSTAIN_MESSAGE, abstention_reason, abstention_caveat
+from src.verification.abstention import ABSTAIN_MESSAGE, abstention_caveat, abstention_reason
 
 AAPL_CHUNK = {
     "content": "Synthetic filing: net sales were $383.3 billion.",

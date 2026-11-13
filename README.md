@@ -25,7 +25,7 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 - [Design decisions](#design-decisions)
 - [Production readiness](#production-readiness)
 - [Evaluation](#evaluation-results)
-- [Experiments](EXPERIMENTS.md)
+- [Experiments](docs/EXPERIMENTS.md)
 - [Failure analysis](#failure-analysis)
 - [Security](#security-and-compliance)
 - [Operations](#operations)
@@ -36,7 +36,7 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 - **Problem:** 10-K answers are buried in long, table-heavy filings; generic chat-with-PDF tools lose citation traceability and numeric precision.
 - **Approach:** EDGAR ingestion with section-scoped, metadata-filtered chunks; hybrid retrieval (dense + BM25 with RRF), cross-encoder reranking, query understanding, tiered model routing, provider fallback, citation verification, and HITL for recommendation-like output.
 - **Current evidence:** offline retrieval ablation on 28 citation-labeled questions after Item 8 ingestion. Hybrid + rerank reaches `MRR@8 = 0.9000` vs `0.8661` for dense-only; context precision is `0.7768` vs `0.7411`.
-- **Current gap:** full 30-question RAGAS is not measured. The checked-in end-to-end baseline is a 3-question heuristic smoke run. RAGAS is wired behind `--metrics ragas` but the current dependency lock cannot import it.
+- **Current gap:** full RAGAS is not measured. The dataset now has 30 answerable questions plus 2 out-of-corpus abstention cases; the checked-in end-to-end baseline remains a 3-question heuristic smoke run. RAGAS is wired behind `--metrics ragas` but the current dependency lock cannot import it.
 - **Production status:** local reference stack with FastAPI, retries/circuit breakers, JSON logs, Prometheus metrics, optional Langfuse traces, and CI gates. Auth, rate limiting, and horizontal scaling are not included.
 
 ## Scope
@@ -50,7 +50,7 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 | Dense + BM25 hybrid retrieval with metadata prefilters + reranking | Parent-child retrieval and learned sparse retrieval |
 | Query understanding (regex + optional LLM) with comparison decomposition | Multi-turn query rewriting and HyDE |
 | Provider routing and fallback | Production auth, multi-tenant isolation, rate limiting |
-| Citation verification + bounded retry | NLI-grade entailment and numeric normalization |
+| Numeric-aware verification + optional LLM claim judge + abstention | Calibrated NLI-grade entailment and exhaustive numeric normalization |
 | HITL gate for recommendation-like output | Regulatory advice, portfolio execution, or investment recommendations |
 | Offline retrieval ablation + eval harness | Hosted API/UI, SLO dashboards, on-call runbooks |
 
@@ -60,7 +60,7 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 
 **Offline:** `EdgarClient`/`data/*.html` (+ optional `data/filings.json` accession/filed-at manifest) → `parse_edgar_file` (Items 1A, 7, 8; Item 8 tables serialized as structured rows) → `chunk_document` (text 1000/150 plus unsplit table chunks with CIK/form/year/accession metadata) → `embed_chunks` (sentence-transformers, 384d, model + version tagged) → pgvector/Alembic-managed schema with HNSW + metadata indexes.
 
-**Online:** `ask()` → classify complexity → `parse_query` (tickers/year/form/intent; comparison sub-queries) → filtered retrieve (dense top-20 + BM25 top-20 → RRF → rerank top-8) → compress → LLM (tier routing + fallback + tools; P/E uses SEC XBRL TTM diluted EPS) → verify citations (retry on failure) → human review gate → final answer + sources.
+**Online:** `ask()` → classify complexity → `parse_query` (tickers/year/form/intent; comparison sub-queries) → filtered retrieve (dense top-20 + BM25 top-20 → RRF → rerank top-8) → compress → LLM (tier routing + fallback + tools; P/E uses SEC XBRL TTM diluted EPS) → verify citations (scale-aware numeric grounding + optional semantic judge; retry on failure) → abstain on missing evidence or exhausted verification → human review gate → final answer + sources.
 
 **Request invariants**
 
@@ -69,6 +69,7 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 3. All graph LLM calls go through the provider fallback chain; failures are logged with provider and reason.
 4. Retrieved evidence carries `ticker`, `cik`, `form_type`, `fiscal_period`, `fiscal_year`, `section`, `accession`, `filed_at`, `chunk_index`, `chunk_type`, and `unit_scale` for citation and filtering.
 5. Dense and BM25 apply the same metadata filters to the same candidate universe before fusion.
+6. Missing evidence, low retrieval confidence, out-of-corpus filters, and exhausted verification produce `status="abstained"` with a caveat and no sources — never a guessed answer.
 
 ## Design decisions
 
@@ -78,7 +79,7 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 | Cross-encoder rerank on fused candidates | Improves ordering once candidates are in the pool | Adds latency and cannot recover chunks missing from the candidate set |
 | Complexity-based model routing | Controls cost/latency on simple queries | Routing accuracy is not yet measured against labeled queries |
 | Provider fallback chain | Availability under rate limits/timeouts/auth failures | A fallback provider can change answer style/quality; no cross-provider consistency test |
-| Citation verification before return | Blocks ungrounded claims from reaching users | Current check is keyword overlap, not entailment |
+| Citation verification before return | Blocks ungrounded claims and figures from reaching users | Lexical/numeric checks are deterministic; the semantic judge is opt-in and not yet calibrated on a labeled set |
 | HITL gate for recommendation-like output | Compliance-relevant control, not a model feature | Non-interactive `ask()` auto-approves for evaluation; production must not use that path |
 | Redis cache + checkpointer with memory fallback | Lower latency and HITL resume across restarts | Memory fallback silently loses state across process restarts (logged) |
 | Local embeddings by default | Offline reproducibility and no embedding API cost | 384d MiniLM is a quality ceiling; not benchmarked against stronger embedders |
@@ -91,9 +92,10 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 | Ingestion | Implemented, sample scale | EDGAR client (UA/throttle/retries), idempotent upserts, embedding model/version tags, Alembic |
 | Query understanding | Implemented, optional LLM | Regex fallback by default; optional Pydantic structured LLM extraction; comparison decomposition |
 | LLM reliability | Implemented | Tier routing, fallback chain, timeouts, transient retries, per-provider circuit breakers, degraded responses |
-| Citation verification | Implemented, heuristic | Keyword overlap; NLI/numeric checks are future work |
+| Citation verification | Implemented | Citation-scoped numeric grounding with scale/unit normalization; optional cheap-tier semantic judge; bounded retry |
 | HITL control | Implemented, default-on | CLI gate + Redis checkpointer; `--no-hitl` and `ask()` auto-approval must be guarded in production |
-| Evaluation | Partial | Retrieval measured on 28 questions; end-to-end n=3; RAGAS blocked |
+| Abstention | Implemented | Withholds on no evidence, out-of-corpus filters, low rerank confidence, or exhausted verification; 2 out-of-corpus eval cases |
+| Evaluation | Partial | Retrieval measured on 28 labeled questions; abstention cases added (n=2); end-to-end n=3; RAGAS blocked |
 | API / UI | API implemented, no UI | FastAPI `/v1/ask`, SSE stream, HITL review endpoints, `/health`, `/ready`, `/metrics` |
 | AuthN / AuthZ | Not included | No tenant model or access control |
 | Rate limiting / quotas | Not included | Required before exposing an API |
@@ -108,12 +110,12 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 
 ### Dataset and protocol
 
-- `data/eval/eval_dataset.json`: 30 questions, 3 complexity tiers, 4 recommendation-framed questions.
-- 28 questions have section-level citation labels; 2 are pure tool questions and are excluded from retrieval scoring.
+- `data/eval/eval_dataset.json`: 32 questions — 30 answerable plus 2 out-of-corpus abstention cases — across 3 complexity tiers, with 4 recommendation-framed questions.
+- 28 answerable questions have section-level citation labels; 2 are pure tool questions and are excluded from retrieval scoring. The 2 abstention cases expect no citations and a `no_evidence` reason.
 - Retrieval ablation is offline and deterministic: local embeddings, local reranker, `k=8`, checked-in chunks.
 - End-to-end baseline is a 3-question run through the full graph using Groq and the heuristic metrics backend.
 - Raw artifacts: [`data/eval/retrieval_ablation.json`](data/eval/retrieval_ablation.json), [`data/eval/baseline.json`](data/eval/baseline.json).
-- Phase 5 retrieval experiments and keep/drop decisions: [`EXPERIMENTS.md`](EXPERIMENTS.md) (E1 chunking, E2 embedder, E3 rerank top-N, E4 query rewriting).
+- Phase 5 retrieval experiments and keep/drop decisions: [`docs/EXPERIMENTS.md`](docs/EXPERIMENTS.md) (E1 chunking, E2 embedder, E3 rerank top-N, E4 query rewriting).
 
 ### Retrieval ablation: dense vs hybrid vs hybrid + rerank
 
@@ -156,6 +158,7 @@ PRD targets are used where defined; retrieval MRR@8 is an engineering gate added
 | Fallback success under provider failure | 100% | Unit-tested | No end-to-end chaos test |
 | Routing accuracy (simple → cheap) | ≥ 90% | Not measured | No labeled routing set |
 | HITL interception | 100% of recommendation-like output | Not measured | 4 recommendation examples exist |
+| Abstention on unanswerable/out-of-corpus | 100% abstain with reason | n=2 cases wired | End-to-end measurement needs DB + provider keys |
 
 ### Metrics backends
 
@@ -174,14 +177,14 @@ PRD targets are used where defined; retrieval MRR@8 is an engineering gate added
 | Rerank helps rank, not recall | `eval_004` MRR `0.50 → 1.00`, precision flat at `0.375` | The relevant chunk was already in the candidate set | Improve candidate recall separately from reranking |
 | Recall appears perfect | All configurations | Citation labels are section-level, so “right section” is easy | Add passage/chunk-level labels and negative examples |
 | P/E answer is fragile | `eval_008` | Historical: EPS regex over prose mixed filing and trailing EPS | **Fixed in Phase 4:** SEC companyfacts TTM diluted EPS with period, accession, and price timestamp |
-| Verification can pass weak claims | 3/3 smoke run passed | Keyword overlap, not entailment | NLI claim verification + numeric normalization |
+| Verification can pass weak claims | 3/3 smoke run passed | Lexical/numeric checks are still weaker than entailment | Calibrate the semantic judge on a labeled claim set; add NLI |
 | RAGAS not available | `--metrics ragas` | Dependency/lock incompatibility | Pin a working RAGAS stack; add integration test |
 | Narrow corpus | 2 Apple 10-Ks | Only Items 1A, 7, and 8; no 10-Q/8-K, transcripts, peers, or international filings | Expand corpus before claiming broad financial QA |
 
 ## Reliability and failure modes
 
 - **Provider failure:** fallback hops across OpenAI → Groq → Gemini → vLLM. If every provider fails, the pipeline raises `DegradedResponseError` instead of returning an unverified answer.
-- **Verification failure:** bounded retry to retrieval (max 2). After exhaustion, the answer is returned with a visible verification flag, not silently passed. The verifier tolerates zero unmatched financial numeric claims and at most one non-numeric weak claim.
+- **Verification failure:** bounded retry to retrieval (max 2). After exhaustion, the answer is withheld with `status="abstained"`, `abstention_reason="verification_failed"`, and a caveat. Non-abstained responses with `verification.passed=false` also carry a caveat. The verifier grounds each claim against its own citation when present, normalizes scale/units, and tolerates at most one non-numeric weak claim.
 - **Postgres unavailable:** retrieval cannot proceed; the error is surfaced. There is no local vector-store fallback.
 - **Redis unavailable:** embedding cache and Redis checkpointer fall back to in-memory behavior; HITL state is lost on restart.
 - **Tool failure:** price fetch failure returns a tool error and does not fabricate a price. If SEC XBRL is unavailable or has no diluted EPS fact, P/E degrades to a price-only response with an explicit reason.
@@ -275,7 +278,7 @@ uv run python -m src.retrieval rerank "liquidity 148.3 billion" --k 5 --ticker A
 | Dense/hybrid/rerank retrieval | Unit tests + offline ablation | No DB integration test; no load test |
 | Provider fallback + tier routing | Unit tests with fake providers | No live-provider integration or chaos test |
 | Graph node order | Unit test asserts `verify_citations` before `human_review_gate` | No end-to-end HITL resume test |
-| Citation verification | Unit tests + 3-example smoke run | Heuristic overlap; no NLI/numeric regression suite |
+| Citation verification | Unit tests for numeric scale/unit, citation scoping, semantic judge, and abstention | No labeled claim-level accuracy benchmark; semantic judge opt-in |
 | Real RAGAS | Adapter present | Not run; dependency/lock failure |
 | API, auth, rate limits | Not implemented | — |
 
@@ -296,6 +299,8 @@ Key environment variables (see `.env.example` for the full set):
 | `FALLBACK_CHAIN` | provider order | `["openai","groq","gemini","vllm"]` |
 | `HITL_ENABLED` | recommendation gate | `true` |
 | `VERIFICATION_MAX_RETRIES` | bounded verification retries | `2` |
+| `SEMANTIC_VERIFICATION_ENABLED` | optional cheap-tier LLM claim judge | `false` |
+| `ABSTENTION_MIN_RERANK_SCORE` | abstain when the top rerank score is below this; `None` disables | `-12.0` |
 | `CHECKPOINTER_TYPE` | `redis` or `in_memory` | `in_memory` |
 | `LLM_TIMEOUT_SECONDS` / `LLM_MAX_ATTEMPTS` | provider timeout and retry count | `30` / `3` |
 | `CIRCUIT_BREAKER_FAILURES` / `COOLDOWN_SECONDS` | per-provider breaker thresholds | `5` / `30` |
@@ -319,10 +324,10 @@ Key environment variables (see `.env.example` for the full set):
 - **Chunking:** text chunks are section-scoped at 1000/150; parent-child retrieval is not implemented, so E1 measures section/table awareness rather than a full parent-child design.
 - **Query understanding:** regex is the default path; the optional LLM parser has no accuracy benchmark. Comparison decomposition is limited to ticker sub-queries.
 - **Embedding versioning:** rows carry `embedding_model`/`embedding_version` and dense search filters on the active model, so vector spaces are not mixed in queries. There is no side-by-side multi-model embedding table; changing dimensions recreates the table.
-- **Experiments:** E2/E4 were not adopted (see `EXPERIMENTS.md`); E4 has no hard-tier labels and HyDE was not run. E3 has no p95 latency measurement.
+- **Experiments:** E2/E4 were not adopted (see `docs/EXPERIMENTS.md`); E4 has no hard-tier labels and HyDE was not run. E3 has no p95 latency measurement.
 - **P/E:** live yfinance price plus SEC XBRL TTM diluted EPS; negative/zero EPS returns "not meaningful". The price is point-in-time at request time, not the filing date.
-- **Evaluation:** retrieval ablation is measured; end-to-end is a 3-question smoke run; real RAGAS is not yet measured.
-- **Verification:** keyword overlap, not entailment. Treat `verification.passed` as a floor.
+- **Evaluation:** retrieval ablation is measured; end-to-end is a 3-question smoke run; the 2 abstention cases are wired into the harness but not yet run end-to-end; real RAGAS is not measured.
+- **Verification:** numeric/scale checks plus optional semantic judging, not calibrated entailment. Treat `verification.passed` as a floor. The abstention rerank threshold is an initial guess pending tuning.
 - **Scale:** single-process CLI; no horizontal scaling, queueing, or concurrency controls.
 - **Not legal, financial, or investment advice.** Recommendation-like output is withheld pending human review.
 
@@ -332,9 +337,9 @@ Priority is risk reduction, not feature count.
 
 **P0 — correctness and evidence**
 
-1. Passage-level citation labels; add negative/abstention cases to the eval set.
+1. Passage-level citation labels; expand negative/unanswerable eval cases beyond the current 2.
 2. Unblock and run full 30-question RAGAS; freeze judge model and prompts.
-3. NLI-based claim verification + numeric normalization (`$M` vs `$B`, basic vs diluted EPS).
+3. Calibrate the semantic judge and add NLI-based claim verification, including basic vs diluted EPS distinctions.
 4. Extend table-aware ingestion to 10-Q/8-K and all Item 8 notes.
 
 **P1 — production controls**
@@ -383,7 +388,8 @@ Priority is risk reduction, not feature count.
 | `tokens_in` | `int` | Prompt tokens |
 | `sources` | `list[str]` | Distinct chunk sources |
 | `tool_results` | `list[dict]` | Tool outputs |
-| `verification` | `dict` | `passed`, `failed_claims`, `verified_claims` |
+| `verification` | `dict` | `passed`, `failed_claims`, `verified_claims`, `reasons` |
+| `abstention_reason` | `str\|None` | Why the answer was withheld (`no_evidence`, `verification_failed`, etc.) |
 | `verification_retries` | `int` | Bounded retry count (max 2) |
 | `is_recommendation` | `bool` | HITL trigger |
 | `hitl_approved` | `bool\|None` | Human decision |
@@ -415,7 +421,7 @@ src/
   retrieval/         # embed, bm25, hybrid, rerank, compress, cache, storage
   llm/               # prompt, client, fallback, tools, answer
   tools/             # price, ratios, schemas
-  verification/      # citation grounding
+  verification/      # numeric/semantic claim grounding + abstention
   hitl/              # recommendation gate
   graph/             # state, nodes, checkpoint, graph
   eval/              # dataset, metrics (heuristic + RAGAS), judge, harness, ablation
@@ -427,7 +433,7 @@ data/
   chunks/            # derived chunk JSON
   eval/              # eval_dataset.json, baseline.json, retrieval_ablation.json
 migrations/          # Alembic schema migrations
-EXPERIMENTS.md       # Phase 5 before/after retrieval experiments
+docs/EXPERIMENTS.md  # Phase 5 retrieval experiments + Phase 6 threshold calibration
 Makefile             # one-command local demo and eval targets
 docker-compose.yml   # Postgres/pgvector + Redis
 ```

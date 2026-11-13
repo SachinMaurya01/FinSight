@@ -15,7 +15,7 @@ from langgraph.types import Command
 from pydantic import ValidationError
 
 from src.api.app import create_app
-from src.api.routes import ReadinessCheck
+from src.api.routes import ReadinessCheck, _response
 from src.api.schemas import AskRequest, AskResponse
 from src.config import settings
 from src.hitl import store as store_module
@@ -118,6 +118,15 @@ def test_ask_completed() -> None:
     print("PASS test_ask_completed")
 
 
+def test_unverified_completed_response_includes_caveat() -> None:
+    response = _response("thread", {**COMPLETED, "verification": {"passed": False}})
+    assert response.status == "completed"
+    assert response.verification == {"passed": False}
+    assert response.reason == "verification_failed"
+    assert response.caveat == "Verification failed: the answer could not be verified against the cited filings."
+    print("PASS test_unverified_completed_response_includes_caveat")
+
+
 def test_ask_pending_and_review() -> None:
     graph = FakeGraph(paused=True)
     store = _store_without_redis()
@@ -186,6 +195,7 @@ def test_stream() -> None:
 def main() -> int:
     test_schema_bounds()
     test_ask_completed()
+    test_unverified_completed_response_includes_caveat()
     test_ask_pending_and_review()
     test_health_and_ready()
     test_stream()

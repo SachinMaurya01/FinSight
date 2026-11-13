@@ -16,3 +16,9 @@ Protocol: offline retrieval ablation over the checked-in 28 citation-labeled que
 - E3 changed `DENSE_TOP_K=BM25_TOP_K=FUSION_TOP_K=50`; reranking still returned top-8.
 - E4 expanded only `complex` examples with rule-based acronym/vague-term additions (`P/E → price earnings ratio`, etc.). It did not change labels or retrieval depth.
 - These are retrieval-only metrics. They are not RAGAS faithfulness or answer-correctness scores.
+
+## Phase 6 abstention threshold calibration
+
+Protocol: rerun the local hybrid + cross-encoder rerank path over all 32 eval questions (`k=8`, no LLM), recording the top `rerank_score` per question. The 30 answerable questions had a minimum top score of `-11.08`; unrelated off-topic queries landed between `-11.04` and `-4.00`, and out-of-corpus ticker/year questions are caught by metadata filters before scoring (no retrieved rows).
+
+Decision: set `ABSTENTION_MIN_RERANK_SCORE=-12.0`, just below the lowest labeled answerable score. This avoids false abstentions on answerable questions while still catching extreme reranker disagreement; corpus gaps rely on `no_evidence` and the ticker/year checks rather than a high score threshold. `None` disables the score check.
