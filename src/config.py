@@ -152,6 +152,12 @@ class Settings(BaseConfigSettings):
     verification_max_retries: int = Field(
         default=2, ge=0, le=3
     )  # retries unverified answers before flagging as degraded.
+    semantic_verification_enabled: bool = (
+        False  # LLM judge checks each claim against evidence (cheap tier); opt-in until eval-verified.
+    )
+    abstention_min_rerank_score: float | None = (
+        -5.0
+    )  # top rerank score below this abstains; initial guess, tune on eval. None disables.
 
     # Human-in-the-loop
     hitl_enabled: bool = True  # compliance gate blocking investment-like answers without review.

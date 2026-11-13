@@ -8,6 +8,9 @@ from dataclasses import dataclass, field
 from typing import Any
 
 from src.config import Settings
+from src.config import settings as app_settings
+from src.verification.numeric import build_evidence, ungrounded_figures
+from src.verification.semantic import ClaimVerdict, SemanticVerificationError, judge_claims
 
 logger = logging.getLogger(__name__)
 
@@ -86,19 +89,6 @@ def _claim_grounded_heuristic(claim: str, chunks: list[dict[str, Any]]) -> tuple
 
     for idx, chunk in enumerate(chunks):
         chunk_norm = _normalize(chunk.get("content", ""))
-        # Numeric grounding: if claim has financial numbers, at least one must appear verbatim in chunk
-        if numeric_tokens:
-            chunk_all = set(_NUMERIC_RE.findall(chunk_norm))
-            chunk_numbers = {t for t in chunk_all if _is_financial_numeric(t)}
-
-            # Normalize numbers for comparison: remove commas, $, etc
-            def _norm_num(s: str) -> str:
-                return re.sub(r"[,$%]", "", s).lower()
-
-            claim_nums_norm = {_norm_num(n) for n in numeric_tokens}
-            chunk_nums_norm = {_norm_num(n) for n in chunk_numbers}
-            if not (claim_nums_norm & chunk_nums_norm):
-                continue
         chunk_tokens = set(re.findall(r"[a-z0-9]+", chunk_norm))
         overlap = len(claim_keywords & chunk_tokens) / len(claim_keywords) if claim_keywords else 0
         if overlap > best_overlap:
@@ -136,6 +126,28 @@ class VerificationResult:
         }
 
 
+def _evidence_blocks(chunks: list[dict[str, Any]], tool_results: list[dict[str, Any]] | None) -> list[str]:
+    blocks = [f"[{index}] {chunk.get('content', '')}" for index, chunk in enumerate(chunks)]
+    blocks += [f"[tool {index}] {tool_result}" for index, tool_result in enumerate(tool_results or [])]
+    return blocks
+
+
+def _judge_decision(
+    index: int,
+    verdicts: dict[int, ClaimVerdict],
+    judge_error: str | None,
+) -> tuple[bool, str]:
+    """Map the semantic judge outcome for one claim; missing verdicts fail closed."""
+    if judge_error is not None:
+        return False, f"semantic check unavailable ({judge_error})"
+    verdict = verdicts.get(index)
+    if verdict is None:
+        return False, "semantic check returned no verdict"
+    if verdict.supported:
+        return True, f"semantic: {verdict.reason}"
+    return False, f"semantic: not supported ({verdict.reason})"
+
+
 def verify_citations(
     answer: str,
     chunks: list[dict[str, Any]],
@@ -143,7 +155,11 @@ def verify_citations(
     use_llm_judge: bool = False,
     tool_results: list[dict[str, Any]] | None = None,
 ) -> VerificationResult:
-    """Verify that every claim in answer is grounded in chunks or tool results."""
+    """Verify that every claim in answer is grounded in chunks or tool results.
+
+    Every figure must be supported by some chunk or tool result (scale- and unit-aware).
+    With ``use_llm_judge`` each claim's entailment is judged by an LLM instead of keyword overlap.
+    """
     if not answer.strip():
         return VerificationResult(passed=False, total_claims=0, reasons=["empty answer"])
 
@@ -166,7 +182,17 @@ def verify_citations(
                     tool_numbers.add(str(int(tr[key])) if float(tr[key]).is_integer() else "")
                     tool_numbers.add(re.sub(r"[,$%]", "", f"{tr[key]}"))
 
-    for claim in claims:
+    evidence = build_evidence(chunks, tool_results)
+    verdicts: dict[int, ClaimVerdict] = {}
+    judge_error: str | None = None
+    if use_llm_judge:
+        try:
+            verdicts = judge_claims(claims, _evidence_blocks(chunks, tool_results), settings or app_settings)
+        except SemanticVerificationError as exc:
+            judge_error = str(exc)
+            logger.warning("Semantic verification unavailable: %s", exc)
+
+    for index, claim in enumerate(claims):
         grounded, chunk_idx, reason = _claim_grounded_heuristic(claim, chunks)
         # Tool grounding override: if failed but claim contains a tool-derived number, consider grounded
         if not grounded and tool_numbers:
@@ -176,6 +202,12 @@ def verify_citations(
                 grounded = True
                 reason = f"tool-grounded (matched {claim_nums_norm & tool_numbers})"
                 chunk_idx = None
+        if use_llm_judge:
+            grounded, reason = _judge_decision(index, verdicts, judge_error)
+        bad_figures = ungrounded_figures(claim, evidence)
+        if bad_figures:
+            grounded = False
+            reason = "ungrounded figure(s): " + ", ".join(figure.raw for figure in bad_figures)
         entry = {"claim": claim, "chunk_index": chunk_idx, "reason": reason}
         if grounded:
             verified.append(entry)
@@ -198,16 +230,15 @@ def verify_citations(
     elif len(failed) == 0:
         passed = True
         logger.info("Verification passed: %d/%d claims grounded", len(verified), len(claims))
+    elif use_llm_judge:
+        passed = False
+        logger.warning("Verification failed: %d/%d claims unsupported by semantic check", len(failed), len(claims))
     elif len(failed) == 1:
         passed = True
         logger.info("Verification passed with 1 non-numeric weak claim tolerated (%d/%d)", len(verified), len(claims))
     else:
         passed = False
         logger.warning("Verification failed: %d/%d claims ungrounded (all non-numeric)", len(failed), len(claims))
-
-    # Optional LLM judge upgrade: if heuristic failed but LLM judge enabled, re-evaluate
-    # Deferred import for optional LLM judge
-    _ = use_llm_judge  # placeholder for future
 
     return VerificationResult(
         passed=passed,

@@ -22,6 +22,7 @@ from src.query.understanding import QueryIntent, filters_for, parse_query
 from src.retrieval.compress import compress_chunks
 from src.retrieval.rerank import retrieve_reranked
 from src.routing import classify_complexity
+from src.verification.abstention import ABSTAIN_MESSAGE, abstention_reason
 from src.verification.verify import verify_citations
 
 logger = logging.getLogger(__name__)
@@ -301,11 +302,17 @@ def _price_only_answer(
 
 
 def verify_citations_node(state: GraphState) -> dict[str, Any]:
-    """Verify each claim is grounded in retrieved chunks or tool results."""
+    """Verify each claim is grounded; abstain when the answer cannot be shown safely."""
     answer = state.get("answer") or state.get("draft_answer") or ""
     chunks = state.get("chunks", [])
     tool_results = state.get("tool_results")
-    result = verify_citations(answer, chunks, settings, tool_results=tool_results)
+    result = verify_citations(
+        answer,
+        chunks,
+        settings,
+        use_llm_judge=settings.semantic_verification_enabled,
+        tool_results=tool_results,
+    )
     retries = state.get("verification_retries", 0)
     logger.info(
         "verify_citations: passed=%s failed=%d/%d retries=%d",
@@ -325,15 +332,24 @@ def verify_citations_node(state: GraphState) -> dict[str, Any]:
             "numeric_hallucination" if has_financial_claim else "ungrounded_claims",
             max(len(result.failed_claims), 1),
         )
-        return {
-            "verification": result.to_dict(),
-            "verification_retries": new_retries,
-            "answer": answer,
-        }
-    return {
+    update: dict[str, Any] = {
         "verification": result.to_dict(),
         "verification_retries": new_retries,
     }
+    if not result.passed and new_retries < settings.verification_max_retries:
+        return update
+
+    reason = abstention_reason(
+        chunks,
+        tickers=state.get("tickers") or [],
+        fiscal_year=state.get("fiscal_year"),
+        min_rerank_score=settings.abstention_min_rerank_score,
+        verification_passed=result.passed,
+    )
+    if reason is None:
+        return update
+    logger.warning("abstaining from answer: %s", reason)
+    return {**update, "answer": ABSTAIN_MESSAGE, "abstention_reason": reason}
 
 
 def human_review_gate_node(state: GraphState) -> dict[str, Any]:
@@ -413,8 +429,8 @@ def finalize_node(state: GraphState) -> dict[str, Any]:
     hitl_approved = state.get("hitl_approved")
     answer = state.get("answer") or state.get("draft_answer") or ""
 
-    # If verification failed and we exhausted retries, surface flagged answer
-    if verification and not verification.get("passed"):
+    # Abstained answers are already withheld; only flag unverified answers that were shown.
+    if verification and not verification.get("passed") and not state.get("abstention_reason"):
         # Degrade gracefully: keep answer but ensure flag is visible if not already
         failed = verification.get("failed_claims", [])
         if failed and "[Verification:" not in answer:

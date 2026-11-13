@@ -6,7 +6,7 @@ from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
-QueueStatus = Literal["completed", "pending_review", "degraded"]
+QueueStatus = Literal["completed", "pending_review", "degraded", "abstained"]
 
 
 class AskRequest(BaseModel):
@@ -32,6 +32,7 @@ class AskResponse(BaseModel):
     tier: str | None = None
     verification: dict[str, Any] | None = None
     reason: str | None = None
+    caveat: str | None = None
 
 
 class ReviewRequest(BaseModel):

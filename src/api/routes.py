@@ -31,6 +31,7 @@ from src.hitl.store import get_review_store
 from src.observability.context import bind_request_context
 from src.observability.metrics import metrics_payload, record_request
 from src.observability.tracing import trace_callbacks
+from src.verification.abstention import abstention_caveat
 
 logger = logging.getLogger(__name__)
 
@@ -99,18 +100,22 @@ def _response(
     answer = state.get("draft_answer") if pending else state.get("answer")
     if answer is None:
         answer = state.get("answer")
-    status: Literal["completed", "pending_review", "degraded"] = "pending_review" if pending else "completed"
+    abstention = None if pending else state.get("abstention_reason")
+    status: Literal["completed", "pending_review", "degraded", "abstained"] = "pending_review" if pending else "completed"
+    if abstention:
+        status = "abstained"
     if not pending and state.get("error") and not (answer or "").strip():
         status = "degraded"
     return AskResponse(
         thread_id=thread_id,
         status=status,
         answer=answer,
-        sources=_sources(state),
+        sources=[] if abstention else _sources(state),
         provider=state.get("provider"),
         tier=state.get("tier"),
         verification=state.get("verification"),
-        reason=reason or state.get("degraded_reason"),
+        reason=reason or abstention or state.get("degraded_reason"),
+        caveat=abstention_caveat(abstention) if abstention else None,
     )
 
 

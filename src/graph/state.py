@@ -33,6 +33,7 @@ class GraphState(TypedDict, total=False):
     tool_results: list[dict[str, Any]]
     verification: dict[str, Any]  # VerificationResult.to_dict()
     verification_retries: int
+    abstention_reason: str | None
     is_recommendation: bool
     hitl_approved: bool | None
     hitl_feedback: str | None
