@@ -1,4 +1,4 @@
-"""Phase 7 security tests: prompt-injection wrapping, PII redaction, compliance text, retention."""
+"""Security tests: prompt-injection wrapping, PII redaction, compliance text, retention."""
 
 from __future__ import annotations
 

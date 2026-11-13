@@ -74,7 +74,7 @@ jobs:
       - name: Secret scan
         run: |
           git ls-files -z \
-            | grep -z -v -E '^(uv\.lock|\.env\.example|docs/PRD\.md|\.secrets\.baseline)$' \
+            | grep -z -v -E '^(uv\.lock|\.env\.example|\.secrets\.baseline)$' \
             | xargs -0 uv run detect-secrets-hook --baseline .secrets.baseline
       - name: Dependency audit (runtime dependencies)
         run: |

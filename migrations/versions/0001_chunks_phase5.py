@@ -1,4 +1,4 @@
-"""Phase 5 chunks metadata schema.
+"""Chunks metadata schema.
 
 Revision ID: 0001_chunks_phase5
 Revises:

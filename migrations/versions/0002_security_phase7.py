@@ -1,4 +1,4 @@
-"""Phase 7 API keys and HITL audit log.
+"""API keys and HITL audit log.
 
 Revision ID: 0002_security_phase7
 Revises: 0001_chunks_phase5

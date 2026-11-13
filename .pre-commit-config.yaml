@@ -14,4 +14,4 @@ repos:
     hooks:
       - id: detect-secrets
         args: ["--baseline", ".secrets.baseline"]
-        exclude: ^(uv\.lock|\.env\.example|PRD\.md)$
+        exclude: ^(uv\.lock|\.env\.example)$
