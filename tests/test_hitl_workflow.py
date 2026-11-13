@@ -12,6 +12,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 from langgraph.checkpoint.memory import MemorySaver
 from langgraph.types import Command
 
+from src.compliance.template import apply_investment_disclaimer
 from src.config import settings
 from src.graph import build_graph
 from src.graph import nodes as graph_nodes
@@ -67,7 +68,7 @@ def main() -> int:
             config=config,
         )
         assert final["hitl_approved"] is True, final
-        assert final["answer"] == ANSWER, final.get("answer")
+        assert final["answer"] == apply_investment_disclaimer(ANSWER), final.get("answer")
         assert store.get(thread_id) is None
 
     print("PASS test_hitl_interrupt_resume")

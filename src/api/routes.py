@@ -6,6 +6,7 @@ import asyncio
 import json
 import logging
 import socket
+import time
 import uuid
 from collections.abc import AsyncIterator, Iterator
 from typing import Any, Literal
@@ -29,6 +30,7 @@ from src.api.schemas import (
     ReadinessResponse,
     ReviewRequest,
 )
+from src.compliance.template import apply_investment_disclaimer
 from src.config import settings
 from src.hitl.audit import get_audit_log
 from src.hitl.store import get_review_store
@@ -104,6 +106,8 @@ def _response(
     answer = state.get("draft_answer") if pending else state.get("answer")
     if answer is None:
         answer = state.get("answer")
+    if pending and answer:
+        answer = apply_investment_disclaimer(answer)
     abstention = None if pending else state.get("abstention_reason")
     verification = state.get("verification")
     verification_failed = isinstance(verification, dict) and verification.get("passed") is False
@@ -217,12 +221,18 @@ def ask_stream(
 
     def event_stream() -> Iterator[str]:
         yield _sse("start", {"thread_id": resolved_thread})
+        started = time.monotonic()
         try:
             for mode, chunk in graph.stream(
                 inputs,
                 config,
                 stream_mode=["updates", "messages"],
             ):
+                if time.monotonic() - started > settings.request_timeout_seconds:
+                    logger.warning("stream timed out for thread=%s", resolved_thread)
+                    record_request("degraded", None)
+                    yield _sse("error", {"status": "degraded", "reason": "request timed out"})
+                    return
                 if mode == "updates":
                     for node, update in chunk.items():
                         yield _sse("node", {"node": node, "update": update})
@@ -315,12 +325,31 @@ async def review(
     try:
         snapshot = await run_in_threadpool(graph.get_state, config)
         next_nodes = getattr(snapshot, "next", ()) or ()
+        snapshot_values = dict(getattr(snapshot, "values", {}) or {})
     except Exception:
         next_nodes = ()
+        snapshot_values = {}
 
     pending_review = store.get(thread_id)
     if pending_review is None and settings.hitl_interrupt_node not in next_nodes:
         raise HTTPException(status_code=404, detail="no pending review for thread_id")
+
+    draft = (
+        (pending_review or {}).get("answer")
+        or snapshot_values.get("draft_answer")
+        or snapshot_values.get("answer")
+        or ""
+    )
+    audit = getattr(request.app.state, "audit_log", None) or get_audit_log(settings)
+    # Fail closed: a decision is only applied once its audit record is written.
+    if not audit.record(
+        thread_id=thread_id,
+        reviewer=auth.name,
+        decision="approved" if payload.approved else "rejected",
+        note=payload.note,
+        draft=draft,
+    ):
+        raise HTTPException(status_code=503, detail="review audit unavailable; decision not applied")
 
     try:
         state = await asyncio.wait_for(
@@ -338,15 +367,6 @@ async def review(
         logger.exception("review resume failed for thread=%s", thread_id)
         raise HTTPException(status_code=500, detail=f"could not resume thread: {exc}") from exc
 
-    draft = (pending_review or {}).get("answer") or state.get("draft_answer") or state.get("answer") or ""
-    audit = getattr(request.app.state, "audit_log", None) or get_audit_log(settings)
-    audit.record(
-        thread_id=thread_id,
-        reviewer=auth.name,
-        decision="approved" if payload.approved else "rejected",
-        note=payload.note,
-        draft=draft,
-    )
     store.remove(thread_id)
 
     pending = _is_pending(graph, config, state)

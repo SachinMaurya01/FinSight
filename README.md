@@ -97,14 +97,14 @@ Grounded RAG over SEC 10-K filings. The system retrieves evidence from filing te
 | Abstention | Implemented | Withholds on no evidence, out-of-corpus filters, low rerank confidence, or exhausted verification; 2 out-of-corpus eval cases |
 | Evaluation | Partial | Retrieval measured on 28 labeled questions; abstention cases added (n=2); end-to-end n=3; RAGAS blocked |
 | API / UI | API implemented, no UI | FastAPI `/v1/ask`, SSE stream, HITL review endpoints, `/health`, `/ready`, `/metrics` |
-| AuthN / AuthZ | Not included | No tenant model or access control |
-| Rate limiting / quotas | Not included | Required before exposing an API |
+| AuthN / AuthZ | API-key auth | Hashed keys in Postgres (`python -m src.api.auth create`); no tenant model or per-resource authorization |
+| Rate limiting / quotas | Implemented | Per-key fixed-window limit (Redis, memory fallback), per-key concurrency cap, request timeout (`/v1/ask`, stream, review) |
 | Observability | Implemented | JSON logs with request IDs, Prometheus `/metrics`, per-request node/token traces; Langfuse optional. No alerting/SLO dashboard yet |
 | CI regression gate | Implemented | GitHub Actions runs lint, mypy, coverage, and offline retrieval gate; nightly full eval job |
 | Deployment | Local only | `docker-compose.yml` for Postgres/pgvector + Redis |
 | Secrets | Env-only | `.env` is gitignored; `.env.example` uses placeholders |
-| Data retention / deletion | Not implemented | Sample public filings only |
-| Prompt-injection defense | Not implemented | Filing text is untrusted input to the LLM; see [Security](#security-and-compliance) |
+| Data retention / deletion | Partial | HITL audit purge (`python -m src.security.retention`, dry run unless `--apply`); pending reviews expire after 7 days |
+| Prompt-injection defense | Partial | Filing text and tool output are wrapped as untrusted and forged markers are stripped; 2 injection eval cases, not yet run end-to-end; see [Security](#security-and-compliance) |
 
 ## Evaluation results
 
@@ -199,15 +199,18 @@ Implemented controls:
 - SEC EDGAR requests set a contact User-Agent, rate-limit locally, and retry transient failures. Automated crawling is implemented as a bounded client, not a scheduler.
 - HITL is default-on for recommendation-like output. `--no-hitl` and `ask()` auto-approval are explicit local/eval escape hatches and must not be exposed in production.
 - Pydantic validates config and tool outputs; citations use a typed `VerificationResult` dataclass.
+- API keys are stored as SHA-256 digests (optional `API_KEY_PEPPER`). Requests without a valid key get 401; bursts over the per-key limit get 429.
+- Query text is kept out of logs by default (length and hash only). Logs redact emails, SSNs, and phone numbers.
+- CI runs `detect-secrets` against `.secrets.baseline` and `pip-audit` on the runtime dependencies. Dependabot covers uv, GitHub Actions, and Docker.
 
 Explicit gaps:
 
-- **Prompt injection:** filing text is untrusted input. There is no instruction/data separation hardening, content sanitization, or tool-use allowlist beyond the current tool set.
-- **Auth and tenancy:** no authentication, authorization, or tenant isolation.
-- **Rate limiting and quotas:** no per-user or per-key limits.
-- **Audit trail:** HITL decisions are not persisted to an append-only audit log.
-- **PII / retention:** no data-retention policy or deletion workflow.
-- **Regulatory disclaimer:** no investment-advice disclaimer is enforced in output.
+- **Prompt injection:** filing text is wrapped in untrusted-data delimiters and the prompt tells the model to ignore instructions inside them. This is mitigation, not a guarantee; the injection eval set has only 2 cases.
+- **Auth and tenancy:** API keys identify callers, but there is no tenant isolation or per-resource authorization.
+- **Recommendation classifier:** the keyword heuristic is the default gate. On the 24-case synthetic set (`data/eval/recommendation_dataset.json`) it scores precision 0.80 and recall 0.67. The optional LLM classifier (`RECOMMENDATION_CLASSIFIER_ENABLED=true`) is not yet measured.
+- **Audit trail:** HITL decisions are written to the `hitl_audit` table before the graph resumes. Decisions fail closed if the audit write fails. A resume that fails after the audit write leaves an audit row with no applied decision.
+- **Retention:** audit purge is manual (run it on a schedule). Log retention is the log shipper's job, not the app's.
+- **Regulatory disclaimer:** a fixed "not investment advice" template is appended to recommendation-like answers, including pending-review drafts.
 - **Observability:** traces and metrics exist, but there is no alerting/SLO dashboard for provider errors, verification failures, or HITL decisions.
 
 Do not expose this service to untrusted users until the gaps above are addressed.

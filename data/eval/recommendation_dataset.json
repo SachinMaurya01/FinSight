@@ -1,0 +1,170 @@
+[
+  {
+    "id": "rec_001",
+    "query": "Should I buy Apple stock now?",
+    "answer": "Yes, you should buy AAPL at current levels given strong cash generation.",
+    "is_recommendation": true,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_002",
+    "query": "Is Apple a good hold for a retirement portfolio?",
+    "answer": "Apple is a reasonable hold; keeping a core position fits a long horizon.",
+    "is_recommendation": true,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_003",
+    "query": "What is your price target for AAPL?",
+    "answer": "A 12-month price target of $260 is justified by margin expansion.",
+    "is_recommendation": true,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_004",
+    "query": "Should I sell my Tesla shares?",
+    "answer": "Trim exposure: sell half the position into strength.",
+    "is_recommendation": true,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_005",
+    "query": "Which large-cap stock will outperform next year?",
+    "answer": "Apple is likely to outperform the broader market next year.",
+    "is_recommendation": true,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_006",
+    "query": "Give me a bull case for Microsoft.",
+    "answer": "Build a bull case: cloud growth could drive meaningful upside.",
+    "is_recommendation": true,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_007",
+    "query": "Should I invest in NVIDIA?",
+    "answer": "You should invest in NVIDIA for long-term AI demand.",
+    "is_recommendation": true,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_008",
+    "query": "Is it time to add to my Amazon position?",
+    "answer": "Yes, add to the position on the dip and accumulate below $180.",
+    "is_recommendation": true,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_009",
+    "query": "Overweight or underweight semiconductors?",
+    "answer": "We rate semiconductors overweight for the next two quarters.",
+    "is_recommendation": true,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_010",
+    "query": "Should I buy Alphabet?",
+    "answer": "Recommendation: buy GOOGL.",
+    "is_recommendation": true,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_011",
+    "query": "Which is better for income investors, AAPL or MSFT?",
+    "answer": "Microsoft is the better buy for income investors.",
+    "is_recommendation": true,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_012",
+    "query": "Is Meta a strong buy?",
+    "answer": "Meta is a strong buy at this valuation.",
+    "is_recommendation": true,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_013",
+    "query": "What was Apple's net income in fiscal 2023?",
+    "answer": "Net income was $97.0 billion [1].",
+    "is_recommendation": false,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_014",
+    "query": "What are Apple's main risk factors?",
+    "answer": "Risks include supply-chain concentration and regulatory scrutiny [1].",
+    "is_recommendation": false,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_015",
+    "query": "Does the filing include a stock recommendation?",
+    "answer": "The filing contains no investment recommendation; it reports historical results [1].",
+    "is_recommendation": false,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_016",
+    "query": "What is the company's share repurchase activity?",
+    "answer": "The company repurchased $89 billion of its shares during the year [1].",
+    "is_recommendation": false,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_017",
+    "query": "Explain the gross margin trend.",
+    "answer": "Gross margin rose to 46.2% from 44.1% [2].",
+    "is_recommendation": false,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_018",
+    "query": "Summarize the bear-case risks named in the filing.",
+    "answer": "The filing lists competition and product transitions as key risks [1].",
+    "is_recommendation": false,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_019",
+    "query": "What did management say about the outlook?",
+    "answer": "Management expects continued growth in services revenue [1].",
+    "is_recommendation": false,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_020",
+    "query": "What is the P/E ratio?",
+    "answer": "The P/E of 28.5 is based on TTM diluted EPS [1].",
+    "is_recommendation": false,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_021",
+    "query": "Does the 10-K mention upside from new products?",
+    "answer": "The 10-K describes new product launches as a potential source of revenue [1].",
+    "is_recommendation": false,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_022",
+    "query": "What was R&D spending?",
+    "answer": "R&D expense was $29.9 billion [1].",
+    "is_recommendation": false,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_023",
+    "query": "Did the company pay dividends?",
+    "answer": "The company paid dividends of $15.2 billion during the year [1].",
+    "is_recommendation": false,
+    "source": "synthetic"
+  },
+  {
+    "id": "rec_024",
+    "query": "Can you tell me if I should buy AAPL?",
+    "answer": "I cannot make investment recommendations; the filing does not support a buy or sell view.",
+    "is_recommendation": false,
+    "source": "synthetic"
+  }
+]

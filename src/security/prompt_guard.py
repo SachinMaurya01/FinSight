@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 
-_UNTRUSTED_MARKER_RE = re.compile(r"<<\s*/?\s*UNTRUSTED[^>]*>>", re.IGNORECASE)
+_UNTRUSTED_MARKER_RE = re.compile(r"<<\s*/?\s*(?:END_)?UNTRUSTED[^>]*>>", re.IGNORECASE)
 _LABEL_RE = re.compile(r"[^A-Za-z0-9_.-]+")
 _CONTROL_RE = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f]")
 _INJECTION_PATTERNS = (

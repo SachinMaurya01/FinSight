@@ -63,6 +63,24 @@ jobs:
       - name: Test with coverage
         run: uv run pytest --cov=src --cov-report=term-missing --cov-fail-under=70
 
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+      - run: uv sync --frozen
+      - name: Secret scan
+        run: |
+          git ls-files -z \
+            | grep -z -v -E '^(uv\.lock|\.env\.example|docs/PRD\.md|\.secrets\.baseline)$' \
+            | xargs -0 uv run detect-secrets-hook --baseline .secrets.baseline
+      - name: Dependency audit (runtime dependencies)
+        run: |
+          uv export --frozen --no-dev --no-hashes --no-emit-project --output-file "$RUNNER_TEMP/requirements.txt"
+          uvx pip-audit --requirement "$RUNNER_TEMP/requirements.txt"
+
   eval-gate:
     if: github.event_name != 'schedule'
     needs: lint-test
