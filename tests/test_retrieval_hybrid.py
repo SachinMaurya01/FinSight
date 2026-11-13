@@ -83,6 +83,30 @@ def test_bm25_exact_figure_ranked_first() -> None:
     print("PASS test_bm25_exact_figure_ranked_first")
 
 
+def test_bm25_filters_candidate_set() -> None:
+    chunks = [
+        Chunk(
+            content="risk alpha",
+            metadata={"ticker": "aapl", "fiscal_year": 2025, "form_type": "10-K", "chunk_index": 0},
+        ),
+        Chunk(
+            content="risk beta",
+            metadata={"ticker": "msft", "fiscal_year": 2024, "form_type": "10-Q", "chunk_index": 1},
+        ),
+        Chunk(content="alpha only", metadata={"ticker": "aapl", "chunk_index": 2}),
+        Chunk(content="beta only", metadata={"ticker": "msft", "chunk_index": 3}),
+        Chunk(content="gamma only", metadata={"ticker": "aapl", "chunk_index": 4}),
+        Chunk(content="delta only", metadata={"ticker": "msft", "chunk_index": 5}),
+        Chunk(content="epsilon only", metadata={"ticker": "aapl", "chunk_index": 6}),
+        Chunk(content="zeta only", metadata={"ticker": "msft", "chunk_index": 7}),
+    ]
+    index = BM25Index(chunks)
+    assert len(index.search("risk", k=5)) == 2
+    assert [row["ticker"] for row in index.search("risk", k=5, filters={"ticker": "AAPL"})] == ["aapl"]
+    assert [row["ticker"] for row in index.search("risk", k=5, filters={"form_type": "10-Q"})] == ["msft"]
+    print("PASS test_bm25_filters_candidate_set")
+
+
 def test_build_bm25_index_cached() -> None:
     with tempfile.TemporaryDirectory() as tmp:
         _write_chunk_files(Path(tmp))
@@ -116,7 +140,7 @@ def test_fuse_hybrid_combines_and_ranks() -> None:
 def test_retrieve_hybrid_orchestration() -> None:
     calls: list[str] = []
 
-    def fake_retrieve_dense(query, settings, k=None):
+    def fake_retrieve_dense(query, settings, k=None, filters=None):
         calls.append("dense")
         return [{"content": "net sales chunk", "source_doc": "aapl-10K.html", "chunk_index": 0, "score": 0.5}]
 
@@ -124,7 +148,7 @@ def test_retrieve_hybrid_orchestration() -> None:
         calls.append("bm25")
 
         class _Index:
-            def search(self, query, k):
+            def search(self, query, k, filters=None):
                 return [{"content": "risk chunk", "source_doc": "aapl-10K.html", "chunk_index": 2, "score": 5.0}]
 
         return _Index()
@@ -149,6 +173,7 @@ def test_retrieve_hybrid_orchestration() -> None:
 def main() -> int:
     test_tokenize()
     test_bm25_exact_figure_ranked_first()
+    test_bm25_filters_candidate_set()
     test_build_bm25_index_cached()
     test_fuse_hybrid_combines_and_ranks()
     test_retrieve_hybrid_orchestration()

@@ -32,7 +32,7 @@ def test_graph_invoke_returns_answer() -> None:
     orig_compress = graph_nodes.compress_chunks
     orig_tools_fb = graph_nodes.call_with_tools_fallback
     orig_fb = graph_nodes.call_with_fallback
-    graph_nodes.retrieve_reranked = lambda query, settings, k=None: _fake_rows()
+    graph_nodes.retrieve_reranked = lambda query, settings, k=None, filters=None: _fake_rows()
     graph_nodes.compress_chunks = lambda query, rows, settings: rows
     # Mock both tool and non-tool fallback paths
     mock_result = SimpleNamespace(
@@ -164,9 +164,75 @@ def test_graph_node_order() -> None:
     print("PASS test_graph_node_order")
 
 
+def test_query_understanding_filters_retrieval() -> None:
+    captured: dict = {}
+
+    def fake_retrieve(query, settings, k=None, filters=None):
+        captured["query"] = query
+        captured["filters"] = filters
+        return _fake_rows()
+
+    original = graph_nodes.retrieve_reranked
+    graph_nodes.retrieve_reranked = fake_retrieve
+    try:
+        parsed = graph_nodes.parse_query_node({"query": "What were Apple's net sales in 2023?"})
+        assert parsed["tickers"] == ["AAPL"]
+        assert parsed["fiscal_year"] == 2023
+        rows = graph_nodes.retrieve_node(
+            {
+                "query": "What were Apple's net sales in 2023?",
+                "k": 5,
+                **parsed,
+            }
+        )
+    finally:
+        graph_nodes.retrieve_reranked = original
+    assert captured["filters"] == {"ticker": "aapl", "fiscal_year": 2023}
+    assert rows["chunks"] == _fake_rows()
+    print("PASS test_query_understanding_filters_retrieval")
+
+
+def test_comparison_retrieval_merges_subqueries() -> None:
+    calls: list[dict] = []
+
+    def fake_retrieve(query, settings, k=None, filters=None):
+        calls.append({"query": query, "filters": filters})
+        ticker = (filters or {}).get("ticker", "unknown")
+        return [
+            {
+                "content": f"{ticker} margin",
+                "ticker": ticker,
+                "source_doc": f"{ticker}.html",
+                "chunk_index": 0,
+                "rerank_score": 0.9 if ticker == "aapl" else 0.8,
+            }
+        ]
+
+    original = graph_nodes.retrieve_reranked
+    graph_nodes.retrieve_reranked = fake_retrieve
+    try:
+        parsed = graph_nodes.parse_query_node({"query": "Compare AAPL and MSFT gross margin trends"})
+        rows = graph_nodes.retrieve_node(
+            {
+                "query": "Compare AAPL and MSFT gross margin trends",
+                "k": 5,
+                **parsed,
+            }
+        )
+    finally:
+        graph_nodes.retrieve_reranked = original
+    assert len(calls) == 2
+    assert calls[0]["filters"] == {"ticker": "aapl"}
+    assert calls[1]["filters"] == {"ticker": "msft"}
+    assert [row["ticker"] for row in rows["chunks"]] == ["aapl", "msft"]
+    print("PASS test_comparison_retrieval_merges_subqueries")
+
+
 def main() -> int:
     test_graph_invoke_returns_answer()
     test_graph_node_order()
+    test_query_understanding_filters_retrieval()
+    test_comparison_retrieval_merges_subqueries()
     return 0
 
 

@@ -65,8 +65,10 @@ def retrieve_reranked(
     query: str,
     settings: Settings,
     k: int | None = None,
+    *,
+    filters: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     """Hybrid retrieval fused to ``fusion_top_k``, then reranked to top ``k``."""
     k = k if k is not None else settings.rerank_top_k
-    fused = retrieve_hybrid(query, settings, k=settings.fusion_top_k)
+    fused = retrieve_hybrid(query, settings, k=settings.fusion_top_k, filters=filters)
     return rerank_candidates(query, fused, settings, top_k=k)

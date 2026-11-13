@@ -8,8 +8,10 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.config import settings
+from src.ingestion.__main__ import load_filing_manifest
 from src.ingestion.parser import (
     _clean_text,
+    _extract_accession,
     _extract_fiscal_period,
     _filing_type_from_name,
     decode_html,
@@ -54,6 +56,7 @@ def test_parse_real_filing() -> None:
     assert document.source_file == "aapl-10K.html"
     assert document.ticker.upper() == "AAPL"
     assert document.filing_type.upper() == "10-K"
+    assert document.fiscal_year == 2025
     assert document.sections
     print("PASS test_parse_real_filing")
 
@@ -66,8 +69,13 @@ def test_helpers() -> None:
     assert _extract_fiscal_period("DocumentFiscalYearFocus>2025<") == "FY2025"
     assert _extract_fiscal_period("fiscal year ended September 27, 2025") == "FY2025"
     assert _extract_fiscal_period("no date") is None
+    assert _extract_accession("Accession No. 0000320193-25-000079") == "0000320193-25-000079"
+    assert _extract_accession("no accession") is None
     cleaned = _clean_text("<div>Hello</div><div>World</div>")
     assert "Hello" in cleaned and "World" in cleaned
+    manifest = load_filing_manifest(settings.data_dir)
+    assert manifest["aapl-10K.html"]["accession"] == "0000320193-25-000079"
+    assert manifest["aapl-10K2.html"]["filed_at"] == "2023-11-03"
     print("PASS test_helpers")
 
 

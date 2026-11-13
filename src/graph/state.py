@@ -12,7 +12,11 @@ class GraphState(TypedDict, total=False):
     query: str
     k: int
     ticker: str | None
+    tickers: list[str]
     fiscal_year: int | None
+    form_type: str | None
+    intent: str | None
+    sub_queries: list[str]
     thread_id: str | None
     tier: ComplexityTier
     chunks: list[dict[str, Any]]

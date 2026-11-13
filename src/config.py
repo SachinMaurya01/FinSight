@@ -115,8 +115,13 @@ class Settings(BaseConfigSettings):
         "sentence_transformers"  # selects embedding backend (local default avoids API cost).
     )
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"  # compact local model balancing quality vs speed.
+    embedding_version: str = "v1"  # bump when re-embedding; rows from other versions/models are not mixed.
     embedding_dimensions: int = Field(default=384, gt=0)  # must match vector DB schema for similarity search.
     embedding_batch_size: int = Field(default=64, gt=0)  # batches embedding calls to limit memory and API usage.
+
+    # Query understanding
+    query_understanding_enabled: bool = False  # opt-in LLM parser; regex fallback is always available.
+    query_understanding_model: str = "gpt-4o-mini"  # cheap model used only when query_understanding_enabled=true.
 
     # Reranker
     reranker_model: str = (
@@ -166,6 +171,8 @@ class Settings(BaseConfigSettings):
 
     # SEC EDGAR
     sec_edgar_user_agent: str = "FinSightResearch dev@example.com"  # SEC-required User-Agent with contact email.
+    sec_submissions_base_url: str = "https://data.sec.gov/submissions"
+    sec_archive_base_url: str = "https://www.sec.gov/Archives/edgar/data"
     sec_request_throttle_seconds: float = Field(
         default=0.5, gt=0
     )  # throttles EDGAR requests to respect fair-use limits.

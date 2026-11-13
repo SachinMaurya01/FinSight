@@ -53,6 +53,8 @@ _COVER_FISCAL_YEAR_END_RE = re.compile(
     r"fiscal year ended" + _SPACING + r"([A-Za-z]+)" + _SPACING + r"\d{1,2}," + _SPACING + r"(\d{4})",
     re.IGNORECASE,
 )
+# EDGAR accession numbers appear on cover pages and in submission metadata.
+_ACCESSION_RE = re.compile(r"\b(\d{10}-\d{2}-\d{6})\b")
 
 
 @dataclass(frozen=True)
@@ -115,6 +117,10 @@ class ParsedDocument:
         default_factory=list
     )  #  prevents one of Python's most notorious bugs: the mutable default argument trap
     sections: list[ParsedSection] = field(default_factory=list)
+    cik: int | None = None
+    accession: str | None = None
+    filed_at: str | None = None
+    fiscal_year: int | None = None
 
 
 def decode_html(raw: bytes) -> str:
@@ -365,6 +371,20 @@ def _filing_type_from_name(name: str) -> str | None:
     return re.sub(r"(10|8)([KQ])$", r"\1-\2", match.group(0).upper())
 
 
+def _extract_accession(html: str) -> str | None:
+    """Best-effort EDGAR accession number from the filing text."""
+    match = _ACCESSION_RE.search(html)
+    return match.group(1) if match else None
+
+
+def _extract_fiscal_year(fiscal_period: str | None) -> int | None:
+    """Convert ``FY2025``/``Q1 2025`` style labels to a numeric fiscal year."""
+    if not fiscal_period:
+        return None
+    match = re.search(r"(\d{4})", fiscal_period)
+    return int(match.group(1)) if match else None
+
+
 def _extract_fiscal_period(html: str) -> str | None:
     """Best-effort fiscal period (e.g. ``FY2025``) for a filing.
 
@@ -380,13 +400,22 @@ def _extract_fiscal_period(html: str) -> str | None:
     return None
 
 
-def parse_edgar_html(html: str) -> ParsedDocument:
+def parse_edgar_html(
+    html: str,
+    *,
+    accession: str | None = None,
+    filed_at: str | None = None,
+    cik: int | None = None,
+) -> ParsedDocument:
     """Parse an EDGAR 10-K/8-K HTML document.
 
     Extracts Item 1A (Risk Factors), Item 7 (MD&A), and Item 8 (financial
     statements). Item 8 tables are returned as structured ``ParsedTable`` rows.
+    ``accession``, ``filed_at``, and ``cik`` may be supplied by the EDGAR
+    downloader when the submission metadata is available.
     """
     filing_type, filename = _extract_filing_meta(html)
+    fiscal_period = _extract_fiscal_period(html)
     warnings: list[str] = []
     sections: list[ParsedSection] = []
     for label, start_name, end_name in _SECTIONS:
@@ -399,18 +428,28 @@ def parse_edgar_html(html: str) -> ParsedDocument:
         source_file="",
         ticker=_extract_ticker(filename),
         filing_type=filing_type,
-        fiscal_period=_extract_fiscal_period(html),
+        fiscal_period=fiscal_period,
         filename=filename,
         warnings=warnings,
         sections=sections,
+        cik=cik,
+        accession=accession or _extract_accession(html),
+        filed_at=filed_at,
+        fiscal_year=_extract_fiscal_year(fiscal_period),
     )
 
 
-def parse_edgar_file(path: Path) -> ParsedDocument:
+def parse_edgar_file(
+    path: Path,
+    *,
+    accession: str | None = None,
+    filed_at: str | None = None,
+    cik: int | None = None,
+) -> ParsedDocument:
     """Read ``path`` and parse it as an EDGAR HTML filing."""
     raw = path.read_bytes()
     html = decode_html(raw)
-    document = parse_edgar_html(html)
+    document = parse_edgar_html(html, accession=accession, filed_at=filed_at, cik=cik)
     source_name = path.name
     filing_type = document.filing_type
     if filing_type == "UNKNOWN":
@@ -426,4 +465,8 @@ def parse_edgar_file(path: Path) -> ParsedDocument:
         filename=document.filename,
         warnings=document.warnings,
         sections=document.sections,
+        cik=document.cik,
+        accession=document.accession,
+        filed_at=document.filed_at,
+        fiscal_year=document.fiscal_year,
     )

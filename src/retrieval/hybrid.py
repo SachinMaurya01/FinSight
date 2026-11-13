@@ -69,11 +69,17 @@ def fuse_hybrid(
     return fused
 
 
-def retrieve_hybrid(query: str, settings: Settings, k: int | None = None) -> list[dict[str, Any]]:
+def retrieve_hybrid(
+    query: str,
+    settings: Settings,
+    k: int | None = None,
+    *,
+    filters: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
     """Run dense + BM25 retrieval and fuse into one top-``k`` ranked list."""
     k = k if k is not None else settings.fusion_top_k
-    dense_rows = retrieve_dense(query, settings, k=settings.dense_top_k)
-    bm25_rows = build_bm25_index(settings.chunk_store_dir).search(query, settings.bm25_top_k)
+    dense_rows = retrieve_dense(query, settings, k=settings.dense_top_k, filters=filters)
+    bm25_rows = build_bm25_index(settings.chunk_store_dir).search(query, settings.bm25_top_k, filters=filters)
     fused = fuse_hybrid(dense_rows, bm25_rows, settings)
     logger.info(
         "Hybrid retrieval: %d dense + %d bm25 -> %d fused (top %d)", len(dense_rows), len(bm25_rows), len(fused), k

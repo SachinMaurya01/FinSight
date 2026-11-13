@@ -99,10 +99,16 @@ def test_row_maps_metadata() -> None:
             "ticker": "SYN",
             "filing_type": "10-K",
             "fiscal_period": "FY2099",
+            "fiscal_year": 2099,
+            "form_type": "10-K",
             "section": "Item 1A Risk Factors",
             "source_file": "synth-10K.html",
             "chunk_index": 7,
             "char_offset": 123,
+            "cik": 123456,
+            "accession": "0000000000-99-000001",
+            "filed_at": "2099-01-01",
+            "chunk_type": "text",
         },
     )
     from src.retrieval.embeddings import ChunkEmbedding
@@ -112,6 +118,8 @@ def test_row_maps_metadata() -> None:
     assert row["embedding"] == "[0.1,0.2,0.3]"
     assert row["source_doc"] == "synth-10K.html"
     assert row["ticker"] == "SYN" and row["chunk_index"] == 7 and row["char_offset"] == 123
+    assert row["form_type"] == "10-K" and row["fiscal_year"] == 2099
+    assert row["cik"] == 123456 and row["accession"] == "0000000000-99-000001"
     import json
 
     assert json.loads(row["metadata"])["fiscal_period"] == "FY2099"
@@ -119,10 +127,26 @@ def test_row_maps_metadata() -> None:
 
 
 def test_schema_sql_generation() -> None:
+    from src.retrieval.storage import (
+        _CREATE_ACCESSION_INDEX_SQL,
+        _CREATE_METADATA_INDEX_SQL,
+        _INSERT_CHUNK_SQL,
+        _filter_clause,
+    )
+
     sql = _CREATE_TABLE_SQL.format(dim=3)
     assert "vector(3)" in sql
+    for column in ("cik", "form_type", "fiscal_year", "chunk_type", "accession", "filed_at", "embedding_model"):
+        assert column in sql
     assert "embedding vector_cosine_ops" in _CREATE_INDEX_SQL
-    assert "USING hnsw" in _CREATE_INDEX_SQL
+    assert "USING hnsw" in _CREATE_INDEX_SQL and "ef_construction" in _CREATE_INDEX_SQL
+    assert "ticker, fiscal_year, form_type" in _CREATE_METADATA_INDEX_SQL
+    assert "accession, chunk_index" in _CREATE_ACCESSION_INDEX_SQL
+    assert "ON CONFLICT (accession, chunk_index) DO UPDATE" in str(_INSERT_CHUNK_SQL)
+    params: dict = {}
+    clause = _filter_clause({"ticker": "AAPL", "fiscal_year": 2025, "form_type": "10-k"}, params)
+    assert "ticker = :filter_ticker" in clause
+    assert params == {"filter_ticker": "aapl", "filter_fiscal_year": 2025, "filter_form_type": "10-K"}
     print("PASS test_schema_sql_generation")
 
 

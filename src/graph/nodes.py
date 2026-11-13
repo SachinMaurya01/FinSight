@@ -18,6 +18,7 @@ from src.llm.fallback import DegradedResponseError, call_with_fallback
 from src.llm.tool_support import call_with_tools_fallback
 from src.observability.context import bind_request_context
 from src.observability.metrics import record_hitl, record_verification_failure
+from src.query.understanding import QueryIntent, filters_for, parse_query
 from src.retrieval.compress import compress_chunks
 from src.retrieval.rerank import retrieve_reranked
 from src.routing import classify_complexity
@@ -34,10 +35,76 @@ def classify_complexity_node(state: GraphState) -> dict[str, Any]:
     return {"tier": tier, "verification_retries": state.get("verification_retries", 0)}
 
 
+def parse_query_node(state: GraphState) -> dict[str, Any]:
+    """Extract tickers, period, form type, intent, and comparison sub-queries."""
+    parsed = parse_query(state["query"], settings)
+    logger.info(
+        "parse_query: tickers=%s fiscal_year=%s form=%s intent=%s sub_queries=%d",
+        parsed.tickers,
+        parsed.fiscal_year,
+        parsed.form_type,
+        parsed.intent,
+        len(parsed.sub_queries),
+    )
+    return {
+        "tickers": parsed.tickers,
+        "ticker": parsed.tickers[0] if len(parsed.tickers) == 1 else state.get("ticker"),
+        "fiscal_year": parsed.fiscal_year,
+        "form_type": parsed.form_type,
+        "intent": parsed.intent,
+        "sub_queries": parsed.sub_queries,
+    }
+
+
+def _dedupe_rows(rows: list[dict[str, Any]], k: int | None) -> list[dict[str, Any]]:
+    """Merge sub-query retrieval results, keeping the best-scoring copy."""
+    best: dict[tuple[Any, Any], dict[str, Any]] = {}
+    for row in rows:
+        key = (row.get("source_doc"), row.get("chunk_index"))
+        existing = best.get(key)
+        if existing is None or float(row.get("rerank_score", row.get("score", 0.0))) > float(
+            existing.get("rerank_score", existing.get("score", 0.0))
+        ):
+            best[key] = row
+    merged = sorted(
+        best.values(),
+        key=lambda row: float(row.get("rerank_score", row.get("score", 0.0))),
+        reverse=True,
+    )
+    return merged[:k] if k else merged
+
+
 def retrieve_node(state: GraphState) -> dict[str, Any]:
-    """Hybrid retrieval + cross-encoder rerank."""
-    # On retry we could refine query; for now reuse original query
-    rows = retrieve_reranked(state["query"], settings, k=state.get("k"))
+    """Hybrid retrieval + cross-encoder rerank, with metadata pre-filters."""
+    intent = QueryIntent(
+        tickers=state.get("tickers", []),
+        fiscal_year=state.get("fiscal_year"),
+        form_type=state.get("form_type"),
+        intent=state.get("intent") or "lookup",  # type: ignore[arg-type]
+        sub_queries=state.get("sub_queries", []),
+    )
+    k = state.get("k")
+    sub_queries = state.get("sub_queries") or []
+    if sub_queries:
+        rows: list[dict[str, Any]] = []
+        for sub_query in sub_queries:
+            sub_intent = parse_query(sub_query, settings)
+            rows.extend(
+                retrieve_reranked(
+                    sub_query,
+                    settings,
+                    k=k,
+                    filters=filters_for(sub_intent),
+                )
+            )
+        rows = _dedupe_rows(rows, k)
+    else:
+        rows = retrieve_reranked(
+            state["query"],
+            settings,
+            k=k,
+            filters=filters_for(intent),
+        )
     logger.info("retrieve_node: %d reranked chunks (retry=%s)", len(rows), state.get("verification_retries", 0))
     return {"chunks": rows}
 

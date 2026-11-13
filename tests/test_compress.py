@@ -55,6 +55,28 @@ def test_compress_keeps_relevant_sentences() -> None:
     print("PASS test_compress_keeps_relevant_sentences")
 
 
+def test_compress_keeps_question_entities() -> None:
+    class _EntityEmbedder:
+        def embed_texts(self, texts):
+            return [[1.0, 0.0] if "widget" in t else [0.0, 1.0] for t in texts]
+
+    rows = [
+        {
+            "content": "Apple total net sales were $383.3 billion in 2023. Green widget sales grew.",
+            "chunk_index": 0,
+        }
+    ]
+    out = compress_chunks(
+        "What were Apple's net sales in 2023?",
+        rows,
+        TEST_SETTINGS,
+        embedder=_EntityEmbedder(),
+    )
+    assert "383.3" in out[0]["content"]
+    assert "Apple" in out[0]["content"]
+    print("PASS test_compress_keeps_question_entities")
+
+
 def test_compress_enforces_token_budget() -> None:
     rows = [
         {"content": " ".join([f"risk sentence number {i} here" for i in range(20)]), "chunk_index": 0},
@@ -70,6 +92,7 @@ def test_compress_enforces_token_budget() -> None:
 def main() -> int:
     test_split_sentences()
     test_compress_keeps_relevant_sentences()
+    test_compress_keeps_question_entities()
     test_compress_enforces_token_budget()
     return 0
 

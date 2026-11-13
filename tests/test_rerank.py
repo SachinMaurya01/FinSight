@@ -59,7 +59,7 @@ def test_rerank_skipped_when_disabled() -> None:
 def test_retrieve_reranked_orchestration() -> None:
     calls: list[str] = []
 
-    def fake_retrieve_hybrid(query, settings, k=None):
+    def fake_retrieve_hybrid(query, settings, k=None, filters=None):
         calls.append("hybrid")
         return [{"content": f"chunk {i}", "chunk_index": i} for i in range(4)]
 

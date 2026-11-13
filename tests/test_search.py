@@ -61,7 +61,7 @@ def test_seed_database_orchestration() -> None:
         calls.append(("embed", len(chunks)))
         return [(chunk, [0.1, 0.2, 0.3]) for chunk in chunks]
 
-    def fake_insert_chunks(engine, embedded):
+    def fake_insert_chunks(engine, embedded, **kwargs):
         calls.append(("insert", len(embedded)))
         return len(embedded)
 
@@ -89,19 +89,27 @@ def test_retrieve_dense_orchestration() -> None:
             calls["query"] = texts[0]
             return [[1.0, 0.0, 0.0]]
 
-    def fake_similarity_search(engine, query_embedding, k):
+    def fake_similarity_search(engine, query_embedding, k, **kwargs):
         calls["embedding"] = query_embedding
         calls["k"] = k
+        calls["filters"] = kwargs.get("filters")
+        calls["embedding_model"] = kwargs.get("embedding_model")
         return [{"content": "synthetic result", "score": 0.99}]
 
     original_embedder, original_similarity = search_mod.build_embedder, search_mod.similarity_search
     search_mod.build_embedder = lambda settings: FakeEmbedder()
     search_mod.similarity_search = fake_similarity_search
     try:
-        results = search_mod.retrieve_dense("what are the main risks", TEST_SETTINGS)
+        results = search_mod.retrieve_dense(
+            "what are the main risks",
+            TEST_SETTINGS,
+            filters={"ticker": "AAPL", "fiscal_year": 2025},
+        )
         assert calls["query"] == "what are the main risks"
         assert calls["embedding"] == [1.0, 0.0, 0.0]
         assert calls["k"] == 5, calls["k"]
+        assert calls["filters"] == {"ticker": "AAPL", "fiscal_year": 2025}
+        assert calls["embedding_model"] == TEST_SETTINGS.embedding_model
         assert results == [{"content": "synthetic result", "score": 0.99}]
     finally:
         search_mod.build_embedder = original_embedder

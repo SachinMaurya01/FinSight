@@ -37,10 +37,21 @@ def seed_database(
     engine = engine or get_engine(settings)
     chunks = load_chunk_files(chunk_dir or settings.chunk_store_dir)
     embedded = embed_chunks(chunks, settings)
-    return insert_chunks(engine, embedded)
+    return insert_chunks(
+        engine,
+        embedded,
+        embedding_model=settings.embedding_model,
+        embedding_version=settings.embedding_version,
+    )
 
 
-def retrieve_dense(query: str, settings: Settings, k: int | None = None) -> list[dict[str, Any]]:
+def retrieve_dense(
+    query: str,
+    settings: Settings,
+    k: int | None = None,
+    *,
+    filters: dict[str, Any] | None = None,
+) -> list[dict[str, Any]]:
     """Dense retrieval: embed ``query``, then top-``k`` cosine similarity search."""
     k = k if k is not None else settings.rerank_top_k
     engine = get_engine(settings)
@@ -53,7 +64,13 @@ def retrieve_dense(query: str, settings: Settings, k: int | None = None) -> list
             cached = get_cached_embedding(settings.embedding_model, query, settings)
             if cached is not None:
                 logger.info("Cache hit for query embedding")
-                return similarity_search(engine, cached, k)
+                return similarity_search(
+                    engine,
+                    cached,
+                    k,
+                    filters=filters,
+                    embedding_model=settings.embedding_model,
+                )
         except Exception:
             pass
     embedder = build_embedder(settings)
@@ -65,4 +82,10 @@ def retrieve_dense(query: str, settings: Settings, k: int | None = None) -> list
             set_cached_embedding(settings.embedding_model, query, query_embedding, settings)
         except Exception:
             pass
-    return similarity_search(engine, query_embedding, k)
+    return similarity_search(
+        engine,
+        query_embedding,
+        k,
+        filters=filters,
+        embedding_model=settings.embedding_model,
+    )

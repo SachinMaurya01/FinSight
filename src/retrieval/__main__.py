@@ -28,6 +28,23 @@ def _print_result(row: dict, rank: int) -> None:
     print(row["content"][:220].replace("\n", " "))
 
 
+def _add_filter_args(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument("--ticker", type=str, help="filter by ticker (case-insensitive)")
+    parser.add_argument("--year", type=int, help="filter by fiscal year")
+    parser.add_argument("--form", type=str, help="filter by form type (e.g. 10-K)")
+
+
+def _filters_from_args(args: argparse.Namespace) -> dict[str, object]:
+    filters: dict[str, object] = {}
+    if args.ticker:
+        filters["ticker"] = args.ticker
+    if args.year:
+        filters["fiscal_year"] = args.year
+    if args.form:
+        filters["form_type"] = args.form
+    return filters
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -43,14 +60,17 @@ def main() -> int:
     search_parser = subparsers.add_parser("search", help="dense similarity search")
     search_parser.add_argument("query", type=str)
     search_parser.add_argument("--k", type=int, default=settings.rerank_top_k)
+    _add_filter_args(search_parser)
 
     hybrid_parser = subparsers.add_parser("hybrid", help="dense + BM25 hybrid search")
     hybrid_parser.add_argument("query", type=str)
     hybrid_parser.add_argument("--k", type=int, default=settings.rerank_top_k)
+    _add_filter_args(hybrid_parser)
 
     rerank_parser = subparsers.add_parser("rerank", help="hybrid search + cross-encoder rerank")
     rerank_parser.add_argument("query", type=str)
     rerank_parser.add_argument("--k", type=int, default=settings.rerank_top_k)
+    _add_filter_args(rerank_parser)
 
     args = parser.parse_args()
 
@@ -62,21 +82,21 @@ def main() -> int:
         return 0
 
     if args.command == "search":
-        results = retrieve_dense(args.query, settings, k=args.k)
+        results = retrieve_dense(args.query, settings, k=args.k, filters=_filters_from_args(args))
         print(f"Top {len(results)} results for query: {args.query!r}")
         for rank, row in enumerate(results, start=1):
             _print_result(row, rank)
         return 0
 
     if args.command == "hybrid":
-        results = retrieve_hybrid(args.query, settings, k=args.k)
+        results = retrieve_hybrid(args.query, settings, k=args.k, filters=_filters_from_args(args))
         print(f"Top {len(results)} hybrid results for query: {args.query!r}")
         for rank, row in enumerate(results, start=1):
             _print_result(row, rank)
         return 0
 
     if args.command == "rerank":
-        results = retrieve_reranked(args.query, settings, k=args.k)
+        results = retrieve_reranked(args.query, settings, k=args.k, filters=_filters_from_args(args))
         print(f"Top {len(results)} reranked results for query: {args.query!r}")
         for rank, row in enumerate(results, start=1):
             score = row.get("rerank_score", row.get("score"))

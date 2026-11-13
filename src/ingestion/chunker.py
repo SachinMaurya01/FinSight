@@ -89,11 +89,29 @@ def chunk_document(
 ) -> list[Chunk]:
     """Chunk every section of a parsed document, tagging each chunk with metadata."""
     chunker = splitter or build_chunk_splitter(settings)
+    ticker = document.ticker
+    try:
+        from src.sec.xbrl import CIK_BY_TICKER
+
+        cik = document.cik or CIK_BY_TICKER.get(ticker.upper())
+    except Exception:
+        cik = document.cik
+    fiscal_year = document.fiscal_year
+    if fiscal_year is None and document.fiscal_period:
+        import re
+
+        match = re.search(r"(\d{4})", document.fiscal_period)
+        fiscal_year = int(match.group(1)) if match else None
     base_metadata: dict[str, Any] = {
         "source_file": document.source_file,
-        "ticker": document.ticker,
+        "ticker": ticker,
+        "cik": cik,
         "filing_type": document.filing_type,
+        "form_type": document.filing_type,
         "fiscal_period": document.fiscal_period,
+        "fiscal_year": fiscal_year,
+        "accession": document.accession,
+        "filed_at": document.filed_at,
         "filename": document.filename,
     }
     chunks: list[Chunk] = []

@@ -1,4 +1,4 @@
-"""LangGraph pipeline: classify -> retrieve -> compress -> call_llm -> tool -> verify -> hitl -> finalize."""
+"""LangGraph pipeline: classify -> parse_query -> retrieve -> compress -> call_llm -> tool -> verify -> hitl -> finalize."""
 
 from __future__ import annotations
 
@@ -14,6 +14,7 @@ from src.graph.nodes import (
     compress_node,
     finalize_node,
     human_review_gate_node,
+    parse_query_node,
     retrieve_node,
     tool_node,
     verify_citations_node,
@@ -49,6 +50,7 @@ def build_graph(checkpointer=None) -> CompiledStateGraph:  # type: ignore[no-unt
 
     graph = StateGraph(GraphState)
     graph.add_node("classify_complexity", trace_node("classify_complexity", classify_complexity_node))
+    graph.add_node("parse_query", trace_node("parse_query", parse_query_node))
     graph.add_node("retrieve", trace_node("retrieve", retrieve_node))
     graph.add_node("compress", trace_node("compress", compress_node))
     graph.add_node("call_llm", trace_node("call_llm", call_llm_node))
@@ -58,7 +60,8 @@ def build_graph(checkpointer=None) -> CompiledStateGraph:  # type: ignore[no-unt
     graph.add_node("finalize", trace_node("finalize", finalize_node))
 
     graph.add_edge(START, "classify_complexity")
-    graph.add_edge("classify_complexity", "retrieve")
+    graph.add_edge("classify_complexity", "parse_query")
+    graph.add_edge("parse_query", "retrieve")
     graph.add_edge("retrieve", "compress")
     graph.add_edge("compress", "call_llm")
     graph.add_edge("call_llm", "tool")

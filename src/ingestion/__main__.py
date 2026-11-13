@@ -41,6 +41,17 @@ def save_chunks(chunks: list[Chunk], output_dir: Path, source_file: str) -> Path
     return output_path
 
 
+def load_filing_manifest(source_dir: Path) -> dict[str, dict[str, object]]:
+    """Load optional accession/CIK/filed-at metadata keyed by HTML filename."""
+    path = source_dir / "filings.json"
+    if not path.exists():
+        return {}
+    payload = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(payload, dict):
+        return {}
+    return {str(name): value for name, value in payload.items() if isinstance(value, dict)}
+
+
 def preview_chunks(chunks: list[Chunk], n: int) -> None:
     for chunk in chunks[:n]:
         meta = chunk.metadata
@@ -63,9 +74,16 @@ def main() -> int:
     if not html_files:
         logger.error("No *.html files found in %s", args.source_dir)
         return 1
+    manifest = load_filing_manifest(args.source_dir)
 
     for html_file in html_files:
-        document = parse_edgar_file(html_file)
+        filing_meta = manifest.get(html_file.name, {})
+        document = parse_edgar_file(
+            html_file,
+            accession=filing_meta.get("accession"),  # type: ignore[arg-type]
+            filed_at=filing_meta.get("filed_at"),  # type: ignore[arg-type]
+            cik=filing_meta.get("cik"),  # type: ignore[arg-type]
+        )
         parsed_path = save_document(document, args.output_dir)
         sections = ", ".join(f"{s.section} ({s.word_count} words)" for s in document.sections)
         print(

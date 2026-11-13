@@ -1,5 +1,6 @@
 """SEC EDGAR/XBRL structured financial data."""
 
+from src.sec.edgar_client import EdgarClient, EdgarError, EdgarFiling
 from src.sec.xbrl import (
     CIK_BY_TICKER,
     DilutedEps,
@@ -13,6 +14,9 @@ from src.sec.xbrl import (
 
 __all__ = [
     "CIK_BY_TICKER",
+    "EdgarClient",
+    "EdgarError",
+    "EdgarFiling",
     "DilutedEps",
     "XbrlFact",
     "XbrlUnavailableError",
