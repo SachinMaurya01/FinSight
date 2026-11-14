@@ -212,7 +212,8 @@ class Settings(BaseConfigSettings):
         "faithfulness",
         "answer_relevance",
     ]
-    judge_model: str = "qwen/qwen3.5-9b"  # LLM judge scoring eval answers consistently across runs.
+    judge_model: str = "qwen/qwen3.5-9b"  # preferred LLM judge model; eval routes it away from the generator.
+    judge_provider: ProviderName | None = None  # pin the judge provider; None picks a different credentialed provider.
     eval_seed: int = 42  # seed for reproducible eval sampling and shuffling.
 
     # Validators

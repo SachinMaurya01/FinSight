@@ -1,4 +1,4 @@
-# Retrieval experiments (Phase 5)
+# Retrieval experiments
 
 Protocol: offline retrieval ablation over the checked-in 28 citation-labeled questions, `k=8`, local embeddings + local cross-encoder reranker, and the same section-level labels used in `README.md`. Unless noted, before/after values are `context_precision / context_recall / MRR`. Source artifacts are in `/tmp` for one-off runs; the committed baseline is `data/eval/retrieval_ablation.json`.
 
@@ -17,7 +17,7 @@ Protocol: offline retrieval ablation over the checked-in 28 citation-labeled que
 - E4 expanded only `complex` examples with rule-based acronym/vague-term additions (`P/E → price earnings ratio`, etc.). It did not change labels or retrieval depth.
 - These are retrieval-only metrics. They are not RAGAS faithfulness or answer-correctness scores.
 
-## Phase 6 abstention threshold calibration
+## Abstention threshold calibration
 
 Protocol: rerun the local hybrid + cross-encoder rerank path over all 32 eval questions (`k=8`, no LLM), recording the top `rerank_score` per question. The 30 answerable questions had a minimum top score of `-11.08`; unrelated off-topic queries landed between `-11.04` and `-4.00`, and out-of-corpus ticker/year questions are caught by metadata filters before scoring (no retrieved rows).
 

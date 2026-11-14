@@ -91,13 +91,19 @@ def call_with_fallback(
     prompt: str,
     settings: Settings,
     tier: str | None = None,
+    *,
+    provider_order: list[ProviderName] | None = None,
+    model_overrides: dict[ProviderName, str] | None = None,
 ) -> LLMResult:
     """Invoke ``prompt`` across the fallback chain; returns the first success.
 
-    When ``tier`` is set."""
+    ``provider_order`` / ``model_overrides`` let callers (e.g. the eval judge)
+    use a different provider/model than the answer generator without mutating
+    the global settings object.
+    """
     tier_cfg = settings.tier_model(tier) if tier else None
-    ordered = list(settings.fallback_chain)
-    if tier_cfg is not None and tier_cfg.provider in ordered:
+    ordered = list(provider_order or settings.fallback_chain)
+    if provider_order is None and tier_cfg is not None and tier_cfg.provider in ordered:
         ordered.remove(tier_cfg.provider)
         ordered.insert(0, tier_cfg.provider)
     logger.info(
@@ -111,7 +117,9 @@ def call_with_fallback(
     for index, provider in enumerate(ordered):
         next_provider = ordered[index + 1] if index + 1 < len(ordered) else "none"
         provider_tier = settings.tier_model_for_provider(tier, provider) if tier else None
-        model_name = provider_tier.model_name if provider_tier else None
+        model_name = (model_overrides or {}).get(provider)
+        if model_name is None and provider_tier:
+            model_name = provider_tier.model_name
         if not get_breaker(provider, settings).allow():
             logger.warning("Skipping provider=%s (circuit open)", provider)
             failures.append((provider, "circuit_open"))

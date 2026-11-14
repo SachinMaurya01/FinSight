@@ -337,13 +337,15 @@ Settings are loaded from environment variables and `.env` (see `src/config.py`).
 
 | File | Contents | Size |
 |---|---|---:|
-| `data/eval/eval_dataset.json` | Answerable questions with section-level citation labels, plus out-of-corpus abstention cases; 3 complexity tiers, 4 recommendation-framed questions | 32 (30 answerable, 2 abstention) |
+| `data/eval/eval_dataset.json` | Balanced simple/normal/complex questions with section-level citations and **gold chunk IDs**, plus wrong-year, unknown-ticker, out-of-scope, and prompt-injection negatives | 139 (46 simple, 43 normal, 50 complex) |
+| `data/eval/eval_seed.json` | Hand-authored seed set used to rebuild the expanded dataset deterministically | 32 |
 | `data/eval/prompt_injection_dataset.json` | Hostile passages injected into the top-ranked chunk | 2 |
 | `data/eval/recommendation_dataset.json` | Synthetic answers labeled recommendation or not (`source: synthetic`) | 24 (12 positive, 12 negative) |
 
 Notes:
 
-- 28 answerable questions have section-level citation labels. Two are tool-only and are excluded from retrieval scoring.
+- 129 examples carry gold chunk IDs (`source_file#chunk_index`), enabling Recall@k, MRR, and nDCG reporting alongside generation quality. Tool-only and abstention examples are excluded from retrieval means.
+- The harness also reports unit-aware numeric exact-match accuracy, per-tier and per-intent breakdowns, judge backend/heuristic-fallback usage, estimated cost, and p50/p95/p99 latency. Rebuild the dataset with `uv run python -m src.eval.build_dataset`.
 - The retrieval ablation is offline and deterministic: local embeddings and reranker, `k=8`, checked-in chunks.
 - The end-to-end baseline is a 3-question run through the full graph with Groq and the heuristic metrics backend.
 - Raw artifacts: [`data/eval/retrieval_ablation.json`](data/eval/retrieval_ablation.json), [`data/eval/baseline.json`](data/eval/baseline.json), [`data/eval/smoke_baseline.json`](data/eval/smoke_baseline.json).
@@ -512,7 +514,7 @@ Do not expose this service to untrusted users until these gaps are addressed.
 - **Logs:** one-line JSON with `request_id`, `thread_id`, `tier`, `provider`, `latency_ms`, and node or tool context. Clients may send `X-Request-ID`; it is echoed in the response.
 - **Metrics:** `GET /metrics` exposes `finsight_requests_total{status,tier}`, `finsight_node_latency_seconds{node}`, `finsight_llm_tokens_total{provider,model,direction}`, `finsight_llm_cost_usd_total{provider,model}`, `finsight_fallback_total{from_provider,to_provider}`, `finsight_verification_failures_total{reason}`, and `finsight_hitl_total{decision}`, plus request latency and in-progress gauges.
 - **Traces:** each request emits a `trace_completed` JSON event with per-node, LLM, and tool spans, latency, and token counts. Langfuse export is optional.
-- **Not yet:** dashboards, alert rules, and SLO definitions. These are in Phase 8.2.
+- **Not yet:** dashboards, alert rules, and SLO definitions.
 
 ## Production readiness
 
@@ -535,10 +537,10 @@ Do not expose this service to untrusted users until these gaps are addressed.
 | Compose stack | Implemented | `api`, `postgres` (pgvector), `redis`, optional `ingest` profile |
 | CI | Implemented | Lint, types, tests with coverage, secret scan, dependency audit, offline eval gate, nightly full eval |
 | Dependency updates | Configured | Dependabot for uv, GitHub Actions, Docker |
-| Evaluation | Partial | Retrieval measured on 28 questions; end-to-end n=3; RAGAS blocked; expansion planned (Phase 8.1) |
+| Evaluation | Implemented | Retrieval measured on 129 gold-chunk-labeled examples; end-to-end baseline n=3; RAGAS blocked |
 | Observability | Implemented, no alerting | JSON logs, Prometheus metrics, traces, optional Langfuse |
-| Deployment | Local and Compose | No cloud deployment, IaC, or Kubernetes manifests (out of scope until Phase 2 of the plan) |
-| UI | Not started | Phase 8.5 |
+| Deployment | Local and Compose | No cloud deployment, IaC, or Kubernetes manifests |
+| UI | Not started | No chat or reviewer UI yet |
 
 ## Known limitations
 
@@ -571,11 +573,11 @@ Priority is risk reduction, not feature count. Full checklists live in [`docs/PR
 1. Tenant isolation and per-resource authorization.
 2. Tool allowlist and output sanitization for prompt-injection defense; run the injection set end-to-end.
 3. Alerts and SLOs for auth failures, 429 bursts, provider errors, verification failures, and HITL volume.
-4. Load test (Phase 8.2) and cost guards (Phase 8.3).
+4. Load test and cost guards.
 
 **P2: product surface**
 
-1. Streamlit or Next.js UI: chat, streaming, clickable citations, reviewer page (Phase 8.5).
+1. Streamlit or Next.js UI: chat, streaming, clickable citations, reviewer page.
 2. Peer and multi-filing comparison; temporal queries.
 3. Deployment hardening and on-call runbooks.
 
@@ -636,7 +638,7 @@ All return `RatioResult` (Pydantic) with `value`, `numerator`, `denominator`, `f
 - **Embedding cache:** `src/retrieval/cache.py` caches query and chunk embeddings by `model::text` hash in Redis (TTL 1 hour), with an in-memory fallback.
 - **Checkpoints:** `src/graph/checkpoint.py` uses `RedisSaver` when `CHECKPOINTER_TYPE=redis` and Redis is reachable. Otherwise it falls back to `MemorySaver` and logs the downgrade.
 - **Pending reviews:** `src/hitl/store.py` keeps review payloads in Redis (7-day TTL) with an in-memory fallback for development.
-- **Semantic answer cache:** not implemented (Phase 8.3).
+- **Semantic answer cache:** not implemented.
 
 ## Project structure
 

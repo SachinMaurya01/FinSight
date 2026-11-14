@@ -29,6 +29,8 @@ TOLERANCE: dict[str, float] = {
     "numeric_accuracy": 0.02,
     "answer_relevance": 0.05,
     "mrr": 0.03,
+    "recall_at_k": 0.03,
+    "ndcg_at_k": 0.03,
 }
 DEFAULT_TOLERANCE = 0.03
 RETRIEVAL_SECTION = "hybrid_rerank"
@@ -61,7 +63,14 @@ def extract_metrics(
     for key in ("avg_metrics", "aggregate", "metrics"):
         candidate = payload.get(key)
         if isinstance(candidate, dict):
-            return _numeric_metrics(candidate)
+            metrics = _numeric_metrics(candidate)
+            retrieval = payload.get("retrieval")
+            if isinstance(retrieval, dict):
+                metrics.update(_numeric_metrics(retrieval))
+            numeric_accuracy = payload.get("numeric_accuracy")
+            if isinstance(numeric_accuracy, (int, float)) and not isinstance(numeric_accuracy, bool):
+                metrics["numeric_accuracy"] = float(numeric_accuracy)
+            return metrics
 
     configs = payload.get("configs")
     if isinstance(configs, dict):

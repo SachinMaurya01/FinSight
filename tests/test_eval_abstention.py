@@ -16,9 +16,10 @@ def test_dataset_includes_out_of_corpus_abstention_cases() -> None:
     abstention = [example for example in examples if example.expected_abstention]
     ids = {example.id for example in abstention}
     assert {"eval_031", "eval_032"} <= ids
-    assert all(example.category == "abstention" for example in abstention)
+    assert {"unknown_ticker", "wrong_year", "out_of_scope"} <= {example.category for example in abstention}
     assert all(example.expected_abstention_reason == "no_evidence" for example in abstention)
     assert all(not example.expected_citations for example in abstention)
+    assert all(not example.gold_chunk_ids for example in abstention)
     print("PASS test_dataset_includes_out_of_corpus_abstention_cases")
 
 

@@ -68,6 +68,21 @@ def test_extract_shapes() -> None:
     print("PASS test_extract_shapes")
 
 
+def test_extract_includes_expanded_metrics() -> None:
+    payload = {
+        "avg_metrics": BASE,
+        "retrieval": {"n": 10, "recall_at_k": 0.8, "mrr": 0.7, "ndcg_at_k": 0.75},
+        "numeric_accuracy": 0.9,
+    }
+    metrics = extract_metrics(payload)
+    assert metrics["faithfulness"] == BASE["faithfulness"]
+    assert metrics["recall_at_k"] == 0.8
+    assert metrics["mrr"] == 0.7
+    assert metrics["ndcg_at_k"] == 0.75
+    assert metrics["numeric_accuracy"] == 0.9
+    print("PASS test_extract_includes_expanded_metrics")
+
+
 def test_run_gate_and_cli_exit_codes() -> None:
     with tempfile.TemporaryDirectory() as directory:
         baseline = _write({"avg_metrics": BASE}, directory, "baseline.json")
@@ -89,6 +104,7 @@ def main_test() -> int:
     test_compare_detects_regression()
     test_missing_metric_fails()
     test_extract_shapes()
+    test_extract_includes_expanded_metrics()
     test_run_gate_and_cli_exit_codes()
     return 0
 

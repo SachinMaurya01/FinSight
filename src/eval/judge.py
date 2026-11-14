@@ -6,7 +6,7 @@ import logging
 import re
 from dataclasses import dataclass
 
-from src.config import settings
+from src.config import ProviderName, Settings, settings
 
 logger = logging.getLogger(__name__)
 
@@ -21,6 +21,75 @@ class CustomJudgeResult:
     numeric_claims_checked: int
     numeric_claims_correct: int
     backend: str = "heuristic"
+    provider: str | None = None
+    model: str | None = None
+
+    @property
+    def used_heuristic_fallback(self) -> bool:
+        return self.backend != "llm"
+
+
+def _judge_route(
+    settings: Settings,
+    generator_provider: ProviderName | None,
+    generator_model: str | None,
+) -> tuple[list[ProviderName], dict[ProviderName, str]]:
+    """Pick a judge provider/model that differs from the answer generator.
+
+    Preference order: an explicitly configured ``judge_provider``, then any
+    credentialed provider other than the generator, then the same provider with
+    a different tier model. The returned override is always applied to the first
+    provider so the judge does not silently reuse the generator model.
+    """
+    chain: list[ProviderName] = list(settings.fallback_chain)
+    preferred = settings.judge_provider
+    configured_model = settings.judge_model.strip()
+    remote: set[ProviderName] = {"openai", "groq", "gemini"}
+
+    def model_for(provider: ProviderName) -> str | None:
+        if provider == preferred and configured_model and configured_model != generator_model:
+            return configured_model
+        tier_models = settings.fallback_tier_models.get(provider, {})
+        for name in ("normal", "complex", "simple"):
+            candidate = tier_models.get(name)
+            if candidate and candidate != generator_model:
+                return candidate
+        return configured_model or None
+
+    def use(provider: ProviderName) -> tuple[list[ProviderName], dict[ProviderName, str]] | None:
+        if not settings.has_provider_credentials(provider):
+            return None
+        model = model_for(provider)
+        if not model or model == generator_model:
+            return None
+        route = [provider] + [candidate for candidate in chain if candidate != provider]
+        return route, {provider: model}
+
+    # 1) explicitly configured judge provider
+    if preferred:
+        route = use(preferred)
+        if route:
+            return route
+
+    # 2) another remote provider (avoid default-configured but offline vLLM)
+    for provider in chain:
+        if provider == generator_provider or provider not in remote:
+            continue
+        route = use(provider)
+        if route:
+            return route
+
+    # 3) same provider, different model
+    route = use(generator_provider) if generator_provider else None
+    if route:
+        return route
+
+    # 4) any remaining provider (e.g. local vLLM), then normal chain fallback
+    for provider in chain:
+        route = use(provider)
+        if route:
+            return route
+    return chain, {}
 
 
 def _heuristic_judge(answer: str, expected_answer: str, contexts: list[str]) -> CustomJudgeResult:
@@ -61,9 +130,19 @@ def evaluate_numeric_judge(
     answer: str,
     expected_answer: str,
     contexts: list[str],
+    *,
+    active_settings: Settings | None = None,
+    generator_provider: ProviderName | None = None,
+    generator_model: str | None = None,
 ) -> CustomJudgeResult:
-    """LLM-as-judge for numeric citation accuracy; falls back to heuristic."""
-    # Try LLM judge via Groq/OpenAI fallback
+    """LLM-as-judge for numeric citation accuracy; falls back to heuristic.
+
+    The judge is routed to a different provider/model than the generator when
+    credentials allow it, and the chosen backend/provider/model are recorded on
+    the result so eval reports can flag heuristic fallbacks.
+    """
+    judge_settings = active_settings or settings
+    provider_order, overrides = _judge_route(judge_settings, generator_provider, generator_model)
     prompt = f"""You are a financial citation judge. Score 0.0-1.0 whether numeric/financial claims in the ANSWER are correctly grounded in CONTEXT and match EXPECTED.
 
         Question: {question}
@@ -79,9 +158,13 @@ def evaluate_numeric_judge(
 
         from src.llm.fallback import call_with_fallback
 
-        # Use judge_model via direct LLM call (not via answer pipeline)
-        # Build prompt for judge
-        result = call_with_fallback(prompt, settings, tier="normal")
+        result = call_with_fallback(
+            prompt,
+            judge_settings,
+            tier="normal",
+            provider_order=provider_order,
+            model_overrides=overrides,
+        )
         # Try parse JSON from content
         content = result.content.strip()
         # Extract JSON block if wrapped in markdown
@@ -95,6 +178,8 @@ def evaluate_numeric_judge(
                 numeric_claims_checked=int(data.get("numeric_claims_checked", 0)),
                 numeric_claims_correct=int(data.get("numeric_claims_correct", 0)),
                 backend="llm",
+                provider=getattr(result, "provider", None),
+                model=getattr(result, "model", None),
             )
         raise ValueError("no JSON in judge output")
     except Exception as exc:

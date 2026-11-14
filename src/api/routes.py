@@ -8,7 +8,7 @@ import logging
 import socket
 import time
 import uuid
-from collections.abc import AsyncIterator, Iterator
+from collections.abc import Iterator
 from typing import Any, Literal
 from urllib.parse import urlparse
 

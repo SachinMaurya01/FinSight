@@ -42,8 +42,111 @@ class EvalMetrics:
     answer_relevance: float
 
 
+@dataclass
+class RetrievalMetrics:
+    """Chunk-level retrieval quality against gold chunk IDs."""
+
+    recall_at_k: float
+    mrr: float
+    ndcg_at_k: float
+
+    @property
+    def recall(self) -> float:
+        """Alias for ``recall_at_k``."""
+        return self.recall_at_k
+
+    @property
+    def ndcg(self) -> float:
+        """Alias for ``ndcg_at_k``."""
+        return self.ndcg_at_k
+
+
 def _normalize(text: str) -> str:
     return re.sub(r"\s+", " ", text.lower()).strip()
+
+
+def _row_chunk_id(row: dict[str, Any]) -> str | None:
+    """Best-effort chunk ID for rows returned by retrieval/ablation/graph."""
+    explicit = row.get("chunk_id") or row.get("id")
+    if explicit:
+        return str(explicit)
+    source = row.get("source_doc") or row.get("source_file")
+    index = row.get("chunk_index")
+    if source is None or index is None:
+        return None
+    return f"{source}#{index}"
+
+
+def compute_retrieval_metrics(
+    retrieved: list[dict[str, Any]],
+    gold_chunk_ids: list[str],
+    *,
+    k: int | None = None,
+) -> RetrievalMetrics | None:
+    """Compute Recall@k, MRR, and nDCG@k from ranked rows and gold chunk IDs.
+
+    Returns ``None`` when an example has no gold chunk IDs (e.g. tool-only or
+    abstention questions), so those examples are excluded from retrieval means.
+    """
+    if not gold_chunk_ids:
+        return None
+    limit = k or len(retrieved)
+    gold = set(gold_chunk_ids)
+    ranked_ids = [chunk_id for row in retrieved[:limit] if (chunk_id := _row_chunk_id(row))]
+    relevant = [identifier in gold for identifier in ranked_ids]
+
+    recall = len(gold & set(ranked_ids)) / len(gold)
+    mrr = next((1.0 / rank for rank, is_relevant in enumerate(relevant, start=1) if is_relevant), 0.0)
+    dcg = sum(1.0 / math.log2(rank + 1) for rank, is_relevant in enumerate(relevant, start=1) if is_relevant)
+    ideal_hits = min(len(gold), limit)
+    idcg = sum(1.0 / math.log2(rank + 1) for rank in range(1, ideal_hits + 1))
+    ndcg = dcg / idcg if idcg else 0.0
+    return RetrievalMetrics(
+        recall_at_k=round(recall, 4),
+        mrr=round(mrr, 4),
+        ndcg_at_k=round(ndcg, 4),
+    )
+
+
+def _figure_close(expected: Any, actual: Any, rel_tol: float) -> bool:
+    if expected.unit != actual.unit and "plain" not in (expected.unit, actual.unit):
+        return False
+    return abs(expected.value - actual.value) <= rel_tol * max(abs(expected.value), 1.0)
+
+
+def numeric_accuracy(
+    answer: str,
+    expected_answer: str,
+    *,
+    rel_tol: float = 0.005,
+) -> float | None:
+    """Alias for :func:`numeric_exact_match`."""
+    return numeric_exact_match(answer, expected_answer, rel_tol=rel_tol)
+
+
+def numeric_exact_match(
+    answer: str,
+    expected_answer: str,
+    *,
+    rel_tol: float = 0.005,
+) -> float | None:
+    """Unit-aware numeric exact-match accuracy for one answer.
+
+    Every number in ``expected_answer`` must appear in ``answer`` within
+    ``rel_tol`` after normalizing scale words (``$383.3 billion`` -> 383.3e9)
+    and units (USD vs percent). Returns ``None`` when the expected answer has no
+    numbers so callers can exclude non-numeric examples from the mean.
+    """
+    from src.verification.numeric import extract_figures
+
+    # Ignore small bare integers (section numbers, "Item 8") so they do not
+    # turn textual answers into spurious numeric claims.
+    expected = [figure for figure in extract_figures(expected_answer) if figure.unit != "plain" or figure.value >= 1000]
+    if not expected:
+        return None
+    actual = extract_figures(answer)
+    matched = sum(1 for figure in expected if any(_figure_close(figure, candidate, rel_tol) for candidate in actual))
+    return round(matched / len(expected), 4)
 
 
 def _context_precision(retrieved: list[dict], expected_citations: list[dict]) -> float:
