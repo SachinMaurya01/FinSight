@@ -37,11 +37,7 @@ def wrap_untrusted(kind: str, content: str, identifier: str | int | None = None)
     """Wrap untrusted content in explicit non-instruction delimiters."""
     label = _safe_label(kind)
     suffix = f" id={identifier}" if identifier is not None else ""
-    return (
-        f"<<UNTRUSTED_{label}{suffix}>>\n"
-        f"{neutralize_untrusted(content).strip()}\n"
-        f"<<END_UNTRUSTED_{label}>>"
-    )
+    return f"<<UNTRUSTED_{label}{suffix}>>\n{neutralize_untrusted(content).strip()}\n<<END_UNTRUSTED_{label}>>"
 
 
 def contains_prompt_injection(text: str) -> bool:

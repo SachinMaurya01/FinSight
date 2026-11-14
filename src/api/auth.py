@@ -116,8 +116,7 @@ class ApiKeyStore:
         with self._get_engine().begin() as connection:
             connection.execute(
                 text(
-                    "INSERT INTO api_keys (name, key_hash, request_limit_per_minute) "
-                    "VALUES (:name, :key_hash, :limit)"
+                    "INSERT INTO api_keys (name, key_hash, request_limit_per_minute) VALUES (:name, :key_hash, :limit)"
                 ),
                 {"name": clean_name, "key_hash": digest, "limit": request_limit_per_minute},
             )

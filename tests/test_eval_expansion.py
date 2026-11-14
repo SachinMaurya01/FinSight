@@ -55,12 +55,14 @@ def test_numeric_exact_match_is_unit_aware() -> None:
 
 
 def test_judge_route_uses_different_model() -> None:
-    settings = Settings(openai_api_key="test", groq_api_key="test")
+    chain = ["openai", "groq", "gemini", "vllm"]
+    isolated = {"fallback_chain": chain, "judge_provider": None, "google_api_key": None}
+    settings = Settings(openai_api_key="test", groq_api_key="test", **isolated)
     order, overrides = _judge_route(settings, "openai", "gpt-4o")
     assert order[0] == "groq"
     assert overrides["groq"] != "gpt-4o"
 
-    groq_only = Settings(groq_api_key="test")
+    groq_only = Settings(groq_api_key="test", openai_api_key=None, **isolated)
     order, overrides = _judge_route(groq_only, "groq", "qwen/qwen3.5-9b")
     assert order[0] == "groq"
     assert overrides["groq"] != "qwen/qwen3.5-9b"

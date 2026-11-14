@@ -96,9 +96,7 @@ def test_audit_cutoff_and_validation() -> None:
 def test_purge_is_dry_run_unless_applied() -> None:
     engine = create_engine("sqlite:///:memory:")
     with engine.begin() as connection:
-        connection.execute(
-            text("CREATE TABLE hitl_audit (id INTEGER PRIMARY KEY, created_at TIMESTAMP NOT NULL)")
-        )
+        connection.execute(text("CREATE TABLE hitl_audit (id INTEGER PRIMARY KEY, created_at TIMESTAMP NOT NULL)"))
         connection.execute(
             text("INSERT INTO hitl_audit (created_at) VALUES (:old), (:recent)"),
             {"old": datetime(2024, 1, 1), "recent": datetime(2026, 11, 1)},

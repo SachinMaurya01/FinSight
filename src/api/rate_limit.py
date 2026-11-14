@@ -90,9 +90,7 @@ class FixedWindowRateLimiter:
     def _memory_allow(self, identity: str, limit: int, bucket: int) -> RateLimitDecision:
         with self._lock:
             if len(self._buckets) > 10_000:
-                self._buckets = {
-                    key: value for key, value in self._buckets.items() if value[0] >= bucket - 1
-                }
+                self._buckets = {key: value for key, value in self._buckets.items() if value[0] >= bucket - 1}
             previous_bucket, previous_count = self._buckets.get(identity, (bucket, 0))
             count = previous_count + 1 if previous_bucket == bucket else 1
             self._buckets[identity] = (bucket, count)
