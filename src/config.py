@@ -43,11 +43,11 @@ class ModelTierConfig(BaseModel):
 
 
 class ModelRouting(BaseModel):
-    """Tier to model mapping. ChatGPT (OpenAI) as default, Groq as fallback."""
+    """Tier to model mapping. Local vLLM (MLX Qwen3.5-9B) as default; fallback chain covers the rest."""
 
-    cheap: ModelTierConfig = ModelTierConfig(model_name="gpt-4o-mini", provider="openai")
-    medium: ModelTierConfig = ModelTierConfig(model_name="gpt-4o", provider="openai")
-    expensive: ModelTierConfig = ModelTierConfig(model_name="gpt-4-turbo", provider="openai")
+    cheap: ModelTierConfig = ModelTierConfig(model_name="mlx-community/Qwen3.5-9B-MLX-4bit", provider="vllm")
+    medium: ModelTierConfig = ModelTierConfig(model_name="mlx-community/Qwen3.5-9B-MLX-4bit", provider="vllm")
+    expensive: ModelTierConfig = ModelTierConfig(model_name="mlx-community/Qwen3.5-9B-MLX-4bit", provider="vllm")
 
 
 class Settings(BaseConfigSettings):
@@ -70,17 +70,18 @@ class Settings(BaseConfigSettings):
     groq_base_url: str = "https://api.groq.com/openai/v1"
     groq_model: str = "qwen/qwen3.5-9b"
     google_api_key: str | None = None
-    vllm_base_url: str = "http://localhost:11434/v1"  # local OpenAI-compatible endpoint
+    vllm_base_url: str = "http://localhost:8001/v1"  # local OpenAI-compatible endpoint (`vllm serve` default port)
     vllm_api_key: str | None = None  # optional auth for secured self-hosted vLLM servers.
-    vllm_model: str | None = "qwen3.5:9b"  # local Ollama model id (from `ollama list`); None disables vLLM path.
+    vllm_model: str | None = "mlx-community/Qwen3.5-9B-MLX-4bit"  # local Ollama/vllm model id None disables vLLM path.
 
     # Model routing
     model_routing: ModelRouting = ModelRouting()  # maps simple/normal/complex queries to cheap/medium/expensive models.
 
     # Fallback chain
-    fallback_chain: list[ProviderName] = ["openai", "groq", "gemini", "vllm"]
+    fallback_chain: list[ProviderName] = [ "vllm", "openai", "groq", "gemini"]
     # Per-provider tier models so a fallback never silently serves a weaker model.
     fallback_tier_models: dict[ProviderName, dict[str, str]] = {
+        "vllm": {"simple": "mlx-community/Qwen3.5-9B-MLX-4bit", "normal": "mlx-community/Qwen3.5-9B-MLX-4bit", "complex": "mlx-community/Qwen3.5-9B-MLX-4bit"},
         "openai": {"simple": "gpt-4o-mini", "normal": "gpt-4o", "complex": "gpt-4-turbo"},
         "groq": {
             "simple": "qwen/qwen3.5-9b",
@@ -92,7 +93,6 @@ class Settings(BaseConfigSettings):
             "normal": "gemini-2.0-flash",
             "complex": "gemini-2.5-pro",
         },
-        "vllm": {"simple": "qwen3.5:9b", "normal": "qwen3.5:9b", "complex": "qwen3.5:9b"},
     }
 
     # Resilience

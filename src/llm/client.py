@@ -33,7 +33,7 @@ def build_llm(
             temperature=0.0,
             timeout=settings.llm_timeout_seconds,
             max_retries=0,
-            model_kwargs={"max_tokens": 2048},
+            max_tokens=2048,
         )
 
     if provider == "groq":
@@ -76,7 +76,8 @@ def build_llm(
             temperature=0.0,
             timeout=settings.llm_timeout_seconds,
             max_retries=0,
-            model_kwargs={"max_tokens": 2048},
+            max_tokens=2048,
+            extra_body={"chat_template_kwargs": {"enable_thinking": False}},
         )
 
     raise ValueError(f"Unsupported provider: {provider!r}")

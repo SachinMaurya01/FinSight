@@ -30,7 +30,7 @@ Grounded retrieval-augmented generation (RAG) over SEC Form 10-K filings. FinSig
 - [Reliability and failure modes](#reliability-and-failure-modes)
 - [Observability](#observability)
 - [Production readiness](#production-readiness)
-- [Known limitations](#known-limitations)
+<!-- - [Known limitations](#known-limitations) -->
 - [Roadmap](#roadmap)
 - [Project structure](#project-structure)
 - [Components](#components)
@@ -41,7 +41,7 @@ Grounded retrieval-augmented generation (RAG) over SEC Form 10-K filings. FinSig
 - **Problem:** 10-K answers are buried in long, table-heavy filings. Generic chat-with-PDF tools lose citation traceability and numeric precision.
 - **Approach:** section-scoped, metadata-filtered EDGAR chunks; hybrid retrieval (dense + BM25 fused with weighted RRF); cross-encoder reranking; query understanding with comparison decomposition; tiered model routing; provider fallback; numeric and claim verification; abstention; and a human-in-the-loop (HITL) gate for recommendation-like output.
 - **Measured:** offline retrieval ablation on 28 citation-labeled questions. Hybrid + rerank reaches `MRR@8 = 0.9000` (dense-only `0.8661`) and context precision `0.7768` (dense-only `0.7411`).
-- **Not yet measured:** RAGAS faithfulness (blocked by a dependency issue), end-to-end quality beyond a 3-question smoke run, LLM-based recommendation classification, and load/latency.
+<!-- - **Not yet measured:** RAGAS faithfulness (blocked by a dependency issue), end-to-end quality beyond a 3-question smoke run, LLM-based recommendation classification, and load/latency. -->
 - **Production status:** FastAPI service with API-key auth, per-key rate and concurrency limits, request timeouts, HITL review endpoints backed by an audit table, structured logs, Prometheus metrics, Dockerfile, and CI gates. It is not yet hardened for untrusted public traffic (see [Known limitations](#known-limitations)).
 
 ## Scope
@@ -481,7 +481,7 @@ Dependabot (`.github/dependabot.yml`) opens weekly update PRs for uv, GitHub Act
 - Ship logs to a store that enforces `LOG_RETENTION_DAYS`. The application does not delete logs.
 - Keep `--no-hitl`, `ask()` auto-approval, and the `src.llm` CLI out of production paths.
 
-### Known security gaps
+<!-- ### Known security gaps
 
 - **Prompt injection is mitigated, not solved.** Delimiters and instructions reduce risk. The injection eval set has 2 cases, and the end-to-end run is pending.
 - **No tenant isolation or per-resource authorization.** Any valid key can read any thread's pending review.
@@ -489,7 +489,7 @@ Dependabot (`.github/dependabot.yml`) opens weekly update PRs for uv, GitHub Act
 - **Recommendation gate is keyword-based by default.** Measured recall is 0.67 on the synthetic set. The LLM classifier is opt-in and not yet measured.
 - **Pending review payloads** (query and draft) are kept in Redis for 7 days. Choose a retention period that fits your policy before use.
 - **Development credentials** are committed for local use. They must be replaced for any shared environment.
-- **Observability is not alerting.** There are no alerts for auth failures, 429 bursts, or verification failures yet.
+- **Observability is not alerting.** There are no alerts for auth failures, 429 bursts, or verification failures yet. -->
 
 Do not expose this service to untrusted users until these gaps are addressed.
 
@@ -542,7 +542,7 @@ Do not expose this service to untrusted users until these gaps are addressed.
 | Deployment | Local and Compose | No cloud deployment, IaC, or Kubernetes manifests |
 | UI | Not started | No chat or reviewer UI yet |
 
-## Known limitations
+<!-- ## Known limitations
 
 - **Corpus:** 2 Apple 10-Ks; Items 1A, 7, and 8. No 10-Q, 8-K, proxies, transcripts, peers, or IFRS filings.
 - **Parsing:** Item 8 tables are table-aware and kept intact; other sections use text extraction. Complex rowspan and colspan tables are serialized best-effort.
@@ -554,7 +554,7 @@ Do not expose this service to untrusted users until these gaps are addressed.
 - **Verification:** numeric and scale checks plus optional semantic judging, not calibrated entailment. Treat `verification.passed` as a floor. The abstention threshold is an initial value pending tuning.
 - **Evaluation:** retrieval is measured; end-to-end is a 3-question smoke run; the abstention and injection cases are wired but not run end-to-end; RAGAS is not measured.
 - **Scale:** one API process per container; no horizontal scaling, queueing, or load testing.
-- **Not legal, financial, or investment advice.** Recommendation-like output is withheld pending human review and always carries a disclaimer.
+- **Not legal, financial, or investment advice.** Recommendation-like output is withheld pending human review and always carries a disclaimer. -->
 
 ## Roadmap
 

@@ -102,8 +102,10 @@ def test_open_circuit_blocks_calls() -> None:
 
 
 def test_provider_tier_model_mapping() -> None:
-    primary = SETTINGS.tier_model_for_provider("simple", "openai")
-    assert primary.provider == "openai" and primary.model_name == "gpt-4o-mini"
+    primary = SETTINGS.tier_model_for_provider("simple", "vllm")
+    assert primary.provider == "vllm" and primary.model_name == "mlx-community/Qwen3.5-9B-MLX-4bit"
+    openai_fallback = SETTINGS.tier_model_for_provider("simple", "openai")
+    assert openai_fallback.provider == "openai" and openai_fallback.model_name == "gpt-4o-mini"
     fallback = SETTINGS.tier_model_for_provider("simple", "groq")
     assert fallback.provider == "groq" and fallback.model_name == "qwen/qwen3.5-9b"
     complex_model = SETTINGS.tier_model_for_provider("complex", "gemini")
